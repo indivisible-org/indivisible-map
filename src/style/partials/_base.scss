@@ -1,3 +1,7 @@
 @import "modules/all";
 
 // partials director handles the styling for specific elements of our page (buttons, tables, forms, etc.)
+body {
+  margin: 0;
+  padding: 0;
+}
