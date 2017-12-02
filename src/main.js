@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import MapView from './components/MapView';
 
 import './style/app.scss';
 
@@ -14,7 +13,6 @@ class App extends React.Component {
         return (
             <div>
                 Hello World
-                <MapView />
             </div>
         )
     }
