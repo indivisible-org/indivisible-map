@@ -14,7 +14,7 @@ class MapView extends React.Component {
               coordinates: [-122.3321, 47.6062]
             },
             properties: {
-              icon: "in-person"
+              icon: "host-group"
             }
           },
           {
@@ -24,7 +24,7 @@ class MapView extends React.Component {
               coordinates: [-76.609383, 39.299236]
             },
             properties: {
-              icon: "activism"
+              icon: "issue"
             }
           },
           {
@@ -34,7 +34,7 @@ class MapView extends React.Component {
               coordinates: [-117.071869, 32.774799]
             },
             properties: {
-              icon: "activism"
+              icon: "challenge"
             }
           }
         ]
@@ -88,27 +88,6 @@ class MapView extends React.Component {
       addLayer();
     });
   }
-
-  // Creates the point layer.
-  // makePoint () {
-  //   featuresHome.features.push({
-  //     type: 'Feature',
-  //     geometry: {
-  //       type: 'Point',
-  //       coordinates: jitterPoint(47.6062, 122.3321)
-  //     },
-  //     properties: {
-  //       icon: 'in-person'
-  //     },
-  //   });
-  // }
-
-  // jitterPoint(lng, lat) {
-  //   var jitter = Math.random() * .001;
-  //   var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-  //   var plusOrMinus1 = Math.random() < 0.5 ? -1 : 1;
-  //   return [lng + jitter * plusOrMinus, lat + jitter * plusOrMinus1];
-  // }
 
   componentDidMount() {
     this.initializeMap();
