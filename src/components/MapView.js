@@ -1,5 +1,4 @@
 import React from 'react';
-// import { connect } from 'react-redux';
 
 class MapView extends React.Component {
   constructor() {
@@ -7,12 +6,11 @@ class MapView extends React.Component {
     this.state = {};
   }
   initializeMap() {
-    // initialize map
-    mapboxgl.accessToken = 'pk.eyJ1IjoidG93bmhhbGxwcm9qZWN0IiwiYSI6ImNqMnRwOG4wOTAwMnMycG1yMGZudHFxbWsifQ.FXyPo3-AD46IuWjjsGPJ3Q';
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWxhbjA0MCIsImEiOiJjamFrNm81dWkyZzMzMnhsZTI3bjR3eDVoIn0.K3FKPy6S_PwzjDjb02aGHA';
     
     var map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/townhallproject/cj2tpe64q000y2spk1wjsrilw'
+      style: 'mapbox://styles/alan040/cjaqgutcnhdun2slmi3xbhgu1'
     });
     map.on('load', function() {
       map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
