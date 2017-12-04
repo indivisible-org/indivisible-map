@@ -1,0 +1,24 @@
+{
+  "globals": {
+    "document": true,
+    "PropTypes": true,
+  },
+ "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "mocha": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prefer-stateless-function": [0, { "ignorePureComponents": <ignorePureComponents> }],
+    "no-console": [0],
+  },
+  "extends": "airbnb",
+  "plugins": [
+      "react",
+      "react-native",
+      "jsx-a11y",
+      "import"
+  ]
+}
