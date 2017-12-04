@@ -51,21 +51,25 @@ class App extends React.Component {
     };
   }
 
-  getEvents() {
-    // TODO: url to server that will allow us access
-    const url = 'https://indivisible.actionkit.com/rest/v1/event/?name=local-indivisible-actions&is_private=false';
+  getEvents(map) {
+    const url = 'https://townhallproject-86312.firebaseio.com/indivisible_public_events.json';
     getData(url).then((result) => {
-      const events = result['u"objects"'];
+      const response = JSON.parse(result.text);
+      const events = Object.keys(response).map(id => response[id]);
       const featuresHome = {
         type: 'FeatureCollection',
         features: [],
       };
+
       featuresHome.features = events.map((indEvent) => {
         const newFeature = new Point(indEvent);
         return newFeature;
       });
+
       this.setState({ featuresHome });
       this.setState({ events });
+
+      map.getSource('event-points').setData(featuresHome);
     });
   }
 
@@ -76,7 +80,7 @@ class App extends React.Component {
         <MapView
           getEvents={this.getEvents}
           events={this.state.events}
-          groups={this.state.groups}
+          features={this.state.groups}
           featuresHome={this.state.featuresHome}
         />
       </div>
