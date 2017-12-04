@@ -2,6 +2,7 @@
   "globals": {
     "document": true,
     "PropTypes": true,
+    "mapboxgl": true,
   },
  "env": {
     "es6": true,

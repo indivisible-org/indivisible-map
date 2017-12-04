@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class MapView extends React.Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
+    this.props.getEvents();
   }
 
   componentDidMount() {
@@ -10,6 +11,10 @@ class MapView extends React.Component {
   }
 
   initializeMap() {
+    const {
+      featuresHome,
+    } = this.props;
+
     mapboxgl.accessToken =
       'pk.eyJ1IjoiYWxhbjA0MCIsImEiOiJjamFrNm81dWkyZzMzMnhsZTI3bjR3eDVoIn0.K3FKPy6S_PwzjDjb02aGHA';
     const styleUrl = 'mapbox://styles/alan040/cjaqgutcnhdun2slmi3xbhgu1';
@@ -26,7 +31,7 @@ class MapView extends React.Component {
           type: 'symbol',
           source: {
             type: 'geojson',
-            data: this.props.featuresHome,
+            data: featuresHome,
           },
           layout: {
             'icon-image': '{icon}',
@@ -65,5 +70,13 @@ class MapView extends React.Component {
     );
   }
 }
+
+MapView.propTypes = {
+  getEvents: PropTypes.func.isRequired,
+  featuresHome: PropTypes.shape({
+    type: PropTypes.string,
+    features: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+};
 
 export default MapView;
