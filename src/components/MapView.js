@@ -5,13 +5,15 @@ class MapView extends React.Component {
   constructor(props) {
     super(props);
     this.addPopups = this.addPopups.bind(this);
+    this.addLayer = this.addLayer.bind(this);
   }
+
   componentDidMount() {
     this.initializeMap();
   }
 
   addPopups() {
-    const map = this.map;
+    const { map } = this;
     const popup = new mapboxgl.Popup({
       closeButton: false,
       closeOnClick: false,
@@ -33,11 +35,34 @@ class MapView extends React.Component {
     });
   }
 
-  initializeMap() {
+  addLayer() {
     const {
       featuresHome,
     } = this.props;
 
+    this.map.addLayer(
+      {
+        id: 'event-points',
+        type: 'symbol',
+        source: {
+          type: 'geojson',
+          data: featuresHome,
+        },
+        layout: {
+          'icon-image': '{icon}',
+          'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+          'icon-ignore-placement': true,
+          'icon-offset': {
+            base: 1,
+            stops: [[0, [0, -15]], [10, [0, -10]], [12, [0, 0]]],
+          },
+        },
+      },
+      'district_interactive',
+    );
+  }
+
+  initializeMap() {
     mapboxgl.accessToken =
       'pk.eyJ1IjoiYWxhbjA0MCIsImEiOiJjamFrNm81dWkyZzMzMnhsZTI3bjR3eDVoIn0.K3FKPy6S_PwzjDjb02aGHA';
     const styleUrl = 'mapbox://styles/alan040/cjaqgutcnhdun2slmi3xbhgu1';
@@ -48,29 +73,6 @@ class MapView extends React.Component {
     });
 
 
-    const addLayer = (map) => {
-      map.addLayer(
-        {
-          id: 'event-points',
-          type: 'symbol',
-          source: {
-            type: 'geojson',
-            data: featuresHome,
-          },
-          layout: {
-            'icon-image': '{icon}',
-            'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-            'icon-ignore-placement': true,
-            'icon-offset': {
-              base: 1,
-              stops: [[0, [0, -15]], [10, [0, -10]], [12, [0, 0]]],
-            },
-          },
-        },
-        'district_interactive',
-      );
-    };
-
     // Set Mapbox map controls
     this.map.addControl(new mapboxgl.NavigationControl());
     this.map.scrollZoom.disable();
@@ -80,7 +82,7 @@ class MapView extends React.Component {
     // map on 'load'
     this.map.on('load', () => {
       this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
-      addLayer(this.map);
+      this.addLayer();
       this.addPopups();
       this.props.getEvents(this.map);
     });
