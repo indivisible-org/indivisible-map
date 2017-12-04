@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 class Point {
   constructor(eventOrGroup) {
     this.type = 'Feature';
@@ -6,8 +8,11 @@ class Point {
       coordinates: [eventOrGroup.longitude, eventOrGroup.latitude],
     };
     this.properties = {
-      // TODO: make conditionals
       icon: 'host-group',
+      address: eventOrGroup.address1,
+      startsAt: eventOrGroup.starts_at ? moment(eventOrGroup.starts_at) : null,
+      title: eventOrGroup.title,
+      venue: eventOrGroup.venue || null,
     };
   }
 }

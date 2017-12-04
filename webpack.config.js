@@ -38,7 +38,6 @@ module.exports = {
       {
         test: /\.scss$/,
         loader: ExtractPlugin.extract({
-          // These get loaded in reverse order and the output of one pipes into the other (think of a then)
           use: [
             {
               loader: 'css-loader',
