@@ -76,7 +76,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-                Hello World
         <MapView
           getEvents={this.getEvents}
           events={this.state.events}

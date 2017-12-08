@@ -30,7 +30,9 @@ class MapView extends React.Component {
       }
       const feature = features[0];
       popup.setLngLat(feature.geometry.coordinates)
-        .setHTML(`<h4>${feature.properties.title}</h4>`)
+        .setHTML(`
+          <h4>${feature.properties.title}</h4>
+          <div>${feature.properties.startsAt}</div>`)
         .addTo(map);
     });
   }
