@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import MapView from './components/MapView';
+import EventsTable from './components/EventsTable';
 import getData from './logics/getData';
 import Point from './logics/features';
 
@@ -15,38 +16,7 @@ class App extends React.Component {
       groups: [],
       featuresHome: {
         type: 'FeatureCollection',
-        features: [
-          {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [-122.3321, 47.6062],
-            },
-            properties: {
-              icon: 'host-group',
-            },
-          },
-          {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [-76.609383, 39.299236],
-            },
-            properties: {
-              icon: 'issue',
-            },
-          },
-          {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [-117.071869, 32.774799],
-            },
-            properties: {
-              icon: 'challenge',
-            },
-          },
-        ],
+        features: [],
       },
     };
   }
@@ -76,6 +46,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <EventsTable
+          events={this.state.events}
+        />
         <MapView
           getEvents={this.getEvents}
           events={this.state.events}
