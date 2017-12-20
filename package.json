@@ -17,6 +17,8 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "resolve-url-loader": "^2.2.0",
     "sass-loader": "^6.0.6",
     "superagent": "^3.8.1",
