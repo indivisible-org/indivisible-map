@@ -5,8 +5,9 @@ import moment from 'moment';
 class EventCell extends React.Component {
 
   render() {
-    let {indivisibleEvent} = this.props;
-    console.log(indivisibleEvent);
+    // get data depending on dataType (groups of events)
+    // from redux store
+    const { indivisibleEvent } = this.props;
     return (
       <div className="event-cell">
         <h3>

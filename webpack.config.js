@@ -1,4 +1,4 @@
-
+const path = require('path');
 
 // Dynamic Script and Style Tags
 const HTMLPlugin = require('html-webpack-plugin');
@@ -58,6 +58,9 @@ module.exports = {
       },
 
     ],
+  },
+  devServer: {
+    historyApiFallback: true,
   },
 
 };

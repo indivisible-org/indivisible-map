@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { startSetEvents } from '../actions/events';
 
 class MapView extends React.Component {
   constructor(props) {
@@ -38,6 +40,7 @@ class MapView extends React.Component {
   }
 
   addLayer() {
+    console.log(this.props);
     const {
       featuresHome,
     } = this.props;
@@ -86,7 +89,9 @@ class MapView extends React.Component {
       this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
       this.addLayer();
       this.addPopups();
-      this.props.getEvents(this.map);
+      // this.props.getEvents(this.map); // this should come from store
+      this.props.startSetEvents(this.map);
+      this.map.getSource('event-points').setData(this.props.featuresHome);
     });
   }
 
@@ -101,12 +106,24 @@ class MapView extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    events: state.events,
+    featuresHome: state.featuresHome,
+  }
+};
+
+const mapDispatchToProps = (dispatch, props) => ({
+  startSetEvents: () => dispatch(startSetEvents()),
+});
+
 MapView.propTypes = {
-  getEvents: PropTypes.func.isRequired,
+  // getEvents: PropTypes.func.isRequired,
+  startSetEvents: PropTypes.func.isRequired,
   featuresHome: PropTypes.shape({
     type: PropTypes.string,
     features: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
 
-export default MapView;
+export default connect(mapStateToProps, mapDispatchToProps)(MapView);
