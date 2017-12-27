@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import configureStore from './store/configureStore';
 import MapView from './components/MapView';
 import EventsTable from './components/EventsTable';
 import getData from './logics/getData';

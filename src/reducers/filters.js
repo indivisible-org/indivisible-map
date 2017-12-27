@@ -1,15 +1,15 @@
 import moment from 'moment';
 
-const filtersReducerDefaultState = {
+const initialState = {
   text: '',
   sortBy: 'date',
 };
 
-const filtersReducer = (state = filtersReducerDefaultState, action) => {
+const filtersReducer = (state = initialState, action) => {
   switch (action.type) {
     default:
       return state;
   }
-}
+};
 
 export default filtersReducer;

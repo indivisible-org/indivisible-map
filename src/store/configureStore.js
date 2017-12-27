@@ -1,16 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import eventsReducer from '../reducers/events';
-import groupsReducer from '../reducers/groups';
-import filtersReducer from '../reducers/filters';
+import * as events from '../reducers/events';
+import * as groups from '../reducers/groups';
+import * as filters from '../reducers/filters';
 
 export default () => {
   const store = createStore(
-    combineReducers({
-      events: eventsReducer,
-      groups: groupsReducer,
-      filters: filtersReducer,
-    }),
+    combineReducers({ events, groups, filters }),
     applyMiddleware(thunk),
   );
   return store;
