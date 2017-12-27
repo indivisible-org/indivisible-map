@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
+import { startSetEvents, startSetFeaturesHome } from './actions/events';
 // import MapView from './components/MapView';
 // import EventsTable from './components/EventsTable';
 // import getData from './logics/getData';
@@ -67,18 +68,39 @@ import './style/app.scss';
 
 const store = configureStore();
 
+
+// needs to be in a promise
+// store.dispatch(startSetEvents());
+// store.dispatch(startSetFeaturesHome());
+
 const jsx = (
   <Provider store={store}>
     <AppRouter />
   </Provider>
 );
 
+let url = window.location.href;
+
+const renderApp = () => {
+  ReactDom.render(jsx, document.getElementById('root'));
+};
+
+ReactDom.render(<div>loading</div>, document.getElementById('root'));
+
+if (url.includes('events')) {
+  store.dispatch(startSetEvents()).then(() => {
+    renderApp();
+  })
+} else if (url.includes('groups')) {
+  // dispatch groups call
+}
+
 // jsx contains provider
-// provider contains current state 
+// provider contains current state
 // with dataType set
 // AppRouter is inside Provider
 
-//render App 
+// render App
 // render jsx to element root
 
 // get url subdomain
@@ -89,4 +111,4 @@ const jsx = (
 //   console.log(url);
 // };
 
-ReactDom.render(jsx, document.getElementById('root'));
+// ReactDom.render(jsx, document.getElementById('root'));

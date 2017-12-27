@@ -10,6 +10,8 @@ class GroupsDashboard extends React.Component {
     return (
       <div>
         <h2>Group Dashboard</h2>
+        <EventsTable />
+        <MapView />
       </div>
     );
   }

@@ -5,6 +5,7 @@ import EventCell from './EventCell';
 
 class EventsTable extends React.Component {
   render() {
+    console.log(this.state);
     return (
       <div id="events-list">
         {events.map((indivisibleEvent) => {
