@@ -7,9 +7,9 @@ import filtersReducer from '../reducers/filters';
 export default () => {
   const store = createStore(
     combineReducers({
-      events: eventsReducer,
-      groups: groupsReducer,
-      filters: filtersReducer,
+      eventState: eventsReducer,
+      groupState: groupsReducer,
+      filterState: filtersReducer,
     }),
     applyMiddleware(thunk),
   );

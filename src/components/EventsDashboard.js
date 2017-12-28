@@ -2,20 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MapView from './MapView';
 import EventsTable from './EventsTable';
-import { startSetEvents, startSetFeaturesHome } from '../actions/events';
+// import { startSetEvents, startSetFeaturesHome } from '../actions/events';
 // import getData from './logics/getData';
 // import Point from '../logics/features';
 
 class EventsDashboard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
-  render(props) {
-    console.log(props.events);
+  render() {
+    console.log(this.props);
     return (
       <div>
-        <h2>Event Dashboard</h2>
+        <h2 className="dash-title">Event Dashboard</h2>
         <EventsTable />
         <MapView />
       </div>
@@ -25,8 +25,8 @@ class EventsDashboard extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    events: state.events,
-    // featuresHome: state.featuresHome,
+    events: state.eventState.events, // selectEvents(state.events, state.filters)
+    featuresHome: state.eventState.featuresHome,
   };
 };
 

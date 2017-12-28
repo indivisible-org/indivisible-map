@@ -40,10 +40,9 @@ class MapView extends React.Component {
   }
 
   addLayer() {
-    console.log(this.props);
-    const {
-      featuresHome,
-    } = this.props;
+    // const {
+    //   featuresHome,
+    // } = this.props;
 
     this.map.addLayer(
       {
@@ -51,7 +50,7 @@ class MapView extends React.Component {
         type: 'symbol',
         source: {
           type: 'geojson',
-          data: featuresHome,
+          data: this.props.featuresHome,
         },
         layout: {
           'icon-image': '{icon}',
@@ -90,13 +89,14 @@ class MapView extends React.Component {
       this.addLayer();
       this.addPopups();
       // this.props.getEvents(this.map); // this should come from store
-      this.props.startSetEvents(this.map);
+      // this.props.startSetEvents(this.map);
       this.map.getSource('event-points').setData(this.props.featuresHome);
     });
   }
 
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <div id="map" />
@@ -108,9 +108,9 @@ class MapView extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    events: state.events,
-    featuresHome: state.featuresHome,
-  }
+    events: state.eventState.events, // selectEvents(state.events, state.filters)
+    featuresHome: state.eventState.featuresHome,
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -119,7 +119,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 MapView.propTypes = {
   // getEvents: PropTypes.func.isRequired,
-  startSetEvents: PropTypes.func.isRequired,
+  // startSetEvents: PropTypes.func.isRequired,
   featuresHome: PropTypes.shape({
     type: PropTypes.string,
     features: PropTypes.arrayOf(PropTypes.object),
