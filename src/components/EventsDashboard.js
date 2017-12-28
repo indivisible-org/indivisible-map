@@ -1,28 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MapView from './MapView';
-import EventsTable from './EventsTable';
-// import { startSetEvents, startSetFeaturesHome } from '../actions/events';
-// import getData from './logics/getData';
-// import Point from '../logics/features';
+import Table from './Table';
 
 class EventsDashboard extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <h2 className="dash-title">Event Dashboard</h2>
-        <EventsTable />
-        <MapView />
+        <Table items={this.props.events} />
+        <MapView featuresHome={this.props.featuresHome} />
       </div>
     );
   }
 }
 
+// these should be passed down
 const mapStateToProps = (state) => {
   return {
     events: state.eventState.events, // selectEvents(state.events, state.filters)

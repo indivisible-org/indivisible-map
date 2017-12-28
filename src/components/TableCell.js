@@ -2,30 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-class EventCell extends React.Component {
+class TableCell extends React.Component {
 
   render() {
     // get data depending on dataType (groups of events)
     // from redux store
-    const { indivisibleEvent } = this.props;
+    const { item } = this.props;
     return (
       <div className="event-cell">
         <h3>
-          {indivisibleEvent.title}
+          {item.title}
         </h3>
         <ul>
-          <li>Time: {moment(indivisibleEvent.starts_at).format('MMMM Do, YYYY')}</li>
-          <li>City: {indivisibleEvent.city}</li>
-          <li>Address: {indivisibleEvent.address1}</li>
-          <li>Event Focus: {indivisibleEvent.fields[0].value}</li>
+          <li>Time: {moment(item.starts_at).format('MMMM Do, YYYY')}</li>
+          <li>City: {item.city}</li>
+          <li>Address: {item.address1}</li>
+          <li>Event Focus: {item.fields[0].value}</li>
         </ul>
       </div>
     );
   }
 }
 
-EventCell.propTypes = {
-  indivisibleEvent: PropTypes.shape({
+// will need to edit for agnostic
+TableCell.propTypes = {
+  item: PropTypes.shape({
     id: PropTypes.number,
     address1: PropTypes.string,
     city: PropTypes.string,
@@ -33,4 +34,4 @@ EventCell.propTypes = {
   }).isRequired,
 };
 
-export default EventCell;
+export default TableCell;

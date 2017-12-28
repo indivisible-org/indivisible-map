@@ -6,12 +6,12 @@ const eventsReducer = (state = eventsReducerDefaultState, action) => {
       return {
         ...state,
         events: action.events,
-      }
+      };
     case 'SET_FEATURES_HOME':
       return {
         ...state,
         featuresHome: action.featuresHome,
-      }
+      };
     default:
       return state;
   }

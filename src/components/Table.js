@@ -1,27 +1,27 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import EventCell from './EventCell';
+// import { connect } from 'react-redux';
+import TableCell from './TableCell';
 
-class EventsTable extends React.Component {
+class Table extends React.Component {
   render() {
-    console.log(this.props);
+    const { items } = this.props;
     return (
       <div id="events-list">
-        {this.props.events.map((indivisibleEvent) => {
-          return <EventCell key={indivisibleEvent.id} indivisibleEvent={indivisibleEvent} />;
+        {items.map((item) => {
+          return <TableCell key={item.id} item={item} />;
         })}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    events: state.eventState.events, // selectEvents(state.events, state.filters)
-    featuresHome: state.eventState.featuresHome,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     events: state.eventState.events, // selectEvents(state.events, state.filters)
+//     featuresHome: state.eventState.featuresHome,
+//   };
+// };
 
 // EventsTable.propTypes = {
 //   events: PropTypes.arrayOf(PropTypes.shape({
@@ -41,4 +41,4 @@ const mapStateToProps = (state) => {
 // };
 
 
-export default connect(mapStateToProps)(EventsTable);
+export default Table;
