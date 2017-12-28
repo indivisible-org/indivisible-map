@@ -3,6 +3,8 @@ import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 import MapView from './MapView';
 import Table from './Table';
+import SideBar from './SideBar';
+import selectGroups from '../selectors/groups';
 // import getData from './logics/getData';
 // import Point from '../logics/features';
 
@@ -11,7 +13,7 @@ class GroupsDashboard extends React.Component {
     return (
       <div>
         <h2 className="dash-title">Group Dashboard</h2>
-        <Table items={this.props.groups} />
+        <SideBar items={this.props.groups} />
         <MapView featuresHome={this.props.featuresHome} />
       </div>
     );
@@ -22,11 +24,10 @@ class GroupsDashboard extends React.Component {
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    groups: state.groupState.groups, // selectEvents(state.events, state.filters)
+    groups: selectGroups(state.groupState.groups, state.filterState),
     featuresHome: state.groupState.featuresHome,
   };
 };
 
 export default connect(mapStateToProps)(GroupsDashboard);
 
-// ReactDom.render(<GroupsDashboard />, document.getElementById('root'));

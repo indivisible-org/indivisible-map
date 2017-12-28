@@ -29,6 +29,7 @@
     "webpack-dev-server": "^2.9.5"
   },
   "devDependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "eslint": "^4.13.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",

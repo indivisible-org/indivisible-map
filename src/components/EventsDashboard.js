@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MapView from './MapView';
+import SideBar from './SideBar';
 import Table from './Table';
+import selectEvents from '../selectors/events';
 
 class EventsDashboard extends React.Component {
 
@@ -9,7 +11,7 @@ class EventsDashboard extends React.Component {
     return (
       <div>
         <h2 className="dash-title">Event Dashboard</h2>
-        <Table items={this.props.events} />
+        <SideBar items={this.props.events} />
         <MapView featuresHome={this.props.featuresHome} />
       </div>
     );
@@ -19,7 +21,7 @@ class EventsDashboard extends React.Component {
 // these should be passed down
 const mapStateToProps = (state) => {
   return {
-    events: state.eventState.events, // selectEvents(state.events, state.filters)
+    events: selectEvents(state.eventState.events, state.filterState), // selectEvents(state.events, state.filters)
     featuresHome: state.eventState.featuresHome,
   };
 };

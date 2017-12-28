@@ -17,7 +17,7 @@ ReactDom.render(<div>loading</div>, document.getElementById('root'));
 
 const jsx = (
   <Provider store={store}>
-    <AppRouter />
+    <AppRouter getLocation={getLocation}/>
   </Provider>
 );
 
@@ -25,17 +25,23 @@ const renderApp = () => {
   ReactDom.render(jsx, document.getElementById('root'));
 };
 
-if (url.includes('events')) {
-  // need to set events and features home
-  store.dispatch(startSetEvents())
-    .then(store.dispatch(startSetFeaturesHome())
-      .then(() => {
-        renderApp();
-      }));
-} else if (url.includes('groups')) {
-  store.dispatch(startSetGroups())
-    .then(store.dispatch(startSetFeaturesHomeGroup())
-      .then(() => {
-        renderApp();
-      }));
-}
+const getLocation = (currentUrl) => {
+  if (url.includes('events')) {
+    // need to set events and features home
+    store.dispatch(startSetEvents())
+      .then(store.dispatch(startSetFeaturesHome())
+        .then(() => {
+          renderApp();
+        }));
+  } else if (url.includes('groups')) {
+    store.dispatch(startSetGroups())
+      .then(store.dispatch(startSetFeaturesHomeGroup())
+        .then(() => {
+          renderApp();
+        }));
+  } else {
+    renderApp();
+  };
+};
+
+getLocation(url);

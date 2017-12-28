@@ -8,7 +8,11 @@ export const history = createHistory();
 
 const PageNotFound = () => (
   <div>
-      404! - <Link to="/">Go home</Link>
+    <h2>404</h2>
+    <ul>
+      <li><Link to={`/events`}>Go to events</Link></li>
+      <li><Link to={`/groups`}>Go to groups</Link></li>
+    </ul>
   </div>
 );
 
