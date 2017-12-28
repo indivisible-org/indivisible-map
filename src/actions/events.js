@@ -51,26 +51,3 @@ export const startSetFeaturesHome = () => {
     });
   };
 };
-
-// getEvents(map) {
-//   const url = 'https://townhallproject-86312.firebaseio.com/indivisible_public_events.json';
-//   getData(url).then((result) => {
-//     const response = JSON.parse(result.text);
-//     console.log(response);
-//     const events = Object.keys(response).map(id => response[id]);
-//     const featuresHome = {
-//       type: 'FeatureCollection',
-//       features: [],
-//     };
-
-//     featuresHome.features = events.map((indEvent) => {
-//       const newFeature = new Point(indEvent);
-//       return newFeature;
-//     });
-
-//     this.setState({ featuresHome });
-//     this.setState({ events });
-
-//     map.getSource('event-points').setData(featuresHome);
-//   });
-// }

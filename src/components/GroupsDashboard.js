@@ -1,12 +1,8 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 import MapView from './MapView';
-import Table from './Table';
 import SideBar from './SideBar';
 import selectGroups from '../selectors/groups';
-// import getData from './logics/getData';
-// import Point from '../logics/features';
 
 class GroupsDashboard extends React.Component {
   render() {

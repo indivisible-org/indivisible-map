@@ -2,10 +2,7 @@ import moment from 'moment';
 
 const filtersReducerDefaultState = {
   text: '',
-  sortBy: 'date',
-  zip: null,
-  type: '',
-  district: null,
+  sortBy: 'all',
 };
 
 const filtersReducer = (state = filtersReducerDefaultState, action) => {
@@ -15,10 +12,10 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
         ...state,
         text: action.text,
       };
-    case 'SORT_BY_ZIP':
+    case 'SORT_BY':
       return {
         ...state,
-        zip: action.zip,
+        sortBy: action.val,
       };
     default:
       return state;

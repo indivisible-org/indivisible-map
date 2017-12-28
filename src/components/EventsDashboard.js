@@ -2,11 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MapView from './MapView';
 import SideBar from './SideBar';
-import Table from './Table';
 import selectEvents from '../selectors/events';
 
 class EventsDashboard extends React.Component {
-
   render() {
     return (
       <div>

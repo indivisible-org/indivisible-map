@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   setTextFilter,
   sortByDate,
+  sortByChange
 } from '../actions/filters';
 
 export class FiltersComponent extends React.Component {
@@ -11,6 +12,9 @@ export class FiltersComponent extends React.Component {
   };
   onTextChange = e => {
     this.props.setTextFilter(e.target.value);
+  };
+  onSortChange = e => {
+    this.props.sortByChange(e.target.value);
   };
   render() {
     console.log(this.props);
@@ -23,7 +27,8 @@ export class FiltersComponent extends React.Component {
               // value={this.props.filters.sortBy}
               onChange={this.onSortChange}
             >
-            <option value="zip">Zip Code</option>
+              <option value="all">Choose Filter</option>
+              <option value="zip">Zip Code</option>
               <option value="title">Title</option>
               <option value="type">Type</option>
               <option value="district">District</option>
@@ -67,10 +72,7 @@ const mapStateToProps = (state) => {
 // implicit return example
 const mapDispatchToProps = dispatch => ({
   setTextFilter: text => dispatch(setTextFilter(text)),
-  // sortByDate: () => dispatch(sortByDate()),
-  // sortByAmount: () => dispatch(sortByAmount()),
-  // setStartDate: startDate => dispatch(setStartDate(startDate)),
-  // setEndDate: endDate => dispatch(setEndDate(endDate))
+  sortByChange: val => dispatch(sortByChange(val)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FiltersComponent);

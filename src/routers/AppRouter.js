@@ -16,12 +16,7 @@ const PageNotFound = () => (
   </div>
 );
 
-// app router imports all components
-// for front end interface
-// Components should be able to 
-// access state.dataType at this point
 const AppRouter = () => (
-  // mapview
   <BrowserRouter>
     <div>
       <Switch>
@@ -32,12 +27,5 @@ const AppRouter = () => (
     </div>
   </BrowserRouter>
 );
-
-// inside each dashboard
-  // map component
-  // sidebar
-    // filters
-    // table
-      // table cell
 
 export default AppRouter;
