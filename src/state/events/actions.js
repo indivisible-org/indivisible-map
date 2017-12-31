@@ -1,5 +1,5 @@
-import getData from '../logics/getData';
-import Point from '../logics/features';
+import getData from '../../logics/getData';
+import Point from '../../logics/features';
 
 export const setEvents = events => ({
   type: 'SET_EVENTS',
@@ -11,7 +11,7 @@ export const setFeaturesHome = featuresHome => ({
   featuresHome,
 });
 
-// NEEDS FIX: 2 separate calls for featuresHome and events --> make less redundant 
+// NEEDS FIX: 2 separate calls for featuresHome and events 
 
 export const startSetEvents = () => {
   return (dispatch) => {
@@ -19,15 +19,7 @@ export const startSetEvents = () => {
     return getData(url).then((result) => {
       const response = JSON.parse(result.text);
       const events = Object.keys(response).map(id => response[id]);
-      // this.setState({ featuresHome });
-      // this.setState({ events });
-      // console.log(events);
-      // map.getSource('event-points').setData(featuresHome);
-      dispatch(setEvents(events)); // saving events in array -> may change to object
-      // dispatch(setFeaturesHome({ featuresHome }));
-      // dispatch to set featuresHome
-      // need to access map to setData on map
-      // or handle setData method inside of component
+      dispatch(setEvents(events)); 
     });
   };
 };

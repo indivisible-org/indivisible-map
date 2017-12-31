@@ -4,7 +4,7 @@ import {
   setTextFilter,
   sortByDate,
   sortByChange
-} from '../actions/filters';
+} from '../state/filters/actions';
 
 export class FiltersComponent extends React.Component {
   state = {
@@ -17,14 +17,12 @@ export class FiltersComponent extends React.Component {
     this.props.sortByChange(e.target.value);
   };
   render() {
-    console.log(this.props);
     return (
       <div className="content-container-filters">
         <div className="input-group-filters">
         <div className="input-group__item">
             <select
               className="select"
-              // value={this.props.filters.sortBy}
               onChange={this.onSortChange}
             >
               <option value="all">Choose Filter</option>

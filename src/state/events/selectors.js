@@ -7,12 +7,10 @@ const getVisibleEvents = (groups, { text, sortBy }) => {
       return group;
     }
     if (sortBy === 'zip' || sortBy === 'district') { // check if number
-      console.log('zip or district with val: ', sortBy);
       if (group[sortBy] === text) {
         return group;
       }
     } else {
-      console.log('string value type')
       return group[sortBy].toLowerCase().includes(text.toLowerCase()); // var inste of title
     }
   }).sort((a, b) => {

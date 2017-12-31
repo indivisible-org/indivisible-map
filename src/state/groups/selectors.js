@@ -6,14 +6,12 @@ const getVisibleGroups = (groups, { text, sortBy }) => {
     if (sortBy === 'all') {
       return group;
     }
-    if (sortBy === 'zip' || sortBy === 'district') { // check if number
-      console.log('zip or district with val: ', sortBy);
+    if (sortBy === 'zip' || sortBy === 'district') { 
       if (group[sortBy] === text) {
         return group;
       }
     } else {
-      console.log('string value type')
-      return group[sortBy].toLowerCase().includes(text.toLowerCase()); // var inste of title
+      return group[sortBy].toLowerCase().includes(text.toLowerCase()); 
     }
   }).sort((a, b) => {
     return a.starts_at < b.starts_at ? 1 : -1;

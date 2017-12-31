@@ -1,20 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Router, Route, Switch, Link, NavLink } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import GroupsDashboard from '../components/GroupsDashboard';
 import EventsDashboard from '../components/EventsDashboard';
-
-export const history = createHistory();
-
-const PageNotFound = () => (
-  <div>
-    <h2>404</h2>
-    <ul>
-      <li><Link to={`/events`}>Go to events</Link></li>
-      <li><Link to={`/groups`}>Go to groups</Link></li>
-    </ul>
-  </div>
-);
+import PageNotFound from '../components/PageNotFound';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -22,7 +10,8 @@ const AppRouter = () => (
       <Switch>
         <Route path="/events" component={EventsDashboard} />
         <Route path="/groups" component={GroupsDashboard} />
-        <Route component={PageNotFound} />
+        <Route path="/" component={EventsDashboard} />
+        {/*<Route component={PageNotFound} /> this should be default for unknown url location*/}
       </Switch>
     </div>
   </BrowserRouter>

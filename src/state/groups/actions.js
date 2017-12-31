@@ -1,5 +1,5 @@
-import getData from '../logics/getData';
-import Point from '../logics/features';
+import getData from '../../logics/getData';
+import Point from '../../logics/features';
 
 export const setGroups = groups => ({
   type: 'SET_GROUPS',
@@ -17,7 +17,7 @@ export const startSetGroups = () => {
     return getData(url).then((result) => {
       const response = JSON.parse(result.text);
       const groups = Object.keys(response).map(id => response[id]);
-      dispatch(setGroups(groups)); // saving events in array -> may change to object
+      dispatch(setGroups(groups)); 
     });
   };
 };

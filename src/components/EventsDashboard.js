@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MapView from './MapView';
 import SideBar from './SideBar';
-import selectEvents from '../selectors/events';
+import selectEvents from '../state/events/selectors';
 
 class EventsDashboard extends React.Component {
   render() {
@@ -16,10 +16,9 @@ class EventsDashboard extends React.Component {
   }
 }
 
-// these should be passed down
 const mapStateToProps = (state) => {
   return {
-    events: selectEvents(state.eventState.events, state.filterState), // selectEvents(state.events, state.filters)
+    events: selectEvents(state.eventState.events, state.filterState), 
     featuresHome: state.eventState.featuresHome,
   };
 };
