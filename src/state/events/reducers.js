@@ -1,6 +1,8 @@
-const eventsReducerDefaultState = [];
+const initialState = {
+  entities: [],
+};
 
-const eventsReducer = (state = eventsReducerDefaultState, action) => {
+const eventsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_EVENTS':
       return {

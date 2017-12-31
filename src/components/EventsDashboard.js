@@ -18,8 +18,8 @@ class EventsDashboard extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    events: selectEvents(state.eventState.events, state.filterState), 
-    featuresHome: state.eventState.featuresHome,
+    events: selectEvents(state.events.events, state.filters),
+    featuresHome: state.events.featuresHome,
   };
 };
 

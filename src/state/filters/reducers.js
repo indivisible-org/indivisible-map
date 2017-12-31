@@ -1,11 +1,11 @@
 import moment from 'moment';
 
-const filtersReducerDefaultState = {
+const initialState = {
   text: '',
   sortBy: 'all',
 };
 
-const filtersReducer = (state = filtersReducerDefaultState, action) => {
+const filtersReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_TEXT_FILTER':
       return {
@@ -20,6 +20,6 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default filtersReducer;

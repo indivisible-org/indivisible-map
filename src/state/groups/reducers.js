@@ -1,4 +1,6 @@
-const groupsReducerDefaultState = [];
+const groupsReducerDefaultState = {
+  entities: [],
+};
 
 const groupsReducer = (state = groupsReducerDefaultState, action) => {
   switch (action.type) {

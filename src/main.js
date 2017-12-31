@@ -7,7 +7,6 @@ import LoadingPage from './components/LoadingPage';
 import { startSetEvents, startSetFeaturesHome } from './state/events/actions';
 import { startSetGroups, startSetFeaturesHomeGroup } from './state/groups/actions';
 
-
 import './style/app.scss';
 
 const store = configureStore();

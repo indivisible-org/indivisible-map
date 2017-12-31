@@ -63,7 +63,7 @@ export class FiltersComponent extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    filters: state.filterState,
+    filters: state.filters,
   };
 };
 
