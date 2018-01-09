@@ -1,63 +1,50 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import MapView from './components/MapView';
-import EventsTable from './components/EventsTable';
-import getData from './logics/getData';
-import Point from './logics/features';
+import { Provider } from 'react-redux';
+import AppRouter from './routers/AppRouter';
+import configureStore from './store/configureStore';
+import LoadingPage from './components/LoadingPage';
+import { startSetEvents, startSetFeaturesHome } from './state/events/actions';
+import { startSetGroups, startSetFeaturesHomeGroup } from './state/groups/actions';
 
 import './style/app.scss';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getEvents = this.getEvents.bind(this);
-    this.state = {
-      events: [],
-      groups: [],
-      featuresHome: {
-        type: 'FeatureCollection',
-        features: [],
-      },
-    };
+const store = configureStore();
+
+const url = window.location.href;
+
+ReactDom.render(<LoadingPage />, document.getElementById('root'));
+
+const getLocation = (currentUrl) => {
+  if (url.includes('events')) {
+    store.dispatch(startSetEvents())
+      .then(store.dispatch(startSetFeaturesHome())
+        .then(() => {
+          renderApp();
+        }));
+  } else if (url.includes('groups')) {
+    store.dispatch(startSetGroups())
+      .then(store.dispatch(startSetFeaturesHomeGroup())
+        .then(() => {
+          renderApp();
+        }));
+  } else {                      // default to events for now [should default to renderApp() alone and be handled by PageNotFound]
+    store.dispatch(startSetEvents())
+      .then(store.dispatch(startSetFeaturesHome())
+        .then(() => {
+          renderApp();
+        }));
   }
+};
 
-  getEvents(map) {
-    const url = 'https://townhallproject-86312.firebaseio.com/indivisible_public_events.json';
-    getData(url).then((result) => {
-      const response = JSON.parse(result.text);
-      const events = Object.keys(response).map(id => response[id]);
-      const featuresHome = {
-        type: 'FeatureCollection',
-        features: [],
-      };
+const jsx = (
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
+);
 
-      featuresHome.features = events.map((indEvent) => {
-        const newFeature = new Point(indEvent);
-        return newFeature;
-      });
+const renderApp = () => {
+  ReactDom.render(jsx, document.getElementById('root'));
+};
 
-      this.setState({ featuresHome });
-      this.setState({ events });
-
-      map.getSource('event-points').setData(featuresHome);
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <EventsTable
-          events={this.state.events}
-        />
-        <MapView
-          getEvents={this.getEvents}
-          events={this.state.events}
-          features={this.state.groups}
-          featuresHome={this.state.featuresHome}
-        />
-      </div>
-    );
-  }
-}
-
-ReactDom.render(<App />, document.getElementById('root'));
+getLocation(url);

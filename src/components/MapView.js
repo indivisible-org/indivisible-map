@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 class MapView extends React.Component {
   constructor(props) {
@@ -9,7 +8,8 @@ class MapView extends React.Component {
   }
 
   componentDidMount() {
-    this.initializeMap();
+    const { featuresHome } = this.props;
+    this.initializeMap(featuresHome);
   }
 
   addPopups() {
@@ -37,10 +37,7 @@ class MapView extends React.Component {
     });
   }
 
-  addLayer() {
-    const {
-      featuresHome,
-    } = this.props;
+  addLayer(featuresHome) {
 
     this.map.addLayer(
       {
@@ -64,7 +61,7 @@ class MapView extends React.Component {
     );
   }
 
-  initializeMap() {
+  initializeMap(featuresHome) {
     mapboxgl.accessToken =
       'pk.eyJ1IjoiYWxhbjA0MCIsImEiOiJjamFrNm81dWkyZzMzMnhsZTI3bjR3eDVoIn0.K3FKPy6S_PwzjDjb02aGHA';
     const styleUrl = 'mapbox://styles/alan040/cjaqgutcnhdun2slmi3xbhgu1';
@@ -84,9 +81,9 @@ class MapView extends React.Component {
     // map on 'load'
     this.map.on('load', () => {
       this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
-      this.addLayer();
+      this.addLayer(featuresHome);
       this.addPopups();
-      this.props.getEvents(this.map);
+      this.map.getSource('event-points').setData(featuresHome);
     });
   }
 
@@ -100,13 +97,5 @@ class MapView extends React.Component {
     );
   }
 }
-
-MapView.propTypes = {
-  getEvents: PropTypes.func.isRequired,
-  featuresHome: PropTypes.shape({
-    type: PropTypes.string,
-    features: PropTypes.arrayOf(PropTypes.object),
-  }).isRequired,
-};
 
 export default MapView;

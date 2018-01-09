@@ -1,0 +1,1108 @@
+{
+  "1": {
+    "address1": "1234 street",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Seattle",
+    "confirmed_at": "2017-12-03T12:33:51.321396",
+    "country": "United States",
+    "created_at": "2017-12-03T12:33:35.573629",
+    "creator": "/rest/v1/user/677453/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7689/",
+        "id": 9059,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9059/",
+        "value": "Other"
+      },
+      {
+        "event": "/rest/v1/event/7689/",
+        "id": 9060,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9060/",
+        "value": "Rally"
+      },
+      {
+        "event": "/rest/v1/event/7689/",
+        "id": 9061,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9061/",
+        "value": "https://www.facebook.com/events/146175269441184/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 1,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 47.6062,
+    "longitude": -122.3321,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "2007",
+    "postal": "61455",
+    "public_description": "Join Indivisible of West Central Illinois as we Protest at a Verizon store against the rollback of net neutrality protections.\r\n\r\nJoin other Team Internet members at the protest. Internet users outraged by top Verizon lawyer turned FCC Chairman Ajit Pai’s plan to gut net neutrality are planning to protest at Verizon retail stores across the country on Thursday, December 7th, one week before an expected vote at the FCC. Protesters will make it clear to members of Congress that the time is now to stand for net neutrality, not Verizon’s bottom line.",
+    "region": "IL",
+    "resource_uri": "/rest/v1/event/7689/",
+    "signups": [
+      "/rest/v1/eventsignup/25098/"
+    ],
+    "starts_at": "2017-12-08T12:00:00",
+    "starts_at_utc": "2017-12-08T18:00:00",
+    "state": "WA",
+    "status": "active",
+    "title": "Group Thing Happening",
+    "type": "group",
+    "updated_at": "2017-12-03T12:33:51.679875",
+    "venue": "Minimart",
+    "zip": "98105"
+  },
+  "2": {
+    "address1": "Pike and Pine",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Flossmoor",
+    "confirmed_at": "2017-12-03T18:27:36.349338",
+    "country": "United States",
+    "created_at": "2017-12-03T17:52:37.484381",
+    "creator": "/rest/v1/user/2286/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7690/",
+        "id": 9062,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9062/",
+        "value": "DREAM Act"
+      },
+      {
+        "event": "/rest/v1/event/7690/",
+        "id": 9063,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9063/",
+        "value": "Rally"
+      },
+      {
+        "event": "/rest/v1/event/7690/",
+        "id": 9064,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9064/",
+        "value": "http://StrikeForceForChange.com  \r\n"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7690,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 43.618881,
+    "longitude": -116.215019,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "",
+    "postal": "60422",
+    "public_description": "Please join Strike Force For Change, an #INDIVISIBLE group and Indivisible South Suburban Chicago to get information about DACA rights and to discuss how Activists groups can help fight for a clean DREAMer Bill.",
+    "region": "IL",
+    "resource_uri": "/rest/v1/event/7690/",
+    "signups": [
+      "/rest/v1/eventsignup/25099/"
+    ],
+    "starts_at": "2017-12-07T19:00:00",
+    "starts_at_utc": "2017-12-08T01:00:00",
+    "state": "IL",
+    "status": "active",
+    "title": "Another group",
+    "type": "group",
+    "updated_at": "2017-12-03T18:27:36.406134",
+    "venue": "Flossmoor Community Church, Community House",
+    "zip": "98105"
+  },
+  "3": {
+    "address1": "2001 S. Shields Ave,.",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Fort Collins",
+    "confirmed_at": "2017-12-03T18:38:06.954203",
+    "country": "United States",
+    "created_at": "2017-12-03T18:37:33.120462",
+    "creator": "/rest/v1/user/309455/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7691/",
+        "id": 9065,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9065/",
+        "value": "Trump Tax Scam"
+      },
+      {
+        "event": "/rest/v1/event/7691/",
+        "id": 9066,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9066/",
+        "value": "Rally"
+      },
+      {
+        "event": "/rest/v1/event/7691/",
+        "id": 9067,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9067/",
+        "value": "https://www.facebook.com/events/512683322438581/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7691,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 41.881832,
+    "longitude": -87.623177,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "1827",
+    "postal": "80526",
+    "public_description": "We need to show Congress that there is broad resistance to Trump’s agenda. Join us.  Bring your letters to drop off at his office, your signs and your friends!\r\n\r\nThe house and senate need to reconcile their versions and then both need to vote on the reconciled version.  We need to let Gardner know that his constituents don't want him to vote yes on this redistribution of wealth from the middle and lower classes to the upper class!\r\n\r\nPlease - no strong profanity on your signs and part at Roland Moore park.  Thank you and we look forward to seeing you on Tuesday!",
+    "region": "CO",
+    "resource_uri": "/rest/v1/event/7691/",
+    "signups": [
+      "/rest/v1/eventsignup/25101/"
+    ],
+    "starts_at": "2017-12-05T15:30:00",
+    "starts_at_utc": "2017-12-05T22:30:00",
+    "state": "CO",
+    "status": "active",
+    "title": "Groupie group",
+    "type": "group",
+    "updated_at": "2017-12-03T18:38:07.134172",
+    "venue": "On Shields in front of Senator Gardner's Fort Collins office",
+    "zip": "80526"
+  },
+  "4": {
+    "address1": "3200 Grand Ave",
+    "address2": "",
+    "attendee_count": 1,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Oakland",
+    "confirmed_at": "2017-12-03T22:17:28.694843",
+    "country": "United States",
+    "created_at": "2017-12-03T22:17:03.848346",
+    "creator": "/rest/v1/user/39111/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7692/",
+        "id": 9068,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9068/",
+        "value": "Trump Tax Scam"
+      },
+      {
+        "event": "/rest/v1/event/7692/",
+        "id": 9069,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9069/",
+        "value": "Rally"
+      },
+      {
+        "event": "/rest/v1/event/7692/",
+        "id": 9070,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9070/",
+        "value": "http://act.indivisible.org/event/local-actions/search/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7692,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 30.266926,
+    "longitude": -97.750519,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "2739",
+    "postal": "94610",
+    "public_description": "HAD ENOUGH?!!!!!  JOIN US AT THE CORNERS THIS TUES AND/OR ALL TUESDAYS.  WE HAVE SIGNS AND BANNERS.  1 HOUR FOR DEMOCRACY!  SEE YOU TUES!  4-5PM",
+    "region": "CA",
+    "resource_uri": "/rest/v1/event/7692/",
+    "signups": [
+      "/rest/v1/eventsignup/25103/",
+      "/rest/v1/eventsignup/25113/"
+    ],
+    "starts_at": "2017-12-05T16:00:00",
+    "starts_at_utc": "2017-12-06T00:00:00",
+    "state": "CA",
+    "status": "active",
+    "title": "How to group and other things",
+    "type": "group",
+    "updated_at": "2017-12-04T03:37:28.138249",
+    "venue": "GRAND LAKE THEATER INTERSECTION",
+    "zip": "94610"
+  },
+  "5": {
+    "address1": "30 Schuyler Place",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Morristown",
+    "confirmed_at": "2017-12-03T22:46:05.182347",
+    "country": "United States",
+    "created_at": "2017-12-03T22:40:01.962727",
+    "creator": "/rest/v1/user/412543/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7693/",
+        "id": 9071,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9071/",
+        "value": "Trump Tax Scam"
+      },
+      {
+        "event": "/rest/v1/event/7693/",
+        "id": 9072,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9072/",
+        "value": "Rally"
+      },
+      {
+        "event": "/rest/v1/event/7693/",
+        "id": 9073,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9073/",
+        "value": "https://www.facebook.com/events/1897052980323956/?notif_t=event_calendar_create&notif_id=1512340643995284"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7693,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 45.523064,
+    "longitude": -122.676483,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "5193",
+    "postal": "07960",
+    "public_description": "Protest, Call, Share, Fight, Win.\r\nWe need to show Congress that there is broad resistance to Trump’s C. Join us.",
+    "region": "NJ",
+    "resource_uri": "/rest/v1/event/7693/",
+    "signups": [
+      "/rest/v1/eventsignup/25104/"
+    ],
+    "starts_at": "2017-12-04T11:00:00",
+    "starts_at_utc": "2017-12-04T16:00:00",
+    "state": "NJ",
+    "status": "active",
+    "title": "Groupin'",
+    "type": "group",
+    "updated_at": "2017-12-03T22:46:05.366528",
+    "venue": "Rep. Frelinghuyen's district Office",
+    "zip": "07960"
+  },
+  "6": {
+    "address1": "350 E. Michigan Ave. Kalamazoo, MI",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Kalamazoo",
+    "confirmed_at": "2017-12-03T22:55:03.379550",
+    "country": "United States",
+    "created_at": "2017-12-03T22:52:28.378943",
+    "creator": "/rest/v1/user/677479/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7694/",
+        "id": 9074,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9074/",
+        "value": "Trump Tax Scam"
+      },
+      {
+        "event": "/rest/v1/event/7694/",
+        "id": 9075,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9075/",
+        "value": "Rally"
+      },
+      {
+        "event": "/rest/v1/event/7694/",
+        "id": 9076,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9076/",
+        "value": "https://www.facebook.com/events/335910473560059/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7694,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 45.523064,
+    "longitude": -120.676483,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "",
+    "postal": "49008",
+    "public_description": "Come join us once again outside of Fred Upton's Kalamazoo office as the tax plan (ahem, scam) is headed back to the House. Fred betrayed us before and he'll likely betray us again but not without hearing us first. Speaker lineup coming soon. Please bring a sign if you are able. A limited number of sign making supplies will be provided during the rally.\r\nWe need to show Congress that there is broad resistance to Trump’s agenda. Join us.",
+    "region": "MI",
+    "resource_uri": "/rest/v1/event/7694/",
+    "signups": [
+      "/rest/v1/eventsignup/25105/"
+    ],
+    "starts_at": "2017-12-04T16:30:00",
+    "starts_at_utc": "2017-12-04T21:30:00",
+    "state": "MI",
+    "status": "active",
+    "title": "What is a collection of people for 400?",
+    "type": "group",
+    "updated_at": "2017-12-03T22:55:03.429066",
+    "venue": "Rep. Fred Upton Congressional Office in Kalamazoo, MI",
+    "zip": "49008"
+  },
+  "7": {
+    "address1": "1901 Main Street",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Columbia",
+    "confirmed_at": "2017-12-04T00:02:14.503149",
+    "country": "United States",
+    "created_at": "2017-12-04T00:00:59.819007",
+    "creator": "/rest/v1/user/1934/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7695/",
+        "id": 9077,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9077/",
+        "value": "DREAM Act"
+      },
+      {
+        "event": "/rest/v1/event/7695/",
+        "id": 9078,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9078/",
+        "value": "District Office Visit"
+      },
+      {
+        "event": "/rest/v1/event/7695/",
+        "id": 9079,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9079/",
+        "value": "https://www.facebook.com/events/917409845081625"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7695,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 34.01059,
+    "longitude": -81.03777,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "2443",
+    "postal": "29201",
+    "public_description": "December 5th marks the halfway point before DACA is set to expire, placing hundreds of thousands of immigrants at risk of deportation and being separated from their families and communities. DACA recipients came out of the shadows and willingly gave their information to the government to receive protections against deportations. If DACA is ended, they will be at great risk for being easily targeted for deportation. Senator Graham is a co-sponsor of the Dream Act, so we’re calling on our other Senator Tim Scott to throw his weight behind the bill so that a clean Dream Act is passed before the end of the year (“clean” meaning no provisions that would put other members of immigrant communities at risk, including increased border security measures, etc.).\r\n\r\nJoin in an energetic rally with a special A/V component highlighting local \"DACA Voices\" on this day of action on the sidewalks near Tim Scott's Columbia office at 4:30 pm Tuesday 12/5. \r\n#CleanDreamActNow #OutOfTheShadows #HereToStay \r\n\r\nSign the petition we will be delivering to the Senator that day: supportdaca.us",
+    "region": "SC",
+    "resource_uri": "/rest/v1/event/7695/",
+    "signups": [
+      "/rest/v1/eventsignup/25106/"
+    ],
+    "starts_at": "2017-12-05T16:30:00",
+    "starts_at_utc": "2017-12-05T21:30:00",
+    "state": "SC",
+    "status": "active",
+    "title": "Group Together",
+    "type": "group",
+    "updated_at": "2017-12-04T00:02:14.552131",
+    "venue": "Senator Tim Scott's Columbia District Offices",
+    "zip": "29201"
+  },
+  "8": {
+    "address1": "532 S. Olive Street",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Los Angeles",
+    "confirmed_at": "2017-12-04T01:58:45.526508",
+    "country": "United States",
+    "created_at": "2017-12-04T01:58:26.202391",
+    "creator": "/rest/v1/user/377726/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7696/",
+        "id": 9080,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9080/",
+        "value": "Trump Tax Scam"
+      },
+      {
+        "event": "/rest/v1/event/7696/",
+        "id": 9081,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9081/",
+        "value": "Other"
+      },
+      {
+        "event": "/rest/v1/event/7696/",
+        "id": 9082,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9082/",
+        "value": "https://www.facebook.com/events/514601932241218/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7696,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 34.04893,
+    "longitude": -118.25321,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "1014",
+    "postal": "90013",
+    "public_description": "On Monday evening negotiations begin between the house and the senate to send the final version of the #taxbill to Trump for signature. \r\n\r\nRight now, we need HISTORIC demonstrations accross the country to protect the working/middle class, PRESERVE Medicare, and protect our future. \r\n\r\nThis is a massive attack on the working class and will cause unreversable harm, with benefits from the #taxscam helping the wealthy and mega corporations. \r\n\r\nAs Americans, we must unite and urge our representatives to actually represent the people, not the corporations funding their pockets. \r\n\r\nJoin us MONDAY. Bring your friends, families, and neighbors. Bring your signs and BE LOUD.",
+    "region": "CA",
+    "resource_uri": "/rest/v1/event/7696/",
+    "signups": [
+      "/rest/v1/eventsignup/25108/"
+    ],
+    "starts_at": "2017-12-04T19:00:00",
+    "starts_at_utc": "2017-12-05T03:00:00",
+    "state": "CA",
+    "status": "active",
+    "title": "G is for Group",
+    "type": "collective",
+    "updated_at": "2017-12-04T01:58:45.716643",
+    "venue": "Pershing Square - Downtown Los Angeles",
+    "zip": "90013"
+  },
+  "9": {
+    "address1": "1015 North Memorial Parkway",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Huntsville",
+    "confirmed_at": "2017-12-04T03:14:17.606102",
+    "country": "United States",
+    "created_at": "2017-12-04T02:59:59.151078",
+    "creator": "/rest/v1/user/343479/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7697/",
+        "id": 9083,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9083/",
+        "value": "General"
+      },
+      {
+        "event": "/rest/v1/event/7697/",
+        "id": 9084,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9084/",
+        "value": "Other"
+      },
+      {
+        "event": "/rest/v1/event/7697/",
+        "id": 9085,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9085/",
+        "value": "https://www.facebook.com/events/1554044694634281/ "
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7697,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 34.74465,
+    "longitude": -86.60093,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "5927",
+    "postal": "35801",
+    "public_description": "Join us Monday for our Pre-GOTV (Get Out The Vote) canvass. We will be knocking targeted doors using our Polis App. \r\n\r\nMeeting at the Starbucks parking lot on North Parkway in Huntsville. \r\n\r\nPlease feel out this form so we can send you an email with more details: https://goo.gl/forms/QCF6hq3cCqbOkHbG2",
+    "region": "AL",
+    "resource_uri": "/rest/v1/event/7697/",
+    "signups": [
+      "/rest/v1/eventsignup/25109/"
+    ],
+    "starts_at": "2017-12-04T16:00:00",
+    "starts_at_utc": "2017-12-04T22:00:00",
+    "state": "AL",
+    "status": "active",
+    "title": "Group Hangout",
+    "type": "group",
+    "updated_at": "2017-12-04T03:14:17.666270",
+    "venue": "Starbucks",
+    "zip": "35801"
+  },
+  "10": {
+    "address1": "2305 Jordan Lane",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Huntsville",
+    "confirmed_at": "2017-12-04T03:14:23.412833",
+    "country": "United States",
+    "created_at": "2017-12-04T03:04:29.197767",
+    "creator": "/rest/v1/user/343479/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7698/",
+        "id": 9086,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9086/",
+        "value": "Other"
+      },
+      {
+        "event": "/rest/v1/event/7698/",
+        "id": 9087,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9087/",
+        "value": "Other"
+      },
+      {
+        "event": "/rest/v1/event/7698/",
+        "id": 9088,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9088/",
+        "value": "https://www.facebook.com/events/158259764785478/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7698,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 34.71371,
+    "longitude": -86.62692,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "3322",
+    "postal": "35805",
+    "public_description": "Join us Tuesday for our Pre-GOTV (Get Out The Vote) canvass. We will be knocking targeted doors using our Polis App. \r\n\r\nMeeting at the Walmart parking lot on Jordan Lane in Huntsville. \r\n\r\nPlease feel out this form so we can send you an email with more details: https://goo.gl/forms/QCF6hq3cCqbOkHbG2",
+    "region": "AL",
+    "resource_uri": "/rest/v1/event/7698/",
+    "signups": [
+      "/rest/v1/eventsignup/25110/"
+    ],
+    "starts_at": "2017-12-05T10:00:00",
+    "starts_at_utc": "2017-12-05T16:00:00",
+    "state": "AL",
+    "status": "active",
+    "title": "Grouping and group",
+    "type": "group",
+    "updated_at": "2017-12-04T03:14:23.603714",
+    "venue": "Walmart Parking Lot",
+    "zip": "35805"
+  },
+  "11": {
+    "address1": "3406 Meridian Street N",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Huntsville",
+    "confirmed_at": "2017-12-04T03:14:27.440633",
+    "country": "United States",
+    "created_at": "2017-12-04T03:10:24.889848",
+    "creator": "/rest/v1/user/343479/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7699/",
+        "id": 9089,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9089/",
+        "value": "Other"
+      },
+      {
+        "event": "/rest/v1/event/7699/",
+        "id": 9090,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9090/",
+        "value": "Other"
+      },
+      {
+        "event": "/rest/v1/event/7699/",
+        "id": 9091,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9091/",
+        "value": "https://www.facebook.com/events/141029443152450/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7699,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 34.76998,
+    "longitude": -86.57237,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "1545",
+    "postal": "35811",
+    "public_description": "Join us Wednesday for our Pre-GOTV (Get Out The Vote) canvass. We will be knocking targeted doors using our Polis App. \r\n\r\nMeeting at Fellowship Presbyterian Church's parking lot on Meridian Street in Huntsville. \r\n\r\nPlease feel out this form so we can send you an email with more details: https://goo.gl/forms/QCF6hq3cCqbOkHbG2",
+    "region": "AL",
+    "resource_uri": "/rest/v1/event/7699/",
+    "signups": [
+      "/rest/v1/eventsignup/25111/"
+    ],
+    "starts_at": "2017-12-06T13:00:00",
+    "starts_at_utc": "2017-12-06T19:00:00",
+    "state": "AL",
+    "status": "active",
+    "title": "Wednesday Group",
+    "type": "group",
+    "updated_at": "2017-12-04T03:14:27.824610",
+    "venue": "Fellowship Presbyterian Church Parking Lot",
+    "zip": "35811"
+  },
+  "12": {
+    "address1": "2305 Jordan Lane",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Huntsville",
+    "confirmed_at": "2017-12-04T03:14:54.340902",
+    "country": "United States",
+    "created_at": "2017-12-04T03:13:57.313724",
+    "creator": "/rest/v1/user/343479/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7700/",
+        "id": 9092,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9092/",
+        "value": "Other"
+      },
+      {
+        "event": "/rest/v1/event/7700/",
+        "id": 9093,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9093/",
+        "value": "Other"
+      },
+      {
+        "event": "/rest/v1/event/7700/",
+        "id": 9094,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9094/",
+        "value": "https://www.facebook.com/events/1947192102201208/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7700,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 34.71371,
+    "longitude": -86.62692,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "3322",
+    "postal": "35805",
+    "public_description": "Join us Thursday for our Pre-GOTV (Get Out The Vote) canvass. We will be knocking targeted doors using our Polis App. \r\n\r\nMeeting at the Walmart parking lot on Jordan Lane in Huntsville. \r\n\r\nPlease feel out this form so we can send you an email with more details: https://goo.gl/forms/QCF6hq3cCqbOkHbG2",
+    "region": "AL",
+    "resource_uri": "/rest/v1/event/7700/",
+    "signups": [
+      "/rest/v1/eventsignup/25112/"
+    ],
+    "starts_at": "2017-12-07T10:00:00",
+    "starts_at_utc": "2017-12-07T16:00:00",
+    "state": "AL",
+    "status": "active",
+    "title": "Thursday Group",
+    "type": "group",
+    "updated_at": "2017-12-04T03:14:54.375339",
+    "venue": "Walmart Parking Lot",
+    "zip": "35805"
+  },
+  "13": {
+    "address1": "2500 Meridian Street",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Huntsville",
+    "confirmed_at": "2017-12-04T03:47:44.854417",
+    "country": "United States",
+    "created_at": "2017-12-04T03:47:10.449239",
+    "creator": "/rest/v1/user/343479/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7701/",
+        "id": 9095,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9095/",
+        "value": "General"
+      },
+      {
+        "event": "/rest/v1/event/7701/",
+        "id": 9096,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9096/",
+        "value": "Rally"
+      },
+      {
+        "event": "/rest/v1/event/7701/",
+        "id": 9097,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9097/",
+        "value": "https://www.facebook.com/events/161890634423784/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7701,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 34.75642,
+    "longitude": -86.57869,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "1842",
+    "postal": "35811",
+    "public_description": "We are going to hit the streets with signs and enthusiasm to build awareness for Doug Jones! We will be outside Lee High Schools as spectators enter the high school for the Lee vs. Jemison basketball game. \r\n\r\nCome prepared with signs, warm clothes, and excitement!",
+    "region": "AL",
+    "resource_uri": "/rest/v1/event/7701/",
+    "signups": [
+      "/rest/v1/eventsignup/25114/"
+    ],
+    "starts_at": "2017-12-08T18:45:00",
+    "starts_at_utc": "2017-12-09T00:45:00",
+    "state": "AL",
+    "status": "active",
+    "title": "Group",
+    "type": "group",
+    "updated_at": "2017-12-04T03:47:45.046432",
+    "venue": "Lee High School",
+    "zip": "35811"
+  },
+  "14": {
+    "address1": "10735 Ravenna Rd, Suite O2",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Twinsburg",
+    "confirmed_at": "2017-12-04T04:11:53.154236",
+    "country": "United States",
+    "created_at": "2017-12-04T04:08:18.832964",
+    "creator": "/rest/v1/user/367502/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7702/",
+        "id": 9098,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9098/",
+        "value": "General"
+      },
+      {
+        "event": "/rest/v1/event/7702/",
+        "id": 9099,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9099/",
+        "value": "Attending Town Hall"
+      },
+      {
+        "event": "/rest/v1/event/7702/",
+        "id": 9100,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9100/",
+        "value": "https://www.facebook.com/events/557614681251558/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7702,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 41.33122,
+    "longitude": -81.46411,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "3107",
+    "postal": "44087",
+    "public_description": "Lunch at 11:30am to 1pm\r\nTown Hall Chat and Q&A\r\n1pm to 2:30pm\r\n\r\nLunch is $12 Cash Only\r\nChoice of meal from select menu, includes tea, water, coffee & tip.\r\n\r\nAt the end of the Town Hall Meeting we will be assembling with Betsy at the Twinsburg Town Square for a protest march against the tax bill. The weather will be cold wet and possibly snowing so everyone should dress appropriately.”",
+    "region": "OH",
+    "resource_uri": "/rest/v1/event/7702/",
+    "signups": [
+      "/rest/v1/eventsignup/25115/"
+    ],
+    "starts_at": "2017-12-09T11:30:00",
+    "starts_at_utc": "2017-12-09T16:30:00",
+    "state": "OH",
+    "status": "active",
+    "title": "Back to the Group",
+    "type": "group",
+    "updated_at": "2017-12-04T04:11:53.202681",
+    "venue": "Rush Hour Grille of Twinsburg",
+    "zip": "44087"
+  },
+  "15": {
+    "address1": "1445 E. Los Angeles Ave.",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Simi Valley",
+    "confirmed_at": "2017-12-04T04:30:18.724567",
+    "country": "United States",
+    "created_at": "2017-12-04T04:21:01.661862",
+    "creator": "/rest/v1/user/334549/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7703/",
+        "id": 9101,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9101/",
+        "value": "Trump Tax Scam"
+      },
+      {
+        "event": "/rest/v1/event/7703/",
+        "id": 9102,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9102/",
+        "value": "Rally"
+      },
+      {
+        "event": "/rest/v1/event/7703/",
+        "id": 9103,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9103/",
+        "value": "https://www.facebook.com/events/790742824467039/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7703,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 34.27181,
+    "longitude": -118.77222,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "2817",
+    "postal": "93065",
+    "public_description": "PLEASE SEE OUR SISTER DISTRICT-25 SAME DAY EVENTS! 1PM ANTELOPE VALLEY, 330PM SANTA CLARITA - and ours at 5 in SIMI VALLEY!   **ALL 3 KNIGHT OFFICES ON DECEMBER 6TH**\r\nJoin us to Protest the TAXSCAM in front of Congressman Steve Knight's Office 1445 E. Los Angeles Ave. Simi Valley.\r\nWear your Christmas Garb or your Halloween Garb bring lights and signs. Don't let Steve Knight put coal in all of our Stockings! or our Streams, Or our Air.",
+    "region": "CA",
+    "resource_uri": "/rest/v1/event/7703/",
+    "signups": [
+      "/rest/v1/eventsignup/25116/"
+    ],
+    "starts_at": "2017-12-06T17:00:00",
+    "starts_at_utc": "2017-12-07T01:00:00",
+    "state": "CA",
+    "status": "cancelled",
+    "title": "Group and Gold",
+    "type": "group",
+    "updated_at": "2017-12-06T05:27:08.939984",
+    "venue": "Knight's Simi Valley Office",
+    "zip": "93065"
+  },
+  "16": {
+    "address1": "6425 Youree Drive, Suite 415",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Shreveport",
+    "confirmed_at": "2017-12-04T14:46:23.796226",
+    "country": "United States",
+    "created_at": "2017-12-04T14:43:46.208806",
+    "creator": "/rest/v1/user/462881/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7704/",
+        "id": 9107,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9107/",
+        "value": "Trump Tax Scam"
+      },
+      {
+        "event": "/rest/v1/event/7704/",
+        "id": 9110,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9110/",
+        "value": "District Office Visit"
+      },
+      {
+        "event": "/rest/v1/event/7704/",
+        "id": 9109,
+        "name": "id",
+        "resource_uri": "/rest/v1/eventfield/9109/",
+        "value": "1820534"
+      },
+      {
+        "event": "/rest/v1/event/7704/",
+        "id": 9108,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9108/",
+        "value": "https://www.facebook.com/events/171801293417455/?active_tab=about"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7704,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 32.44655,
+    "longitude": -93.72014,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "4675",
+    "postal": "71105",
+    "public_description": "We need to show Congress that there is broad resistance to Trump’s Class War declared against millions of Americans in the United States! On Monday evening negotiations begin between the house and the senate to send the final version of the bill to trump so he can sign\r\nAt this point we need historic demonstrations across the country to protect the working/middle class\r\nThis is a massive attack from the wealthy and corporations\r\nWe are workers, students, families, and regular people and we must all unite! \r\n\r\nBring signs and letters. We will get photos and post them to Cassidy and our other representatives. Letters will be left at his office sweet. We will meet at the entrance on the east side of the building where the parking lot is.\r\n\r\nHERE IS WHAT THE U.S. SENATE JUST VOTED TO DO IN ITS TAX SCAM LEGISLATION \r\n\r\n●\tGive a massive tax cut to millionaires and corporations. Over 60% of the tax cuts will go to the richest 1%. \r\n●\tRaise taxes on 87 million middle-class families (those making under $200,000, including 67 million making under $100,000).\r\n●\tStrip 13 million Americans of their health insurance and raise insurance premiums on the individual market by an average of $2,000 for millions of other families. \r\n●\tMandate automatic Medicare cuts of $25 billion next year and $400 billion over 10 years. \r\n●\tAdd $1 trillion to the national debt, which will further jeopardize Medicare, Medicaid, Social Security, and public education. \r\n●\tReduce the popular state and local tax deductions used by millions of middle-class families.\r\n●\tKill jobs by slashing taxes on offshore profits, which will encourage more corporations to outsource their operations.\r\n●\tHand a $500 billion tax break to multinational corporations that have stashed $2.6 trillion in untaxed profits offshore.\r\n●\tGive a huge tax break to Donald Trump and other already wealthy Americans\r\n●\tOpen the Arctic National Wildlife Refuge to drilling, which would harm a pristine environment and produce little oil.agenda. Join us.",
+    "region": "LA",
+    "resource_uri": "/rest/v1/event/7704/",
+    "signups": [
+      "/rest/v1/eventsignup/25127/"
+    ],
+    "starts_at": "2017-12-06T10:00:00",
+    "starts_at_utc": "2017-12-06T16:00:00",
+    "state": "LA",
+    "status": "active",
+    "title": "Group Group",
+    "type": "group",
+    "updated_at": "2017-12-04T14:47:40.022627",
+    "venue": "Senator Bill Cassidy's District Office",
+    "zip": "71105"
+  },
+  "7706": {
+    "address1": "95 Dunn Dr Suite 201",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "Stafford",
+    "confirmed_at": "2017-12-04T16:21:06.183143",
+    "country": "United States",
+    "created_at": "2017-12-04T16:17:53.018280",
+    "creator": "/rest/v1/user/677512/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7706/",
+        "id": 9114,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9114/",
+        "value": "Trump Tax Scam"
+      },
+      {
+        "event": "/rest/v1/event/7706/",
+        "id": 9115,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9115/",
+        "value": "District Office Visit"
+      },
+      {
+        "event": "/rest/v1/event/7706/",
+        "id": 9116,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9116/",
+        "value": "https://www.facebook.com/events/511743939212825/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7706,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 38.47569,
+    "longitude": -77.42369,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "1503",
+    "postal": "22556",
+    "public_description": "We need to show Congress that there is broad resistance to Trump’s agenda. Join us.\r\n\r\nCome on out to Rep. Rob Wittman's Stafford Office to voice your disapproval for the upcoming vote on the amended tax bill (AKA Trump Tax Scam AKA Donor Relief Act of 2017) before the House votes on the bill the Senate sent back. We will meet in the parking lot and head up to Rep. Wittman's office to make our voices heard.\r\n\r\nThe Trump Tax Scam would give massive tax breaks to corporations and the wealthiest 1% of Americans, an income band that is overwhelmingly white—meaning the Trump Tax Scam leaves communities of color behind. Republicans would pass these tax breaks by adding $1.5 trillion to the deficit, which would force deep cuts to Medicaid, Medicare, and Social Security down the road.",
+    "region": "VA",
+    "resource_uri": "/rest/v1/event/7706/",
+    "signups": [
+      "/rest/v1/eventsignup/25133/"
+    ],
+    "starts_at": "2017-12-08T12:00:00",
+    "starts_at_utc": "2017-12-08T17:00:00",
+    "state": "VA",
+    "status": "active",
+    "title": "Do the Astral Group",
+    "type": "group",
+    "updated_at": "2017-12-04T16:21:06.391672",
+    "venue": "Rep. Wittman's Stafford Office",
+    "zip": "22556"
+  },
+  "17": {
+    "address1": "600 S. Maestri Street",
+    "address2": "",
+    "attendee_count": 0,
+    "campaign": "/rest/v1/campaign/15/",
+    "city": "New Orleans",
+    "confirmed_at": "2017-12-04T17:35:17.643978",
+    "country": "United States",
+    "created_at": "2017-12-04T17:28:22.060888",
+    "creator": "/rest/v1/user/240475/",
+    "directions": "",
+    "fields": [
+      {
+        "event": "/rest/v1/event/7708/",
+        "id": 9120,
+        "name": "event_issue_focus",
+        "resource_uri": "/rest/v1/eventfield/9120/",
+        "value": "Trump Tax Scam"
+      },
+      {
+        "event": "/rest/v1/event/7708/",
+        "id": 9121,
+        "name": "event_type",
+        "resource_uri": "/rest/v1/eventfield/9121/",
+        "value": "Rally"
+      },
+      {
+        "event": "/rest/v1/event/7708/",
+        "id": 9122,
+        "name": "link_to_event_information",
+        "resource_uri": "/rest/v1/eventfield/9122/",
+        "value": "https://www.facebook.com/events/345741692502971/"
+      }
+    ],
+    "host_is_confirmed": true,
+    "id": 7708,
+    "is_approved": false,
+    "is_private": false,
+    "latitude": 29.94837,
+    "longitude": -90.07098,
+    "note_to_attendees": "",
+    "notes": "",
+    "phone": "",
+    "plus4": "3414",
+    "postal": "70130",
+    "public_description": "With the Trump administration and family under federal investigation and a historically horrific tax bill on its way to Trump's desk, we the people must sound the alarm. Democracy is under attack!\r\nPlease come speak out loudly about the many ill effects of this tax bill on the people of New Orleans! Bring signs, artistic dissent, noise, songs and friends to this sustained action!\r\n\r\nTimes & Places\r\nTue 12/5 thru Friday 12/8 - 4:30pm to 6:30pm - Citizens' Filibuster at Lafayette Square\r\nSaturday 12/9 - 3pm 'till - Rally, march, and vigil at the Federal Court building, 500 Poydras Street\r\n\r\nWe will be inviting many groups and people to participate in this sustained action. A key goal for this campaign is to make people aware of what this tax bill means for them. Please be ready to share bullet points and info with passersby!\r\n\r\nCo-hosted by Indivisible NOLA, St. Tammany Indivisible Chapter\r\n\r\n*Children welcome*",
+    "region": "LA",
+    "resource_uri": "/rest/v1/event/7708/",
+    "signups": [
+      "/rest/v1/eventsignup/25138/"
+    ],
+    "starts_at": "2017-12-06T16:30:00",
+    "starts_at_utc": "2017-12-06T22:30:00",
+    "state": "LA",
+    "status": "cancelled",
+    "title": "Sound the Alarm: Group",
+    "type": "group",
+    "updated_at": "2017-12-06T03:01:03.039115",
+    "venue": "Lafayette Square",
+    "zip": "70130"
+  }
+}
