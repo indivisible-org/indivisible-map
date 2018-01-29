@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import MapView from './MapView';
-import SideBar from './SideBar';
+
 import selectEvents from '../state/events/selectors';
+
+import MapView from '../components/MapView';
+import SideBar from '../components/SideBar';
+
 
 class EventsDashboard extends React.Component {
   render() {
@@ -16,11 +19,9 @@ class EventsDashboard extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    events: selectEvents(state.events.events, state.filters),
-    featuresHome: state.events.featuresHome,
-  };
-};
+const mapStateToProps = state => ({
+  events: selectEvents(state.events.events, state.filters),
+  featuresHome: state.events.featuresHome,
+});
 
 export default connect(mapStateToProps)(EventsDashboard);

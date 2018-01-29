@@ -11,35 +11,31 @@ export const setFeaturesHome = featuresHome => ({
   featuresHome,
 });
 
-// NEEDS FIX: 2 separate calls for featuresHome and events 
+// NEEDS FIX: 2 separate calls for featuresHome and events
 
-export const startSetEvents = () => {
-  return (dispatch) => {
-    const url = 'https://townhallproject-86312.firebaseio.com/indivisible_public_events.json';
-    return getData(url).then((result) => {
-      const response = JSON.parse(result.text);
-      const events = Object.keys(response).map(id => response[id]);
-      dispatch(setEvents(events)); 
-    });
-  };
+export const startSetEvents = () => (dispatch) => {
+  const url = 'https://townhallproject-86312.firebaseio.com/indivisible_public_events.json';
+  return getData(url).then((result) => {
+    const response = JSON.parse(result.text);
+    const events = Object.keys(response).map(id => response[id]);
+    dispatch(setEvents(events));
+  });
 };
 
-export const startSetFeaturesHome = () => {
-  return (dispatch) => {
-    const url = 'https://townhallproject-86312.firebaseio.com/indivisible_public_events.json';
-    return getData(url).then((result) => {
-      const response = JSON.parse(result.text);
-      const events = Object.keys(response).map(id => response[id]);
-      const featuresHome = {
-        type: 'FeatureCollection',
-        features: [],
-      };
+export const startSetFeaturesHome = () => (dispatch) => {
+  const url = 'https://townhallproject-86312.firebaseio.com/indivisible_public_events.json';
+  return getData(url).then((result) => {
+    const response = JSON.parse(result.text);
+    const events = Object.keys(response).map(id => response[id]);
+    const featuresHome = {
+      type: 'FeatureCollection',
+      features: [],
+    };
 
-      featuresHome.features = events.map((indEvent) => {
-        const newFeature = new Point(indEvent);
-        return newFeature;
-      });
-      dispatch(setFeaturesHome(featuresHome));
+    featuresHome.features = events.map((indEvent) => {
+      const newFeature = new Point(indEvent);
+      return newFeature;
     });
-  };
+    dispatch(setFeaturesHome(featuresHome));
+  });
 };

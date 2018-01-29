@@ -17,6 +17,6 @@ const groupsReducer = (state = groupsReducerDefaultState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default groupsReducer;

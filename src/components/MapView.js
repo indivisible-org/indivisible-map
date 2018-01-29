@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class MapView extends React.Component {
   constructor(props) {
@@ -38,7 +39,6 @@ class MapView extends React.Component {
   }
 
   addLayer(featuresHome) {
-
     this.map.addLayer(
       {
         id: 'event-points',
@@ -97,5 +97,9 @@ class MapView extends React.Component {
     );
   }
 }
+
+MapView.propTypes = {
+  featuresHome: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default MapView;

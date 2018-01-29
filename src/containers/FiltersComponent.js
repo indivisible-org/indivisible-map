@@ -1,26 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import {
   setTextFilter,
-  sortByDate,
-  sortByChange
+  sortByChange,
 } from '../state/filters/actions';
 
 export class FiltersComponent extends React.Component {
-  state = {
-    initKey: ''
-  };
-  onTextChange = e => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initKey: '',
+    };
+  }
+
+  onTextChange(e) {
     this.props.setTextFilter(e.target.value);
-  };
-  onSortChange = e => {
+  }
+
+  onSortChange(e) {
     this.props.sortByChange(e.target.value);
-  };
+  }
+
   render() {
     return (
       <div className="content-container-filters">
         <div className="input-group-filters">
-        <div className="input-group__item">
+          <div className="input-group__item">
             <select
               className="select"
               onChange={this.onSortChange}
@@ -57,15 +63,13 @@ export class FiltersComponent extends React.Component {
           */}
         </div>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    filters: state.filters,
-  };
-};
+const mapStateToProps = state => ({
+  filters: state.filters,
+});
 
 // implicit return example
 const mapDispatchToProps = dispatch => ({

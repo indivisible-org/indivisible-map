@@ -5,8 +5,8 @@ const PageNotFound = () => (
   <div>
     <h2>404</h2>
     <ul>
-      <li><Link to={`/events`}>Go to events</Link></li>
-      <li><Link to={`/groups`}>Go to groups</Link></li>
+      <li><Link to="/events">Go to events</Link></li>
+      <li><Link to="/groups">Go to groups</Link></li>
     </ul>
   </div>
 );
