@@ -1,5 +1,7 @@
 const initialState = {
   entities: [],
+  allEvents: [],
+  featuresHome: {},
 };
 
 const eventsReducer = (state = initialState, action) => {
@@ -7,7 +9,7 @@ const eventsReducer = (state = initialState, action) => {
     case 'SET_EVENTS':
       return {
         ...state,
-        events: action.events,
+        allEvents: action.events,
       };
     case 'SET_FEATURES_HOME':
       return {

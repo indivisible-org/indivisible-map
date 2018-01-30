@@ -26,12 +26,7 @@ class TableCell extends React.Component {
 }
 
 TableCell.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.number,
-    address1: PropTypes.string,
-    city: PropTypes.string,
-    field: PropTypes.arrayOf(PropTypes.object),
-  }).isRequired,
+  item: PropTypes.shape({}).isRequired,
 };
 
 export default TableCell;

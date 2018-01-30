@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import Filters from '../containers/FiltersComponent';
+
 import Table from './Table';
-import Filters from './FiltersComponent';
 
 class SideBar extends React.Component {
   render() {
@@ -8,11 +11,14 @@ class SideBar extends React.Component {
     return (
       <div>
         <Filters />
-        <Table items={items}/>
+        <Table items={items} />
       </div>
     );
   }
 }
 
-export default SideBar;
+SideBar.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
+export default SideBar;

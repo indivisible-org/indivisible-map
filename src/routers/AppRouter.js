@@ -1,8 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-import GroupsDashboard from '../components/GroupsDashboard';
-import EventsDashboard from '../components/EventsDashboard';
-import PageNotFound from '../components/PageNotFound';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import GroupsDashboard from '../containers/GroupsDashboard';
+import EventsDashboard from '../containers/EventsDashboard';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -11,7 +10,7 @@ const AppRouter = () => (
         <Route path="/events" component={EventsDashboard} />
         <Route path="/groups" component={GroupsDashboard} />
         <Route path="/" component={EventsDashboard} />
-        {/*<Route component={PageNotFound} /> this should be default for unknown url location*/}
+        {/* <Route component={PageNotFound} /> this should be default for unknown url location */}
       </Switch>
     </div>
   </BrowserRouter>

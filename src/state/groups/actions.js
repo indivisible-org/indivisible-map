@@ -11,33 +11,28 @@ export const setFeaturesHome = featuresHome => ({
   featuresHome,
 });
 
-export const startSetGroups = () => {
-  return (dispatch) => {
-    const url = 'group-dummy-data.json';
-    return getData(url).then((result) => {
-      const response = JSON.parse(result.text);
-      const groups = Object.keys(response).map(id => response[id]);
-      dispatch(setGroups(groups)); 
-    });
-  };
+export const startSetGroups = () => (dispatch) => {
+  const url = 'group-dummy-data.json';
+  return getData(url).then((result) => {
+    const response = JSON.parse(result.text);
+    const groups = Object.keys(response).map(id => response[id]);
+    dispatch(setGroups(groups));
+  });
 };
 
-export const startSetFeaturesHomeGroup = () => {
-  return (dispatch) => {
-    const url = 'group-dummy-data.json';
-    return getData(url).then((result) => {
-      const response = JSON.parse(result.text);
-      const events = Object.keys(response).map(id => response[id]);
-      const featuresHome = {
-        type: 'FeatureCollection',
-        features: [],
-      };
-      featuresHome.features = events.map((indEvent) => {
-        const newFeature = new Point(indEvent);
-        return newFeature;
-      });
-      dispatch(setFeaturesHome(featuresHome));
+export const startSetFeaturesHomeGroup = () => (dispatch) => {
+  const url = 'group-dummy-data.json';
+  return getData(url).then((result) => {
+    const response = JSON.parse(result.text);
+    const events = Object.keys(response).map(id => response[id]);
+    const featuresHome = {
+      type: 'FeatureCollection',
+      features: [],
+    };
+    featuresHome.features = events.map((indEvent) => {
+      const newFeature = new Point(indEvent);
+      return newFeature;
     });
-  };
+    dispatch(setFeaturesHome(featuresHome));
+  });
 };
-

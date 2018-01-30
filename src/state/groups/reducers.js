@@ -7,7 +7,7 @@ const groupsReducer = (state = groupsReducerDefaultState, action) => {
     case 'SET_GROUPS':
       return {
         ...state,
-        groups: action.groups,
+        allGroups: action.groups,
       };
     case 'SET_FEATURES_HOME_GROUP':
       return {
@@ -17,6 +17,6 @@ const groupsReducer = (state = groupsReducerDefaultState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default groupsReducer;
