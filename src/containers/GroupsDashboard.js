@@ -18,7 +18,6 @@ class GroupsDashboard extends React.Component {
   }
 }
 
-// these should be passed down
 const mapStateToProps = state => ({
   groups: getFilteredGroups(state),
   featuresHome: state.groups.featuresHome,

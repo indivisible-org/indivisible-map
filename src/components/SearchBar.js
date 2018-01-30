@@ -34,7 +34,7 @@ class SearchBar extends React.Component {
         <input
           name="zipcode"
           type="text"
-          // value={this.state.zipcode}
+          value={this.state.zipcode}
           placeholder="Zipcode"
           onChange={this.handleChange}
         />

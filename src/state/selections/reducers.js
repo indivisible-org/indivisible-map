@@ -19,7 +19,6 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         distance: payload,
       };
     case 'SET_LAT_LNG':
-      console.log('setting lat log', payload);
       return {
         ...state,
         location: payload,

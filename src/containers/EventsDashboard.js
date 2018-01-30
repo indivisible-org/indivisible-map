@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
 });
 
 EventsDashboard.propTypes = {
-  events: PropTypes.shape({}).isRequired,
+  events: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   featuresHome: PropTypes.shape({}).isRequired,
 };
 
