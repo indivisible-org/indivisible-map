@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
-import * as LoadingPage from './components/LoadingPage';
+import LoadingPage from './components/LoadingPage';
 
 import { startSetEvents, startSetFeaturesHome } from './state/events/actions';
 import { startSetGroups, startSetFeaturesHomeGroup } from './state/groups/actions';
@@ -20,6 +20,7 @@ const jsx = (
     <AppRouter />
   </Provider>
 );
+
 const renderApp = () => {
   ReactDom.render(jsx, document.getElementById('root'));
 };

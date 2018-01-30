@@ -1,16 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import {
-  setTextFilter,
-  sortByChange,
-} from '../state/filters/actions';
+import * as actions from '../state/selections/actions';
+
+import SearchBar from '../components/SearchBar';
 
 export class FiltersComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initKey: '',
     };
   }
 
@@ -23,8 +22,11 @@ export class FiltersComponent extends React.Component {
   }
 
   render() {
+    const { searchByZip, userSelections } = this.props;
+
     return (
       <div className="content-container-filters">
+        <SearchBar submitHandler={searchByZip} />
         <div className="input-group-filters">
           <div className="input-group__item">
             <select
@@ -43,7 +45,7 @@ export class FiltersComponent extends React.Component {
               type="text"
               className="text-input"
               placeholder="Search"
-              value={this.props.filters.text}
+              value={userSelections.filter}
               onChange={this.onTextChange}
             />
           </div>
@@ -68,13 +70,20 @@ export class FiltersComponent extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  filters: state.filters,
+  userSelections: state.selections,
 });
 
-// implicit return example
 const mapDispatchToProps = dispatch => ({
-  setTextFilter: text => dispatch(setTextFilter(text)),
-  sortByChange: val => dispatch(sortByChange(val)),
+  setTextFilter: text => dispatch(actions.setTextFilter(text)),
+  sortByChange: val => dispatch(actions.sortByChange(val)),
+  searchByZip: zipcode => dispatch(actions.getLatLngFromZip(zipcode)),
 });
+
+FiltersComponent.propTypes = {
+  setTextFilter: PropTypes.func.isRequired,
+  sortByChange: PropTypes.func.isRequired,
+  searchByZip: PropTypes.func.isRequired,
+  userSelections: PropTypes.shape({}).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FiltersComponent);

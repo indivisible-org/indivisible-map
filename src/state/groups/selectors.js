@@ -1,17 +1,28 @@
+import { createSelector } from 'reselect';
 
-// Get visible expenses
-const getVisibleGroups = (groups, { text, sortBy }) =>
-  groups.filter((group) => {
-    if (sortBy === 'all') {
-      return group;
+import { getFilterBy, getFilterValue } from '../selections/selectors';
+
+export const getGroups = state => state.groups.allGroups;
+
+export const getFilteredGroups = createSelector(
+  [
+    getGroups,
+    getFilterBy,
+    getFilterValue,
+  ],
+  (
+    allGroups,
+    filterBy,
+    filterValue,
+  ) => allGroups.filter((currrentGroup) => {
+    if (filterBy === 'all') {
+      return currrentGroup;
     }
-    if (sortBy === 'zip' || sortBy === 'district') {
-      if (group[sortBy] === text) {
-        return group;
+    if (filterBy === 'zip' || filterBy === 'district') { // check if number
+      if (currrentGroup[filterBy] === filterValue) {
+        return currrentGroup;
       }
-    } else {
-      return group[sortBy].toLowerCase().includes(text.toLowerCase());
     }
-  }).sort((a, b) => (a.starts_at < b.starts_at ? 1 : -1));
-
-export default getVisibleGroups;
+    return currrentGroup[filterBy].toLowerCase().includes(filterValue.toLowerCase());
+  }).sort((a, b) => (a.starts_at < b.starts_at ? 1 : -1)),
+);

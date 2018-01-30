@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import MapView from '../components/MapView';
 import SideBar from '../components/SideBar';
-import selectGroups from '../state/groups/selectors';
+import { getFilteredGroups } from '../state/groups/selectors';
 
 class GroupsDashboard extends React.Component {
   render() {
@@ -18,8 +20,13 @@ class GroupsDashboard extends React.Component {
 
 // these should be passed down
 const mapStateToProps = state => ({
-  groups: selectGroups(state.groups.groups, state.filters),
+  groups: getFilteredGroups(state),
   featuresHome: state.groups.featuresHome,
 });
+
+GroupsDashboard.propTypes = {
+  groups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  featuresHome: PropTypes.shape({}).isRequired,
+};
 
 export default connect(mapStateToProps)(GroupsDashboard);

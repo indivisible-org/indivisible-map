@@ -1,6 +1,8 @@
 import getData from '../../logics/getData';
 import Point from '../../logics/features';
 
+import { firebaseUrl } from '../constants';
+
 export const setEvents = events => ({
   type: 'SET_EVENTS',
   events,
@@ -14,7 +16,7 @@ export const setFeaturesHome = featuresHome => ({
 // NEEDS FIX: 2 separate calls for featuresHome and events
 
 export const startSetEvents = () => (dispatch) => {
-  const url = 'https://townhallproject-86312.firebaseio.com/indivisible_public_events.json';
+  const url = `${firebaseUrl}/indivisible_public_events.json`;
   return getData(url).then((result) => {
     const response = JSON.parse(result.text);
     const events = Object.keys(response).map(id => response[id]);
@@ -23,7 +25,7 @@ export const startSetEvents = () => (dispatch) => {
 };
 
 export const startSetFeaturesHome = () => (dispatch) => {
-  const url = 'https://townhallproject-86312.firebaseio.com/indivisible_public_events.json';
+  const url = `${firebaseUrl}/indivisible_public_events.json`;
   return getData(url).then((result) => {
     const response = JSON.parse(result.text);
     const events = Object.keys(response).map(id => response[id]);
