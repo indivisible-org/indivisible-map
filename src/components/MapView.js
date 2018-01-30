@@ -87,7 +87,6 @@ class MapView extends React.Component {
     });
   }
 
-
   render() {
     return (
       <div>
@@ -99,7 +98,7 @@ class MapView extends React.Component {
 }
 
 MapView.propTypes = {
-  featuresHome: PropTypes.arrayOf(PropTypes.object).isRequired,
+  featuresHome: PropTypes.shape({}).isRequired,
 };
 
 export default MapView;
