@@ -8,6 +8,8 @@ import LoadingPage from './components/LoadingPage';
 
 import { startSetEvents, startSetFeaturesHome } from './state/events/actions';
 import { startSetGroups, startSetFeaturesHomeGroup } from './state/groups/actions';
+import { getInitIssueFocuses, getEvents } from './state/events/selectors';
+import { setFilters } from './state/selections/actions';
 
 import './style/app.scss';
 
@@ -30,10 +32,10 @@ ReactDom.render(<LoadingPage />, document.getElementById('root'));
 const getLocation = (currentUrl) => {
   if (currentUrl.includes('events')) {
     store.dispatch(startSetEvents())
-      .then(store.dispatch(startSetFeaturesHome())
-        .then(() => {
-          renderApp();
-        }));
+      // .then(store.dispatch(startSetFeaturesHome())
+      .then(() => {
+        renderApp();
+      });
   } else if (currentUrl.includes('groups')) {
     store.dispatch(startSetGroups())
       .then(store.dispatch(startSetFeaturesHomeGroup())

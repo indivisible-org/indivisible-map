@@ -15,7 +15,7 @@ class TableCell extends React.Component {
           <li>Time: {moment(item.starts_at).format('MMMM Do, YYYY')}</li>
           <li>City: {item.city}</li>
           <li>Address: {item.address1}</li>
-          <li>Event Focus: {item.fields[0].value}</li>
+          <li>Event Focus: {item.issueFocus}</li>
           <li>Event Description:
             <p>{item.public_description}</p>
           </li>

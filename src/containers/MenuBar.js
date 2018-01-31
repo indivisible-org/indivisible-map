@@ -2,11 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as actions from '../state/selections/actions';
+import * as selectionActions from '../state/selections/actions';
+
+import { getFilters } from '../state/selections/selectors';
+import { getCurrentIssueFocuses } from '../state/events/selectors';
 
 import SearchBar from '../components/SearchBar';
+import IssueFilter from '../components/IssueFilter';
 
-export class FiltersComponent extends React.Component {
+class MenuBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,11 +30,18 @@ export class FiltersComponent extends React.Component {
   }
 
   render() {
-    const { searchByZip, userSelections } = this.props;
+    const {
+      issues,
+      searchByZip,
+      userSelections,
+      changedFilters,
+      selectedFilters,
+    } = this.props;
 
     return (
       <div className="content-container-filters">
         <SearchBar submitHandler={searchByZip} />
+        <IssueFilter issues={issues} changedFilters={changedFilters} selectedFilters={selectedFilters} />
         <div className="input-group-filters">
           <div className="input-group__item">
             <select
@@ -74,19 +85,22 @@ export class FiltersComponent extends React.Component {
 
 const mapStateToProps = state => ({
   userSelections: state.selections,
+  issues: getCurrentIssueFocuses(state),
+  selectedFilters: getFilters(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  setTextFilter: text => dispatch(actions.setTextFilter(text)),
-  sortByChange: val => dispatch(actions.sortByChange(val)),
-  searchByZip: zipcode => dispatch(actions.getLatLngFromZip(zipcode)),
+  setTextFilter: text => dispatch(selectionActions.setTextFilter(text)),
+  sortByChange: val => dispatch(selectionActions.sortByChange(val)),
+  searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
+  changedFilters: filters => dispatch(selectionActions.setFilters(filters)),
 });
 
-FiltersComponent.propTypes = {
+MenuBar.propTypes = {
   setTextFilter: PropTypes.func.isRequired,
   sortByChange: PropTypes.func.isRequired,
   searchByZip: PropTypes.func.isRequired,
   userSelections: PropTypes.shape({}).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FiltersComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuBar);

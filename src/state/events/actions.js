@@ -3,6 +3,8 @@ import Point from '../../logics/features';
 
 import { firebaseUrl } from '../constants';
 
+import IndEvent from './model';
+
 export const setEvents = events => ({
   type: 'SET_EVENTS',
   events,
@@ -18,17 +20,15 @@ export const setFeaturesHome = featuresHome => ({
 export const startSetEvents = () => (dispatch) => {
   const url = `${firebaseUrl}/indivisible_public_events.json`;
   return getData(url).then((result) => {
-    const response = JSON.parse(result.text);
-    const events = Object.keys(response).map(id => response[id]);
-    dispatch(setEvents(events));
+    const events = Object.keys(result.body).map(id => new IndEvent(result.body[id]));
+    return (dispatch(setEvents(events)));
   });
 };
 
 export const startSetFeaturesHome = () => (dispatch) => {
   const url = `${firebaseUrl}/indivisible_public_events.json`;
   return getData(url).then((result) => {
-    const response = JSON.parse(result.text);
-    const events = Object.keys(response).map(id => response[id]);
+    const events = Object.keys(result.body).map(id => result.body[id]);
     const featuresHome = {
       type: 'FeatureCollection',
       features: [],

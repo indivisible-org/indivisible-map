@@ -1,5 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Input } from 'antd';
+
+
+require('style-loader!css-loader!antd/es/style/index.css');
+require('style-loader!css-loader!antd/es/input/style/index.css');
+
+const { Search } = Input;
 
 const SearchStateDefault = {
   zipcode: '',
@@ -19,29 +26,20 @@ class SearchBar extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e) {
+  handleSubmit(value) {
     const { submitHandler } = this.props;
-    e.preventDefault();
-    submitHandler(Object.assign({}, this.state));
+    submitHandler(Object.assign({}, { zipcode: value }));
     this.setState({ ...SearchStateDefault });
   }
 
   render() {
     return (
 
-      <form onSubmit={this.handleSubmit} className="search-form">
-
-        <input
-          name="zipcode"
-          type="text"
-          value={this.state.zipcode}
-          placeholder="Zipcode"
-          onChange={this.handleChange}
-        />
-
-        <button type="submit">Search</button>
-
-      </form>
+      <Search
+        placeholder="zipcode"
+        onSearch={value => this.handleSubmit(value)}
+        style={{ width: '100%' }}
+      />
     );
   }
 }

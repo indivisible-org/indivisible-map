@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Filters from '../containers/FiltersComponent';
+import MenuBar from './MenuBar';
 
-import Table from './Table';
+import Table from '../components/Table';
 
 class SideBar extends React.Component {
   render() {
-    const { items } = this.props;
+    const { items, children } = this.props;
     return (
       <div>
-        <Filters />
+        {children}
+        <MenuBar />
         <Table items={items} />
       </div>
     );
@@ -19,6 +20,7 @@ class SideBar extends React.Component {
 
 SideBar.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // children: PropTypes.arrayOf(React.PropTypes.node),
 };
 
 export default SideBar;

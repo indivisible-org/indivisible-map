@@ -1,3 +1,4 @@
+import { uniqBy, filter, includes } from 'lodash';
 import { createSelector } from 'reselect';
 import { computeDistanceBetween, LatLng } from 'spherical-geometry-js';
 
@@ -6,29 +7,36 @@ import {
   getLocation,
   getFilterBy,
   getFilterValue,
+  getFilters,
 } from '../selections/selectors';
 
 export const getEvents = state => state.events.allEvents;
 
+const getEventsFilteredByKeywordArray = createSelector(
+  [getEvents, getFilters],
+  (allEvents, filterArray) => {
+    if (filterArray === 'init') {
+      return allEvents;
+    }
+    return filter(allEvents, o => includes(filterArray, o.issueFocus));
+  },
+);
 // export default getVisibleEvents;
 const getFilteredEvents = createSelector(
   [
-    getEvents,
+    getEventsFilteredByKeywordArray,
     getFilterBy,
-    getFilterValue],
+    getFilterValue,
+  ],
   (
-    allEvents,
+    eventsFilteredByKeywords,
     filterBy,
     filterValue,
   ) => {
-    console.log(
-      filterBy,
-      filterValue,
-    );
     if (!filterValue || filterBy === 'all') {
-      return allEvents;
+      return eventsFilteredByKeywords;
     }
-    return allEvents.filter((currrentEvent) => {
+    return eventsFilteredByKeywords.filter((currrentEvent) => {
       if (!currrentEvent[filterBy]) {
         return false;
       }
@@ -41,7 +49,7 @@ const getFilteredEvents = createSelector(
   },
 );
 
-export const getEventsByDistance = createSelector(
+export const getVisbleEvents = createSelector(
   [
     getFilteredEvents,
     getDistance,
@@ -64,3 +72,6 @@ export const getEventsByDistance = createSelector(
     });
   },
 );
+
+
+export const getCurrentIssueFocuses = createSelector([getEvents], events => uniqBy(events, 'issueFocus').map(item => item.issueFocus));

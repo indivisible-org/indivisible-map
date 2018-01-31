@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import MapView from '../components/MapView';
-import SideBar from '../components/SideBar';
 import { getFilteredGroups } from '../state/groups/selectors';
+
+import SideBar from './SideBar';
 
 class GroupsDashboard extends React.Component {
   render() {
