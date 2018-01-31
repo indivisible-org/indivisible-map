@@ -9,7 +9,6 @@ const initialState = {
 const filtersReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case 'SET_TEXT_FILTER':
-      console.log('resetting', payload);
       return {
         ...state,
         filterValue: payload,
@@ -25,8 +24,6 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         location: payload,
       };
     case 'SORT_BY':
-      console.log('chaging', payload);
-
       return {
         ...state,
         filterBy: payload,
