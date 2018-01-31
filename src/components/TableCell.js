@@ -11,7 +11,6 @@ class TableCell extends React.Component {
           {item.title}
         </h3>
         <ul>
-          <li><button className="rsvp-button">RSVP</button></li>
           <li>Time: {moment(item.starts_at).format('MMMM Do, YYYY')}</li>
           <li>City: {item.city}</li>
           <li>Address: {item.address1}</li>
@@ -19,6 +18,7 @@ class TableCell extends React.Component {
           <li>Event Description:
             <p>{item.public_description}</p>
           </li>
+          <li><a className="rsvp-button" href={item.rsvpHref}>RSVP</a></li>
         </ul>
       </div>
     );

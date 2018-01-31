@@ -1,17 +1,19 @@
 // Third-party
-@import "vendor/mapbox-gl";
+@import "./vendor/mapbox-gl";
+
+@import './mixins/all';
 
 // Modules and Variables
-@import "partials/base";
-
+// @import "modules/colors";
 // Partials
-@import "partials/reset";
-@import "partials/typography";
-@import "partials/buttons";
+@import "./partials/base";
+@import "./partials/reset";
+@import "./partials/typography";
+@import "./partials/buttons";
 
 // Components
-@import "components/map";
-@import "components/popover";
-@import "components/event-list";
-@import "components/event-cell";
-@import "components/filters";
+@import "./components/map";
+@import "./components/popover";
+@import "./components/event-list";
+@import "./components/event-cell";
+@import "./components/filters";

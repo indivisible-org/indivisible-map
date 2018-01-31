@@ -11,7 +11,7 @@ class SideBar extends React.Component {
     return (
       <div>
         {children}
-        <MenuBar />
+        <MenuBar items={items} />
         <Table items={items} />
       </div>
     );

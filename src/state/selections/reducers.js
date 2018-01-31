@@ -7,6 +7,7 @@ const initialState = {
   filterBy: 'all',
   filters: 'init',
   zipcode: '',
+  states: [],
 };
 
 const filtersReducer = (state = initialState, { type, payload }) => {
@@ -29,7 +30,8 @@ const filtersReducer = (state = initialState, { type, payload }) => {
     case 'SORT_BY':
       return {
         ...state,
-        filterBy: payload,
+        filterBy: payload.filterBy,
+        filterValue: payload.filterValue,
       };
     case 'SET_FILTERS':
       return {

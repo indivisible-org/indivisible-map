@@ -36,7 +36,7 @@ class SearchBar extends React.Component {
     return (
 
       <Search
-        placeholder="zipcode"
+        placeholder="zipcode or state"
         onSearch={value => this.handleSubmit(value)}
         style={{ width: '100%' }}
       />

@@ -1,6 +1,12 @@
 const initialState = {
   allEvents: [],
-  featuresHome: {},
+  filterColors: [
+    { icon: 'circle-15-purple', filter: false },
+    { icon: 'circle-15-red', filter: false },
+    { icon: 'circle-15-green', filter: false },
+    { icon: 'circle-15-blue', filter: false },
+    { icon: 'circle-15-orange', filter: false },
+  ],
 };
 
 const eventsReducer = (state = initialState, action) => {

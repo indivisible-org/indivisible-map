@@ -8,8 +8,6 @@ import LoadingPage from './components/LoadingPage';
 
 import { startSetEvents, startSetFeaturesHome } from './state/events/actions';
 import { startSetGroups, startSetFeaturesHomeGroup } from './state/groups/actions';
-import { getInitIssueFocuses, getEvents } from './state/events/selectors';
-import { setFilters } from './state/selections/actions';
 
 import './style/app.scss';
 
