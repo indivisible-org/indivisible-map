@@ -14,15 +14,18 @@ export const getFilteredGroups = createSelector(
     allGroups,
     filterBy,
     filterValue,
-  ) => allGroups.filter((currrentGroup) => {
+  ) => {
     if (filterBy === 'all') {
-      return currrentGroup;
+      return allGroups;
     }
-    if (filterBy === 'zip' || filterBy === 'district') { // check if number
-      if (currrentGroup[filterBy] === filterValue) {
-        return currrentGroup;
+    return allGroups.filter((currrentGroup) => {
+      if (!currrentGroup[filterBy]) {
+        return false;
       }
-    }
-    return currrentGroup[filterBy].toLowerCase().includes(filterValue.toLowerCase());
-  }).sort((a, b) => (a.starts_at < b.starts_at ? 1 : -1)),
+      if (filterBy === 'district') { // check if number
+        return currrentGroup[filterBy] === filterValue;
+      }
+      return currrentGroup[filterBy].toLowerCase().includes(filterValue.toLowerCase());
+    }).sort((a, b) => (a.starts_at < b.starts_at ? 1 : -1));
+  },
 );

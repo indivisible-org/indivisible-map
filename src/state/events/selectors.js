@@ -20,17 +20,25 @@ const getFilteredEvents = createSelector(
     allEvents,
     filterBy,
     filterValue,
-  ) => allEvents.filter((currrentEvent) => {
-    if (filterBy === 'all') {
-      return currrentEvent;
+  ) => {
+    console.log(
+      filterBy,
+      filterValue,
+    );
+    if (!filterValue || filterBy === 'all') {
+      return allEvents;
     }
-    if (filterBy === 'zip' || filterBy === 'district') { // check if number
-      if (currrentEvent[filterBy] === filterValue) {
-        return currrentEvent;
+    return allEvents.filter((currrentEvent) => {
+      if (!currrentEvent[filterBy]) {
+        return false;
       }
-    }
-    return currrentEvent[filterBy].toLowerCase().includes(filterValue.toLowerCase());
-  }).sort((a, b) => (a.starts_at < b.starts_at ? 1 : -1)),
+      if (filterBy === 'district') { // check if number
+        return currrentEvent[filterBy] === filterValue;
+      }
+
+      return currrentEvent[filterBy].toLowerCase().includes(filterValue.toLowerCase());
+    }).sort((a, b) => (a.starts_at < b.starts_at ? 1 : -1));
+  },
 );
 
 export const getEventsByDistance = createSelector(

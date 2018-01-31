@@ -1,5 +1,4 @@
 const initialState = {
-  entities: [],
   allEvents: [],
   featuresHome: {},
 };
