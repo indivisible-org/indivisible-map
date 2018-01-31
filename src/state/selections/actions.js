@@ -22,9 +22,23 @@ export const sortByChange = payload => ({
   payload,
 });
 
-export const getLatLngFromZip = payload => dispatch =>
-  superagent.get(`${firebaseUrl}/zips/${payload.zipcode}.json`)
+export const setFilters = payload => ({
+  type: 'SET_FILTERS',
+  payload,
+});
+
+export const setInitialFilters = payload => ({
+  type: 'SET_INITIAL_FILTERS',
+  payload,
+});
+
+export const getLatLngFromZip = payload => (dispatch) => {
+  if (!payload.zipcode) {
+    return dispatch(setLatLng(null));
+  }
+  return superagent.get(`${firebaseUrl}/zips/${payload.zipcode}.json`)
     .then((res) => {
       dispatch(setLatLng(res.body));
     })
     .catch();
+};

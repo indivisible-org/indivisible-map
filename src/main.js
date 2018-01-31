@@ -30,10 +30,10 @@ ReactDom.render(<LoadingPage />, document.getElementById('root'));
 const getLocation = (currentUrl) => {
   if (currentUrl.includes('events')) {
     store.dispatch(startSetEvents())
-      .then(store.dispatch(startSetFeaturesHome())
-        .then(() => {
-          renderApp();
-        }));
+      // .then(store.dispatch(startSetFeaturesHome())
+      .then(() => {
+        renderApp();
+      });
   } else if (currentUrl.includes('groups')) {
     store.dispatch(startSetGroups())
       .then(store.dispatch(startSetFeaturesHomeGroup())

@@ -1,6 +1,9 @@
 .content-container-filters {
-  width: 25vw;
+  width: 26vw;
   position: absolute;
+  background-color: white;
+  @include box-3d;
+  padding: 1vw;
 }
 
 .input-group-filters {
@@ -21,3 +24,45 @@ select {
   width: 10vw;
   height: 31px;
 }
+ul {
+  .ant-select-dropdown-menu-item-selected {
+  &.circle-15-purple {
+    color: $filter-color-1;
+  }
+
+  &.circle-15-blue {
+    color: $filter-color-2;
+  }
+
+  &.circle-15-red {
+    color: $filter-color-3;
+  }
+
+  &.circle-15-green{
+    color: $filter-color-4;
+  }
+
+  &.circle-15-orange{
+    color: $filter-color-5;
+  }
+
+  &.circle-stroked-15-purple {
+    color: $filter-color-1;
+  }
+
+  &.circle-stroked-15-blue {
+    color: $filter-color-2;
+  }
+
+  &.circle-stroked-15-red {
+    color: $filter-color-3;
+  }
+
+  &.circle-stroked-15-green{
+    color: $filter-color-4;
+  }
+
+  &.circle-stroked-15-orange{
+    color: $filter-color-5;
+  }
+}}

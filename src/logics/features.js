@@ -8,7 +8,7 @@ class Point {
       coordinates: [eventOrGroup.longitude, eventOrGroup.latitude],
     };
     this.properties = {
-      icon: 'host-group',
+      icon: eventOrGroup.icon || 'host-group',
       address: eventOrGroup.address1,
       startsAt: eventOrGroup.starts_at ? moment(eventOrGroup.starts_at).format('MMMM Do YYYY, h:mm a') : null,
       title: eventOrGroup.title,

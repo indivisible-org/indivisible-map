@@ -1,9 +1,13 @@
+import { uniqBy } from 'lodash';
+
 const initialState = {
   filterValue: '',
   location: '',
   distance: 80467.2,
   filterBy: 'all',
+  filters: 'init',
   zipcode: '',
+  states: [],
 };
 
 const filtersReducer = (state = initialState, { type, payload }) => {
@@ -26,7 +30,18 @@ const filtersReducer = (state = initialState, { type, payload }) => {
     case 'SORT_BY':
       return {
         ...state,
-        filterBy: payload,
+        filterBy: payload.filterBy,
+        filterValue: payload.filterValue,
+      };
+    case 'SET_FILTERS':
+      return {
+        ...state,
+        filters: payload,
+      };
+    case 'SET_INITIAL_FILTERS':
+      return {
+        ...state,
+        filters: uniqBy(payload, 'issueFocus').map(item => item.issueFocus),
       };
     default:
       return state;
