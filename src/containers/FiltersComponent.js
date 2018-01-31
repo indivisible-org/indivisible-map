@@ -11,6 +11,8 @@ export class FiltersComponent extends React.Component {
     super(props);
     this.state = {
     };
+    this.onSortChange = this.onSortChange.bind(this);
+    this.onTextChange = this.onTextChange.bind(this);
   }
 
   onTextChange(e) {
@@ -18,7 +20,9 @@ export class FiltersComponent extends React.Component {
   }
 
   onSortChange(e) {
-    this.props.sortByChange(e.target.value);
+    const { setTextFilter, sortByChange } = this.props;
+    sortByChange(e.target.value);
+    setTextFilter('');
   }
 
   render() {
@@ -34,7 +38,6 @@ export class FiltersComponent extends React.Component {
               onChange={this.onSortChange}
             >
               <option value="all">Choose Filter</option>
-              <option value="zip">Zip Code</option>
               <option value="title">Title</option>
               <option value="type">Type</option>
               <option value="district">District</option>
