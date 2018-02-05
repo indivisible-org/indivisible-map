@@ -45,7 +45,7 @@ class IssueFilter extends React.Component {
     } = this.props;
     return (
       <div>
-        <label>Filter by issue</label>
+        <label htmlFor="filter-drop-down">Filter by issue</label>
         <Select
           className="filter-drop-down"
           mode="tags"

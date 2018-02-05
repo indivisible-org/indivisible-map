@@ -60,7 +60,6 @@ class MapView extends React.Component {
     return featuresHome;
   }
 
-
   addPopups() {
     const { map } = this;
     const popup = new mapboxgl.Popup({
