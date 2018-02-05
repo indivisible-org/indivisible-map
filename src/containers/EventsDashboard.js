@@ -29,7 +29,7 @@ class EventsDashboard extends React.Component {
     return (
       <div>
         <h2 className="dash-title">Event Dashboard</h2>
-        <SideBar items={events} />
+        <SideBar items={events} colorMap={colorMap} />
         <MapView center={center} featuresHome={featuresHome} events={events} colorMap={colorMap} />
       </div>
     );
