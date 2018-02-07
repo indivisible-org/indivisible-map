@@ -4,7 +4,9 @@ import { find } from 'lodash';
 import { Select } from 'antd';
 
 const { Option } = Select;
-
+/* eslint import/no-webpack-loader-syntax: [0] */
+/* eslint import/no-extraneous-dependencies: [0] */
+/* eslint import/no-unresolved: [0] */
 require('style-loader!css-loader!antd/es/select/style/index.css');
 
 class IssueFilter extends React.Component {
@@ -45,7 +47,7 @@ class IssueFilter extends React.Component {
     } = this.props;
     return (
       <div>
-        <label htmlFor="filter-drop-down">Filter by issue</label>
+        <p>Filter by issue</p>
         <Select
           className="filter-drop-down"
           mode="tags"
@@ -64,7 +66,7 @@ class IssueFilter extends React.Component {
 
 IssueFilter.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.object).isRequired,
-  issues: PropTypes.arrayOf(PropTypes.object).isRequired,
+  issues: PropTypes.arrayOf(PropTypes.string).isRequired,
   changedFilters: PropTypes.func.isRequired,
 };
 

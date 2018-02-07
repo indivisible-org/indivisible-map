@@ -4,6 +4,7 @@
   background-color: white;
   @include box-3d;
   padding: 1vw;
+  z-index: 99;
 }
 
 .input-group-filters {

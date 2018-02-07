@@ -37,7 +37,7 @@ class MenuBar extends React.Component {
   }
 
   isState(query) {
-    const { items, searchByZip } = this.props;
+    const { items } = this.props;
     return find(items, { state: query });
   }
 
@@ -46,19 +46,19 @@ class MenuBar extends React.Component {
     if (query === '') {
       // TODO: rest
     }
-    const { searchByZip, setTextFilter, sortByChange } = this.props;
+    const { searchByZip, searchByQueryString } = this.props;
     if (this.isZipCode(query)) {
       return searchByZip(value);
     }
     if (this.isState(query)) {
-      sortByChange({ filterBy: 'state', filterValue: query });
+      return searchByQueryString({ filterBy: 'state', filterValue: query });
     }
+    return searchByQueryString({ filterBy: 'title', filterValue: query });
   }
 
   render() {
     const {
       issues,
-      userSelections,
       changedFilters,
       selectedFilters,
       colorMap,
@@ -87,16 +87,20 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setTextFilter: text => dispatch(selectionActions.setTextFilter(text)),
-  sortByChange: val => dispatch(selectionActions.sortByChange(val)),
+  searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
   searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
   changedFilters: filters => dispatch(selectionActions.setFilters(filters)),
 });
 
 MenuBar.propTypes = {
+  colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   setTextFilter: PropTypes.func.isRequired,
-  sortByChange: PropTypes.func.isRequired,
+  searchByQueryString: PropTypes.func.isRequired,
   searchByZip: PropTypes.func.isRequired,
-  userSelections: PropTypes.shape({}).isRequired,
+  issues: PropTypes.arrayOf(PropTypes.string).isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  changedFilters: PropTypes.func.isRequired,
+  selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar);

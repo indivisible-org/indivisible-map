@@ -4,6 +4,9 @@ import moment from 'moment';
 import { List, Collapse, Avatar } from 'antd';
 
 const { Panel } = Collapse;
+
+/* eslint import/no-webpack-loader-syntax: [0] */
+/* eslint import/no-extraneous-dependencies: [0] */
 require('style-loader!css-loader!antd/es/collapse/style/index.css');
 require('style-loader!css-loader!antd/es/list/style/index.css');
 
@@ -57,6 +60,11 @@ class TableCell extends React.Component {
 
 TableCell.propTypes = {
   item: PropTypes.shape({}).isRequired,
+  color: PropTypes.string,
+};
+
+TableCell.defaultProps = {
+  color: 'white',
 };
 
 export default TableCell;
