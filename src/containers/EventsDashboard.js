@@ -22,15 +22,14 @@ class EventsDashboard extends React.Component {
   render() {
     const {
       events,
-      featuresHome,
       center,
       colorMap,
     } = this.props;
     return (
       <div>
         <h2 className="dash-title">Event Dashboard</h2>
-        <SideBar items={events} />
-        <MapView center={center} featuresHome={featuresHome} events={events} colorMap={colorMap} />
+        <SideBar items={events} colorMap={colorMap} />
+        <MapView center={center} events={events} colorMap={colorMap} />
       </div>
     );
   }
@@ -48,11 +47,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 EventsDashboard.propTypes = {
-  center: PropTypes.shape({}),
+  center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   events: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   allEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  featuresHome: PropTypes.shape({}).isRequired,
   setInitialFilters: PropTypes.func.isRequired,
 };
 

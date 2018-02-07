@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import getData from '../../logics/getData';
 import Point from '../../logics/features';
 
@@ -20,7 +22,10 @@ export const setFeaturesHome = featuresHome => ({
 export const startSetEvents = () => (dispatch) => {
   const url = `${firebaseUrl}/indivisible_public_events.json`;
   return getData(url).then((result) => {
-    const events = Object.keys(result.body).map(id => new IndEvent(result.body[id]));
+    const events = Object.keys(result.body)
+      .map(id => new IndEvent(result.body[id]))
+      .filter(evnt => moment(evnt.starts_at).isAfter())
+      .sort((a, b) => moment(a.starts_at).isSameOrAfter(b.starts_at));
     return (dispatch(setEvents(events)));
   });
 };

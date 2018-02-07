@@ -7,12 +7,11 @@ import Table from '../components/Table';
 
 class SideBar extends React.Component {
   render() {
-    const { items, children } = this.props;
+    const { items, colorMap } = this.props;
     return (
       <div>
-        {children}
         <MenuBar items={items} />
-        <Table items={items} />
+        <Table items={items} colorMap={colorMap} />
       </div>
     );
   }
@@ -20,7 +19,7 @@ class SideBar extends React.Component {
 
 SideBar.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // children: PropTypes.arrayOf(React.PropTypes.node),
+  colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default SideBar;

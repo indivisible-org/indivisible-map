@@ -17,8 +17,8 @@ export const setDistance = (payload = 80467.2) => ({
   payload,
 });
 
-export const sortByChange = payload => ({
-  type: 'SORT_BY',
+export const searchByQueryString = payload => ({
+  type: 'SEARCH_BY_KEY_VALUE',
   payload,
 });
 

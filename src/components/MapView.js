@@ -24,7 +24,7 @@ class MapView extends React.Component {
     if (events.length !== this.props.events.length) {
       this.updateData(events);
     }
-    if (center) {
+    if (center.LNG) {
       return this.map.flyTo({ center: [Number(center.LNG), Number(center.LAT)], zoom: 9 });
     }
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
@@ -33,8 +33,9 @@ class MapView extends React.Component {
   updateData(events) {
     const featuresHome = this.createFeatures(events);
     this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
-    this.map.addLayer(featuresHome);
-    this.map.getSource('event-points').setData(featuresHome);
+    if (this.map.getSource('event-points')) {
+      this.map.getSource('event-points').setData(featuresHome);
+    }
   }
 
   createFeatures(events) {
@@ -59,7 +60,6 @@ class MapView extends React.Component {
     });
     return featuresHome;
   }
-
 
   addPopups() {
     const { map } = this;
@@ -152,7 +152,7 @@ MapView.propTypes = {
 };
 
 MapView.defaultProps = {
-  center: null,
+  center: {},
 };
 
 export default MapView;

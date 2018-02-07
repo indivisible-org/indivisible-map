@@ -61,7 +61,7 @@ export const getVisbleEvents = createSelector(
     maxDistance,
     location,
   ) => {
-    if (!location) {
+    if (!location.LAT) {
       return filteredEvents;
     }
     const lookup = new LatLng(location.LAT, location.LNG);

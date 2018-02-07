@@ -2,7 +2,7 @@ import { uniqBy } from 'lodash';
 
 const initialState = {
   filterValue: '',
-  location: '',
+  location: {},
   distance: 80467.2,
   filterBy: 'all',
   filters: 'init',
@@ -23,11 +23,12 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         distance: payload,
       };
     case 'SET_LAT_LNG':
+      console.log(payload);
       return {
         ...state,
         location: payload,
       };
-    case 'SORT_BY':
+    case 'SEARCH_BY_KEY_VALUE':
       return {
         ...state,
         filterBy: payload.filterBy,
