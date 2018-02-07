@@ -25,7 +25,6 @@ class MapView extends React.Component {
       this.updateData(events);
     }
     if (center.LNG) {
-      console.log('center');
       return this.map.flyTo({ center: [Number(center.LNG), Number(center.LAT)], zoom: 9 });
     }
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
