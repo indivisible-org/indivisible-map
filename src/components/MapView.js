@@ -111,8 +111,8 @@ class MapView extends React.Component {
 
   initializeMap(featuresHome) {
     mapboxgl.accessToken =
-      'pk.eyJ1IjoiYWxhbjA0MCIsImEiOiJjamFrNm81dWkyZzMzMnhsZTI3bjR3eDVoIn0.K3FKPy6S_PwzjDjb02aGHA';
-    const styleUrl = 'mapbox://styles/alan040/cjaqgutcnhdun2slmi3xbhgu1';
+      'pk.eyJ1IjoibWF5YXlhaXIiLCJhIjoiY2phdWl3Y2dnNWM0djJxbzI2M3l6ZHpmNSJ9.m00H0mS_DpchMFMbQ72q2w';
+    const styleUrl = 'mapbox://styles/mayayair/cjd14wlhs0abt2sp8o10s64el';
 
     this.map = new mapboxgl.Map({
       container: 'map',
