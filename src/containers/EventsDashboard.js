@@ -8,7 +8,7 @@ import {
   getColorMap,
 } from '../state/events/selectors';
 
-import { getLocation } from '../state/selections/selectors';
+import { getLocation, getRefCode } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
 import SideBar from './SideBar';
@@ -19,16 +19,25 @@ class EventsDashboard extends React.Component {
     this.props.setInitialFilters(this.props.allEvents);
   }
 
+  componentWillMount() {
+    const { setRefCode } = this.props;
+    if (location.search) {
+      console.log(location.search);
+      setRefCode(location.search);
+    }
+    console.log(location);
+  }
   render() {
     const {
       events,
       center,
       colorMap,
+      refcode,
     } = this.props;
     return (
       <div>
         <h2 className="dash-title">Event Dashboard</h2>
-        <SideBar items={events} colorMap={colorMap} />
+        <SideBar items={events} colorMap={colorMap} refcode={refcode} />
         <MapView center={center} events={events} colorMap={colorMap} />
       </div>
     );
@@ -40,10 +49,12 @@ const mapStateToProps = state => ({
   events: getVisbleEvents(state),
   center: getLocation(state),
   colorMap: getColorMap(state),
+  refcode: getRefCode(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
+  setRefCode: code => dispatch(selectionActions.setRefCode(code)),
 });
 
 EventsDashboard.propTypes = {

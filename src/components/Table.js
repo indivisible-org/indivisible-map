@@ -12,17 +12,16 @@ class Table extends React.Component {
   }
   getColor(issueFocus) {
     const { colorMap } = this.props;
-
     const colorObj = find(colorMap, { filter: issueFocus });
-    let color = '';
+
     if (colorObj) {
-      color = colorObj.color;
+      return colorObj.color;
     }
-    return color;
+    return '';
   }
 
   render() {
-    const { items } = this.props;
+    const { items, refcode } = this.props;
 
     return (
       <List
@@ -33,6 +32,7 @@ class Table extends React.Component {
           (<TableCell
             key={item.id}
             item={item}
+            refcode={refcode}
             color={this.getColor(item.issueFocus)}
           />)}
       />
@@ -42,6 +42,12 @@ class Table extends React.Component {
 
 Table.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  refcode: PropTypes.string,
+  colorMap: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+Table.defaultProps = {
+  refcode: '',
 };
 
 export default Table;

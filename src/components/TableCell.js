@@ -18,10 +18,10 @@ class TableCell extends React.Component {
     this.renderHeader = this.renderHeader.bind(this);
   }
   renderHeader(item) {
-    const { color } = this.props;
+    const { color, refcode } = this.props;
     return (
       <List.Item
-        actions={[<a>more</a>, <a href={item.rsvpHref}>rsvp</a>]}
+        actions={[<a>more</a>, <a href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
         className="event-cell"
         extra={<Avatar style={{ backgroundColor: color, verticalAlign: 'middle' }} size="large" >U</Avatar>}
       >
@@ -61,10 +61,12 @@ class TableCell extends React.Component {
 TableCell.propTypes = {
   item: PropTypes.shape({}).isRequired,
   color: PropTypes.string,
+  refcode: PropTypes.string,
 };
 
 TableCell.defaultProps = {
   color: 'white',
+  refcode: '',
 };
 
 export default TableCell;

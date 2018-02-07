@@ -8,10 +8,16 @@ const initialState = {
   filters: 'init',
   zipcode: '',
   states: [],
+  refcode: '',
 };
 
 const filtersReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case 'SET_REFCODE':
+      return {
+        ...state,
+        refcode: payload,
+      };
     case 'SET_TEXT_FILTER':
       return {
         ...state,
@@ -23,7 +29,6 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         distance: payload,
       };
     case 'SET_LAT_LNG':
-      console.log(payload);
       return {
         ...state,
         location: payload,

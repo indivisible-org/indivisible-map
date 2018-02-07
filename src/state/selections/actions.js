@@ -7,6 +7,11 @@ const setLatLng = payload => ({
   payload,
 });
 
+export const setRefCode = (payload = '') => ({
+  type: 'SET_REFCODE',
+  payload,
+});
+
 export const setTextFilter = (payload = '') => ({
   type: 'SET_TEXT_FILTER',
   payload,
