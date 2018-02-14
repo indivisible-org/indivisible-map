@@ -1,4 +1,4 @@
-var bboxes = {
+const bboxes = {
   'AK00': [
     -179.231086,
     51.175092,
