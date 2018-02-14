@@ -31,12 +31,12 @@ class Table extends React.Component {
         id="events-list"
         itemLayout="vertical"
         dataSource={items}
-        type={type}
         renderItem={item =>
           (<TableCell
             key={item.id}
             item={item}
             refcode={refcode}
+            type={type}
             color={this.getColor(item.issueFocus)}
           />)}
       />

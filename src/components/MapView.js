@@ -58,14 +58,16 @@ class MapView extends React.Component {
       type: 'FeatureCollection',
       features: [],
     };
-    const { colorMap, type } = this.props;
+    const { type } = this.props;
 
     featuresHome.features = items.map((indEvent) => {
       let colorObject;
       if (type === 'events') {
-        colorObject = getColorForEvents(indEvent);
+        colorObject = this.getColorForEvents(indEvent);
       } else {
-        colorObject = { icon: 'circle-15-blue', filterBy: false, color: '#1cb7ec' };
+        colorObject = {
+          ...indEvent, icon: 'circle-15-blue', filterBy: false, color: '#1cb7ec',
+        };
       }
       const newFeature = new Point(colorObject);
       return newFeature;
@@ -161,6 +163,7 @@ MapView.propTypes = {
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 MapView.defaultProps = {

@@ -13,6 +13,13 @@ import MapView from '../components/MapView';
 import SideBar from './SideBar';
 
 class GroupsDashboard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      init: true,
+    };
+  }
+
   componentWillMount() {
     const {
       setRefCode,
@@ -29,7 +36,7 @@ class GroupsDashboard extends React.Component {
     } = this.props;
     initalGroups()
       .then((returned) => {
-        console.log(returned);
+        this.setState({ init: false });
       });
   }
 
@@ -38,7 +45,11 @@ class GroupsDashboard extends React.Component {
       groups,
       colorMap,
     } = this.props;
-    console.log(groups);
+
+    if (this.state.init) {
+      return null;
+    }
+
     return (
       <div>
         <h2 className="dash-title">Group Dashboard</h2>
