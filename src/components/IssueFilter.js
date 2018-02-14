@@ -26,7 +26,7 @@ class IssueFilter extends React.Component {
       colorMap,
     } = this.props;
     return issues.map((issue) => {
-      const mapping = find(colorMap, { filter: issue });
+      const mapping = find(colorMap, { filterBy: issue });
       const iconClass = mapping ? mapping.icon : '';
 
       return (

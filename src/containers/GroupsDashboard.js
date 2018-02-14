@@ -1,19 +1,49 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {
+  getColorMap,
+} from '../state/events/selectors';
+
+import { getFilteredGroups } from '../state/groups/selectors';
+import { startSetGroups } from '../state/groups/actions';
 
 import MapView from '../components/MapView';
-import { getFilteredGroups } from '../state/groups/selectors';
 
 import SideBar from './SideBar';
 
 class GroupsDashboard extends React.Component {
+  componentWillMount() {
+    const {
+      setRefCode,
+    } = this.props;
+
+    if (location.search) {
+      setRefCode(location.search);
+    }
+  }
+
+  componentDidMount() {
+    const {
+      initalGroups,
+    } = this.props;
+    initalGroups()
+      .then((returned) => {
+        console.log(returned);
+      });
+  }
+
   render() {
+    const {
+      groups,
+      colorMap,
+    } = this.props;
+    console.log(groups);
     return (
       <div>
         <h2 className="dash-title">Group Dashboard</h2>
-        <SideBar items={this.props.groups} />
-        <MapView featuresHome={this.props.featuresHome} />
+        <SideBar type="groups" items={groups} />
+        <MapView type="groups" items={groups} colorMap={colorMap} />
       </div>
     );
   }
@@ -21,12 +51,16 @@ class GroupsDashboard extends React.Component {
 
 const mapStateToProps = state => ({
   groups: getFilteredGroups(state),
-  featuresHome: state.groups.featuresHome,
+  colorMap: getColorMap(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  initalGroups: () => dispatch(startSetGroups()),
+  setRefCode: code => dispatch(selectionActions.setRefCode(code)),
 });
 
 GroupsDashboard.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  featuresHome: PropTypes.shape({}).isRequired,
 };
 
-export default connect(mapStateToProps)(GroupsDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupsDashboard);

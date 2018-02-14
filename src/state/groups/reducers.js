@@ -1,6 +1,5 @@
 const groupsReducerDefaultState = {
-  groups: [],
-  featuresHome: {},
+  allGroups: [],
 };
 
 const groupsReducer = (state = groupsReducerDefaultState, action) => {

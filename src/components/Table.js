@@ -10,10 +10,10 @@ class Table extends React.Component {
     super(props);
     this.getColor = this.getColor.bind(this);
   }
+
   getColor(issueFocus) {
     const { colorMap } = this.props;
     const colorObj = find(colorMap, { filter: issueFocus });
-
     if (colorObj) {
       return colorObj.color;
     }
@@ -21,13 +21,18 @@ class Table extends React.Component {
   }
 
   render() {
-    const { items, refcode } = this.props;
-
+    const {
+      items,
+      refcode,
+      type,
+    } = this.props;
+    console.log('items', items);
     return (
       <List
         id="events-list"
         itemLayout="vertical"
         dataSource={items}
+        type={type}
         renderItem={item =>
           (<TableCell
             key={item.id}

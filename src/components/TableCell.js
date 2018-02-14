@@ -5,10 +5,10 @@ import { List, Collapse, Avatar } from 'antd';
 
 const { Panel } = Collapse;
 
-/* eslint import/no-webpack-loader-syntax: [0] */
-/* eslint import/no-extraneous-dependencies: [0] */
+/* eslint-disable */
 require('style-loader!css-loader!antd/es/collapse/style/index.css');
 require('style-loader!css-loader!antd/es/list/style/index.css');
+/* eslint-enable */
 
 // avatar={}
 
@@ -16,7 +16,9 @@ class TableCell extends React.Component {
   constructor(props) {
     super(props);
     this.renderHeader = this.renderHeader.bind(this);
+    this.renderEvents = this.renderEvents.bind(this);
   }
+
   renderHeader(item) {
     const { color, refcode } = this.props;
     return (
@@ -43,8 +45,9 @@ class TableCell extends React.Component {
     );
   }
 
-  render() {
+  renderEvents() {
     const { item } = this.props;
+
     return (
       <Collapse bordered={false} showArrow={false} >
         <Panel header={this.renderHeader(item)} key={item.title} showArrow={false}>
@@ -54,6 +57,15 @@ class TableCell extends React.Component {
           </li>
         </Panel>
       </Collapse>
+    );
+  }
+
+  render() {
+    const { item } = this.props;
+    return (
+      <React.Fragment>
+        {this.renderEvents()}
+      </React.Fragment>
     );
   }
 }

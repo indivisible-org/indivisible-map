@@ -19,6 +19,7 @@ class MenuBar extends React.Component {
     this.onSortChange = this.onSortChange.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
+    this.renderFilterBar = this.renderFilterBar.bind(this);
   }
 
   onTextChange(e) {
@@ -56,23 +57,32 @@ class MenuBar extends React.Component {
     return searchByQueryString({ filterBy: 'title', filterValue: query });
   }
 
-  render() {
+  renderFilterBar() {
     const {
       issues,
       changedFilters,
       selectedFilters,
       colorMap,
+      type,
     } = this.props;
+    if (type === 'groups') {
+      return null;
+    }
+    return (
+      <IssueFilter
+        colorMap={colorMap}
+        issues={issues}
+        changedFilters={changedFilters}
+        selectedFilters={selectedFilters}
+      />
+    );
+  }
 
+  render() {
     return (
       <div className="content-container-filters">
         <SearchBar submitHandler={this.searchHandler} />
-        <IssueFilter
-          colorMap={colorMap}
-          issues={issues}
-          changedFilters={changedFilters}
-          selectedFilters={selectedFilters}
-        />
+        {this.renderFilterBar()}
       </div>
     );
   }
