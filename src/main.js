@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
-import LoadingPage from './components/LoadingPage';
 
 import './style/app.scss';
 
