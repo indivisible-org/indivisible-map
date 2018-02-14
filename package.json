@@ -49,7 +49,6 @@
     "watch": "webpack-dev-server --inline --hot --public",
     "build": "webpack",
     "lint": "eslint --fix .",
-    "build": "webpack",
     "postinstall": "npm install express",
     "heroku-postbuild": "webpack",
     "start": "node index.js"
