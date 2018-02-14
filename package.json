@@ -2,7 +2,7 @@
   "name": "indivisible-map",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "dependencies": {
     "@google/maps": "^0.4.5",
     "antd": "^3.0.3",
@@ -51,7 +51,7 @@
     "lint": "eslint --fix .",
     "postinstall": "npm install express",
     "heroku-postbuild": "webpack",
-    "start": "node index.js"
+    "start": "node main.js"
   },
   "repository": {
     "type": "git",
