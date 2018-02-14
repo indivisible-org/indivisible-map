@@ -26,7 +26,6 @@ class Table extends React.Component {
       refcode,
       type,
     } = this.props;
-    console.log('items', items);
     return (
       <List
         id="events-list"
