@@ -82,8 +82,10 @@ class MenuBar extends React.Component {
   render() {
     const {
       distance,
+      items,
       location,
       resetSearchByZip,
+      type,
     } = this.props;
     return (
       <div className="content-container-filters">
@@ -97,6 +99,9 @@ class MenuBar extends React.Component {
           distance={distance}
           hidden={!location.LAT}
         />
+        <p>
+          Viewing {items.length} {type}
+        </p>
       </div>
     );
   }
