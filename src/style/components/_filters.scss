@@ -25,40 +25,39 @@ select {
   width: 10vw;
   height: 31px;
 }
-ul {
-  .ant-select-dropdown-menu-item-selected {
+.ant-tag-checkable-checked {
   &.circle-15-blue {
-    color: $filter-color-blue;
+    background-color: $filter-color-blue;
   }
 
   &.circle-15-red {
-    color: $filter-color-red;
+    background-color: $filter-color-red;
   }
 
   &.circle-15-green{
-    color: $filter-color-green;
+    background-color: $filter-color-green;
   }
 
   &.circle-15-purple {
-    color: $filter-color-purple;
+    background-color: $filter-color-purple;
   }
 
   &.circle-15-orange{
-    color: $filter-color-orange;
+    background-color: $filter-color-orange;
   }
 
   &.circle-15-dark-blue{
-    color: $filter-color-dark-blue;
+    background-color: $filter-color-dark-blue;
   }
 
   &.circle-15-fuchsia{
-    color: $filter-color-fuchsia;
+    background-color: $filter-color-fuchsia;
   }
 
   &.circle-15-gray{
-    color: $filter-color-gray;
+    background-color: $filter-color-gray;
   }
-}}
+}
 
 .distance-slider {
   margin-top: 1em;

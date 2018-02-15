@@ -6,9 +6,9 @@ const initialState = {
     { icon: 'circle-15-green', filterBy: false, color: '#31bf1b' },
     { icon: 'circle-15-purple', filterBy: false, color: '#a61cec' },
     { icon: 'circle-15-orange', filterBy: false, color: '#ebaf17' },
-    { icon: 'Circle-15-dark-blue', filterBy: false, color: '#161547' },
-    { icon: 'circle-15-fuchsia', filterBy: false, color: '#ebaf17' },
-    { icon: 'Circle-15-gray', filterBy: false, color: '#686868' },
+    { icon: 'circle-15-dark-blue', filterBy: false, color: '#1d79b1' },
+    { icon: 'circle-15-fuchsia', filterBy: false, color: '#fa3af9' },
+    { icon: 'circle-15-gray', filterBy: false, color: '#686868' },
   ],
 };
 
