@@ -21,6 +21,7 @@ class MenuBar extends React.Component {
     this.onTextChange = this.onTextChange.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
     this.distanceHandler = this.distanceHandler.bind(this);
+    this.renderFilterBar = this.renderFilterBar.bind(this);
   }
 
   onTextChange(e) {
@@ -63,19 +64,21 @@ class MenuBar extends React.Component {
     return setDistance(value);
   }
 
-  render() {
+  renderFilterBar() {
     const {
       issues,
       changedFilters,
       selectedFilters,
       colorMap,
       distance,
+      type,
       location,
     } = this.props;
-
+    if (type === 'groups') {
+      return null;
+    }
     return (
-      <div className="content-container-filters">
-        <SearchBar submitHandler={this.searchHandler} />
+      <div>
         <IssueFilter
           colorMap={colorMap}
           issues={issues}
@@ -83,6 +86,15 @@ class MenuBar extends React.Component {
           selectedFilters={selectedFilters}
         />
         <DistanceFilter changeHandler={this.distanceHandler} distance={distance} hidden={!location.LAT} />
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className="content-container-filters">
+        <SearchBar submitHandler={this.searchHandler} />
+        {this.renderFilterBar()}
       </div>
     );
   }

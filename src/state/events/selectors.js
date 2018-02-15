@@ -20,6 +20,7 @@ const getEventsFilteredByKeywordArray = createSelector(
     if (filterArray === 'init') {
       return allEvents;
     }
+
     return filter(allEvents, o => includes(filterArray, o.issueFocus));
   },
 );
@@ -55,7 +56,8 @@ export const getVisbleEvents = createSelector(
   [
     getFilteredEvents,
     getDistance,
-    getLocation],
+    getLocation,
+  ],
   (
     filteredEvents,
     maxDistance,

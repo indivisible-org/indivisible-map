@@ -7,11 +7,16 @@ import Table from '../components/Table';
 
 class SideBar extends React.Component {
   render() {
-    const { items, colorMap, refcode } = this.props;
+    const {
+      items,
+      colorMap,
+      refcode,
+      type,
+    } = this.props;
     return (
       <div>
-        <MenuBar items={items} />
-        <Table items={items} colorMap={colorMap} refcode={refcode} />
+        <MenuBar items={items} type={type} />
+        <Table items={items} colorMap={colorMap} refcode={refcode} type={type} />
       </div>
     );
   }

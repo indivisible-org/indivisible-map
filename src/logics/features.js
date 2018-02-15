@@ -5,14 +5,14 @@ class Point {
     this.type = 'Feature';
     this.geometry = {
       type: 'Point',
-      coordinates: [eventOrGroup.longitude, eventOrGroup.latitude],
+      coordinates: [Number(eventOrGroup.longitude), Number(eventOrGroup.latitude)],
     };
     this.properties = {
       icon: eventOrGroup.icon || 'host-group',
-      address: eventOrGroup.address1,
-      startsAt: eventOrGroup.starts_at ? moment(eventOrGroup.starts_at).format('MMMM Do YYYY, h:mm a') : null,
-      title: eventOrGroup.title,
-      venue: eventOrGroup.venue || null,
+      address: eventOrGroup.address1 || eventOrGroup.city,
+      startsAt: eventOrGroup.starts_at ? moment(eventOrGroup.starts_at).format('MMMM Do YYYY, h:mm a') : '',
+      title: eventOrGroup.title || eventOrGroup.name,
+      venue: eventOrGroup.venue || '',
     };
   }
 }

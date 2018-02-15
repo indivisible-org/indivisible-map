@@ -11,18 +11,19 @@ class MapView extends React.Component {
     this.addLayer = this.addLayer.bind(this);
     this.createFeatures = this.createFeatures.bind(this);
     this.updateData = this.updateData.bind(this);
+    this.getColorForEvents = this.getColorForEvents.bind(this);
   }
 
   componentDidMount() {
-    const { events } = this.props;
-    const featuresHome = this.createFeatures(events);
+    const { items } = this.props;
+    const featuresHome = this.createFeatures(items);
     this.initializeMap(featuresHome);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { center, events } = nextProps;
-    if (events.length !== this.props.events.length) {
-      this.updateData(events);
+    const { center, items } = nextProps;
+    if (items.length !== this.props.items.length) {
+      this.updateData(items);
     }
     if (center.LNG) {
       return this.map.flyTo({ center: [Number(center.LNG), Number(center.LAT)], zoom: 9 });
@@ -30,32 +31,45 @@ class MapView extends React.Component {
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
   }
 
-  updateData(events) {
-    const featuresHome = this.createFeatures(events);
+  getColorForEvents(indEvent) {
+    const { colorMap } = this.props;
+    let updatedObj = {};
+    let colorObj = find(colorMap, { filterBy: indEvent.issueFocus });
+    if (colorObj) {
+      updatedObj = { ...indEvent, icon: colorObj.icon };
+    } else {
+      colorObj = find(colorMap, { filterBy: false });
+      colorObj.filterBy = indEvent.issueFocus;
+      updatedObj = { ...indEvent, icon: colorObj.icon };
+    }
+    return updatedObj;
+  }
+
+  updateData(items) {
+    const featuresHome = this.createFeatures(items);
     this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
     if (this.map.getSource('event-points')) {
       this.map.getSource('event-points').setData(featuresHome);
     }
   }
 
-  createFeatures(events) {
+  createFeatures(items) {
     const featuresHome = {
       type: 'FeatureCollection',
       features: [],
     };
+    const { type } = this.props;
 
-    featuresHome.features = events.map((indEvent) => {
-      const { colorMap } = this.props;
-      let updatedObj = {};
-      let colorObj = find(colorMap, { filter: indEvent.issueFocus });
-      if (colorObj) {
-        updatedObj = { ...indEvent, icon: colorObj.icon };
+    featuresHome.features = items.map((indEvent) => {
+      let colorObject;
+      if (type === 'events') {
+        colorObject = this.getColorForEvents(indEvent);
       } else {
-        colorObj = find(colorMap, { filter: false });
-        colorObj.filter = indEvent.issueFocus;
-        updatedObj = { ...indEvent, icon: colorObj.icon };
+        colorObject = {
+          ...indEvent, icon: 'circle-15-blue', filterBy: false, color: '#1cb7ec',
+        };
       }
-      const newFeature = new Point(updatedObj);
+      const newFeature = new Point(colorObject);
       return newFeature;
     });
     return featuresHome;
@@ -147,8 +161,9 @@ class MapView extends React.Component {
 
 MapView.propTypes = {
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
-  events: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 MapView.defaultProps = {
