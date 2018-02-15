@@ -14,6 +14,7 @@ import { startSetGroups } from '../state/groups/actions';
 
 import {
   getLocation,
+  getDistance,
   getRefCode,
   getFilterBy,
   getFilterValue,
@@ -55,6 +56,7 @@ class GroupsDashboard extends React.Component {
   render() {
     const {
       allGroups,
+      distance,
       groups,
       colorMap,
       center,
@@ -78,6 +80,7 @@ class GroupsDashboard extends React.Component {
           colorMap={colorMap}
           filterByValue={{ [filterBy]: [filterValue] }}
           resetSearchByZip={resetSearchByZip}
+          distance={distance}
         />
       </div>
     );
@@ -91,6 +94,7 @@ const mapStateToProps = state => ({
   center: getLocation(state),
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
+  distance: getDistance(state),
 });
 
 const mapDispatchToProps = dispatch => ({

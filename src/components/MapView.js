@@ -28,12 +28,16 @@ class MapView extends React.Component {
       center,
       items,
       filterByValue,
+      distance,
     } = nextProps;
     if (items.length !== this.props.items.length) {
       this.updateData(items);
     }
     if (center.LNG) {
-      return this.map.flyTo({ center: [Number(center.LNG), Number(center.LAT)], zoom: 9 });
+      return this.map.flyTo({
+        center: [Number(center.LNG), Number(center.LAT)],
+        zoom: 9.52 - (distance * (4.7 / 450)),
+      });
     }
     if (filterByValue.state) {
       const state = filterByValue.state[0];
@@ -205,11 +209,13 @@ MapView.propTypes = {
   type: PropTypes.string.isRequired,
   resetSearchByZip: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
+  distance: PropTypes.number,
 };
 
 MapView.defaultProps = {
   center: {},
   filterByValue: {},
+  distance: 50,
 };
 
 export default MapView;
