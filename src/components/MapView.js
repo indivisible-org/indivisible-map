@@ -113,11 +113,27 @@ class MapView extends React.Component {
           'icon-image': '{icon}',
           'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
           'icon-ignore-placement': true,
-
         },
       },
       'district_interactive',
     );
+  }
+
+  // Creates the button in our zoom controls to go to the national view
+  makeZoomToNationalButton() {
+    const {
+      resetSearchByZip,
+    } = this.props;
+    document.querySelector('.mapboxgl-ctrl-compass').remove();
+    if (document.querySelector('.mapboxgl-ctrl-usa')) {
+      document.querySelector('.mapboxgl-ctrl-usa').remove();
+    }
+    const usaButton = document.createElement('button');
+    usaButton.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-usa';
+    usaButton.innerHTML = '<span class="usa-icon"></span>';
+
+    usaButton.addEventListener('click', resetSearchByZip);
+    document.querySelector('.mapboxgl-ctrl-group').appendChild(usaButton);
   }
 
   initializeMap(featuresHome) {
@@ -130,13 +146,12 @@ class MapView extends React.Component {
       style: styleUrl,
     });
 
-
     // Set Mapbox map controls
     this.map.addControl(new mapboxgl.NavigationControl());
     this.map.scrollZoom.disable();
     this.map.dragRotate.disable();
     this.map.touchZoomRotate.disableRotation();
-
+    this.makeZoomToNationalButton();
     // map on 'load'
     this.map.on('load', () => {
       this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
@@ -161,6 +176,7 @@ MapView.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   type: PropTypes.string.isRequired,
+  resetSearchByZip: PropTypes.func.isRequired,
 };
 
 MapView.defaultProps = {
