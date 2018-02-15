@@ -3,10 +3,21 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   getColorMap,
+
 } from '../state/events/selectors';
 
-import { getFilteredGroups } from '../state/groups/selectors';
+import {
+  getFilteredGroups,
+  getGroups,
+} from '../state/groups/selectors';
 import { startSetGroups } from '../state/groups/actions';
+
+import {
+  getLocation,
+  getRefCode,
+  getFilterBy,
+  getFilterValue,
+} from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
 import MapView from '../components/MapView';
@@ -43,8 +54,13 @@ class GroupsDashboard extends React.Component {
 
   render() {
     const {
+      allGroups,
       groups,
       colorMap,
+      center,
+      filterBy,
+      filterValue,
+      resetSearchByZip,
     } = this.props;
 
     if (this.state.init) {
@@ -54,16 +70,27 @@ class GroupsDashboard extends React.Component {
     return (
       <div>
         <h2 className="dash-title">Group Dashboard</h2>
-        <SideBar type="groups" items={groups} />
-        <MapView type="groups" items={groups} colorMap={colorMap} />
+        <SideBar type="groups" items={groups} allItems={allGroups} />
+        <MapView
+          center={center}
+          type="groups"
+          items={groups}
+          colorMap={colorMap}
+          filterByValue={{ [filterBy]: [filterValue] }}
+          resetSearchByZip={resetSearchByZip}
+        />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
+  allGroups: getGroups(state),
   groups: getFilteredGroups(state),
   colorMap: getColorMap(state),
+  center: getLocation(state),
+  filterBy: getFilterBy(state),
+  filterValue: getFilterValue(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -73,6 +100,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 GroupsDashboard.propTypes = {
+  allGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   groups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   setRefCode: PropTypes.func.isRequired,
   getInitalGroups: PropTypes.func.isRequired,

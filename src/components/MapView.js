@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
+import geoViewport from '@mapbox/geo-viewport';
 
+import bboxes from '../data/bboxes';
 import Point from '../logics/features';
 
 class MapView extends React.Component {
@@ -12,6 +14,7 @@ class MapView extends React.Component {
     this.createFeatures = this.createFeatures.bind(this);
     this.updateData = this.updateData.bind(this);
     this.getColorForEvents = this.getColorForEvents.bind(this);
+    this.focusMap = this.focusMap.bind(this);
   }
 
   componentDidMount() {
@@ -21,12 +24,22 @@ class MapView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { center, items } = nextProps;
+    const {
+      center,
+      items,
+      filterByValue,
+    } = nextProps;
     if (items.length !== this.props.items.length) {
       this.updateData(items);
     }
     if (center.LNG) {
       return this.map.flyTo({ center: [Number(center.LNG), Number(center.LAT)], zoom: 9 });
+    }
+    console.log(filterByValue.state);
+    if (filterByValue.state) {
+      const state = filterByValue.state[0];
+      const stateBB = bboxes[state];
+      return this.focusMap(stateBB);
     }
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
   }
@@ -43,6 +56,21 @@ class MapView extends React.Component {
       updatedObj = { ...indEvent, icon: colorObj.icon };
     }
     return updatedObj;
+  }
+
+  focusMap(bb) {
+    if (!bb) {
+      return;
+    }
+    const height = window.innerHeight;
+    const width = window.innerWidth;
+    const view = geoViewport.viewport(bb, [width / 2, height / 2]);
+    if (view.zoom < 2.5) {
+      view.zoom = 2.5;
+    } else {
+      view.zoom -= 0.5;
+    }
+    this.map.flyTo(view);
   }
 
   updateData(items) {
@@ -177,10 +205,12 @@ MapView.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   type: PropTypes.string.isRequired,
   resetSearchByZip: PropTypes.func.isRequired,
+  filterByValue: PropTypes.shape({}),
 };
 
 MapView.defaultProps = {
   center: {},
+  filterByValue: {},
 };
 
 export default MapView;

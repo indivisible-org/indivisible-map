@@ -33,13 +33,19 @@ class MenuBar extends React.Component {
   }
 
   isState(query) {
-    const { items } = this.props;
-    return find(items, { state: query });
+    const { allItems } = this.props;
+    return find(allItems, { state: query });
   }
 
   searchHandler(value) {
     const query = value.zipcode;
-    const { resetSearchByZip } = this.props;
+    const {
+      resetSearchByZip,
+      resetSearchByQueryString,
+    } = this.props;
+
+    resetSearchByQueryString();
+
     if (!query) {
       resetSearchByZip();
     }
@@ -48,6 +54,7 @@ class MenuBar extends React.Component {
       return searchByZip(value);
     }
     if (this.isState(query)) {
+      resetSearchByZip();
       return searchByQueryString({ filterBy: 'state', filterValue: query });
     }
     return searchByQueryString({ filterBy: 'title', filterValue: query });
@@ -123,6 +130,7 @@ const mapDispatchToProps = dispatch => ({
   changedFilters: filters => dispatch(selectionActions.setFilters(filters)),
   setDistance: distance => dispatch(selectionActions.setDistance(distance)),
   resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
+  resetSearchByQueryString: () => dispatch(selectionActions.resetSearchByQueryString()),
 });
 
 MenuBar.propTypes = {
@@ -132,12 +140,14 @@ MenuBar.propTypes = {
   searchByZip: PropTypes.func.isRequired,
   issues: PropTypes.arrayOf(PropTypes.string).isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  allItems: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   changedFilters: PropTypes.func.isRequired,
   selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   distance: PropTypes.number.isRequired,
   setDistance: PropTypes.func.isRequired,
   location: PropTypes.PropTypes.shape({}).isRequired,
   resetSearchByZip: PropTypes.func.isRequired,
+  resetSearchByQueryString: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
 

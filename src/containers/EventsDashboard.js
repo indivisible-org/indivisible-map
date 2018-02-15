@@ -6,10 +6,16 @@ import PropTypes from 'prop-types';
 import {
   getVisbleEvents,
   getColorMap,
+  getEvents,
 } from '../state/events/selectors';
 import { startSetEvents } from '../state/events/actions';
 
-import { getLocation, getRefCode } from '../state/selections/selectors';
+import {
+  getLocation,
+  getRefCode,
+  getFilterBy,
+  getFilterValue,
+} from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
 import SideBar from './SideBar';
@@ -46,11 +52,14 @@ class EventsDashboard extends React.Component {
 
   render() {
     const {
+      allEvents,
       visibleEvents,
       center,
       colorMap,
       refcode,
       resetSearchByZip,
+      filterBy,
+      filterValue,
     } = this.props;
     if (this.state.init) {
       return null;
@@ -62,6 +71,7 @@ class EventsDashboard extends React.Component {
         <SideBar
           colorMap={colorMap}
           items={visibleEvents}
+          allItems={allEvents}
           refcode={refcode}
           type="events"
           resetSearchByZip={resetSearchByZip}
@@ -71,6 +81,7 @@ class EventsDashboard extends React.Component {
           center={center}
           colorMap={colorMap}
           type="events"
+          filterByValue={{ [filterBy]: [filterValue] }}
           resetSearchByZip={resetSearchByZip}
         />
       </div>
@@ -80,9 +91,12 @@ class EventsDashboard extends React.Component {
 
 const mapStateToProps = state => ({
   visibleEvents: getVisbleEvents(state),
+  allEvents: getEvents(state),
   center: getLocation(state),
   colorMap: getColorMap(state),
   refcode: getRefCode(state),
+  filterBy: getFilterBy(state),
+  filterValue: getFilterValue(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -96,16 +110,21 @@ EventsDashboard.propTypes = {
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   visibleEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  allEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   setInitialFilters: PropTypes.func.isRequired,
   setRefCode: PropTypes.func.isRequired,
   getInitialEvents: PropTypes.func.isRequired,
   refcode: PropTypes.string,
   resetSearchByZip: PropTypes.func.isRequired,
+  filterBy: PropTypes.string,
+  filterValue: PropTypes.arrayOf(PropTypes.string),
 };
 
 EventsDashboard.defaultProps = {
   center: null,
   refcode: '',
+  filterBy: 'all',
+  filterValue: [],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventsDashboard);
