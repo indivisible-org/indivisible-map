@@ -24,7 +24,13 @@ class SideBar extends React.Component {
 
 SideBar.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  colorMap: PropTypes.arrayOf(PropTypes.shape({})),
+  refcode: PropTypes.string,
+  type: PropTypes.string.isRequired,
 };
 
+SideBar.defaultProps = {
+  refcode: '',
+  colorMap: [],
+};
 export default SideBar;
