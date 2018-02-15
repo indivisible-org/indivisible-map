@@ -44,6 +44,12 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         filterBy: payload.filterBy,
         filterValue: payload.filterValue,
       };
+    case 'RESET_SEARCH_BY_KEY_VALUE':
+      return {
+        ...state,
+        filterBy: initialState.filterBy,
+        filterValue: initialState.filterValue,
+      };
     case 'SET_FILTERS':
       return {
         ...state,

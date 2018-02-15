@@ -36,7 +36,6 @@ class MapView extends React.Component {
       return this.map.flyTo({ center: [Number(center.LNG), Number(center.LAT)], zoom: 9 });
     }
     if (filterByValue.state) {
-      console.log(filterByValue);
       const state = filterByValue.state[0];
       const stateBB = bboxes[state];
       return this.focusMap(stateBB);
@@ -205,10 +204,12 @@ MapView.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   type: PropTypes.string.isRequired,
   resetSearchByZip: PropTypes.func.isRequired,
+  filterByValue: PropTypes.shape({}),
 };
 
 MapView.defaultProps = {
   center: {},
+  filterByValue: {},
 };
 
 export default MapView;
