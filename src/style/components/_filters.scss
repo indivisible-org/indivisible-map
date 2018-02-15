@@ -59,11 +59,28 @@ ul {
     color: $filter-color-3;
   }
 
-  &.circle-stroked-15-green{
+  &.circle-stroked-15-green {
     color: $filter-color-4;
   }
 
-  &.circle-stroked-15-orange{
+  &.circle-stroked-15-orange {
     color: $filter-color-5;
   }
 }}
+
+.distance-slider {
+  margin-top: 1em;
+  .ant-slider {
+    margin: 7px;
+  }
+  .ant-input-number {
+    margin-left: 0.5em;
+    input {
+      padding: 0 0.5em;
+      width: 100%;
+    }
+  }
+  p {
+    margin: 0 10px;
+  }
+}
