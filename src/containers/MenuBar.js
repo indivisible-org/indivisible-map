@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
 
+import states from '../data/states';
 import * as selectionActions from '../state/selections/actions';
 
 import { getDistance, getFilters, getLocation } from '../state/selections/selectors';
@@ -33,8 +34,7 @@ class MenuBar extends React.Component {
   }
 
   isState(query) {
-    const { allItems } = this.props;
-    return find(allItems, { state: query });
+    return find(states, state => state.USPS === query || state.Name === query);
   }
 
   searchHandler(value) {
@@ -55,7 +55,7 @@ class MenuBar extends React.Component {
     }
     if (this.isState(query)) {
       resetSearchByZip();
-      return searchByQueryString({ filterBy: 'state', filterValue: query });
+      return searchByQueryString({ filterBy: 'state', filterValue: this.isState(query).USPS });
     }
     return searchByQueryString({ filterBy: 'title', filterValue: query });
   }

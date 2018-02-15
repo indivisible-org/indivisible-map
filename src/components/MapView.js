@@ -35,7 +35,6 @@ class MapView extends React.Component {
     if (center.LNG) {
       return this.map.flyTo({ center: [Number(center.LNG), Number(center.LAT)], zoom: 9 });
     }
-    console.log(filterByValue.state);
     if (filterByValue.state) {
       const state = filterByValue.state[0];
       const stateBB = bboxes[state];
