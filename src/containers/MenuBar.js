@@ -5,10 +5,11 @@ import { find } from 'lodash';
 
 import * as selectionActions from '../state/selections/actions';
 
-import { getFilters } from '../state/selections/selectors';
+import { getDistance, getFilters } from '../state/selections/selectors';
 import { getCurrentIssueFocuses, getColorMap } from '../state/events/selectors';
 
 import SearchBar from '../components/SearchBar';
+import DistanceFilter from '../components/DistanceSlider';
 import IssueFilter from '../components/IssueFilter';
 
 class MenuBar extends React.Component {
@@ -19,6 +20,7 @@ class MenuBar extends React.Component {
     this.onSortChange = this.onSortChange.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
+    this.distanceHandler = this.distanceHandler.bind(this);
   }
 
   onTextChange(e) {
@@ -56,17 +58,24 @@ class MenuBar extends React.Component {
     return searchByQueryString({ filterBy: 'title', filterValue: query });
   }
 
+  distanceHandler(value) {
+    const { setDistance } = this.props;
+    return setDistance(value);
+  }
+
   render() {
     const {
       issues,
       changedFilters,
       selectedFilters,
       colorMap,
+      distance,
     } = this.props;
 
     return (
       <div className="content-container-filters">
         <SearchBar submitHandler={this.searchHandler} />
+        <DistanceFilter changeHandler={this.distanceHandler} distance={distance} />
         <IssueFilter
           colorMap={colorMap}
           issues={issues}
@@ -83,6 +92,7 @@ const mapStateToProps = state => ({
   issues: getCurrentIssueFocuses(state),
   selectedFilters: getFilters(state),
   colorMap: getColorMap(state),
+  distance: getDistance(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -90,6 +100,7 @@ const mapDispatchToProps = dispatch => ({
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
   searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
   changedFilters: filters => dispatch(selectionActions.setFilters(filters)),
+  setDistance: distance => dispatch(selectionActions.setDistance(distance)),
 });
 
 MenuBar.propTypes = {
@@ -101,6 +112,8 @@ MenuBar.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   changedFilters: PropTypes.func.isRequired,
   selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  distance: PropTypes.number.isRequired,
+  setDistance: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar);
