@@ -10,7 +10,6 @@ const AppRouter = () => (
         <Route path="/events" component={EventsDashboard} />
         <Route path="/groups" component={GroupsDashboard} />
         <Route path="/" component={EventsDashboard} />
-        {/* <Route component={PageNotFound} /> this should be default for unknown url location */}
       </Switch>
     </div>
   </BrowserRouter>
