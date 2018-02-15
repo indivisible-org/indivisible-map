@@ -21,7 +21,7 @@ export const setTextFilter = (payload = '') => ({
   payload,
 });
 
-export const setDistance = (payload = 100) => ({
+export const setDistance = (payload = 50) => ({
   type: 'SET_DISTANCE',
   payload,
 });

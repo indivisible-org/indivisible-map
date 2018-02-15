@@ -26,6 +26,15 @@ class Table extends React.Component {
       refcode,
       type,
     } = this.props;
+    if (items.length === 0) {
+      return (
+        <div id="events-list">
+          <p>Looks like there are no events near you right now. You can create your own
+            <a href="http://act.indivisible.org/event/local-actions/create/" target="_blank"> here.</a>
+          </p>
+        </div>
+      );
+    }
     return (
       <List
         id="events-list"
