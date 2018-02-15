@@ -27,6 +27,7 @@ class MenuBar extends React.Component {
     this.searchHandler = this.searchHandler.bind(this);
     this.distanceHandler = this.distanceHandler.bind(this);
     this.renderFilterBar = this.renderFilterBar.bind(this);
+    this.renderTotal = this.renderTotal.bind(this);
   }
 
   onTextChange(e) {
@@ -34,7 +35,9 @@ class MenuBar extends React.Component {
   }
 
   isState(query) {
-    return find(states, state => state.USPS.toLowerCase().trim() === query.toLowerCase().trim() || state.Name.toLowerCase().trim() === query.toLowerCase().trim());
+    return find(states, state =>
+      state.USPS.toLowerCase().trim() === query.toLowerCase().trim()
+    || state.Name.toLowerCase().trim() === query.toLowerCase().trim());
   }
 
   searchHandler(value) {
@@ -86,14 +89,25 @@ class MenuBar extends React.Component {
     );
   }
 
+  renderTotal() {
+    const {
+      items,
+      type,
+    } = this.props;
+    return type === 'events' ? (
+      <p>
+        Viewing {items.length} {type}
+      </p>)
+      : null;
+  }
+
   render() {
     const {
       distance,
-      items,
       location,
       resetSearchByZip,
-      type,
     } = this.props;
+
     return (
       <div className="content-container-filters">
         <SearchBar
@@ -106,9 +120,7 @@ class MenuBar extends React.Component {
           distance={distance}
           hidden={!location.LAT}
         />
-        <p>
-          Viewing {items.length} {type}
-        </p>
+        {this.renderTotal()}
       </div>
     );
   }

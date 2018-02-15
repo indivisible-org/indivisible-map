@@ -26,7 +26,7 @@ class Table extends React.Component {
       refcode,
       type,
     } = this.props;
-    if (items.length === 0) {
+    if (items.length === 0 && type === 'events') {
       return (
         <div id="events-list">
           <p>Looks like there are no events near you right now. You can create your own

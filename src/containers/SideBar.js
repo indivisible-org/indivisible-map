@@ -14,6 +14,7 @@ class SideBar extends React.Component {
       refcode,
       type,
     } = this.props;
+
     return (
       <div>
         <MenuBar items={items} type={type} allItems={allItems} />
