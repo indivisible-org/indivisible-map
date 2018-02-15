@@ -7,6 +7,7 @@ import {
 
 import { getFilteredGroups } from '../state/groups/selectors';
 import { startSetGroups } from '../state/groups/actions';
+import * as selectionActions from '../state/selections/actions';
 
 import MapView from '../components/MapView';
 
@@ -25,17 +26,17 @@ class GroupsDashboard extends React.Component {
       setRefCode,
     } = this.props;
 
-    if (location.search) {
-      setRefCode(location.search);
+    if (document.location.search) {
+      setRefCode(document.location.search);
     }
   }
 
   componentDidMount() {
     const {
-      initalGroups,
+      getInitalGroups,
     } = this.props;
-    initalGroups()
-      .then((returned) => {
+    getInitalGroups()
+      .then(() => {
         this.setState({ init: false });
       });
   }
@@ -66,12 +67,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  initalGroups: () => dispatch(startSetGroups()),
+  getInitalGroups: () => dispatch(startSetGroups()),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
 });
 
 GroupsDashboard.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  setRefCode: PropTypes.func.isRequired,
+  getInitalGroups: PropTypes.func.isRequired,
+  colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsDashboard);

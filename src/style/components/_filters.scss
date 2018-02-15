@@ -27,43 +27,36 @@ select {
 }
 ul {
   .ant-select-dropdown-menu-item-selected {
-  &.circle-15-purple {
-    color: $filter-color-1;
-  }
-
   &.circle-15-blue {
-    color: $filter-color-2;
+    color: $filter-color-blue;
   }
 
   &.circle-15-red {
-    color: $filter-color-3;
+    color: $filter-color-red;
   }
 
   &.circle-15-green{
-    color: $filter-color-4;
+    color: $filter-color-green;
+  }
+
+  &.circle-15-purple {
+    color: $filter-color-purple;
   }
 
   &.circle-15-orange{
-    color: $filter-color-5;
+    color: $filter-color-orange;
   }
 
-  &.circle-stroked-15-purple {
-    color: $filter-color-1;
+  &.circle-15-dark-blue{
+    color: $filter-color-dark-blue;
   }
 
-  &.circle-stroked-15-blue {
-    color: $filter-color-2;
+  &.circle-15-fuchsia{
+    color: $filter-color-fuchsia;
   }
 
-  &.circle-stroked-15-red {
-    color: $filter-color-3;
+  &.circle-15-gray{
+    color: $filter-color-gray;
   }
 
-  &.circle-stroked-15-green{
-    color: $filter-color-4;
-  }
-
-  &.circle-stroked-15-orange{
-    color: $filter-color-5;
-  }
 }}

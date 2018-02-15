@@ -47,11 +47,13 @@ class Table extends React.Component {
 Table.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   refcode: PropTypes.string,
-  colorMap: PropTypes.arrayOf(PropTypes.object).isRequired,
+  colorMap: PropTypes.arrayOf(PropTypes.object),
+  type: PropTypes.string.isRequired,
 };
 
 Table.defaultProps = {
   refcode: '',
+  colorMap: [],
 };
 
 export default Table;

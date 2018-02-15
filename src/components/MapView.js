@@ -113,10 +113,7 @@ class MapView extends React.Component {
           'icon-image': '{icon}',
           'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
           'icon-ignore-placement': true,
-          'icon-offset': {
-            base: 1,
-            stops: [[0, [0, -15]], [10, [0, -10]], [12, [0, 0]]],
-          },
+
         },
       },
       'district_interactive',

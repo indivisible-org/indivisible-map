@@ -51,7 +51,6 @@ class TableCell extends React.Component {
   }
 
   renderGroupHeader(item) {
-    const { color, refcode } = this.props;
     let actions;
     if (item.socials) {
       const socialIcons = item.socials.reduce((acc, ele) => {
@@ -73,7 +72,6 @@ class TableCell extends React.Component {
         actions={actions}
         className="event-cell"
       >
-
         <List.Item.Meta
 
           title={item.name}
@@ -125,6 +123,7 @@ TableCell.propTypes = {
   item: PropTypes.shape({}).isRequired,
   color: PropTypes.string,
   refcode: PropTypes.string,
+  type: PropTypes.string.isRequired,
 };
 
 TableCell.defaultProps = {

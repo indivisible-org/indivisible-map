@@ -12,11 +12,15 @@ import SearchBar from '../components/SearchBar';
 import IssueFilter from '../components/IssueFilter';
 
 class MenuBar extends React.Component {
+  static isZipCode(query) {
+    const zipcodeRegEx = /^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z] \d[a-zA-Z]\d)$/g;
+    return query.match(zipcodeRegEx);
+  }
+
   constructor(props) {
     super(props);
     this.state = {
     };
-    this.onSortChange = this.onSortChange.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
     this.renderFilterBar = this.renderFilterBar.bind(this);
@@ -24,17 +28,6 @@ class MenuBar extends React.Component {
 
   onTextChange(e) {
     this.props.setTextFilter(e.target.value);
-  }
-
-  onSortChange(e) {
-    const { setTextFilter, sortByChange } = this.props;
-    sortByChange(e.target.value);
-    setTextFilter('');
-  }
-
-  isZipCode(query) {
-    const zipcodeRegEx = /^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z] \d[a-zA-Z]\d)$/g;
-    return query.match(zipcodeRegEx);
   }
 
   isState(query) {
@@ -48,7 +41,7 @@ class MenuBar extends React.Component {
       // TODO: rest
     }
     const { searchByZip, searchByQueryString } = this.props;
-    if (this.isZipCode(query)) {
+    if (MenuBar.isZipCode(query)) {
       return searchByZip(value);
     }
     if (this.isState(query)) {
@@ -111,6 +104,7 @@ MenuBar.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   changedFilters: PropTypes.func.isRequired,
   selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar);

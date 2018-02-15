@@ -28,16 +28,16 @@ class EventsDashboard extends React.Component {
       setRefCode,
     } = this.props;
 
-    if (location.search) {
-      setRefCode(location.search);
+    if (document.location.search) {
+      setRefCode(document.location.search);
     }
   }
 
   componentDidMount() {
     const {
-      initalEvents,
+      getInitialEvents,
     } = this.props;
-    initalEvents()
+    getInitialEvents()
       .then((returned) => {
         this.props.setInitialFilters(returned);
         this.setState({ init: false });
@@ -87,7 +87,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  initalEvents: () => dispatch(startSetEvents()),
+  getInitialEvents: () => dispatch(startSetEvents()),
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
 });
@@ -96,13 +96,15 @@ EventsDashboard.propTypes = {
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   visibleEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  allEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   setInitialFilters: PropTypes.func.isRequired,
-  setRefCode: PropTypes.string,
+  setRefCode: PropTypes.func.isRequired,
+  getInitialEvents: PropTypes.func.isRequired,
+  refcode: PropTypes.string,
 };
 
 EventsDashboard.defaultProps = {
   center: null,
+  refcode: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventsDashboard);
