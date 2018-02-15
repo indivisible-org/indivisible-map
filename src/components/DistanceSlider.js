@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 
 import { Slider, InputNumber, Row, Col } from 'antd';
 
+/* eslint-disable */
 require('style-loader!css-loader!antd/es/grid/style/index.css');
 require('style-loader!css-loader!antd/es/slider/style/index.css');
+/* eslint-enable */
 
 class DistanceFilter extends React.Component {
   constructor(props) {
@@ -40,8 +42,8 @@ class DistanceFilter extends React.Component {
             min={5}
             max={500}
             step={1}
+            readOnly
             value={this.state.inputValue}
-            onChange={this.onChange}
             formatter={value => `${value} miles`}
             parser={value => value.replace(/\$\s?|(,*)/g, '')}
           />
