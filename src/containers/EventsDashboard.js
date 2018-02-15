@@ -9,7 +9,12 @@ import {
 } from '../state/events/selectors';
 import { startSetEvents } from '../state/events/actions';
 
-import { getLocation, getRefCode } from '../state/selections/selectors';
+import {
+  getLocation,
+  getRefCode,
+  getFilterBy,
+  getFilterValue,
+} from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
 import SideBar from './SideBar';
@@ -51,6 +56,8 @@ class EventsDashboard extends React.Component {
       colorMap,
       refcode,
       resetSearchByZip,
+      filterBy,
+      filterValue,
     } = this.props;
     if (this.state.init) {
       return null;
@@ -71,6 +78,7 @@ class EventsDashboard extends React.Component {
           center={center}
           colorMap={colorMap}
           type="events"
+          filterByValue={{ [filterBy]: [filterValue] }}
           resetSearchByZip={resetSearchByZip}
         />
       </div>
@@ -83,6 +91,8 @@ const mapStateToProps = state => ({
   center: getLocation(state),
   colorMap: getColorMap(state),
   refcode: getRefCode(state),
+  filterBy: getFilterBy(state),
+  filterValue: getFilterValue(state),
 });
 
 const mapDispatchToProps = dispatch => ({
