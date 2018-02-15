@@ -34,7 +34,7 @@ class MenuBar extends React.Component {
   }
 
   isState(query) {
-    return find(states, state => state.USPS.toLowerCase().trim() === query || state.Name === query.toLowerCase().trim());
+    return find(states, state => state.USPS.toLowerCase().trim() === query.toLowerCase().trim() || state.Name.toLowerCase().trim() === query.toLowerCase().trim());
   }
 
   searchHandler(value) {
