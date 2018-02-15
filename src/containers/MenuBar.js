@@ -70,31 +70,31 @@ class MenuBar extends React.Component {
       changedFilters,
       selectedFilters,
       colorMap,
-      distance,
       type,
-      location,
     } = this.props;
     if (type === 'groups') {
       return null;
     }
     return (
-      <div>
-        <IssueFilter
-          colorMap={colorMap}
-          issues={issues}
-          changedFilters={changedFilters}
-          selectedFilters={selectedFilters}
-        />
-        <DistanceFilter changeHandler={this.distanceHandler} distance={distance} hidden={!location.LAT} />
-      </div>
+      <IssueFilter
+        colorMap={colorMap}
+        issues={issues}
+        changedFilters={changedFilters}
+        selectedFilters={selectedFilters}
+      />
     );
   }
 
   render() {
+    const {
+      distance,
+      location,
+    } = this.props;
     return (
       <div className="content-container-filters">
         <SearchBar submitHandler={this.searchHandler} />
         {this.renderFilterBar()}
+        <DistanceFilter changeHandler={this.distanceHandler} distance={distance} hidden={!location.LAT} />
       </div>
     );
   }
