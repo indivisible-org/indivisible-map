@@ -11,6 +11,7 @@ import {
 import { startSetEvents } from '../state/events/actions';
 
 import {
+  getDistance,
   getLocation,
   getRefCode,
   getFilterBy,
@@ -53,6 +54,7 @@ class EventsDashboard extends React.Component {
   render() {
     const {
       allEvents,
+      distance,
       visibleEvents,
       center,
       colorMap,
@@ -83,6 +85,7 @@ class EventsDashboard extends React.Component {
           type="events"
           filterByValue={{ [filterBy]: [filterValue] }}
           resetSearchByZip={resetSearchByZip}
+          distance={distance}
         />
       </div>
     );
@@ -97,6 +100,7 @@ const mapStateToProps = state => ({
   refcode: getRefCode(state),
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
+  distance: getDistance(state),
 });
 
 const mapDispatchToProps = dispatch => ({
