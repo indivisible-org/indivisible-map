@@ -39,8 +39,9 @@ class MenuBar extends React.Component {
 
   searchHandler(value) {
     const query = value.zipcode;
-    if (query === '') {
-      // TODO: rest
+    const { resetSearchByZip } = this.props;
+    if (!query) {
+      resetSearchByZip();
     }
     const { searchByZip, searchByQueryString } = this.props;
     if (MenuBar.isZipCode(query)) {
