@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import { Slider, InputNumber, Row, Col } from 'antd';
@@ -26,8 +27,12 @@ class DistanceFilter extends React.Component {
   }
 
   render() {
+    const classes = classNames({
+      'distance-slider': true,
+      hidden: this.props.hidden,
+    });
     return (
-      <Row className="distance-slider">
+      <Row className={classes}>
         <p>Filter by distance</p>
         <Col span={16}>
           <Slider min={5} max={500} onChange={this.onChange} value={this.state.inputValue} />
@@ -51,6 +56,7 @@ class DistanceFilter extends React.Component {
 DistanceFilter.propTypes = {
   changeHandler: PropTypes.func.isRequired,
   distance: PropTypes.number.isRequired,
+  hidden: PropTypes.bool.isRequired,
 };
 
 export default DistanceFilter;

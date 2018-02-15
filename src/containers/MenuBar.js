@@ -5,7 +5,7 @@ import { find } from 'lodash';
 
 import * as selectionActions from '../state/selections/actions';
 
-import { getDistance, getFilters } from '../state/selections/selectors';
+import { getDistance, getFilters, getLocation } from '../state/selections/selectors';
 import { getCurrentIssueFocuses, getColorMap } from '../state/events/selectors';
 
 import SearchBar from '../components/SearchBar';
@@ -70,18 +70,19 @@ class MenuBar extends React.Component {
       selectedFilters,
       colorMap,
       distance,
+      location,
     } = this.props;
 
     return (
       <div className="content-container-filters">
         <SearchBar submitHandler={this.searchHandler} />
-        <DistanceFilter changeHandler={this.distanceHandler} distance={distance} />
         <IssueFilter
           colorMap={colorMap}
           issues={issues}
           changedFilters={changedFilters}
           selectedFilters={selectedFilters}
         />
+        <DistanceFilter changeHandler={this.distanceHandler} distance={distance} hidden={!location.LAT} />
       </div>
     );
   }
@@ -93,6 +94,7 @@ const mapStateToProps = state => ({
   selectedFilters: getFilters(state),
   colorMap: getColorMap(state),
   distance: getDistance(state),
+  location: getLocation(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -114,6 +116,7 @@ MenuBar.propTypes = {
   selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   distance: PropTypes.number.isRequired,
   setDistance: PropTypes.func.isRequired,
+  location: PropTypes.any.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar);
