@@ -33,6 +33,11 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         ...state,
         location: payload,
       };
+    case 'RESET_LAT_LNG':
+      return {
+        ...state,
+        location: {},
+      };
     case 'SEARCH_BY_KEY_VALUE':
       return {
         ...state,

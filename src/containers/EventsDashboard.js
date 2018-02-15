@@ -44,16 +44,13 @@ class EventsDashboard extends React.Component {
       });
   }
 
-  componentWillReceiveProps(newProps) {
-    console.log('new Props:', newProps);
-  }
-
   render() {
     const {
       visibleEvents,
       center,
       colorMap,
       refcode,
+      resetSearchByZip,
     } = this.props;
     if (this.state.init) {
       return null;
@@ -67,12 +64,14 @@ class EventsDashboard extends React.Component {
           items={visibleEvents}
           refcode={refcode}
           type="events"
+          resetSearchByZip={resetSearchByZip}
         />
         <MapView
           items={visibleEvents}
           center={center}
           colorMap={colorMap}
           type="events"
+          resetSearchByZip={resetSearchByZip}
         />
       </div>
     );
@@ -90,6 +89,7 @@ const mapDispatchToProps = dispatch => ({
   getInitialEvents: () => dispatch(startSetEvents()),
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
+  resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
 });
 
 EventsDashboard.propTypes = {
@@ -100,6 +100,7 @@ EventsDashboard.propTypes = {
   setRefCode: PropTypes.func.isRequired,
   getInitialEvents: PropTypes.func.isRequired,
   refcode: PropTypes.string,
+  resetSearchByZip: PropTypes.func.isRequired,
 };
 
 EventsDashboard.defaultProps = {

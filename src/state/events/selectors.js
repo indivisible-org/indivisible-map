@@ -20,7 +20,6 @@ const getEventsFilteredByKeywordArray = createSelector(
     if (filterArray === 'init') {
       return allEvents;
     }
-
     return filter(allEvents, o => includes(filterArray, o.issueFocus));
   },
 );
@@ -66,7 +65,7 @@ export const getVisbleEvents = createSelector(
     if (!location.LAT) {
       return filteredEvents;
     }
-    const lookup = new LatLng(location.LAT, location.LNG);
+    const lookup = new LatLng(Number(location.LAT), Number(location.LNG));
     const maxMeters = maxDistance * 1609.34; // Convert miles to meters before filtering
     return filteredEvents.filter((currentEvent) => {
       const curDistance = computeDistanceBetween(

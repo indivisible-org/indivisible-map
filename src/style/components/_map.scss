@@ -32,6 +32,16 @@
   width: 250px;
 }
 
+.usa-icon {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  background-image: url('/src/assets/images/usa.svg');
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+
 // #legend {
 //   padding: 10px;
 //   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);

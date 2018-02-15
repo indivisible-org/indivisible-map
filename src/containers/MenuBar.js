@@ -82,12 +82,20 @@ class MenuBar extends React.Component {
     const {
       distance,
       location,
+      resetSearchByZip,
     } = this.props;
     return (
       <div className="content-container-filters">
-        <SearchBar submitHandler={this.searchHandler} />
+        <SearchBar
+          submitHandler={this.searchHandler}
+          resetSearchByZip={resetSearchByZip}
+        />
         {this.renderFilterBar()}
-        <DistanceFilter changeHandler={this.distanceHandler} distance={distance} hidden={!location.LAT} />
+        <DistanceFilter
+          changeHandler={this.distanceHandler}
+          distance={distance}
+          hidden={!location.LAT}
+        />
       </div>
     );
   }
@@ -108,6 +116,7 @@ const mapDispatchToProps = dispatch => ({
   searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
   changedFilters: filters => dispatch(selectionActions.setFilters(filters)),
   setDistance: distance => dispatch(selectionActions.setDistance(distance)),
+  resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
 });
 
 MenuBar.propTypes = {
@@ -121,7 +130,8 @@ MenuBar.propTypes = {
   selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   distance: PropTypes.number.isRequired,
   setDistance: PropTypes.func.isRequired,
-  location: PropTypes.any.isRequired,
+  location: PropTypes.PropTypes.shape({}).isRequired,
+  resetSearchByZip: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
 

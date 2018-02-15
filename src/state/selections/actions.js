@@ -7,6 +7,10 @@ const setLatLng = payload => ({
   payload,
 });
 
+export const resetSearchByZip = () => ({
+  type: 'RESET_LAT_LNG',
+});
+
 export const setRefCode = (payload = '') => ({
   type: 'SET_REFCODE',
   payload,

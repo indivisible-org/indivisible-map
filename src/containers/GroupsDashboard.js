@@ -69,6 +69,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getInitalGroups: () => dispatch(startSetGroups()),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
+  resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
 });
 
 GroupsDashboard.propTypes = {
