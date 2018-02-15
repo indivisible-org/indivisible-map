@@ -3,7 +3,7 @@ import { uniqBy } from 'lodash';
 const initialState = {
   filterValue: '',
   location: {},
-  distance: 80467.2,
+  distance: 100,
   filterBy: 'all',
   filters: 'init',
   zipcode: '',

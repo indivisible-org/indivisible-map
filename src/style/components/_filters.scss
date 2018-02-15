@@ -58,5 +58,21 @@ ul {
   &.circle-15-gray{
     color: $filter-color-gray;
   }
-
 }}
+
+.distance-slider {
+  margin-top: 1em;
+  .ant-slider {
+    margin: 7px;
+  }
+  .ant-input-number {
+    margin-left: 0.5em;
+    input {
+      padding: 0 0.5em;
+      width: 100%;
+    }
+  }
+  p {
+    margin: 0 10px;
+  }
+}
