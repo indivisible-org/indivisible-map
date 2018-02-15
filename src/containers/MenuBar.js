@@ -10,7 +10,7 @@ import { getCurrentIssueFocuses, getColorMap } from '../state/events/selectors';
 
 import SearchBar from '../components/SearchBar';
 import DistanceFilter from '../components/DistanceSlider';
-import IssueFilter from '../components/IssueFilter';
+import IssueFilter from '../components/IssueFilterTags';
 
 class MenuBar extends React.Component {
   static isZipCode(query) {

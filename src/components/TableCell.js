@@ -42,6 +42,7 @@ class TableCell extends React.Component {
               <li>{moment(item.starts_at).format('MMMM Do, YYYY')}</li>
               <li>{item.address1}</li>
               <li>{item.city}</li>
+              <li>{item.state}, item.zip}</li>
               <li>Event Focus: {item.issueFocus}</li>
             </ul>
       }

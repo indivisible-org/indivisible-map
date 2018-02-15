@@ -58,7 +58,9 @@ const filtersReducer = (state = initialState, { type, payload }) => {
     case 'SET_INITIAL_FILTERS':
       return {
         ...state,
-        filters: uniqBy(payload.events, 'issueFocus').map(item => item.issueFocus),
+        filters: uniqBy(payload.events, 'issueFocus')
+          .map(item => item.issueFocus)
+          .filter(item => item !== 'Lawmaker event'),
       };
     default:
       return state;
