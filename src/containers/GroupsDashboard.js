@@ -11,6 +11,13 @@ import {
   getGroups,
 } from '../state/groups/selectors';
 import { startSetGroups } from '../state/groups/actions';
+
+import {
+  getLocation,
+  getRefCode,
+  getFilterBy,
+  getFilterValue,
+} from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
 import MapView from '../components/MapView';
@@ -50,6 +57,10 @@ class GroupsDashboard extends React.Component {
       allGroups,
       groups,
       colorMap,
+      center,
+      filterBy,
+      filterValue,
+      resetSearchByZip,
     } = this.props;
 
     if (this.state.init) {
@@ -60,7 +71,14 @@ class GroupsDashboard extends React.Component {
       <div>
         <h2 className="dash-title">Group Dashboard</h2>
         <SideBar type="groups" items={groups} allItems={allGroups} />
-        <MapView type="groups" items={groups} colorMap={colorMap} />
+        <MapView
+          center={center}
+          type="groups"
+          items={groups}
+          colorMap={colorMap}
+          filterByValue={{ [filterBy]: [filterValue] }}
+          resetSearchByZip={resetSearchByZip}
+        />
       </div>
     );
   }
@@ -70,6 +88,9 @@ const mapStateToProps = state => ({
   allGroups: getGroups(state),
   groups: getFilteredGroups(state),
   colorMap: getColorMap(state),
+  center: getLocation(state),
+  filterBy: getFilterBy(state),
+  filterValue: getFilterValue(state),
 });
 
 const mapDispatchToProps = dispatch => ({
