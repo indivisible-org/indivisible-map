@@ -28,8 +28,8 @@ class TableCell extends React.Component {
 
   renderHeader(item) {
     const { color, refcode } = this.props;
-    const groupName = item.groupName ? `Group Name: ${item.groupName}` : '';
-    const eventType = item.eventType ? `Event type: ${item.eventType}` : '';
+    const groupName = item.groupName ? (<li><strong>Group name:</strong> {item.groupName}</li>) : '';
+    const eventType = item.eventType ? (<li><strong>Event type:</strong> {item.eventType}</li>) : '';
 
     return (
       <List.Item
@@ -42,9 +42,9 @@ class TableCell extends React.Component {
           title={item.title}
           description={
             <ul>
+              {groupName}
+              {eventType}
               <li><strong>{moment(item.starts_at).format('MMMM Do, YYYY')}</strong></li>
-              <li>{groupName}</li>
-              <li>{eventType}</li>
               <li>{item.address1}</li>
               <li>{item.city}</li>
               <li>{item.state}, {item.zip}</li>
