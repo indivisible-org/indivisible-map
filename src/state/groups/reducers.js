@@ -7,12 +7,7 @@ const groupsReducer = (state = groupsReducerDefaultState, action) => {
     case 'SET_GROUPS':
       return {
         ...state,
-        allGroups: action.groups,
-      };
-    case 'SET_FEATURES_HOME_GROUP':
-      return {
-        ...state,
-        featuresHome: action.featuresHome,
+        allGroups: [...state.allGroups, ...action.groups],
       };
     default:
       return state;

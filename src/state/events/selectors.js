@@ -70,7 +70,7 @@ export const getVisbleEvents = createSelector(
     return filteredEvents.filter((currentEvent) => {
       const curDistance = computeDistanceBetween(
         lookup,
-        new LatLng(currentEvent.latitude, currentEvent.longitude),
+        new LatLng(Number(currentEvent.latitude), Number(currentEvent.longitude)),
       );
       return curDistance < maxMeters;
     });

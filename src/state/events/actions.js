@@ -29,20 +29,3 @@ export const startSetEvents = () => (dispatch) => {
     return (dispatch(setEvents(events)));
   });
 };
-
-export const startSetFeaturesHome = () => (dispatch) => {
-  const url = `${firebaseUrl}/indivisible_public_events.json`;
-  return getData(url).then((result) => {
-    const events = Object.keys(result.body).map(id => result.body[id]);
-    const featuresHome = {
-      type: 'FeatureCollection',
-      features: [],
-    };
-
-    featuresHome.features = events.map((indEvent) => {
-      const newFeature = new Point(indEvent);
-      return newFeature;
-    });
-    dispatch(setFeaturesHome(featuresHome));
-  });
-};

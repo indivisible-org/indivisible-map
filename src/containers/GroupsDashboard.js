@@ -7,7 +7,7 @@ import {
 } from '../state/events/selectors';
 
 import {
-  getFilteredGroups,
+  getVisbleGroups,
   getGroups,
 } from '../state/groups/selectors';
 import { startSetGroups } from '../state/groups/actions';
@@ -89,7 +89,7 @@ class GroupsDashboard extends React.Component {
 
 const mapStateToProps = state => ({
   allGroups: getGroups(state),
-  groups: getFilteredGroups(state),
+  groups: getVisbleGroups(state),
   colorMap: getColorMap(state),
   center: getLocation(state),
   filterBy: getFilterBy(state),

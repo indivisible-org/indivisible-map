@@ -24,9 +24,17 @@ class Table extends React.Component {
     const {
       items,
       refcode,
+      shouldRender,
       type,
     } = this.props;
-    if (items.length === 0) {
+    if (!shouldRender) {
+      return (
+        <div id="groups-list">
+          <p>Search for groups near you</p>
+        </div>
+      );
+    }
+    if (items.length === 0 && type === 'events') {
       return (
         <div id="events-list">
           <p>Looks like there are no events near you right now. You can create your own
@@ -37,7 +45,7 @@ class Table extends React.Component {
     }
     return (
       <List
-        id="events-list"
+        id={`${type}-list`}
         itemLayout="vertical"
         dataSource={items}
         renderItem={item =>

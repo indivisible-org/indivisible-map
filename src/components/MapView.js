@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
 import geoViewport from '@mapbox/geo-viewport';
-
 import bboxes from '../data/bboxes';
 import Point from '../logics/features';
 
@@ -16,6 +15,7 @@ class MapView extends React.Component {
     this.updateData = this.updateData.bind(this);
     this.getColorForEvents = this.getColorForEvents.bind(this);
     this.focusMap = this.focusMap.bind(this);
+    this.addClusterLayers = this.addClusterLayers.bind(this);
   }
 
   componentDidMount() {
@@ -30,9 +30,10 @@ class MapView extends React.Component {
       items,
       filterByValue,
       distance,
+      type,
     } = nextProps;
     if (items.length !== this.props.items.length) {
-      this.updateData(items);
+      this.updateData(items, `${type}-points`);
     }
     if (center.LNG) {
       return this.map.flyTo({
@@ -77,11 +78,11 @@ class MapView extends React.Component {
     this.map.flyTo(view);
   }
 
-  updateData(items) {
+  updateData(items, layer) {
     const featuresHome = this.createFeatures(items);
     this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
-    if (this.map.getSource('event-points')) {
-      this.map.getSource('event-points').setData(featuresHome);
+    if (this.map.getSource(layer)) {
+      return this.map.getSource(layer).setData(featuresHome);
     }
   }
 
@@ -109,13 +110,14 @@ class MapView extends React.Component {
 
   addPopups() {
     const { map } = this;
+    const { type } = this.props;
     const popup = new mapboxgl.Popup({
       closeButton: false,
       closeOnClick: false,
     });
 
     map.on('mousemove', (e) => {
-      const features = map.queryRenderedFeatures(e.point, { layers: ['event-points'] });
+      const features = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
       // Change the cursor style as a UI indicator.
       map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
@@ -135,9 +137,9 @@ class MapView extends React.Component {
   addClickListener() {
     const { setLatLng } = this.props;
     const { map } = this;
-    
+
     map.on('click', (e) => {
-      let formatLatLng = {
+      const formatLatLng = {
         LAT: e.lngLat.lat.toString(),
         LNG: e.lngLat.lng.toString(),
       };
@@ -148,7 +150,7 @@ class MapView extends React.Component {
   addLayer(featuresHome) {
     this.map.addLayer(
       {
-        id: 'event-points',
+        id: 'events-points',
         type: 'symbol',
         source: {
           type: 'geojson',
@@ -164,6 +166,77 @@ class MapView extends React.Component {
     );
   }
 
+  clusterData(featuresHome) {
+    this.map.addSource('groups-points', {
+      type: 'geojson',
+      // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
+      // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+      data: featuresHome,
+      cluster: true,
+      clusterMaxZoom: 14, // Max zoom to cluster points on
+      clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
+    });
+    this.addClusterLayers();
+  }
+
+  addClusterLayers() {
+    this.map.addLayer({
+      id: 'clusters',
+      type: 'circle',
+      source: 'groups-points',
+      filter: ['has', 'point_count'],
+      paint: {
+        // Use step expressions (https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+        // with three steps to implement three types of circles:
+        //   * Blue, 20px circles when point count is less than 100
+        //   * Yellow, 30px circles when point count is between 100 and 750
+        //   * Pink, 40px circles when point count is greater than or equal to 750
+        'circle-color': [
+          'step',
+          ['get', 'point_count'],
+          '#9DE0AD',
+          100,
+          '#45ADA8',
+          750,
+          '#547980',
+        ],
+        'circle-radius': [
+          'step',
+          ['get', 'point_count'],
+          20,
+          100,
+          30,
+          750,
+          40,
+        ],
+      },
+    });
+
+    this.map.addLayer({
+      id: 'cluster-count',
+      type: 'symbol',
+      source: 'groups-points',
+      filter: ['has', 'point_count'],
+      layout: {
+        'text-field': '{point_count_abbreviated}',
+        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+        'text-size': 12,
+      },
+    });
+
+    this.map.addLayer({
+      id: 'unclustered-point',
+      type: 'circle',
+      source: 'groups-points',
+      filter: ['!has', 'point_count'],
+      paint: {
+        'circle-color': '#11b4da',
+        'circle-radius': 4,
+        'circle-stroke-width': 1,
+        'circle-stroke-color': '#fff',
+      },
+    });
+  }
   // Creates the button in our zoom controls to go to the national view
   makeZoomToNationalButton() {
     const {
@@ -182,6 +255,8 @@ class MapView extends React.Component {
   }
 
   initializeMap(featuresHome) {
+    const { type } = this.props;
+
     mapboxgl.accessToken =
       'pk.eyJ1IjoibWF5YXlhaXIiLCJhIjoiY2phdWl3Y2dnNWM0djJxbzI2M3l6ZHpmNSJ9.m00H0mS_DpchMFMbQ72q2w';
     const styleUrl = 'mapbox://styles/mayayair/cjd14wlhs0abt2sp8o10s64el';
@@ -200,10 +275,14 @@ class MapView extends React.Component {
     // map on 'load'
     this.map.on('load', () => {
       this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
-      this.addLayer(featuresHome);
-      this.addPopups();
       this.addClickListener();
-      this.map.getSource('event-points').setData(featuresHome);
+      if (type === 'events') {
+        this.addLayer(featuresHome);
+        this.addPopups();
+        this.map.getSource('events-points').setData(featuresHome);
+      } else {
+        this.clusterData(featuresHome);
+      }
     });
   }
 
