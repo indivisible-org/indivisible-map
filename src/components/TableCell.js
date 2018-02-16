@@ -83,7 +83,7 @@ class TableCell extends React.Component {
           title={item.name}
           description={
             <ul>
-              <li>{item.city}</li>
+              <li>{item.city} {item.state}, {item.zip}</li>
             </ul>
         }
         />
