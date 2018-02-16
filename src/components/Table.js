@@ -24,8 +24,16 @@ class Table extends React.Component {
     const {
       items,
       refcode,
+      shouldRender,
       type,
     } = this.props;
+    if (!shouldRender) {
+      return (
+        <div id="groups-list">
+          <p>Search for groups near you</p>
+        </div>
+      );
+    }
     if (items.length === 0 && type === 'events') {
       return (
         <div id="events-list">
@@ -37,7 +45,7 @@ class Table extends React.Component {
     }
     return (
       <List
-        id="events-list"
+        id={`${type}-list`}
         itemLayout="vertical"
         dataSource={items}
         renderItem={item =>
