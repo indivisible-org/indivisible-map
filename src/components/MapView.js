@@ -10,6 +10,7 @@ class MapView extends React.Component {
   constructor(props) {
     super(props);
     this.addPopups = this.addPopups.bind(this);
+    this.addClickListener = this.addClickListener.bind(this);
     this.addLayer = this.addLayer.bind(this);
     this.createFeatures = this.createFeatures.bind(this);
     this.updateData = this.updateData.bind(this);
@@ -131,6 +132,19 @@ class MapView extends React.Component {
     });
   }
 
+  addClickListener() {
+    const { setLatLng } = this.props;
+    const { map } = this;
+    
+    map.on('click', (e) => {
+      let formatLatLng = {
+        LAT: e.lngLat.lat.toString(),
+        LNG: e.lngLat.lng.toString(),
+      };
+      setLatLng(formatLatLng);
+    });
+  }
+
   addLayer(featuresHome) {
     this.map.addLayer(
       {
@@ -188,6 +202,7 @@ class MapView extends React.Component {
       this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
       this.addLayer(featuresHome);
       this.addPopups();
+      this.addClickListener();
       this.map.getSource('event-points').setData(featuresHome);
     });
   }
@@ -208,6 +223,7 @@ MapView.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   type: PropTypes.string.isRequired,
   resetSearchByZip: PropTypes.func.isRequired,
+  setLatLng: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
   distance: PropTypes.number,
 };
