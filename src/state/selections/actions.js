@@ -2,7 +2,7 @@ import superagent from 'superagent';
 
 import { firebaseUrl } from '../constants';
 
-const setLatLng = payload => ({
+export const setLatLng = payload => ({
   type: 'SET_LAT_LNG',
   payload,
 });

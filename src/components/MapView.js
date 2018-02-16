@@ -9,6 +9,7 @@ class MapView extends React.Component {
   constructor(props) {
     super(props);
     this.addPopups = this.addPopups.bind(this);
+    this.addClickListener = this.addClickListener.bind(this);
     this.addLayer = this.addLayer.bind(this);
     this.createFeatures = this.createFeatures.bind(this);
     this.updateData = this.updateData.bind(this);
@@ -109,13 +110,14 @@ class MapView extends React.Component {
 
   addPopups() {
     const { map } = this;
+    const { type } = this.props;
     const popup = new mapboxgl.Popup({
       closeButton: false,
       closeOnClick: false,
     });
 
     map.on('mousemove', (e) => {
-      const features = map.queryRenderedFeatures(e.point, { layers: ['events-points'] });
+      const features = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
       // Change the cursor style as a UI indicator.
       map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
@@ -129,6 +131,19 @@ class MapView extends React.Component {
           <h4>${feature.properties.title}</h4>
           <div>${feature.properties.startsAt}</div>`)
         .addTo(map);
+    });
+  }
+
+  addClickListener() {
+    const { setLatLng } = this.props;
+    const { map } = this;
+
+    map.on('click', (e) => {
+      const formatLatLng = {
+        LAT: e.lngLat.lat.toString(),
+        LNG: e.lngLat.lng.toString(),
+      };
+      setLatLng(formatLatLng);
     });
   }
 
@@ -260,6 +275,7 @@ class MapView extends React.Component {
     // map on 'load'
     this.map.on('load', () => {
       this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
+      this.addClickListener();
       if (type === 'events') {
         this.addLayer(featuresHome);
         this.addPopups();
@@ -286,6 +302,7 @@ MapView.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   type: PropTypes.string.isRequired,
   resetSearchByZip: PropTypes.func.isRequired,
+  setLatLng: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
   distance: PropTypes.number,
 };
