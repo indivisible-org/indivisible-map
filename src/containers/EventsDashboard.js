@@ -59,6 +59,7 @@ class EventsDashboard extends React.Component {
       center,
       colorMap,
       refcode,
+      setLatLng,
       resetSearchByZip,
       filterBy,
       filterValue,
@@ -84,6 +85,7 @@ class EventsDashboard extends React.Component {
           type="events"
           filterByValue={{ [filterBy]: [filterValue] }}
           resetSearchByZip={resetSearchByZip}
+          setLatLng={setLatLng}
           distance={distance}
         />
       </div>
@@ -106,6 +108,7 @@ const mapDispatchToProps = dispatch => ({
   getInitialEvents: () => dispatch(startSetEvents()),
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
+  setLatLng: val => dispatch(selectionActions.setLatLng(val)),
   resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
 });
 
@@ -116,6 +119,7 @@ EventsDashboard.propTypes = {
   allEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   setInitialFilters: PropTypes.func.isRequired,
   setRefCode: PropTypes.func.isRequired,
+  setLatLng: PropTypes.func.isRequired,
   getInitialEvents: PropTypes.func.isRequired,
   refcode: PropTypes.string,
   resetSearchByZip: PropTypes.func.isRequired,

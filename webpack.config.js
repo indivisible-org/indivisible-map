@@ -68,6 +68,31 @@ module.exports = {
           ],
         }),
       },
+      {
+        test: /\.(woff|woff2|ttf|eot|glyph|\.svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: 'font/[name].[ext]',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(jpg|jpeg|gif|png|tiff|svg)$/,
+        exclude: /\.glyph.svg/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 6000,
+              name: 'image/[name].[ext]',
+            },
+          },
+        ],
+      },
 
     ],
   },

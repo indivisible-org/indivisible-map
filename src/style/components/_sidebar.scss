@@ -1,0 +1,24 @@
+.sidebar {
+  width: calc(#{$container-width} * .30);
+}
+
+@media (max-width: $mobile-breakpoint) {
+  .sidebar {
+    width:100%;
+  }
+}
+
+.map-sidebar-container {
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  width: $container-width;
+  margin:auto;
+}
+
+@media (max-width: $mobile-breakpoint) {
+  .map-sidebar-container {
+    display: flex;
+    -webkit-flex-flow: column wrap;
+    width:100vw;
+  }
+}

@@ -4,13 +4,12 @@
 @import './mixins/all';
 
 // Modules and Variables
-// @import "modules/colors";
+@import "modules/colors";
 @import "modules/utility";
 // Partials
 @import "./partials/reset";
 @import "./partials/settings";
 @import "./partials/base";
-@import "./partials/reset";
 @import "./partials/typography";
 @import "./partials/buttons";
 
