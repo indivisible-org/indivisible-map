@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Layout } from 'antd';
 
 import {
   getVisbleEvents,
@@ -22,11 +23,20 @@ import * as selectionActions from '../state/selections/actions';
 import SideBar from './SideBar';
 import MapView from '../components/MapView';
 
+/* eslint-disable */
+require('style-loader!css-loader!antd/es/layout/style/index.css');
+/* eslint-enable */
+
 class EventsDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       init: true,
+      collapsed: false,
+    };
+    this.onCollapse = (collapsed) => {
+      console.log(collapsed);
+      this.setState({ collapsed });
     };
   }
 
@@ -69,27 +79,41 @@ class EventsDashboard extends React.Component {
     }
 
     return (
-      <div>
+      <Layout>
         <h2 className="dash-title">Event Dashboard</h2>
-        <SideBar
-          colorMap={colorMap}
-          items={visibleEvents}
-          allItems={allEvents}
-          refcode={refcode}
-          type="events"
-          resetSearchByZip={resetSearchByZip}
-        />
-        <MapView
-          items={visibleEvents}
-          center={center}
-          colorMap={colorMap}
-          type="events"
-          filterByValue={{ [filterBy]: [filterValue] }}
-          resetSearchByZip={resetSearchByZip}
-          setLatLng={setLatLng}
-          distance={distance}
-        />
-      </div>
+        <Layout.Sider
+          collapsible
+          collapsed={this.state.collapsed}
+          onCollapse={this.onCollapse}
+          className="sidebar-container"
+        >
+          <SideBar
+            colorMap={colorMap}
+            items={visibleEvents}
+            allItems={allEvents}
+            refcode={refcode}
+            type="events"
+            resetSearchByZip={resetSearchByZip}
+            collapsible
+            collapsed={this.state.collapsed}
+            onCollapse={this.onCollapse}
+          />
+          <div className="sidebar-collapsed-text">Filters & Events</div>
+        </Layout.Sider>
+
+        <Layout>
+          <MapView
+            items={visibleEvents}
+            center={center}
+            colorMap={colorMap}
+            type="events"
+            filterByValue={{ [filterBy]: [filterValue] }}
+            resetSearchByZip={resetSearchByZip}
+            setLatLng={setLatLng}
+            distance={distance}
+          />
+        </Layout>
+      </Layout>
     );
   }
 }
