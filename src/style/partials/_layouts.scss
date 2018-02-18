@@ -24,6 +24,11 @@
     &.ant-layout-sider-collapsed {
         flex: 0 0 5vw!important;
         width: 5vw!important;
+
+        &.ant-layout-sider-below {
+            width: 10vw!important;
+            background: red;
+        }
         
         .ant-layout-sider-children {
             color: #FFF;
@@ -50,6 +55,10 @@
                 width: 100%!important;
                 height: auto!important;
             }
+        }
+
+        &.ant-layout-sider-below + .ant-layout #map.mapboxgl-map {
+            width: 90vw!important;
         }
     }
 

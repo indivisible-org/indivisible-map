@@ -86,6 +86,7 @@ class EventsDashboard extends React.Component {
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
           className="sidebar-container"
+          breakpoint="lg"
         >
           <SideBar
             colorMap={colorMap}
