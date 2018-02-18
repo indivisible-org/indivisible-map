@@ -13,6 +13,9 @@ const initialState = {
 
 const filtersReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case 'RESET_SELECTIONS':
+      console.log('reseting selections');
+      return initialState;
     case 'SET_REFCODE':
       return {
         ...state,

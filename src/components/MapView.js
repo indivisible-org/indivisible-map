@@ -16,6 +16,7 @@ class MapView extends React.Component {
     this.getColorForEvents = this.getColorForEvents.bind(this);
     this.focusMap = this.focusMap.bind(this);
     this.addClusterLayers = this.addClusterLayers.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   componentDidMount() {
@@ -81,9 +82,10 @@ class MapView extends React.Component {
   updateData(items, layer) {
     const featuresHome = this.createFeatures(items);
     this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
-    if (this.map.getSource(layer)) {
-      return this.map.getSource(layer).setData(featuresHome);
+    if (!this.map.getSource(layer)) {
+      return;
     }
+    this.map.getSource(layer).setData(featuresHome);
   }
 
   createFeatures(items) {
@@ -169,8 +171,6 @@ class MapView extends React.Component {
   clusterData(featuresHome) {
     this.map.addSource('groups-points', {
       type: 'geojson',
-      // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
-      // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
       data: featuresHome,
       cluster: true,
       clusterMaxZoom: 14, // Max zoom to cluster points on
@@ -186,11 +186,6 @@ class MapView extends React.Component {
       source: 'groups-points',
       filter: ['has', 'point_count'],
       paint: {
-        // Use step expressions (https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-        // with three steps to implement three types of circles:
-        //   * Blue, 20px circles when point count is less than 100
-        //   * Yellow, 30px circles when point count is between 100 and 750
-        //   * Pink, 40px circles when point count is greater than or equal to 750
         'circle-color': [
           'step',
           ['get', 'point_count'],
@@ -237,11 +232,12 @@ class MapView extends React.Component {
       },
     });
   }
+
+  handleReset() {
+    this.props.resetSearchByZip();
+  }
   // Creates the button in our zoom controls to go to the national view
   makeZoomToNationalButton() {
-    const {
-      resetSearchByZip,
-    } = this.props;
     document.querySelector('.mapboxgl-ctrl-compass').remove();
     if (document.querySelector('.mapboxgl-ctrl-usa')) {
       document.querySelector('.mapboxgl-ctrl-usa').remove();
@@ -250,7 +246,7 @@ class MapView extends React.Component {
     usaButton.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-usa';
     usaButton.innerHTML = '<span class="usa-icon"></span>';
 
-    usaButton.addEventListener('click', resetSearchByZip);
+    usaButton.addEventListener('click', this.handleReset);
     document.querySelector('.mapboxgl-ctrl-group').appendChild(usaButton);
   }
 

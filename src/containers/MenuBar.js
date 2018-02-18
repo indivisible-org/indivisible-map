@@ -19,6 +19,12 @@ class MenuBar extends React.Component {
     return query.match(zipcodeRegEx);
   }
 
+  static isState(query) {
+    return find(states, state =>
+      state.USPS.toLowerCase().trim() === query.toLowerCase().trim()
+    || state.Name.toLowerCase().trim() === query.toLowerCase().trim());
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -32,12 +38,6 @@ class MenuBar extends React.Component {
 
   onTextChange(e) {
     this.props.setTextFilter(e.target.value);
-  }
-
-  isState(query) {
-    return find(states, state =>
-      state.USPS.toLowerCase().trim() === query.toLowerCase().trim()
-    || state.Name.toLowerCase().trim() === query.toLowerCase().trim());
   }
 
   searchHandler(value) {
@@ -56,9 +56,9 @@ class MenuBar extends React.Component {
     if (MenuBar.isZipCode(query)) {
       return searchByZip(value);
     }
-    if (this.isState(query)) {
+    if (MenuBar.isState(query)) {
       resetSearchByZip();
-      return searchByQueryString({ filterBy: 'state', filterValue: this.isState(query).USPS });
+      return searchByQueryString({ filterBy: 'state', filterValue: this.MenuBar(query).USPS });
     }
     return searchByQueryString({ filterBy: 'title', filterValue: query });
   }
@@ -152,7 +152,6 @@ MenuBar.propTypes = {
   searchByZip: PropTypes.func.isRequired,
   issues: PropTypes.arrayOf(PropTypes.string).isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  allItems: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   changedFilters: PropTypes.func.isRequired,
   selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   distance: PropTypes.number.isRequired,

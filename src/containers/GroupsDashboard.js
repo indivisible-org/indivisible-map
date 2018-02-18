@@ -15,7 +15,6 @@ import { startSetGroups } from '../state/groups/actions';
 import {
   getLocation,
   getDistance,
-  getRefCode,
   getFilterBy,
   getFilterValue,
 } from '../state/selections/selectors';
@@ -62,9 +61,8 @@ class GroupsDashboard extends React.Component {
       center,
       filterBy,
       filterValue,
-      resetSearchByZip,
+      resetSelections,
     } = this.props;
-
     if (this.state.init) {
       return null;
     }
@@ -79,7 +77,7 @@ class GroupsDashboard extends React.Component {
           items={groups}
           colorMap={colorMap}
           filterByValue={{ [filterBy]: [filterValue] }}
-          resetSearchByZip={resetSearchByZip}
+          resetSearchByZip={resetSelections}
           distance={distance}
         />
       </div>
@@ -96,19 +94,25 @@ const mapStateToProps = state => ({
   filterValue: getFilterValue(state),
   distance: getDistance(state),
 });
+console.log(selectionActions);
 
 const mapDispatchToProps = dispatch => ({
   getInitalGroups: () => dispatch(startSetGroups()),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
-  resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
+  resetSelections: () => dispatch(selectionActions.resetSelections()),
 });
 
 GroupsDashboard.propTypes = {
   allGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  center: PropTypes.shape({}).isRequired,
+  colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  distance: PropTypes.number.isRequired,
   groups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  filterBy: PropTypes.string.isRequired,
+  filterValue: PropTypes.string.isRequired,
   setRefCode: PropTypes.func.isRequired,
   getInitalGroups: PropTypes.func.isRequired,
-  colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  resetSelections: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsDashboard);
