@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Layout } from 'antd';
 
 import {
   getVisbleEvents,
@@ -69,7 +70,7 @@ class EventsDashboard extends React.Component {
     }
 
     return (
-      <div>
+      <Layout>
         <h2 className="dash-title">Event Dashboard</h2>
         <SideBar
           colorMap={colorMap}
@@ -78,18 +79,25 @@ class EventsDashboard extends React.Component {
           refcode={refcode}
           type="events"
           resetSearchByZip={resetSearchByZip}
+          collapsible
+          collapsed={this.state.collapsed}
+          onCollapse={this.onCollapse}
+          collapsedText="Filters & Events"
         />
-        <MapView
-          items={visibleEvents}
-          center={center}
-          colorMap={colorMap}
-          type="events"
-          filterByValue={{ [filterBy]: [filterValue] }}
-          resetSearchByZip={resetSearchByZip}
-          setLatLng={setLatLng}
-          distance={distance}
-        />
-      </div>
+
+        <Layout>
+          <MapView
+            items={visibleEvents}
+            center={center}
+            colorMap={colorMap}
+            type="events"
+            filterByValue={{ [filterBy]: [filterValue] }}
+            resetSearchByZip={resetSearchByZip}
+            setLatLng={setLatLng}
+            distance={distance}
+          />
+        </Layout>
+      </Layout>
     );
   }
 }

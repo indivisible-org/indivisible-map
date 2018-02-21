@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Layout } from 'antd';
 import {
   getColorMap,
-
 } from '../state/events/selectors';
 
 import {
@@ -68,19 +68,21 @@ class GroupsDashboard extends React.Component {
     }
 
     return (
-      <div>
+      <Layout>
         <h2 className="dash-title">Group Dashboard</h2>
-        <SideBar type="groups" items={groups} allItems={allGroups} />
-        <MapView
-          center={center}
-          type="groups"
-          items={groups}
-          colorMap={colorMap}
-          filterByValue={{ [filterBy]: [filterValue] }}
-          resetSearchByZip={resetSelections}
-          distance={distance}
-        />
-      </div>
+        <SideBar type="groups" items={groups} allItems={allGroups} collapsedText="Filters & Groups" />
+        <Layout>
+          <MapView
+            center={center}
+            type="groups"
+            items={groups}
+            colorMap={colorMap}
+            filterByValue={{ [filterBy]: [filterValue] }}
+            resetSearchByZip={resetSelections}
+            distance={distance}
+          />
+        </Layout>
+      </Layout>
     );
   }
 }

@@ -1,0 +1,70 @@
+.ant-layout {
+    background: none!important;
+}
+
+.sidebar-container.ant-layout-sider {
+    background: none;
+    flex: 0 0 33vw!important;
+    max-width: 33vw!important;
+    width: 33vw!important;
+    height: 520px;
+    overflow: hidden;
+    position: absolute;
+    top: 20vh;
+    left: 0;
+
+    .sidebar-collapsed-text {
+        display: none;
+    }
+
+    & + .ant-layout #map.mapboxgl-map {
+        width: 67vw;
+    }
+
+    &.ant-layout-sider-collapsed {
+        flex: 0 0 5vw!important;
+        width: 5vw!important;
+
+        &.ant-layout-sider-below {
+            width: 10vw!important;
+            background: red;
+        }
+        
+        .ant-layout-sider-children {
+            color: #FFF;
+            background: #002140;
+        }
+
+        .sidebar {
+            display: none;
+        }
+
+        .sidebar-collapsed-text {
+            display: block;
+            writing-mode: vertical-lr;
+            font-size: 2.5em;
+            height: 100%;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        & + .ant-layout #map.mapboxgl-map {
+            width: 95vw!important;
+            .mapboxgl-canvas {
+                width: 100%!important;
+                height: auto!important;
+            }
+        }
+
+        &.ant-layout-sider-below + .ant-layout #map.mapboxgl-map {
+            width: 90vw!important;
+        }
+    }
+
+    .ant-layout-sider-trigger {
+        position: absolute;
+        bottom: 0;
+        width: 100%!important;
+    }
+}
