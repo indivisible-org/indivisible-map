@@ -94,7 +94,6 @@ const mapStateToProps = state => ({
   filterValue: getFilterValue(state),
   distance: getDistance(state),
 });
-console.log(selectionActions);
 
 const mapDispatchToProps = dispatch => ({
   getInitalGroups: () => dispatch(startSetGroups()),
