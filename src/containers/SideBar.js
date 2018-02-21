@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Layout } from 'antd';
 
 import * as selections from '../state/selections/selectors';
 
 import MenuBar from './MenuBar';
 
 import Table from '../components/Table';
+
+/* eslint-disable */
+require('style-loader!css-loader!antd/es/layout/style/index.css');
+/* eslint-enable */
 
 class SideBar extends React.Component {
   constructor(props) {
@@ -32,19 +37,28 @@ class SideBar extends React.Component {
       items,
       refcode,
       type,
+      collapsedText,
     } = this.props;
 
     return (
-      <div className="sidebar">
-        <MenuBar items={items} type={type} allItems={allItems} />
-        <Table
-          colorMap={colorMap}
-          items={items}
-          refcode={refcode}
-          shouldRender={this.renderTable()}
-          type={type}
-        />
-      </div>
+      <Layout.Sider
+        collapsible
+        onCollapse={this.onCollapse}
+        className="sidebar-container"
+        breakpoint="lg"
+      >
+        <div className="sidebar">
+          <MenuBar items={items} type={type} allItems={allItems} />
+          <Table
+            colorMap={colorMap}
+            items={items}
+            refcode={refcode}
+            shouldRender={this.renderTable()}
+            type={type}
+          />
+        </div>
+        <div className="sidebar-collapsed-text">{collapsedText}</div>
+      </Layout.Sider>
     );
   }
 }
@@ -59,6 +73,7 @@ SideBar.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.shape({})),
   refcode: PropTypes.string,
   type: PropTypes.string.isRequired,
+  collapsedText: PropTypes.string.isRequired,
 };
 
 SideBar.defaultProps = {

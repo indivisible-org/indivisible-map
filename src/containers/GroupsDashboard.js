@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Layout } from 'antd';
 import {
   getColorMap,
-
 } from '../state/events/selectors';
 
 import {
@@ -25,20 +24,11 @@ import MapView from '../components/MapView';
 
 import SideBar from './SideBar';
 
-/* eslint-disable */
-require('style-loader!css-loader!antd/es/layout/style/index.css');
-/* eslint-enable */
-
 class GroupsDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       init: true,
-      collapsed: false,
-    };
-    this.onCollapse = (collapsed) => {
-      console.log(collapsed);
-      this.setState({ collapsed });
     };
   }
 
@@ -80,16 +70,7 @@ class GroupsDashboard extends React.Component {
     return (
       <Layout>
         <h2 className="dash-title">Group Dashboard</h2>
-        <Layout.Sider
-          collapsible
-          collapsed={this.state.collapsed}
-          onCollapse={this.onCollapse}
-          className="sidebar-container"
-        >
-          <SideBar type="groups" items={groups} allItems={allGroups} />
-          <div className="sidebar-collapsed-text">Filters & Groups</div>
-        </Layout.Sider>
-
+        <SideBar type="groups" items={groups} allItems={allGroups} collapsedText="Filters & Groups" />
         <Layout>
           <MapView
             center={center}
