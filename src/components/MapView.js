@@ -172,7 +172,7 @@ class MapView extends React.Component {
     this.map.addSource('groups-points', {
       type: 'geojson',
       data: featuresHome,
-      cluster: true,
+      cluster: false,
       clusterMaxZoom: 14, // Max zoom to cluster points on
       clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
     });
@@ -229,6 +229,7 @@ class MapView extends React.Component {
         'circle-radius': 4,
         'circle-stroke-width': 1,
         'circle-stroke-color': '#fff',
+        'circle-opacity': 0.5,
       },
     });
   }

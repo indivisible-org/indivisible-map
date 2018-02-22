@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import superagent from 'superagent';
 import moment from 'moment';
 import {
   List,
@@ -7,6 +8,9 @@ import {
   Avatar,
   Icon,
 } from 'antd';
+
+import { firebaseUrl } from '../state/constants';
+
 
 const { Panel } = Collapse;
 
@@ -24,6 +28,16 @@ class TableCell extends React.Component {
     this.renderGroupHeader = this.renderGroupHeader.bind(this);
     this.renderGroups = this.renderGroups.bind(this);
     this.renderEvents = this.renderEvents.bind(this);
+    this.getEmail = this.getEmail.bind(this);
+  }
+
+  getEmail(e) {
+    e.preventDefault();
+    const { id } = e.target;
+    const ele = document.getElementById(id);
+    superagent.get(`${firebaseUrl}/indivisible_groups/${id}/email.json`)
+      .then(res => ele.innerHTML = res.body)
+      .then(ele.classList.add('disabled'));
   }
 
   renderHeader(item) {
@@ -57,9 +71,9 @@ class TableCell extends React.Component {
   }
 
   renderGroupHeader(item) {
-    let actions;
+    let actions = [];
     if (item.socials) {
-      const socialIcons = item.socials.reduce((acc, ele) => {
+      actions = item.socials.reduce((acc, ele) => {
         if (ele.category === 'facebook') {
           acc.push(<a href={ele.url} target="_blank"><Icon type="facebook" /></a>);
         }
@@ -68,10 +82,8 @@ class TableCell extends React.Component {
         }
         return acc;
       }, []);
-      socialIcons.push(<a href="">email</a>);
-      actions = socialIcons;
-    } else {
-      actions = [<a href="">email</a>];
+    } else if (item.email) {
+      actions.push(<a href="" onClick={this.getEmail}><Icon id={item.id} type="mail" /></a>);
     }
     return (
       <List.Item

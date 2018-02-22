@@ -55,8 +55,10 @@ const mapStateToProps = state => ({
 
 SideBar.propTypes = {
   allItems: PropTypes.arrayOf(PropTypes.object).isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})),
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filterBy: PropTypes.string.isRequired,
+  location: PropTypes.shape({}).isRequired,
   refcode: PropTypes.string,
   type: PropTypes.string.isRequired,
 };
