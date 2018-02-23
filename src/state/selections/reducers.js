@@ -13,6 +13,13 @@ const initialState = {
 
 const filtersReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case 'RESET_SELECTIONS':
+      return {
+        ...state,
+        location: initialState.location,
+        filterBy: initialState.filterBy,
+        filterValue: initialState.filterValue,
+      };
     case 'SET_REFCODE':
       return {
         ...state,

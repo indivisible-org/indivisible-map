@@ -73,6 +73,16 @@ export const getVisbleEvents = createSelector(
         new LatLng(Number(currentEvent.latitude), Number(currentEvent.longitude)),
       );
       return curDistance < maxMeters;
+    }).sort((a, b) => {
+      const aDistance = computeDistanceBetween(
+        lookup,
+        new LatLng(Number(a.latitude), Number(a.longitude)),
+      );
+      const bDistance = computeDistanceBetween(
+        lookup,
+        new LatLng(Number(b.latitude), Number(b.longitude)),
+      );
+      return aDistance - bDistance;
     });
   },
 );

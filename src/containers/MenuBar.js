@@ -19,6 +19,12 @@ class MenuBar extends React.Component {
     return query.match(zipcodeRegEx);
   }
 
+  static isState(query) {
+    return find(states, state =>
+      state.USPS.toLowerCase().trim() === query.toLowerCase().trim()
+    || state.Name.toLowerCase().trim() === query.toLowerCase().trim());
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -34,15 +40,10 @@ class MenuBar extends React.Component {
     this.props.setTextFilter(e.target.value);
   }
 
-  isState(query) {
-    return find(states, state =>
-      state.USPS.toLowerCase().trim() === query.toLowerCase().trim()
-    || state.Name.toLowerCase().trim() === query.toLowerCase().trim());
-  }
-
   searchHandler(value) {
     const query = value.zipcode;
     const {
+      resetSelections,
       resetSearchByZip,
       resetSearchByQueryString,
     } = this.props;
@@ -50,15 +51,16 @@ class MenuBar extends React.Component {
     resetSearchByQueryString();
 
     if (!query) {
-      resetSearchByZip();
+      console.log('no query ');
+      return resetSelections();
     }
     const { searchByZip, searchByQueryString } = this.props;
     if (MenuBar.isZipCode(query)) {
       return searchByZip(value);
     }
-    if (this.isState(query)) {
+    if (MenuBar.isState(query)) {
       resetSearchByZip();
-      return searchByQueryString({ filterBy: 'state', filterValue: this.isState(query).USPS });
+      return searchByQueryString({ filterBy: 'state', filterValue: MenuBar.isState(query).USPS });
     }
     return searchByQueryString({ filterBy: 'title', filterValue: query });
   }
@@ -105,14 +107,12 @@ class MenuBar extends React.Component {
     const {
       distance,
       location,
-      resetSearchByZip,
     } = this.props;
 
     return (
       <div className="content-container-filters">
         <SearchBar
           submitHandler={this.searchHandler}
-          resetSearchByZip={resetSearchByZip}
         />
         {this.renderFilterBar()}
         <DistanceFilter
@@ -141,6 +141,7 @@ const mapDispatchToProps = dispatch => ({
   searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
   changedFilters: filters => dispatch(selectionActions.setFilters(filters)),
   setDistance: distance => dispatch(selectionActions.setDistance(distance)),
+  resetSelections: () => dispatch(selectionActions.resetSelections()),
   resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
   resetSearchByQueryString: () => dispatch(selectionActions.resetSearchByQueryString()),
 });
@@ -152,12 +153,12 @@ MenuBar.propTypes = {
   searchByZip: PropTypes.func.isRequired,
   issues: PropTypes.arrayOf(PropTypes.string).isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  allItems: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   changedFilters: PropTypes.func.isRequired,
   selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   distance: PropTypes.number.isRequired,
   setDistance: PropTypes.func.isRequired,
   location: PropTypes.PropTypes.shape({}).isRequired,
+  resetSelections: PropTypes.func.isRequired,
   resetSearchByZip: PropTypes.func.isRequired,
   resetSearchByQueryString: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,

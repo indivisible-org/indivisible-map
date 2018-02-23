@@ -7,6 +7,10 @@ export const setLatLng = payload => ({
   payload,
 });
 
+export const resetSelections = () => ({
+  type: 'RESET_SELECTIONS',
+});
+
 export const resetSearchByZip = () => ({
   type: 'RESET_LAT_LNG',
 });
