@@ -5,7 +5,7 @@ import EventsDashboard from '../containers/EventsDashboard';
 
 const AppRouter = () => (
   <BrowserRouter>
-    <div className="dash-container">
+    <div>
       <Switch>
         <Route path="/events" component={EventsDashboard} />
         <Route path="/groups" component={GroupsDashboard} />
