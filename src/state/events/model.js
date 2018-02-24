@@ -1,5 +1,3 @@
-import { filter } from 'lodash';
-
 export default class IndEvent {
   constructor(props) {
     Object.assign(this, props);

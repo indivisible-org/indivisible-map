@@ -1,7 +1,6 @@
 import moment from 'moment';
 
 import getData from '../../logics/getData';
-import Point from '../../logics/features';
 
 import { firebaseUrl } from '../constants';
 

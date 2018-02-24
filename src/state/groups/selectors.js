@@ -21,7 +21,6 @@ export const getFilteredGroups = createSelector(
     filterBy,
     filterValue,
   ) => {
-    console.log('filterBy', filterBy);
     if (filterBy === 'all') {
       return allGroups;
     }
