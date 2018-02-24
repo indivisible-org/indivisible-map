@@ -110,16 +110,15 @@ class MapView extends React.Component {
     return featuresHome;
   }
 
-  addPopups() {
+  addPopups(layer) {
     const { map } = this;
-    const { type } = this.props;
     const popup = new mapboxgl.Popup({
       closeButton: false,
       closeOnClick: false,
     });
 
     map.on('mousemove', (e) => {
-      const features = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
+      const features = map.queryRenderedFeatures(e.point, { layers: [layer] });
       // Change the cursor style as a UI indicator.
       map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
@@ -172,8 +171,8 @@ class MapView extends React.Component {
     this.map.addSource('groups-points', {
       type: 'geojson',
       data: featuresHome,
-      cluster: false,
-      clusterMaxZoom: 14, // Max zoom to cluster points on
+      cluster: true,
+      clusterMaxZoom: 7, // Max zoom to cluster points on
       clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
     });
     this.addClusterLayers();
@@ -275,9 +274,10 @@ class MapView extends React.Component {
       this.addClickListener();
       if (type === 'events') {
         this.addLayer(featuresHome);
-        this.addPopups();
+        this.addPopups('events-points');
         this.map.getSource('events-points').setData(featuresHome);
       } else {
+        this.addPopups('unclustered-point');
         this.clusterData(featuresHome);
       }
     });
