@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import superagent from 'superagent';
 import moment from 'moment';
 import {
+  Button,
   List,
   Collapse,
   Avatar,
@@ -17,6 +18,7 @@ const { Panel } = Collapse;
 /* eslint-disable */
 require('style-loader!css-loader!antd/es/collapse/style/index.css');
 require('style-loader!css-loader!antd/es/list/style/index.css');
+require('style-loader!css-loader!antd/es/button/style/index.css');
 /* eslint-enable */
 
 // avatar={}
@@ -33,10 +35,14 @@ class TableCell extends React.Component {
 
   getEmail(e) {
     e.preventDefault();
-    const { id } = e.target;
-    const ele = document.getElementById(id);
-    superagent.get(`${firebaseUrl}/indivisible_groups/${id}/email.json`)
-      .then(res => ele.innerHTML = res.body)
+    const ele = e.target;
+    const { id } = ele;
+    const mailto = document.getElementById(`${id}-target`);
+    superagent.get(`${firebaseUrl}/indivisible_group_emails/${id}.json`)
+      .then((res) => {
+        mailto.innerHTML = res.body;
+        mailto.href = `mailto:${res.body}`;
+      })
       .then(ele.classList.add('disabled'));
   }
 
@@ -83,7 +89,17 @@ class TableCell extends React.Component {
         return acc;
       }, []);
     } else if (item.email) {
-      actions.push(<a href="" onClick={this.getEmail}><Icon id={item.id} type="mail" /></a>);
+      actions.push(<React.Fragment>
+        <Button
+          onClick={this.getEmail}
+          type="primary"
+          size="small"
+          icon="mail"
+          id={item.id}
+          shape="circle"
+        />
+        <a id={`${item.id}-target`} />
+                   </React.Fragment>);
     }
     return (
       <List.Item
