@@ -62,6 +62,7 @@ class GroupsDashboard extends React.Component {
       filterBy,
       filterValue,
       resetSelections,
+      setLatLng,
     } = this.props;
     if (this.state.init) {
       return null;
@@ -78,6 +79,7 @@ class GroupsDashboard extends React.Component {
           colorMap={colorMap}
           filterByValue={{ [filterBy]: [filterValue] }}
           resetSearchByZip={resetSelections}
+          setLatLng={setLatLng}
           distance={distance}
         />
       </div>
@@ -99,6 +101,7 @@ const mapDispatchToProps = dispatch => ({
   getInitalGroups: () => dispatch(startSetGroups()),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
   resetSelections: () => dispatch(selectionActions.resetSelections()),
+  setLatLng: val => dispatch(selectionActions.setLatLng(val)),
 });
 
 GroupsDashboard.propTypes = {
@@ -112,6 +115,7 @@ GroupsDashboard.propTypes = {
   setRefCode: PropTypes.func.isRequired,
   getInitalGroups: PropTypes.func.isRequired,
   resetSelections: PropTypes.func.isRequired,
+  setLatLng: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsDashboard);
