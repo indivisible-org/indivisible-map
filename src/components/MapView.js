@@ -31,8 +31,10 @@ class MapView extends React.Component {
       items,
       filterByValue,
       distance,
+      searchType,
       type,
     } = nextProps;
+    this.addClickListener(searchType);
     if (items.length !== this.props.items.length) {
       this.updateData(items, `${type}-points`);
     }
@@ -135,11 +137,17 @@ class MapView extends React.Component {
     });
   }
 
-  addClickListener() {
+  addClickListener(searchType) {
     const { setLatLng } = this.props;
     const { map } = this;
 
     map.on('click', (e) => {
+      console.log(searchType);
+      if (searchType === 'proximity') {
+        // handle proximity
+      } else if (searchType === 'district') {
+        // handle district
+      }
       const formatLatLng = {
         LAT: e.lngLat.lat.toString(),
         LNG: e.lngLat.lng.toString(),
@@ -302,12 +310,14 @@ MapView.propTypes = {
   setLatLng: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
   distance: PropTypes.number,
+  searchType: PropTypes.string,
 };
 
 MapView.defaultProps = {
   center: {},
   filterByValue: {},
   distance: 50,
+  searchType: 'proximity',
 };
 
 export default MapView;

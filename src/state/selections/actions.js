@@ -44,6 +44,11 @@ export const setFilters = payload => ({
   payload,
 });
 
+export const changeSearchType = payload => ({
+  type: 'SET_SEARCH_TYPE',
+  payload,
+});
+
 export const setInitialFilters = payload => ({
   type: 'SET_INITIAL_FILTERS',
   payload,

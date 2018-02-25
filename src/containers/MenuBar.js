@@ -2,16 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
+import { Switch } from 'antd';
 
 import states from '../data/states';
 import * as selectionActions from '../state/selections/actions';
 
-import { getDistance, getFilters, getLocation } from '../state/selections/selectors';
+import { getDistance, getFilters, getLocation, getSearchType } from '../state/selections/selectors';
 import { getCurrentIssueFocuses, getColorMap } from '../state/events/selectors';
 
 import SearchBar from '../components/SearchBar';
 import DistanceFilter from '../components/DistanceSlider';
 import IssueFilter from '../components/IssueFilterTags';
+
+/* eslint-disable */
+require('style-loader!css-loader!antd/es/switch/style/index.css');
+/* eslint-enable */
 
 class MenuBar extends React.Component {
   static isZipCode(query) {
@@ -32,6 +37,7 @@ class MenuBar extends React.Component {
     this.onTextChange = this.onTextChange.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
     this.distanceHandler = this.distanceHandler.bind(this);
+    this.switchSearchType = this.switchSearchType.bind(this);
     this.renderFilterBar = this.renderFilterBar.bind(this);
     this.renderTotal = this.renderTotal.bind(this);
   }
@@ -70,6 +76,12 @@ class MenuBar extends React.Component {
     return setDistance(value);
   }
 
+  switchSearchType(val) {
+    const { changeSearchType } = this.props;
+    const searchType = val ? 'proximity' : 'district';
+    changeSearchType(searchType);
+  };
+
   renderFilterBar() {
     const {
       issues,
@@ -107,6 +119,7 @@ class MenuBar extends React.Component {
     const {
       distance,
       location,
+      searchType,
     } = this.props;
 
     return (
@@ -120,6 +133,15 @@ class MenuBar extends React.Component {
           distance={distance}
           hidden={!location.LAT}
         />
+        <div className="search-type-container">
+          <p>Search Type: {searchType}</p>
+          <Switch
+            size="small"
+            defaultChecked
+            className="search-type-switch"
+            onChange={this.switchSearchType}
+          />
+        </div>
         {this.renderTotal()}
       </div>
     );
@@ -133,6 +155,7 @@ const mapStateToProps = state => ({
   colorMap: getColorMap(state),
   distance: getDistance(state),
   location: getLocation(state),
+  searchType: getSearchType(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -144,6 +167,7 @@ const mapDispatchToProps = dispatch => ({
   resetSelections: () => dispatch(selectionActions.resetSelections()),
   resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
   resetSearchByQueryString: () => dispatch(selectionActions.resetSearchByQueryString()),
+  changeSearchType: searchType => dispatch(selectionActions.changeSearchType(searchType)),
 });
 
 MenuBar.propTypes = {
@@ -161,7 +185,9 @@ MenuBar.propTypes = {
   resetSelections: PropTypes.func.isRequired,
   resetSearchByZip: PropTypes.func.isRequired,
   resetSearchByQueryString: PropTypes.func.isRequired,
+  changeSearchType: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
+  searchType: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar);

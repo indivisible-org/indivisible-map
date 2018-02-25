@@ -1,0 +1,15 @@
+.search-type-container {
+  display: flex;
+  justify-content: space-between;
+  background: #f7f6f6;
+  margin-top: 5px;
+  p {
+    margin-top: 10px;
+  }
+}
+
+.search-type-switch.ant-switch-checked {
+  align-items: center;
+  margin-top: 10px;
+  margin-right: 5px;
+}
