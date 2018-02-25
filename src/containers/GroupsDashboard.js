@@ -73,7 +73,13 @@ class GroupsDashboard extends React.Component {
     return (
       <div>
         <h2 className="dash-title">Group Dashboard</h2>
-        <SideBar type="groups" items={groups} allItems={allGroups} resetHandler={resetSelections} selectItem={selectItem} />
+        <SideBar
+          type="groups"
+          items={groups}
+          allItems={allGroups}
+          resetHandler={resetSelections}
+          selectItem={selectItem}
+        />
         <MapView
           center={center}
           type="groups"
