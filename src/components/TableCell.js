@@ -9,9 +9,7 @@ import {
   Avatar,
   Icon,
 } from 'antd';
-
 import { firebaseUrl } from '../state/constants';
-
 
 const { Panel } = Collapse;
 
@@ -57,7 +55,6 @@ class TableCell extends React.Component {
         className="event-cell"
         extra={<Avatar style={{ backgroundColor: color, verticalAlign: 'middle' }} size="large" >U</Avatar>}
       >
-
         <List.Item.Meta
           title={item.title}
           description={
@@ -70,7 +67,7 @@ class TableCell extends React.Component {
               <li>{item.state}, {item.zip}</li>
               <li>Event Focus: {item.issueFocus}</li>
             </ul>
-      }
+          }
         />
       </List.Item>
     );
@@ -107,13 +104,12 @@ class TableCell extends React.Component {
         className="event-cell"
       >
         <List.Item.Meta
-
           title={item.name}
           description={
             <ul>
               <li>{item.city} {item.state}, {item.zip}</li>
             </ul>
-        }
+          }
         />
       </List.Item>
     );
@@ -133,9 +129,16 @@ class TableCell extends React.Component {
   }
 
   renderGroups() {
-    const { item } = this.props;
+    const { item, selectItem } = this.props;
     return (
-      <Panel header={this.renderGroupHeader(item)} key={item.name} showArrow={false} />
+      // Antd is stupid and doesn't copy properties, so we set the event listeners on a wrapper
+      <div onMouseEnter={() => selectItem(item)} onMouseLeave={() => selectItem(null)}>
+        <Panel 
+          header={this.renderGroupHeader(item)}
+          key={item.name}
+          showArrow={false}
+        />
+      </div>
     );
   }
 
@@ -158,11 +161,13 @@ TableCell.propTypes = {
   color: PropTypes.string,
   refcode: PropTypes.string,
   type: PropTypes.string.isRequired,
+  selectItem: PropTypes.func,
 };
 
 TableCell.defaultProps = {
   color: 'white',
   refcode: '',
+  selectItem: () => {},
 };
 
 export default TableCell;

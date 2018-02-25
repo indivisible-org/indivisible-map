@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   getColorMap,
-
 } from '../state/events/selectors';
 
 import {
   getVisbleGroups,
   getGroups,
 } from '../state/groups/selectors';
-import { startSetGroups } from '../state/groups/actions';
+import { startSetGroups, selectGroup } from '../state/groups/actions';
 
 import {
   getLocation,
@@ -57,6 +56,7 @@ class GroupsDashboard extends React.Component {
       allGroups,
       distance,
       groups,
+      selectItem,
       colorMap,
       center,
       filterBy,
@@ -71,7 +71,7 @@ class GroupsDashboard extends React.Component {
     return (
       <div>
         <h2 className="dash-title">Group Dashboard</h2>
-        <SideBar type="groups" items={groups} allItems={allGroups} resetHandler={resetSelections} />
+        <SideBar type="groups" items={groups} allItems={allGroups} resetHandler={resetSelections} selectItem={selectItem} />
         <MapView
           center={center}
           type="groups"
@@ -102,6 +102,7 @@ const mapDispatchToProps = dispatch => ({
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
   resetSelections: () => dispatch(selectionActions.resetSelections()),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
+  selectItem: val => dispatch(selectGroup(val)),
 });
 
 GroupsDashboard.propTypes = {
