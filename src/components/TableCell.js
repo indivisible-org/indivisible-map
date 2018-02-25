@@ -51,7 +51,7 @@ class TableCell extends React.Component {
 
     return (
       <List.Item
-        actions={[<a>more</a>, <a href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
+        actions={[<a>more</a>, <a target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
         className="event-cell"
         extra={<Avatar style={{ backgroundColor: color, verticalAlign: 'middle' }} size="large" >U</Avatar>}
       >
@@ -133,7 +133,7 @@ class TableCell extends React.Component {
     return (
       // Antd is stupid and doesn't copy properties, so we set the event listeners on a wrapper
       <div onMouseEnter={() => selectItem(item)} onMouseLeave={() => selectItem(null)}>
-        <Panel 
+        <Panel
           header={this.renderGroupHeader(item)}
           key={item.name}
           showArrow={false}
