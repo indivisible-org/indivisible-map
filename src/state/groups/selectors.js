@@ -9,6 +9,7 @@ import {
 } from '../selections/selectors';
 
 export const getGroups = state => state.groups.allGroups;
+export const getSelectedGroup = state => state.groups.selectedGroup;
 
 export const getFilteredGroups = createSelector(
   [

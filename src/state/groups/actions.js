@@ -11,6 +11,10 @@ export const setFeaturesHome = featuresHome => ({
   featuresHome,
 });
 
+export const selectGroup = group => ({
+  type: 'SELECT_GROUP',
+  group,
+});
 
 export const startSetGroups = () => (dispatch) => {
   let newId = 0;
