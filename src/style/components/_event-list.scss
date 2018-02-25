@@ -1,27 +1,12 @@
 #events-list {
-  width: calc(#{$container-width} * .30);
-  height: 600px;
+  width: 27.5vw;
+  height: 500px;
+  margin-top: 20vh;
   overflow: scroll;
   padding: 200px 20px 20px 20px;
 }
 
-@media (max-width: $mobile-breakpoint) {
-  #events-list {
-    width:100%;
-    text-align: center;
-    margin-top: -60px;
-  }
-}
-
-@media (max-width: 500px) {
-  #events-list {
-    width:100%;
-    text-align: center;
-    margin-left:-5%;
-  }
-}
-
-#group-list {
+#groups-list {
   width: 27.5vw;
   height: 500px;
   margin-top: 20vh;

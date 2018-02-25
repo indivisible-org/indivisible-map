@@ -69,7 +69,8 @@ class EventsDashboard extends React.Component {
     }
 
     return (
-      <div className="map-sidebar-container">
+      <div>
+        <h2 className="dash-title">Event Dashboard</h2>
         <SideBar
           colorMap={colorMap}
           items={visibleEvents}
