@@ -32,6 +32,7 @@ class MapView extends React.Component {
       filterByValue,
       distance,
       type,
+      selectedItem,
     } = nextProps;
     if (items.length !== this.props.items.length) {
       this.updateData(items, `${type}-points`);
@@ -47,6 +48,17 @@ class MapView extends React.Component {
       const stateBB = bboxes[state];
       return this.focusMap(stateBB);
     }
+
+    // Changed higlighted group
+    if (this.props.selectedItem !== selectedItem) {
+      let groupToDeselect = selectedItem || this.props.selectedItem;
+      console.log('deselecting', groupToDeselect)
+      if (selectedItem) {
+        // select item
+        console.log('selecting', selectedItem);
+      }
+    }
+
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
   }
 

@@ -8,6 +8,7 @@ import {
 import {
   getVisbleGroups,
   getGroups,
+  getSelectedGroup,
 } from '../state/groups/selectors';
 import { startSetGroups, selectGroup } from '../state/groups/actions';
 
@@ -56,6 +57,7 @@ class GroupsDashboard extends React.Component {
       allGroups,
       distance,
       groups,
+      selectedGroup,
       selectItem,
       colorMap,
       center,
@@ -81,6 +83,7 @@ class GroupsDashboard extends React.Component {
           resetSearchByZip={resetSelections}
           setLatLng={setLatLng}
           distance={distance}
+          selectedItem={selectedGroup}
         />
       </div>
     );
@@ -95,6 +98,7 @@ const mapStateToProps = state => ({
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
   distance: getDistance(state),
+  selectedGroup: getSelectedGroup(state),
 });
 
 const mapDispatchToProps = dispatch => ({
