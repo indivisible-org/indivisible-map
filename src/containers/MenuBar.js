@@ -57,7 +57,6 @@ class MenuBar extends React.Component {
     resetSearchByQueryString();
 
     if (!query) {
-      console.log('no query ');
       return resetSelections();
     }
     const { searchByZip, searchByQueryString } = this.props;
@@ -80,7 +79,7 @@ class MenuBar extends React.Component {
     const { changeSearchType } = this.props;
     const searchType = val ? 'proximity' : 'district';
     changeSearchType(searchType);
-  };
+  }
 
   renderFilterBar() {
     const {
@@ -134,9 +133,11 @@ class MenuBar extends React.Component {
           hidden={!location.LAT}
         />
         <div className="search-type-container">
-          <p>Search Type: {searchType}</p>
+          <span>Search Type: {searchType}</span>
           <Switch
             size="small"
+            checkedChildren="proximity"
+            unCheckedChildren="district"
             defaultChecked
             className="search-type-switch"
             onChange={this.switchSearchType}
