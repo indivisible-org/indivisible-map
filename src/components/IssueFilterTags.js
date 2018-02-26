@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tag } from 'antd';
 import { find, without } from 'lodash';
+import PropTypes from 'prop-types';
 
 const { CheckableTag } = Tag;
 
@@ -61,5 +62,15 @@ class FilterSelector extends React.Component {
     );
   }
 }
+
+FilterSelector.propTypes = {
+  issues: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  changedFilters: Boolean,
+  colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
+
+FilterSelector.defaultProps = {
+  changedFilters: false,
+};
 
 export default FilterSelector;

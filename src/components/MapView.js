@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
 import geoViewport from '@mapbox/geo-viewport';
-import classNames from 'classNames';
+import classNames from 'classnames';
 
 import bboxes from '../data/bboxes';
 import Point from '../logics/features';
@@ -24,6 +24,7 @@ class MapView extends React.Component {
   componentDidMount() {
     const { items } = this.props;
     const featuresHome = this.createFeatures(items);
+
     this.initializeMap(featuresHome);
   }
 
@@ -36,6 +37,8 @@ class MapView extends React.Component {
       type,
       selectedItem,
     } = nextProps;
+    this.map.resize();
+
     if (items.length !== this.props.items.length) {
       this.updateData(items, `${type}-points`);
     }
