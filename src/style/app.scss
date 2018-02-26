@@ -7,6 +7,8 @@
 @import "modules/colors";
 @import "modules/utility";
 // Partials
+@import "./partials/reset";	
+@import "./partials/settings";
 @import "./partials/base";
 @import "./partials/reset";
 @import "./partials/typography";
@@ -16,5 +18,7 @@
 @import "./components/map";
 @import "./components/popover";
 @import "./components/event-list";
-@import "./components/event-cell";
+@import "./components/group-list";
+@import "./components/table-cell";
 @import "./components/filters";
+@import "./components/sidebar";

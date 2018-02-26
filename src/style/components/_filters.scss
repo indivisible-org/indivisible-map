@@ -1,10 +1,16 @@
 .content-container-filters {
-  width: 27.5vw;
+  width: calc(#{$container-width} * .30);
   position: absolute;
   background-color: white;
   @include box-3d;
   padding: 1vw;
   z-index: 99;
+}
+
+@media (max-width: $mobile-breakpoint) {	
+  .content-container-filters {	
+    width:100vw;	
+  }	
 }
 
 .input-group-filters {

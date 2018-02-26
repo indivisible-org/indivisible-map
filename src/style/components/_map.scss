@@ -2,12 +2,16 @@
 * Create a position for the map
 * on the page */
 #map {
-  position: absolute;
-  top: 20vh;
   bottom: 0;
-  height: 500px;
-  width: 72.5vw;
+  height: 80vh;
+  width: calc(#{$container-width} * .70);
   right: 0;
+}
+
+@media (max-width: $mobile-breakpoint) {	
+  #map {	
+    width:100vw;	
+  }	
 }
 
 /**

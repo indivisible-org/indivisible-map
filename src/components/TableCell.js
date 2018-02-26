@@ -52,7 +52,7 @@ class TableCell extends React.Component {
     return (
       <List.Item
         actions={[<a>more</a>, <a target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
-        className="event-cell"
+        className="table-cell"
         extra={<Avatar style={{ backgroundColor: color, verticalAlign: 'middle' }} size="large" >U</Avatar>}
       >
         <List.Item.Meta
@@ -101,7 +101,7 @@ class TableCell extends React.Component {
     return (
       <List.Item
         actions={actions}
-        className="event-cell"
+        className="table-cell"
       >
         <List.Item.Meta
           title={item.name}
