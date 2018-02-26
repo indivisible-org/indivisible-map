@@ -65,7 +65,7 @@ class TableCell extends React.Component {
               <li>{item.city}</li>
               <li>{item.state}, {item.zip}</li>
               {eventType}
-              <li>Event Focus: {item.issueFocus}</li>
+              <li><strong>Event Focus:</strong> {item.issueFocus}</li>
             </ul>
           }
         />
@@ -131,7 +131,6 @@ class TableCell extends React.Component {
   renderGroups() {
     const { item, selectItem } = this.props;
     return (
-      // Antd is stupid and doesn't copy properties, so we set the event listeners on a wrapper
       <div onMouseEnter={() => selectItem(item)} onMouseLeave={() => selectItem(null)}>
         <Panel
           header={this.renderGroupHeader(item)}
