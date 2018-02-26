@@ -60,11 +60,11 @@ class TableCell extends React.Component {
           description={
             <ul>
               {groupName}
-              {eventType}
               <li><strong>{moment(item.starts_at).format('MMMM Do, YYYY')}</strong></li>
               <li>{item.address1}</li>
               <li>{item.city}</li>
               <li>{item.state}, {item.zip}</li>
+              {eventType}
               <li>Event Focus: {item.issueFocus}</li>
             </ul>
           }
