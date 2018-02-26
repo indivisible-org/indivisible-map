@@ -29,6 +29,7 @@ class TableCell extends React.Component {
     this.renderGroups = this.renderGroups.bind(this);
     this.renderEvents = this.renderEvents.bind(this);
     this.getEmail = this.getEmail.bind(this);
+    this.handlePanelOpen = this.handlePanelOpen.bind(this);
   }
 
   getEmail(e) {
@@ -44,30 +45,48 @@ class TableCell extends React.Component {
       .then(ele.classList.add('disabled'));
   }
 
+  handlePanelOpen(e) {
+    const ele = document.getElementById(e.target.id);
+    if (ele.classList.contains('open')) {
+      ele.classList.remove('open');
+      ele.classList.add('closed');
+    } else {
+      ele.classList.remove('closed');
+      ele.classList.add('open');
+    }
+  }
+
   renderHeader(item) {
     const { color, refcode } = this.props;
-    const groupName = item.group_name ? (<li><strong>Group name:</strong> {item.group_name}</li>) : '';
+    const groupName = item.group_name ? (<li>Hosted by <strong>{item.group_name}</strong></li>) : '';
     const eventType = item.eventType ? (<li><strong>Event type:</strong> {item.eventType}</li>) : '';
 
     return (
       <List.Item
-        actions={[<a>more</a>, <a target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
+        key={item.id}
         className="event-cell"
-        extra={<Avatar style={{ backgroundColor: color, verticalAlign: 'middle' }} size="large" >U</Avatar>}
+        extra={[<a target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
       >
+        {
+          <ul>
+            <li><strong>{moment(item.starts_at).format('MMMM Do, YYYY')}</strong></li>
+            <li>{item.address1}</li>
+            <li>{item.city}</li>
+            <li>{item.state}, {item.zip}</li>
+            {eventType}
+            <li><strong>Event Focus:</strong> {item.issueFocus}</li>
+            <li className="read-more closed" onClick={this.handlePanelOpen} id={item.id}>
+              {item.public_description}
+            </li>
+          </ul>
+        }
         <List.Item.Meta
           title={item.title}
           description={
             <ul>
               {groupName}
-              <li><strong>{moment(item.starts_at).format('MMMM Do, YYYY')}</strong></li>
-              <li>{item.address1}</li>
-              <li>{item.city}</li>
-              <li>{item.state}, {item.zip}</li>
-              {eventType}
-              <li><strong>Event Focus:</strong> {item.issueFocus}</li>
             </ul>
-          }
+        }
         />
       </List.Item>
     );
@@ -117,15 +136,7 @@ class TableCell extends React.Component {
 
   renderEvents() {
     const { item } = this.props;
-    return (
-      <Collapse bordered={false} showArrow={false} >
-        <Panel header={this.renderHeader(item)} key={item.title} showArrow={false}>
-          <li>Event Description:
-            <p>{item.public_description}</p>
-          </li>
-        </Panel>
-      </Collapse>
-    );
+    return this.renderHeader(item);
   }
 
   renderGroups() {
