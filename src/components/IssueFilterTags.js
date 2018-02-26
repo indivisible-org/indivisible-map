@@ -13,7 +13,7 @@ class FilterSelector extends React.Component {
   constructor(props) {
     super(props);
     const { issues } = this.props;
-    const current = without(issues, 'Lawmaker event');
+    const current = without(issues, 'Town Hall');
 
     this.state = {
       selectedTags: current,
