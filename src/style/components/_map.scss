@@ -3,11 +3,17 @@
 * on the page */
 #map {
   position: absolute;
-  top: 20vh;
-  bottom: 0;
+  top: 0;
   height: 500px;
   width: 72.5vw;
   right: 0;
+  &.groups{
+    width: 100vw;
+    top: 0;
+  }
+  &.groups.searched{
+    width: 72.5vw;
+  }
 }
 
 /**

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
 import geoViewport from '@mapbox/geo-viewport';
+import classNames from 'classNames';
+
 import bboxes from '../data/bboxes';
 import Point from '../logics/features';
 
@@ -263,9 +265,14 @@ class MapView extends React.Component {
   }
 
   render() {
+    const { type } = this.props;
+    const mapClass = classNames({
+      [type]: true,
+      searched: this.props.center.LAT,
+    });
     return (
       <div>
-        <div id="map" />
+        <div id="map" className={mapClass} />
         <div className="map-overlay" id="legend" />
       </div>
     );
