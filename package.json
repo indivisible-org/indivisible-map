@@ -46,12 +46,16 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
     "eslint-plugin-react-native": "^3.2.0",
+    "gh-pages": "^1.1.0",
     "url-loader": "^0.6.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack-dev-server --inline --hot --public",
     "build": "webpack",
+    "prebuild": "rm -rf build/bundle.*",
     "lint": "eslint --fix .",
     "postinstall": "npm install express",
     "heroku-postbuild": "webpack",
@@ -66,5 +70,5 @@
   "bugs": {
     "url": "https://github.com/meganrm/indivisible-map/issues"
   },
-  "homepage": "https://github.com/meganrm/indivisible-map#readme"
+  "homepage": "https://meganrm.github.io/indivisible-map/"
 }

@@ -6,7 +6,6 @@ import {
   Button,
   List,
   Collapse,
-  Avatar,
   Icon,
 } from 'antd';
 import { firebaseUrl } from '../state/constants';
