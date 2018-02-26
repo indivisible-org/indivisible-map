@@ -176,53 +176,12 @@ class MapView extends React.Component {
     this.map.addSource('groups-points', {
       type: 'geojson',
       data: featuresHome,
-      cluster: true,
-      clusterMaxZoom: 7, // Max zoom to cluster points on
-      clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
+      cluster: false,
     });
     this.addClusterLayers();
   }
 
   addClusterLayers() {
-    this.map.addLayer({
-      id: 'clusters',
-      type: 'circle',
-      source: 'groups-points',
-      filter: ['has', 'point_count'],
-      paint: {
-        'circle-color': [
-          'step',
-          ['get', 'point_count'],
-          '#9DE0AD',
-          100,
-          '#45ADA8',
-          750,
-          '#547980',
-        ],
-        'circle-radius': [
-          'step',
-          ['get', 'point_count'],
-          20,
-          100,
-          30,
-          750,
-          40,
-        ],
-      },
-    });
-
-    this.map.addLayer({
-      id: 'cluster-count',
-      type: 'symbol',
-      source: 'groups-points',
-      filter: ['has', 'point_count'],
-      layout: {
-        'text-field': '{point_count_abbreviated}',
-        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-        'text-size': 12,
-      },
-    });
-
     this.map.addLayer({
       id: 'unclustered-point',
       type: 'circle',
