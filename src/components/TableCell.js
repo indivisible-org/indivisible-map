@@ -46,7 +46,7 @@ class TableCell extends React.Component {
 
   renderHeader(item) {
     const { color, refcode } = this.props;
-    const groupName = item.groupName ? (<li><strong>Group name:</strong> {item.groupName}</li>) : '';
+    const groupName = item.group_name ? (<li><strong>Group name:</strong> {item.group_name}</li>) : '';
     const eventType = item.eventType ? (<li><strong>Event type:</strong> {item.eventType}</li>) : '';
 
     return (
