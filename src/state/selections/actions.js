@@ -7,6 +7,12 @@ export const setLatLng = payload => ({
   payload,
 });
 
+export const searchByDistrict = payload => ({
+  type: 'SEARCH_BY_DISTRICT',
+  payload,
+});
+
+
 export const resetSelections = () => ({
   type: 'RESET_SELECTIONS',
 });

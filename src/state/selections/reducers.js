@@ -2,12 +2,13 @@ import { uniqBy } from 'lodash';
 
 const initialState = {
   filterValue: '',
+  district: '',
   location: {},
   distance: 50,
   filterBy: 'all',
   filters: 'init',
   zipcode: '',
-  states: [],
+  state: '',
   refcode: '',
   searchType: 'proximity',
 };
@@ -20,11 +21,20 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         location: initialState.location,
         filterBy: initialState.filterBy,
         filterValue: initialState.filterValue,
+        state: initialState.state,
+        district: initialState.district,
       };
     case 'SET_REFCODE':
       return {
         ...state,
         refcode: payload,
+      };
+    case 'SEARCH_BY_DISTRICT':
+      console.log(payload);
+      return {
+        ...state,
+        district: payload.district,
+        state: payload.state,
       };
     case 'SET_TEXT_FILTER':
       return {

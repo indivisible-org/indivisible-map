@@ -20,9 +20,10 @@ class SearchBar extends React.Component {
   }
 
   handleSubmit(value) {
-    const { submitHandler } = this.props;
-    submitHandler(Object.assign({}, { zipcode: value }));
-    this.setState({ ...SearchStateDefault });
+    const {
+      submitHandler,
+    } = this.props;
+    submitHandler(Object.assign({}, { query: value }));
   }
 
   render() {

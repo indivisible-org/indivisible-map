@@ -48,11 +48,16 @@ class MenuBar extends React.Component {
   }
 
   searchHandler(value) {
-    const query = value.zipcode;
+    const { query } = value;
+    console.log(query);
     const {
       resetSelections,
       resetSearchByZip,
       resetSearchByQueryString,
+      searchType,
+      searchByZip,
+      searchByQueryString,
+      searchByDistrict,
     } = this.props;
 
     resetSearchByQueryString();
@@ -60,15 +65,22 @@ class MenuBar extends React.Component {
     if (!query) {
       return resetSelections();
     }
-    const { searchByZip, searchByQueryString } = this.props;
-    if (MenuBar.isZipCode(query)) {
-      return searchByZip(value);
+    if (searchType === 'proximity') {
+      if (MenuBar.isZipCode(query)) {
+        return searchByZip(value);
+      }
+      if (MenuBar.isState(query)) {
+        resetSearchByZip();
+        return searchByQueryString({ filterBy: 'state', filterValue: MenuBar.isState(query).USPS });
+      }
+      return searchByQueryString({ filterBy: 'title', filterValue: query });
+    } else if (searchType === 'district') {
+      const state = query.match(/([A-Z]|[a-z]){2}/g)[0];
+      const district = query.match(/([0-9]{2})|([0-9]{1})/g)[0];
+      console.log(state, district);
+      return searchByDistrict({ state, district });
     }
-    if (MenuBar.isState(query)) {
-      resetSearchByZip();
-      return searchByQueryString({ filterBy: 'state', filterValue: MenuBar.isState(query).USPS });
-    }
-    return searchByQueryString({ filterBy: 'title', filterValue: query });
+    return resetSelections();
   }
 
   distanceHandler(value) {
@@ -175,6 +187,7 @@ const mapDispatchToProps = dispatch => ({
   setTextFilter: text => dispatch(selectionActions.setTextFilter(text)),
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
   searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
+  searchByDistrict: district => dispatch(selectionActions.searchByDistrict(district)),
   changedFilters: filters => dispatch(selectionActions.setFilters(filters)),
   setDistance: distance => dispatch(selectionActions.setDistance(distance)),
   resetSelections: () => dispatch(selectionActions.resetSelections()),
