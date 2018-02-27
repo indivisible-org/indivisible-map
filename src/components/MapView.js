@@ -40,7 +40,8 @@ class MapView extends React.Component {
       selectedItem,
       district,
     } = nextProps;
-    this.addClickListener(searchType);
+    this.map.metadata = { searchType: nextProps.searchType };
+
     if (items.length !== this.props.items.length) {
       this.updateData(items, `${type}-points`);
     }
@@ -130,33 +131,54 @@ class MapView extends React.Component {
 
   addPopups(layer) {
     const { map } = this;
-    const { type, refcode } = this.props;
+    const {
+      type,
+      refcode,
+    } = this.props;
     const popup = new mapboxgl.Popup({
       closeButton: true,
       closeOnClick: true,
     });
 
     map.on('mousemove', (e) => {
+      const { searchType } = this.map.metadata;
       const features = map.queryRenderedFeatures(e.point, { layers: [layer] });
       // Change the cursor style as a UI indicator.
       map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-      if (!features.length) {
-        return;
+      if (features.length) {
+        const feature = features[0];
+        const { properties } = feature;
+        const linkMapping = {
+          events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
+          groups: '',
+        };
+        return popup.setLngLat(feature.geometry.coordinates)
+          .setHTML(`
+            <h4>${feature.properties.title}</h4>
+            <div>${feature.properties.startsAt}</div>
+            ${linkMapping[type]}
+            `)
+          .addTo(map);
       }
-      const feature = features[0];
-      const { properties } = feature;
-      const linkMapping = {
-        events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
-        groups: '',
-      };
-      popup.setLngLat(feature.geometry.coordinates)
-        .setHTML(`
-          <h4>${feature.properties.title}</h4>
-          <div>${feature.properties.startsAt}</div>
-          ${linkMapping[type]}
-          `)
-        .addTo(map);
+      // TODO: fix this
+      // if (searchType === 'district') {
+      //   const districtListener = map.queryRenderedFeatures(
+      //     e.point,
+      //     {
+      //       layers: ['district_interactive'],
+      //     },
+      //   );
+      //   if (districtListener.length > 0) {
+      //     const state = districtListener[0].properties.ABR;
+      //     const district = districtListener[0].properties.GEOID.substring(2, 4);
+      //     return popup.setLngLat(e.lngLat)
+      //       .setHTML(`
+      //         <h4>${state}-${district}</h4>
+      //         `)
+      //       .addTo(map);
+      //   }
+      // }
     });
   }
 
@@ -169,7 +191,7 @@ class MapView extends React.Component {
       };
       this.highlightDistrict(feature.geoID);
     } else {
-      const visibility = map.getLayoutProperty('selected-fill', 'visibility');
+      const visibility = this.map.getLayoutProperty('selected-fill', 'visibility');
       if (visibility === 'visible') {
         this.map.setLayoutProperty('selected-fill', 'visibility', 'none');
         this.map.setLayoutProperty('selected-border', 'visibility', 'none');
@@ -200,16 +222,16 @@ class MapView extends React.Component {
     this.toggleFilters('selected-border', filter);
   }
 
-
   addClickListener(searchType) {
     const {
-      setLatLng,
       type,
       searchByDistrict,
+      setLatLng,
     } = this.props;
     const { map } = this;
 
     map.on('click', (e) => {
+      const { searchType } = this.map.metadata;
       if (searchType === 'proximity') {
         // handle proximity
         const points = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
@@ -342,7 +364,7 @@ class MapView extends React.Component {
   }
 
   initializeMap(featuresHome) {
-    const { type } = this.props;
+    const { type, searchType } = this.props;
 
     mapboxgl.accessToken =
       'pk.eyJ1IjoibWF5YXlhaXIiLCJhIjoiY2phdWl3Y2dnNWM0djJxbzI2M3l6ZHpmNSJ9.m00H0mS_DpchMFMbQ72q2w';
@@ -359,6 +381,9 @@ class MapView extends React.Component {
     this.map.dragRotate.disable();
     this.map.touchZoomRotate.disableRotation();
     this.makeZoomToNationalButton();
+    this.map.metadata = {
+      searchType,
+    };
     // map on 'load'
     this.map.on('load', () => {
       this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
@@ -401,8 +426,8 @@ MapView.defaultProps = {
   center: {},
   filterByValue: {},
   distance: 50,
-  searchType: 'proximity',
   selectItem: null,
+  searchType: 'proximity',
 };
 
 export default MapView;

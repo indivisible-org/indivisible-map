@@ -49,7 +49,6 @@ class MenuBar extends React.Component {
 
   searchHandler(value) {
     const { query } = value;
-    console.log(query);
     const {
       resetSelections,
       resetSearchByZip,
@@ -80,7 +79,6 @@ class MenuBar extends React.Component {
       const stateMatch = query.match(/([A-Z]|[a-z]){2}/g)[0];
       const districtMatch = query.match(/([0-9]{2})|([0-9]{1})/g)[0];
       if (stateMatch.length > 0 && districtMatch.length > 0) {
-        console.log(union(issues, ['Town Hall']));
         const state = query.match(/([A-Z]|[a-z]){2}/g)[0];
         const district = Number(query.match(/([0-9]{2})|([0-9]{1})/g)[0]);
         return searchByDistrict({ state, district });

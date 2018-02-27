@@ -1,9 +1,10 @@
 #events-list {
   width: 27.5vw;
-  height: 500px;
-  margin-top: 20vh;
+  flex:auto 2;
+  order: 2;
+  margin: auto;
   overflow: scroll;
-  padding: 200px 10px 10px 10px;
+  padding: 10px;
   .no-results{
     margin-top: 50%;
   }
@@ -11,8 +12,9 @@
 
 #groups-list {
   width: 27.5vw;
-  height: 500px;
-  margin-top: 20vh;
+  flex:auto 5;
+  order: 2;
+  margin: auto;
   overflow: scroll;
-  padding: 200px 10px 10px 10px;
+  padding: 10px;
 }

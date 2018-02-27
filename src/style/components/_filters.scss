@@ -1,10 +1,10 @@
 .content-container-filters {
-  width: 27.5vw;
-  position: absolute;
   background-color: white;
   @include box-3d;
-  padding: 1vw;
+  padding: 0.5vw;
   z-index: 99;
+  flex:auto 0 1;
+  order: 1;
 }
 
 .input-group-filters {
