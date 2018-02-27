@@ -71,7 +71,7 @@ class EventsDashboard extends React.Component {
     }
 
     return (
-      <div>
+      <div className="events-container">
         <h2 className="dash-title">Event Dashboard</h2>
         <SideBar
           colorMap={colorMap}

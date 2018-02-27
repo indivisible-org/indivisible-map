@@ -26,9 +26,16 @@ class SearchBar extends React.Component {
   }
 
   render() {
+    const {
+      searchType,
+    } = this.props;
+    const textMap = {
+      district: 'district, ex WA-09',
+      proximity: 'zipcode, state, or title',
+    };
     return (
       <Search
-        placeholder="zipcode, state or keyword"
+        placeholder={textMap[searchType]}
         onSearch={value => this.handleSubmit(value)}
         style={{ width: '100%' }}
       />
@@ -39,6 +46,7 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
   submitHandler: PropTypes.func.isRequired,
+  searchType: PropTypes.string.isRequired,
 };
 
 export default SearchBar;
