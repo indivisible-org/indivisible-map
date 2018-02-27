@@ -12,7 +12,6 @@ export const searchByDistrict = payload => ({
   payload,
 });
 
-
 export const resetSelections = () => ({
   type: 'RESET_SELECTIONS',
 });
@@ -61,10 +60,10 @@ export const setInitialFilters = payload => ({
 });
 
 export const getLatLngFromZip = payload => (dispatch) => {
-  if (!payload.zipcode) {
-    return dispatch(setLatLng(null));
+  if (!payload.query) {
+    return dispatch(setLatLng({}));
   }
-  return superagent.get(`${firebaseUrl}/zips/${payload.zipcode}.json`)
+  return superagent.get(`${firebaseUrl}/zips/${payload.query}.json`)
     .then((res) => {
       dispatch(setLatLng(res.body));
     })
