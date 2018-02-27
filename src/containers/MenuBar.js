@@ -40,6 +40,7 @@ class MenuBar extends React.Component {
     this.switchSearchType = this.switchSearchType.bind(this);
     this.renderFilterBar = this.renderFilterBar.bind(this);
     this.renderTotal = this.renderTotal.bind(this);
+    this.renderSwitch = this.renderSwitch.bind(this);
   }
 
   onTextChange(e) {
@@ -102,6 +103,27 @@ class MenuBar extends React.Component {
     );
   }
 
+  renderSwitch() {
+    const {
+      searchType,
+      type,
+    } = this.props;
+    return type === 'events' ? (
+      <div className="search-type-container">
+        <span>Search by </span>
+        <Switch
+          size="small"
+          checkedChildren="proximity"
+          unCheckedChildren="district"
+          defaultChecked
+          className="search-type-switch"
+          onChange={this.switchSearchType}
+          searchType={searchType}
+        />
+      </div>)
+      : null;
+  }
+
   renderTotal() {
     const {
       items,
@@ -122,18 +144,7 @@ class MenuBar extends React.Component {
     } = this.props;
     return (
       <div className="content-container-filters">
-        <div className="search-type-container">
-          <span>Search by </span>
-          <Switch
-            size="small"
-            checkedChildren="proximity"
-            unCheckedChildren="district"
-            defaultChecked
-            className="search-type-switch"
-            onChange={this.switchSearchType}
-            searchType={searchType}
-          />
-        </div>
+        {this.renderSwitch()}
         <SearchBar
           submitHandler={this.searchHandler}
           searchType={searchType}

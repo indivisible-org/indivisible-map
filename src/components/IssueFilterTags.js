@@ -65,12 +65,8 @@ class FilterSelector extends React.Component {
 
 FilterSelector.propTypes = {
   issues: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  changedFilters: Boolean,
+  changedFilters: PropTypes.func.isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-};
-
-FilterSelector.defaultProps = {
-  changedFilters: false,
 };
 
 export default FilterSelector;
