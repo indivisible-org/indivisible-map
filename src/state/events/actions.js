@@ -16,13 +16,12 @@ export const setFeaturesHome = featuresHome => ({
   featuresHome,
 });
 
-// NEEDS FIX: 2 separate calls for featuresHome and events
-
 export const startSetEvents = () => (dispatch) => {
   const url = `${firebaseUrl}/indivisible_public_events.json`;
   return getData(url).then((result) => {
-    const events = Object.keys(result.body)
-      .map(id => new IndEvent(result.body[id]))
+    const allevents = result.body;
+    const events = Object.keys(allevents)
+      .map(id => new IndEvent(allevents[id]))
       .filter(evnt => moment(evnt.starts_at).isAfter())
       .sort((a, b) => moment(a.starts_at).isSameOrAfter(b.starts_at));
     return (dispatch(setEvents(events)));

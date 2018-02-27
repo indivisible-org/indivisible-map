@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   getColorMap,
-
 } from '../state/events/selectors';
 
 import {
   getVisbleGroups,
   getGroups,
+  getSelectedGroup,
 } from '../state/groups/selectors';
-import { startSetGroups } from '../state/groups/actions';
+import { startSetGroups, selectGroup } from '../state/groups/actions';
 
 import {
   getLocation,
@@ -57,6 +57,8 @@ class GroupsDashboard extends React.Component {
       allGroups,
       distance,
       groups,
+      selectedGroup,
+      selectItem,
       colorMap,
       center,
       filterBy,
@@ -71,7 +73,13 @@ class GroupsDashboard extends React.Component {
     return (
       <div>
         <h2 className="dash-title">Group Dashboard</h2>
-        <SideBar type="groups" items={groups} allItems={allGroups} resetHandler={resetSelections} />
+        <SideBar
+          type="groups"
+          items={groups}
+          allItems={allGroups}
+          resetHandler={resetSelections}
+          selectItem={selectItem}
+        />
         <MapView
           center={center}
           type="groups"
@@ -81,6 +89,7 @@ class GroupsDashboard extends React.Component {
           resetSearchByZip={resetSelections}
           setLatLng={setLatLng}
           distance={distance}
+          selectedItem={selectedGroup}
         />
       </div>
     );
@@ -95,6 +104,7 @@ const mapStateToProps = state => ({
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
   distance: getDistance(state),
+  selectedGroup: getSelectedGroup(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -102,6 +112,7 @@ const mapDispatchToProps = dispatch => ({
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
   resetSelections: () => dispatch(selectionActions.resetSelections()),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
+  selectItem: val => dispatch(selectGroup(val)),
 });
 
 GroupsDashboard.propTypes = {

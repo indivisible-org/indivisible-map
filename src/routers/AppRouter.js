@@ -4,12 +4,11 @@ import GroupsDashboard from '../containers/GroupsDashboard';
 import EventsDashboard from '../containers/EventsDashboard';
 
 const AppRouter = () => (
-  <BrowserRouter>
+  <BrowserRouter basename="/indivisible-map/">
     <div>
       <Switch>
         <Route path="/events" component={EventsDashboard} />
         <Route path="/groups" component={GroupsDashboard} />
-        <Route path="/" component={EventsDashboard} />
       </Switch>
     </div>
   </BrowserRouter>

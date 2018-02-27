@@ -11,6 +11,10 @@ export const setFeaturesHome = featuresHome => ({
   featuresHome,
 });
 
+export const selectGroup = group => ({
+  type: 'SELECT_GROUP',
+  group,
+});
 
 export const startSetGroups = () => (dispatch) => {
   let newId = 0;
@@ -26,7 +30,7 @@ export const startSetGroups = () => (dispatch) => {
       setTimeout(() => {
         const nextUrl = `${firebaseUrl}/indivisible_groups.json?orderBy="$key"&startAt="${newId}"&limitToFirst=${batch}`;
         storedispatch(requestNext(nextUrl, total));
-      }, 200);
+      }, 100);
     }
   });
 
@@ -41,7 +45,7 @@ export const startSetGroups = () => (dispatch) => {
       setTimeout(() => {
         const nextUrl = `${firebaseUrl}/indivisible_groups.json?orderBy="$key"&startAt="${newId}"&limitToFirst=${batch}`;
         storedispatch(requestNext(nextUrl, total));
-      }, 200);
+      }, 100);
     });
   };
 

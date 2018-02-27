@@ -13,6 +13,7 @@ class Point {
       startsAt: eventOrGroup.starts_at ? moment(eventOrGroup.starts_at).format('MMMM Do YYYY, h:mm a') : '',
       title: eventOrGroup.title || eventOrGroup.name,
       venue: eventOrGroup.venue || '',
+      id: eventOrGroup.id || null,
     };
   }
 }

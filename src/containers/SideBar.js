@@ -32,6 +32,7 @@ class SideBar extends React.Component {
       items,
       refcode,
       type,
+      selectItem,
     } = this.props;
 
     return (
@@ -43,6 +44,7 @@ class SideBar extends React.Component {
           refcode={refcode}
           shouldRender={this.renderTable()}
           type={type}
+          selectItem={selectItem}
         />
       </div>
     );
@@ -61,10 +63,12 @@ SideBar.propTypes = {
   location: PropTypes.shape({}).isRequired,
   refcode: PropTypes.string,
   type: PropTypes.string.isRequired,
+  selectItem: PropTypes.func,
 };
 
 SideBar.defaultProps = {
   refcode: '',
   colorMap: [],
+  selectItem: () => {},
 };
 export default connect(mapStateToProps)(SideBar);

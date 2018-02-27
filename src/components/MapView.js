@@ -33,10 +33,15 @@ class MapView extends React.Component {
       distance,
       searchType,
       type,
+      selectedItem,
     } = nextProps;
     this.addClickListener(searchType);
     if (items.length !== this.props.items.length) {
       this.updateData(items, `${type}-points`);
+    }
+    // Highlight selected item
+    if (this.props.selectedItem !== selectedItem) {
+      this.map.setFilter('unclustered-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
     }
     if (center.LNG) {
       return this.map.flyTo({
@@ -179,53 +184,12 @@ class MapView extends React.Component {
     this.map.addSource('groups-points', {
       type: 'geojson',
       data: featuresHome,
-      cluster: true,
-      clusterMaxZoom: 7, // Max zoom to cluster points on
-      clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
+      cluster: false,
     });
     this.addClusterLayers();
   }
 
   addClusterLayers() {
-    this.map.addLayer({
-      id: 'clusters',
-      type: 'circle',
-      source: 'groups-points',
-      filter: ['has', 'point_count'],
-      paint: {
-        'circle-color': [
-          'step',
-          ['get', 'point_count'],
-          '#9DE0AD',
-          100,
-          '#45ADA8',
-          750,
-          '#547980',
-        ],
-        'circle-radius': [
-          'step',
-          ['get', 'point_count'],
-          20,
-          100,
-          30,
-          750,
-          40,
-        ],
-      },
-    });
-
-    this.map.addLayer({
-      id: 'cluster-count',
-      type: 'symbol',
-      source: 'groups-points',
-      filter: ['has', 'point_count'],
-      layout: {
-        'text-field': '{point_count_abbreviated}',
-        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-        'text-size': 12,
-      },
-    });
-
     this.map.addLayer({
       id: 'unclustered-point',
       type: 'circle',
@@ -237,6 +201,21 @@ class MapView extends React.Component {
         'circle-stroke-width': 1,
         'circle-stroke-color': '#fff',
         'circle-opacity': 0.5,
+      },
+    });
+
+    // Layer to highlight selected group
+    this.map.addLayer({
+      id: 'unclustered-point-selected',
+      type: 'circle',
+      source: 'groups-points',
+      filter: ['==', 'id', false],
+      paint: {
+        'circle-color': '#f00',
+        'circle-radius': 6,
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#fff',
+        'circle-opacity': 1,
       },
     });
   }

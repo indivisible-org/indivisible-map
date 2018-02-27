@@ -26,6 +26,7 @@ class Table extends React.Component {
       refcode,
       shouldRender,
       type,
+      selectItem,
     } = this.props;
     if (!shouldRender) {
       return (
@@ -43,6 +44,7 @@ class Table extends React.Component {
         </div>
       );
     }
+
     return (
       <List
         id={`${type}-list`}
@@ -55,6 +57,7 @@ class Table extends React.Component {
             refcode={refcode}
             type={type}
             color={this.getColor(item.issueFocus)}
+            selectItem={selectItem}
           />)}
       />
     );
@@ -66,11 +69,13 @@ Table.propTypes = {
   refcode: PropTypes.string,
   colorMap: PropTypes.arrayOf(PropTypes.object),
   type: PropTypes.string.isRequired,
+  selectItem: PropTypes.func,
 };
 
 Table.defaultProps = {
   refcode: '',
   colorMap: [],
+  selectItem: () => {},
 };
 
 export default Table;

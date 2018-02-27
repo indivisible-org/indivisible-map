@@ -9,6 +9,7 @@ import {
 } from '../selections/selectors';
 
 export const getGroups = state => state.groups.allGroups;
+export const getSelectedGroup = state => state.groups.selectedGroup;
 
 export const getFilteredGroups = createSelector(
   [
@@ -32,7 +33,7 @@ export const getFilteredGroups = createSelector(
         return currrentGroup[filterBy] === filterValue;
       }
       return currrentGroup[filterBy].toLowerCase().includes(filterValue.toLowerCase());
-    }).sort((a, b) => (a.starts_at < b.starts_at ? 1 : -1));
+    });
   },
 );
 
@@ -62,6 +63,16 @@ export const getVisbleGroups = createSelector(
         new LatLng(Number(currentGroup.latitude), Number(currentGroup.longitude)),
       );
       return curDistance < maxMeters;
+    }).sort((a, b) => {
+      const aDistance = computeDistanceBetween(
+        lookup,
+        new LatLng(Number(a.latitude), Number(a.longitude)),
+      );
+      const bDistance = computeDistanceBetween(
+        lookup,
+        new LatLng(Number(b.latitude), Number(b.longitude)),
+      );
+      return aDistance - bDistance;
     });
   },
 );

@@ -1,6 +1,22 @@
 .event-cell {
-  border-bottom: 1px solid #b1c8d3;
   ul {
     list-style-type: none;
   }
+  .read-more {
+    transition: max-height 500ms ease-in-out;
+    cursor: pointer;
+    color: $brand-blue;
+    &.closed{
+      max-height: 4em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 144px;
+    }
+    &.open{
+      max-height: 2000em;
+
+    }
+  }
+
 }
