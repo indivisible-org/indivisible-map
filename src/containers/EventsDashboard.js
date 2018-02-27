@@ -8,6 +8,7 @@ import {
   getColorMap,
   getEvents,
   getEventsByDistrict,
+  getFilteredEvents,
 } from '../state/events/selectors';
 import { startSetEvents } from '../state/events/actions';
 
@@ -69,33 +70,40 @@ class EventsDashboard extends React.Component {
       filterBy,
       filterValue,
       searchType,
+      searchByDistrict,
+      filteredEvents,
     } = this.props;
     if (this.state.init) {
       return null;
     }
-    const searchTypeMap = {
+    const searchTypeMapSideBar = {
       proximity: visibleEvents,
       district: eventsByDistrict,
+    };
+    const searchTypeMapMap = {
+      proximity: visibleEvents,
+      district: filteredEvents,
     };
     return (
       <div className="events-container">
         <h2 className="dash-title">Event Dashboard</h2>
         <SideBar
           colorMap={colorMap}
-          items={searchTypeMap[searchType]}
+          items={searchTypeMapSideBar[searchType]}
           allItems={allEvents}
           refcode={refcode}
           type="events"
           resetSelections={resetSelections}
         />
         <MapView
-          items={searchTypeMap[searchType]}
+          items={searchTypeMapMap[searchType]}
           center={center}
           colorMap={colorMap}
           district={district}
           type="events"
           filterByValue={{ [filterBy]: [filterValue] }}
           resetSelections={resetSelections}
+          searchByDistrict={searchByDistrict}
           refcode={refcode}
           setLatLng={setLatLng}
           distance={distance}
@@ -109,6 +117,7 @@ class EventsDashboard extends React.Component {
 const mapStateToProps = state => ({
   visibleEvents: getVisbleEvents(state),
   eventsByDistrict: getEventsByDistrict(state),
+  filteredEvents: getFilteredEvents(state),
   district: getDistrict(state),
   allEvents: getEvents(state),
   center: getLocation(state),
@@ -125,6 +134,7 @@ const mapDispatchToProps = dispatch => ({
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
+  searchByDistrict: val => dispatch(selectionActions.searchByDistrict(val)),
   resetSelections: () => dispatch(selectionActions.resetSelections()),
 });
 

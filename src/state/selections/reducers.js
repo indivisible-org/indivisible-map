@@ -30,16 +30,11 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         refcode: payload,
       };
     case 'SEARCH_BY_DISTRICT':
-      let updateFilters = [...state.filters];
-      if (indexOf(state.filters, townhallevents) === -1) {
-        updateFilters = [...updateFilters, townhallevents];
-      }
       return {
         ...state,
         district: payload.district,
         filterBy: 'state',
         filterValue: payload.state,
-        filters: updateFilters,
       };
     case 'SET_TEXT_FILTER':
       return {

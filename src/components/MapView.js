@@ -17,6 +17,10 @@ class MapView extends React.Component {
     this.focusMap = this.focusMap.bind(this);
     this.addClusterLayers = this.addClusterLayers.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.toggleFilters = this.toggleFilters.bind(this);
+    this.highlightDistrict = this.highlightDistrict.bind(this);
+    this.districtSelect = this.districtSelect.bind(this);
+    this.removeHighlights = this.removeHighlights.bind(this);
   }
 
   componentDidMount() {
@@ -44,12 +48,6 @@ class MapView extends React.Component {
     if (this.props.selectedItem !== selectedItem) {
       this.map.setFilter('unclustered-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
     }
-    if (center.LNG) {
-      return this.map.flyTo({
-        center: [Number(center.LNG), Number(center.LAT)],
-        zoom: 9.52 - (distance * (4.7 / 450)),
-      });
-    }
     if (filterByValue.state) {
       let bbname = filterByValue.state[0].toUpperCase();
       if (district) {
@@ -60,6 +58,12 @@ class MapView extends React.Component {
       }
       const stateBB = bboxes[bbname];
       return this.focusMap(stateBB);
+    }
+    if (center.LNG) {
+      return this.map.flyTo({
+        center: [Number(center.LNG), Number(center.LAT)],
+        zoom: 9.52 - (distance * (4.7 / 450)),
+      });
     }
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
   }
@@ -156,8 +160,53 @@ class MapView extends React.Component {
     });
   }
 
+  districtSelect(feature) {
+    if (feature.state) {
+      const locationData = {
+        state: feature.state,
+        district: [feature.district],
+        validSelections: feature.geoID,
+      };
+      this.highlightDistrict(feature.geoID);
+    } else {
+      const visibility = map.getLayoutProperty('selected-fill', 'visibility');
+      if (visibility === 'visible') {
+        this.map.setLayoutProperty('selected-fill', 'visibility', 'none');
+        this.map.setLayoutProperty('selected-border', 'visibility', 'none');
+      }
+    }
+  }
+
+  toggleFilters(layer, filter) {
+    this.map.setFilter(layer, filter);
+    this.map.setLayoutProperty(layer, 'visibility', 'visible');
+  }
+
+  // Handles the highlight for districts when clicked on.
+  highlightDistrict(geoid) {
+    let filter;
+    // Filter for which district has been selected.
+    if (typeof geoid === 'object') {
+      filter = ['any'];
+
+      geoid.forEach((i) => {
+        filter.push(['==', 'GEOID', i]);
+      });
+    } else {
+      filter = ['all', ['==', 'GEOID', geoid]];
+    }
+    // Set that layer filter to the selected
+    this.toggleFilters('selected-fill', filter);
+    this.toggleFilters('selected-border', filter);
+  }
+
+
   addClickListener(searchType) {
-    const { setLatLng, type } = this.props;
+    const {
+      setLatLng,
+      type,
+      searchByDistrict,
+    } = this.props;
     const { map } = this;
 
     map.on('click', (e) => {
@@ -180,7 +229,32 @@ class MapView extends React.Component {
         }
         setLatLng(formatLatLng);
       } else if (searchType === 'district') {
-        // handle district
+        const features = map.queryRenderedFeatures(
+          e.point,
+          {
+            layers: ['district_interactive'],
+          },
+        );
+        const feature = {};
+        const points = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
+
+        if (features.length > 0) {
+          feature.state = features[0].properties.ABR;
+          feature.district = features[0].properties.GEOID.substring(2, 4);
+          feature.geoID = features[0].properties.GEOID;
+
+          if (points.length > 0) {
+            const point = points[0];
+            const formatLatLng = {
+              LAT: point.geometry.coordinates[1].toString(),
+              LNG: point.geometry.coordinates[0].toString(),
+            };
+            setLatLng(formatLatLng);
+          } else {
+            searchByDistrict({ state: feature.state, district: feature.district });
+          }
+          this.districtSelect(feature);
+        }
       }
     });
   }
@@ -244,7 +318,13 @@ class MapView extends React.Component {
     });
   }
 
+  removeHighlights() {
+    this.map.setLayoutProperty('selected-fill', 'visibility', 'none');
+    this.map.setLayoutProperty('selected-border', 'visibility', 'none');
+  }
+
   handleReset() {
+    this.removeHighlights();
     this.props.resetSelections();
   }
   // Creates the button in our zoom controls to go to the national view

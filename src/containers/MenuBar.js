@@ -178,7 +178,7 @@ class MenuBar extends React.Component {
         <DistanceFilter
           changeHandler={this.distanceHandler}
           distance={distance}
-          hidden={!location.LAT}
+          hidden={!location.LAT || searchType === 'district'}
         />
         {this.renderTotal()}
       </div>

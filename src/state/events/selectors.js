@@ -24,8 +24,8 @@ const getEventsFilteredByKeywordArray = createSelector(
     return filter(allEvents, o => includes(filterArray, o.issueFocus));
   },
 );
-// export default getVisibleEvents;
-const getFilteredEvents = createSelector(
+
+export const getFilteredEvents = createSelector(
   [
     getEventsFilteredByKeywordArray,
     getFilterBy,
