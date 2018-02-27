@@ -22,7 +22,6 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         location: initialState.location,
         filterBy: initialState.filterBy,
         filterValue: initialState.filterValue,
-        state: initialState.state,
         district: initialState.district,
       };
     case 'SET_REFCODE':

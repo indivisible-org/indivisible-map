@@ -34,6 +34,7 @@ class MapView extends React.Component {
       searchType,
       type,
       selectedItem,
+      district,
     } = nextProps;
     this.addClickListener(searchType);
     if (items.length !== this.props.items.length) {
@@ -50,8 +51,14 @@ class MapView extends React.Component {
       });
     }
     if (filterByValue.state) {
-      const state = filterByValue.state[0];
-      const stateBB = bboxes[state];
+      let bbname = filterByValue.state[0].toUpperCase();
+      if (district) {
+        const zeros = '00';
+        const districtString = district.toString();
+        const districtPadded = zeros.substring(0, zeros.length - districtString.length) + districtString;
+        bbname = `${bbname}${districtPadded}`;
+      }
+      const stateBB = bboxes[bbname];
       return this.focusMap(stateBB);
     }
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
@@ -119,9 +126,10 @@ class MapView extends React.Component {
 
   addPopups(layer) {
     const { map } = this;
+    const { type, refcode } = this.props;
     const popup = new mapboxgl.Popup({
-      closeButton: false,
-      closeOnClick: false,
+      closeButton: true,
+      closeOnClick: true,
     });
 
     map.on('mousemove', (e) => {
@@ -130,34 +138,50 @@ class MapView extends React.Component {
       map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
       if (!features.length) {
-        popup.remove();
         return;
       }
       const feature = features[0];
+      const { properties } = feature;
+      const linkMapping = {
+        events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
+        groups: '',
+      };
       popup.setLngLat(feature.geometry.coordinates)
         .setHTML(`
           <h4>${feature.properties.title}</h4>
-          <div>${feature.properties.startsAt}</div>`)
+          <div>${feature.properties.startsAt}</div>
+          ${linkMapping[type]}
+          `)
         .addTo(map);
     });
   }
 
   addClickListener(searchType) {
-    const { setLatLng } = this.props;
+    const { setLatLng, type } = this.props;
     const { map } = this;
 
     map.on('click', (e) => {
-      console.log(searchType);
       if (searchType === 'proximity') {
         // handle proximity
+        const points = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
+        // selected a marker
+        let formatLatLng;
+        if (points.length > 0) {
+          const point = points[0];
+          formatLatLng = {
+            LAT: point.geometry.coordinates[1].toString(),
+            LNG: point.geometry.coordinates[0].toString(),
+          };
+        } else {
+          formatLatLng = {
+            LAT: e.lngLat.lat.toString(),
+            LNG: e.lngLat.lng.toString(),
+          };
+        }
+        setLatLng(formatLatLng);
       } else if (searchType === 'district') {
         // handle district
       }
-      const formatLatLng = {
-        LAT: e.lngLat.lat.toString(),
-        LNG: e.lngLat.lng.toString(),
-      };
-      setLatLng(formatLatLng);
     });
   }
 
@@ -221,7 +245,7 @@ class MapView extends React.Component {
   }
 
   handleReset() {
-    this.props.resetSearchByZip();
+    this.props.resetSelections();
   }
   // Creates the button in our zoom controls to go to the national view
   makeZoomToNationalButton() {
@@ -285,9 +309,10 @@ MapView.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   type: PropTypes.string.isRequired,
-  resetSearchByZip: PropTypes.func.isRequired,
+  resetSelections: PropTypes.func.isRequired,
   setLatLng: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
+  selectItem: PropTypes.shape({}),
   distance: PropTypes.number,
   searchType: PropTypes.string,
 };
@@ -297,6 +322,7 @@ MapView.defaultProps = {
   filterByValue: {},
   distance: 50,
   searchType: 'proximity',
+  selectItem: null,
 };
 
 export default MapView;

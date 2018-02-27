@@ -20,10 +20,16 @@ class FilterSelector extends React.Component {
       selectedTags: current,
     };
   }
+
   componentDidMount() {
     const { changedFilters } = this.props;
     changedFilters(this.state.selectedTags);
   }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({ selectedTags: newProps.selectedFilters });
+  }
+
   handleChange(tag, checked) {
     const { changedFilters } = this.props;
     const { selectedTags } = this.state;

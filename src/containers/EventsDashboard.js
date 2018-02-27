@@ -18,6 +18,7 @@ import {
   getFilterBy,
   getFilterValue,
   getSearchType,
+  getDistrict,
 } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
@@ -57,13 +58,14 @@ class EventsDashboard extends React.Component {
     const {
       allEvents,
       distance,
+      district,
       visibleEvents,
       eventsByDistrict,
       center,
       colorMap,
       refcode,
       setLatLng,
-      resetSearchByZip,
+      resetSelections,
       filterBy,
       filterValue,
       searchType,
@@ -75,7 +77,6 @@ class EventsDashboard extends React.Component {
       proximity: visibleEvents,
       district: eventsByDistrict,
     };
-    console.log(searchType);
     return (
       <div className="events-container">
         <h2 className="dash-title">Event Dashboard</h2>
@@ -85,15 +86,17 @@ class EventsDashboard extends React.Component {
           allItems={allEvents}
           refcode={refcode}
           type="events"
-          resetSearchByZip={resetSearchByZip}
+          resetSelections={resetSelections}
         />
         <MapView
           items={searchTypeMap[searchType]}
           center={center}
           colorMap={colorMap}
+          district={district}
           type="events"
           filterByValue={{ [filterBy]: [filterValue] }}
-          resetSearchByZip={resetSearchByZip}
+          resetSelections={resetSelections}
+          refcode={refcode}
           setLatLng={setLatLng}
           distance={distance}
           searchType={searchType}
@@ -106,6 +109,7 @@ class EventsDashboard extends React.Component {
 const mapStateToProps = state => ({
   visibleEvents: getVisbleEvents(state),
   eventsByDistrict: getEventsByDistrict(state),
+  district: getDistrict(state),
   allEvents: getEvents(state),
   center: getLocation(state),
   colorMap: getColorMap(state),
@@ -121,7 +125,7 @@ const mapDispatchToProps = dispatch => ({
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
-  resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
+  resetSelections: () => dispatch(selectionActions.resetSelections()),
 });
 
 EventsDashboard.propTypes = {
@@ -135,7 +139,6 @@ EventsDashboard.propTypes = {
   setLatLng: PropTypes.func.isRequired,
   getInitialEvents: PropTypes.func.isRequired,
   refcode: PropTypes.string,
-  resetSearchByZip: PropTypes.func.isRequired,
   filterBy: PropTypes.string,
   filterValue: PropTypes.arrayOf(PropTypes.string),
 };
