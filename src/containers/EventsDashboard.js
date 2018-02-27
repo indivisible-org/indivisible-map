@@ -16,6 +16,7 @@ import {
   getRefCode,
   getFilterBy,
   getFilterValue,
+  getSearchType,
 } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
@@ -63,6 +64,7 @@ class EventsDashboard extends React.Component {
       resetSearchByZip,
       filterBy,
       filterValue,
+      searchType,
     } = this.props;
     if (this.state.init) {
       return null;
@@ -88,6 +90,7 @@ class EventsDashboard extends React.Component {
           resetSearchByZip={resetSearchByZip}
           setLatLng={setLatLng}
           distance={distance}
+          searchType={searchType}
         />
       </div>
     );
@@ -103,6 +106,7 @@ const mapStateToProps = state => ({
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
   distance: getDistance(state),
+  searchType: getSearchType(state),
 });
 
 const mapDispatchToProps = dispatch => ({
