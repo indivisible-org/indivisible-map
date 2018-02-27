@@ -118,19 +118,10 @@ class MenuBar extends React.Component {
     const {
       distance,
       location,
+      searchType,
     } = this.props;
-
     return (
       <div className="content-container-filters">
-        <SearchBar
-          submitHandler={this.searchHandler}
-        />
-        {this.renderFilterBar()}
-        <DistanceFilter
-          changeHandler={this.distanceHandler}
-          distance={distance}
-          hidden={!location.LAT}
-        />
         <div className="search-type-container">
           <span>Search by </span>
           <Switch
@@ -140,8 +131,19 @@ class MenuBar extends React.Component {
             defaultChecked
             className="search-type-switch"
             onChange={this.switchSearchType}
+            searchType={searchType}
           />
         </div>
+        <SearchBar
+          submitHandler={this.searchHandler}
+          searchType={searchType}
+        />
+        {this.renderFilterBar()}
+        <DistanceFilter
+          changeHandler={this.distanceHandler}
+          distance={distance}
+          hidden={!location.LAT}
+        />
         {this.renderTotal()}
       </div>
     );
