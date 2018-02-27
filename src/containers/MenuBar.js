@@ -110,9 +110,9 @@ class MenuBar extends React.Component {
     } = this.props;
     return type === 'events' ? (
       <div className="search-type-container">
-        <span>Search by </span>
+        <span className="search-by-title">Search by </span>
         <Switch
-          size="small"
+          size="large"
           checkedChildren="proximity"
           unCheckedChildren="district"
           defaultChecked
