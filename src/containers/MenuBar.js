@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { find } from 'lodash';
+import { find, union } from 'lodash';
 import { Switch } from 'antd';
 
 import states from '../data/states';
@@ -58,6 +58,8 @@ class MenuBar extends React.Component {
       searchByZip,
       searchByQueryString,
       searchByDistrict,
+      changedFilters,
+      issues,
     } = this.props;
 
     resetSearchByQueryString();
@@ -75,10 +77,14 @@ class MenuBar extends React.Component {
       }
       return searchByQueryString({ filterBy: 'title', filterValue: query });
     } else if (searchType === 'district') {
-      const state = query.match(/([A-Z]|[a-z]){2}/g)[0];
-      const district = query.match(/([0-9]{2})|([0-9]{1})/g)[0];
-      console.log(state, district);
-      return searchByDistrict({ state, district });
+      const stateMatch = query.match(/([A-Z]|[a-z]){2}/g)[0];
+      const districtMatch = query.match(/([0-9]{2})|([0-9]{1})/g)[0];
+      if (stateMatch.length > 0 && districtMatch.length > 0) {
+        console.log(union(issues, ['Town Hall']));
+        const state = query.match(/([A-Z]|[a-z]){2}/g)[0];
+        const district = Number(query.match(/([0-9]{2})|([0-9]{1})/g)[0]);
+        return searchByDistrict({ state, district });
+      }
     }
     return resetSelections();
   }
@@ -89,8 +95,15 @@ class MenuBar extends React.Component {
   }
 
   switchSearchType(val) {
-    const { changeSearchType } = this.props;
+    const {
+      changeSearchType,
+      issues,
+      changedFilters,
+    } = this.props;
     const searchType = val ? 'proximity' : 'district';
+    if (searchType === 'district') {
+      changedFilters(union(issues, ['Town Hall']));
+    }
     changeSearchType(searchType);
   }
 

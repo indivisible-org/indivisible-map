@@ -7,6 +7,7 @@ import {
   getVisbleEvents,
   getColorMap,
   getEvents,
+  getEventsByDistrict,
 } from '../state/events/selectors';
 import { startSetEvents } from '../state/events/actions';
 
@@ -57,6 +58,7 @@ class EventsDashboard extends React.Component {
       allEvents,
       distance,
       visibleEvents,
+      eventsByDistrict,
       center,
       colorMap,
       refcode,
@@ -69,20 +71,24 @@ class EventsDashboard extends React.Component {
     if (this.state.init) {
       return null;
     }
-
+    const searchTypeMap = {
+      proximity: visibleEvents,
+      district: eventsByDistrict,
+    };
+    console.log(searchType);
     return (
       <div className="events-container">
         <h2 className="dash-title">Event Dashboard</h2>
         <SideBar
           colorMap={colorMap}
-          items={visibleEvents}
+          items={searchTypeMap[searchType]}
           allItems={allEvents}
           refcode={refcode}
           type="events"
           resetSearchByZip={resetSearchByZip}
         />
         <MapView
-          items={visibleEvents}
+          items={searchTypeMap[searchType]}
           center={center}
           colorMap={colorMap}
           type="events"
@@ -99,6 +105,7 @@ class EventsDashboard extends React.Component {
 
 const mapStateToProps = state => ({
   visibleEvents: getVisbleEvents(state),
+  eventsByDistrict: getEventsByDistrict(state),
   allEvents: getEvents(state),
   center: getLocation(state),
   colorMap: getColorMap(state),

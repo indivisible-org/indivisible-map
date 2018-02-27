@@ -1,4 +1,5 @@
-import { uniqBy } from 'lodash';
+import { uniqBy, indexOf } from 'lodash';
+import { townhallevents } from '../constants';
 
 const initialState = {
   filterValue: '',
@@ -30,11 +31,16 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         refcode: payload,
       };
     case 'SEARCH_BY_DISTRICT':
-      console.log(payload);
+      let updateFilters = [...state.filters];
+      if (indexOf(state.filters, townhallevents) === -1) {
+        updateFilters = [...updateFilters, townhallevents];
+      }
       return {
         ...state,
         district: payload.district,
-        state: payload.state,
+        filterBy: 'state',
+        filterValue: payload.state,
+        filters: updateFilters,
       };
     case 'SET_TEXT_FILTER':
       return {
