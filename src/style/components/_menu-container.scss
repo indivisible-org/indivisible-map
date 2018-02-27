@@ -1,0 +1,16 @@
+.search-type-container {
+  display: flex;
+  justify-content: space-between;
+  background: #f7f6f6;
+  margin-top: 5px;
+  p {
+    margin-top: 10px;
+  }
+}
+
+.search-type-switch.ant-switch {
+  background-color: $brand-red;
+}
+.search-type-switch.ant-switch-checked {
+  background-color: $brand-primary;
+}
