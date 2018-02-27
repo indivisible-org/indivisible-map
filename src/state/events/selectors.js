@@ -8,6 +8,7 @@ import {
   getFilterBy,
   getFilterValue,
   getFilters,
+  getDistrict,
 } from '../selections/selectors';
 
 export const getEvents = state => state.events.allEvents;
@@ -23,8 +24,8 @@ const getEventsFilteredByKeywordArray = createSelector(
     return filter(allEvents, o => includes(filterArray, o.issueFocus));
   },
 );
-// export default getVisibleEvents;
-const getFilteredEvents = createSelector(
+
+export const getFilteredEvents = createSelector(
   [
     getEventsFilteredByKeywordArray,
     getFilterBy,
@@ -42,10 +43,6 @@ const getFilteredEvents = createSelector(
       if (!currrentEvent[filterBy]) {
         return false;
       }
-      if (filterBy === 'district') { // check if number
-        return currrentEvent[filterBy] === filterValue;
-      }
-
       return currrentEvent[filterBy].toLowerCase().includes(filterValue.toLowerCase());
     }).sort((a, b) => (a.starts_at < b.starts_at ? 1 : -1));
   },
@@ -84,5 +81,21 @@ export const getVisbleEvents = createSelector(
       );
       return aDistance - bDistance;
     });
+  },
+);
+
+export const getEventsByDistrict = createSelector(
+  [
+    getFilteredEvents,
+    getDistrict,
+  ],
+  (
+    filteredEvents,
+    district,
+  ) => {
+    if (district.toString().length === 0) {
+      return filteredEvents;
+    }
+    return filter(filteredEvents, evnt => evnt.title.includes(`-${district.toString()})`) || evnt.title.includes('Senate'));
   },
 );

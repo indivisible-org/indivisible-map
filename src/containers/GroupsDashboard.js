@@ -86,7 +86,7 @@ class GroupsDashboard extends React.Component {
           items={groups}
           colorMap={colorMap}
           filterByValue={{ [filterBy]: [filterValue] }}
-          resetSearchByZip={resetSelections}
+          resetSelections={resetSelections}
           setLatLng={setLatLng}
           distance={distance}
           selectedItem={selectedGroup}

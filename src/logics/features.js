@@ -14,6 +14,8 @@ class Point {
       title: eventOrGroup.title || eventOrGroup.name,
       venue: eventOrGroup.venue || '',
       id: eventOrGroup.id || null,
+      rsvpHref: eventOrGroup.rsvpHref || null,
+      socials: eventOrGroup.socials || [],
     };
   }
 }

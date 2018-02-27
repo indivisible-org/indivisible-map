@@ -17,6 +17,10 @@ class MapView extends React.Component {
     this.focusMap = this.focusMap.bind(this);
     this.addClusterLayers = this.addClusterLayers.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.toggleFilters = this.toggleFilters.bind(this);
+    this.highlightDistrict = this.highlightDistrict.bind(this);
+    this.districtSelect = this.districtSelect.bind(this);
+    this.removeHighlights = this.removeHighlights.bind(this);
   }
 
   componentDidMount() {
@@ -34,8 +38,10 @@ class MapView extends React.Component {
       searchType,
       type,
       selectedItem,
+      district,
     } = nextProps;
-    this.addClickListener(searchType);
+    this.map.metadata = { searchType: nextProps.searchType };
+
     if (items.length !== this.props.items.length) {
       this.updateData(items, `${type}-points`);
     }
@@ -43,16 +49,22 @@ class MapView extends React.Component {
     if (this.props.selectedItem !== selectedItem) {
       this.map.setFilter('unclustered-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
     }
+    if (filterByValue.state) {
+      let bbname = filterByValue.state[0].toUpperCase();
+      if (district) {
+        const zeros = '00';
+        const districtString = district.toString();
+        const districtPadded = zeros.substring(0, zeros.length - districtString.length) + districtString;
+        bbname = `${bbname}${districtPadded}`;
+      }
+      const stateBB = bboxes[bbname];
+      return this.focusMap(stateBB);
+    }
     if (center.LNG) {
       return this.map.flyTo({
         center: [Number(center.LNG), Number(center.LAT)],
         zoom: 9.52 - (distance * (4.7 / 450)),
       });
-    }
-    if (filterByValue.state) {
-      const state = filterByValue.state[0];
-      const stateBB = bboxes[state];
-      return this.focusMap(stateBB);
     }
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
   }
@@ -119,45 +131,153 @@ class MapView extends React.Component {
 
   addPopups(layer) {
     const { map } = this;
+    const {
+      type,
+      refcode,
+    } = this.props;
     const popup = new mapboxgl.Popup({
-      closeButton: false,
-      closeOnClick: false,
+      closeButton: true,
+      closeOnClick: true,
     });
 
     map.on('mousemove', (e) => {
+      const { searchType } = this.map.metadata;
       const features = map.queryRenderedFeatures(e.point, { layers: [layer] });
       // Change the cursor style as a UI indicator.
       map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-      if (!features.length) {
-        popup.remove();
-        return;
+      if (features.length) {
+        const feature = features[0];
+        const { properties } = feature;
+        const linkMapping = {
+          events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
+          groups: '',
+        };
+        return popup.setLngLat(feature.geometry.coordinates)
+          .setHTML(`
+            <h4>${feature.properties.title}</h4>
+            <div>${feature.properties.startsAt}</div>
+            ${linkMapping[type]}
+            `)
+          .addTo(map);
       }
-      const feature = features[0];
-      popup.setLngLat(feature.geometry.coordinates)
-        .setHTML(`
-          <h4>${feature.properties.title}</h4>
-          <div>${feature.properties.startsAt}</div>`)
-        .addTo(map);
+      // TODO: fix this
+      // if (searchType === 'district') {
+      //   const districtListener = map.queryRenderedFeatures(
+      //     e.point,
+      //     {
+      //       layers: ['district_interactive'],
+      //     },
+      //   );
+      //   if (districtListener.length > 0) {
+      //     const state = districtListener[0].properties.ABR;
+      //     const district = districtListener[0].properties.GEOID.substring(2, 4);
+      //     return popup.setLngLat(e.lngLat)
+      //       .setHTML(`
+      //         <h4>${state}-${district}</h4>
+      //         `)
+      //       .addTo(map);
+      //   }
+      // }
     });
   }
 
+  districtSelect(feature) {
+    if (feature.state) {
+      const locationData = {
+        state: feature.state,
+        district: [feature.district],
+        validSelections: feature.geoID,
+      };
+      this.highlightDistrict(feature.geoID);
+    } else {
+      const visibility = this.map.getLayoutProperty('selected-fill', 'visibility');
+      if (visibility === 'visible') {
+        this.map.setLayoutProperty('selected-fill', 'visibility', 'none');
+        this.map.setLayoutProperty('selected-border', 'visibility', 'none');
+      }
+    }
+  }
+
+  toggleFilters(layer, filter) {
+    this.map.setFilter(layer, filter);
+    this.map.setLayoutProperty(layer, 'visibility', 'visible');
+  }
+
+  // Handles the highlight for districts when clicked on.
+  highlightDistrict(geoid) {
+    let filter;
+    // Filter for which district has been selected.
+    if (typeof geoid === 'object') {
+      filter = ['any'];
+
+      geoid.forEach((i) => {
+        filter.push(['==', 'GEOID', i]);
+      });
+    } else {
+      filter = ['all', ['==', 'GEOID', geoid]];
+    }
+    // Set that layer filter to the selected
+    this.toggleFilters('selected-fill', filter);
+    this.toggleFilters('selected-border', filter);
+  }
+
   addClickListener(searchType) {
-    const { setLatLng } = this.props;
+    const {
+      type,
+      searchByDistrict,
+      setLatLng,
+    } = this.props;
     const { map } = this;
 
     map.on('click', (e) => {
-      console.log(searchType);
+      const { searchType } = this.map.metadata;
       if (searchType === 'proximity') {
         // handle proximity
+        const points = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
+        // selected a marker
+        let formatLatLng;
+        if (points.length > 0) {
+          const point = points[0];
+          formatLatLng = {
+            LAT: point.geometry.coordinates[1].toString(),
+            LNG: point.geometry.coordinates[0].toString(),
+          };
+        } else {
+          formatLatLng = {
+            LAT: e.lngLat.lat.toString(),
+            LNG: e.lngLat.lng.toString(),
+          };
+        }
+        setLatLng(formatLatLng);
       } else if (searchType === 'district') {
-        // handle district
+        const features = map.queryRenderedFeatures(
+          e.point,
+          {
+            layers: ['district_interactive'],
+          },
+        );
+        const feature = {};
+        const points = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
+
+        if (features.length > 0) {
+          feature.state = features[0].properties.ABR;
+          feature.district = features[0].properties.GEOID.substring(2, 4);
+          feature.geoID = features[0].properties.GEOID;
+
+          if (points.length > 0) {
+            const point = points[0];
+            const formatLatLng = {
+              LAT: point.geometry.coordinates[1].toString(),
+              LNG: point.geometry.coordinates[0].toString(),
+            };
+            setLatLng(formatLatLng);
+          } else {
+            searchByDistrict({ state: feature.state, district: feature.district });
+          }
+          this.districtSelect(feature);
+        }
       }
-      const formatLatLng = {
-        LAT: e.lngLat.lat.toString(),
-        LNG: e.lngLat.lng.toString(),
-      };
-      setLatLng(formatLatLng);
     });
   }
 
@@ -220,8 +340,14 @@ class MapView extends React.Component {
     });
   }
 
+  removeHighlights() {
+    this.map.setLayoutProperty('selected-fill', 'visibility', 'none');
+    this.map.setLayoutProperty('selected-border', 'visibility', 'none');
+  }
+
   handleReset() {
-    this.props.resetSearchByZip();
+    this.removeHighlights();
+    this.props.resetSelections();
   }
   // Creates the button in our zoom controls to go to the national view
   makeZoomToNationalButton() {
@@ -238,7 +364,7 @@ class MapView extends React.Component {
   }
 
   initializeMap(featuresHome) {
-    const { type } = this.props;
+    const { type, searchType } = this.props;
 
     mapboxgl.accessToken =
       'pk.eyJ1IjoibWF5YXlhaXIiLCJhIjoiY2phdWl3Y2dnNWM0djJxbzI2M3l6ZHpmNSJ9.m00H0mS_DpchMFMbQ72q2w';
@@ -255,6 +381,9 @@ class MapView extends React.Component {
     this.map.dragRotate.disable();
     this.map.touchZoomRotate.disableRotation();
     this.makeZoomToNationalButton();
+    this.map.metadata = {
+      searchType,
+    };
     // map on 'load'
     this.map.on('load', () => {
       this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
@@ -285,9 +414,10 @@ MapView.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   type: PropTypes.string.isRequired,
-  resetSearchByZip: PropTypes.func.isRequired,
+  resetSelections: PropTypes.func.isRequired,
   setLatLng: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
+  selectItem: PropTypes.shape({}),
   distance: PropTypes.number,
   searchType: PropTypes.string,
 };
@@ -296,6 +426,7 @@ MapView.defaultProps = {
   center: {},
   filterByValue: {},
   distance: 50,
+  selectItem: null,
   searchType: 'proximity',
 };
 

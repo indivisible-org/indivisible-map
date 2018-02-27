@@ -1,3 +1,10 @@
+.side-bar-container{
+  flex-direction:column;
+  display: flex;
+  align-items:stretch;
+  height: 500px;
+  width: 27.5vw;
+}
 .search-type-container {
   display: flex;
   justify-content: space-between;
@@ -12,8 +19,8 @@
 }
 
 .search-type-switch.ant-switch {
-  background-color: $brand-red;
+  background-color: $brand-primary;
 }
 .search-type-switch.ant-switch-checked {
-  background-color: $brand-primary;
+  background-color: $brand-red;
 }

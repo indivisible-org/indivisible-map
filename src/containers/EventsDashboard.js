@@ -7,6 +7,8 @@ import {
   getVisbleEvents,
   getColorMap,
   getEvents,
+  getEventsByDistrict,
+  getFilteredEvents,
 } from '../state/events/selectors';
 import { startSetEvents } from '../state/events/actions';
 
@@ -17,6 +19,7 @@ import {
   getFilterBy,
   getFilterValue,
   getSearchType,
+  getDistrict,
 } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
@@ -56,38 +59,52 @@ class EventsDashboard extends React.Component {
     const {
       allEvents,
       distance,
+      district,
       visibleEvents,
+      eventsByDistrict,
       center,
       colorMap,
       refcode,
       setLatLng,
-      resetSearchByZip,
+      resetSelections,
       filterBy,
       filterValue,
       searchType,
+      searchByDistrict,
+      filteredEvents,
     } = this.props;
     if (this.state.init) {
       return null;
     }
-
+    const searchTypeMapSideBar = {
+      proximity: visibleEvents,
+      district: eventsByDistrict,
+    };
+    const searchTypeMapMap = {
+      proximity: visibleEvents,
+      district: filteredEvents,
+    };
     return (
       <div className="events-container">
         <h2 className="dash-title">Event Dashboard</h2>
         <SideBar
           colorMap={colorMap}
-          items={visibleEvents}
+          items={searchTypeMapSideBar[searchType]}
           allItems={allEvents}
           refcode={refcode}
           type="events"
-          resetSearchByZip={resetSearchByZip}
+          resetSelections={resetSelections}
         />
         <MapView
-          items={visibleEvents}
+          items={searchTypeMapMap[searchType]}
           center={center}
           colorMap={colorMap}
+          district={district}
           type="events"
           filterByValue={{ [filterBy]: [filterValue] }}
-          resetSearchByZip={resetSearchByZip}
+          resetSelections={resetSelections}
+          searchByDistrict={searchByDistrict}
+          refcode={refcode}
           setLatLng={setLatLng}
           distance={distance}
           searchType={searchType}
@@ -99,6 +116,9 @@ class EventsDashboard extends React.Component {
 
 const mapStateToProps = state => ({
   visibleEvents: getVisbleEvents(state),
+  eventsByDistrict: getEventsByDistrict(state),
+  filteredEvents: getFilteredEvents(state),
+  district: getDistrict(state),
   allEvents: getEvents(state),
   center: getLocation(state),
   colorMap: getColorMap(state),
@@ -114,7 +134,8 @@ const mapDispatchToProps = dispatch => ({
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
-  resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
+  searchByDistrict: val => dispatch(selectionActions.searchByDistrict(val)),
+  resetSelections: () => dispatch(selectionActions.resetSelections()),
 });
 
 EventsDashboard.propTypes = {
@@ -128,7 +149,6 @@ EventsDashboard.propTypes = {
   setLatLng: PropTypes.func.isRequired,
   getInitialEvents: PropTypes.func.isRequired,
   refcode: PropTypes.string,
-  resetSearchByZip: PropTypes.func.isRequired,
   filterBy: PropTypes.string,
   filterValue: PropTypes.arrayOf(PropTypes.string),
 };
