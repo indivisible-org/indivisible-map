@@ -8,8 +8,6 @@
   }
 }
 
-.search-type-switch.ant-switch-checked {
-  // align-items: center;
-  // margin-top: 10px;
-  // margin-right: 5px;
+.search-type-switch.ant-switch {
+  background-color: $brand-red;
 }

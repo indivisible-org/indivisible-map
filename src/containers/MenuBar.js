@@ -118,7 +118,6 @@ class MenuBar extends React.Component {
     const {
       distance,
       location,
-      searchType,
     } = this.props;
 
     return (
@@ -133,7 +132,7 @@ class MenuBar extends React.Component {
           hidden={!location.LAT}
         />
         <div className="search-type-container">
-          <span>Search Type: {searchType}</span>
+          <span>Search by </span>
           <Switch
             size="small"
             checkedChildren="proximity"
