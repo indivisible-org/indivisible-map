@@ -46,12 +46,13 @@ class MapView extends React.Component {
     if (items.length !== this.props.items.length) {
       this.updateData(items, `${type}-points`);
     }
+    // Highlight selected item
     if (this.props.selectedItem !== selectedItem) {
       this.map.setFilter('unclustered-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
     }
     if (filterByValue.state) {
       let bbname = filterByValue.state[0].toUpperCase();
-      if (district) { 
+      if (district) {
         const zeros = '00';
         const districtString = district.toString();
         const districtPadded = zeros.substring(0, zeros.length - districtString.length) + districtString;

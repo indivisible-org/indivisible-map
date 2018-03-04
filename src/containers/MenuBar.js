@@ -77,11 +77,10 @@ class MenuBar extends React.Component {
       return searchByQueryString({ filterBy: 'title', filterValue: query });
     } else if (searchType === 'district') {
       const stateMatch = query.match(/([A-Z]|[a-z]){2}/g)[0];
-      let districtMatch = query.match(/([0-9]{2})|([0-9]{1})/g)[0];
+      const districtMatch = query.match(/([0-9]{2})|([0-9]{1})/g)[0];
       if (stateMatch.length > 0 && districtMatch.length > 0) {
         const state = query.match(/([A-Z]|[a-z]){2}/g)[0];
         const district = Number(query.match(/([0-9]{2})|([0-9]{1})/g)[0]);
-
         return searchByDistrict({ state, district });
       }
     }
