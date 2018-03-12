@@ -4,6 +4,7 @@ import { find } from 'lodash';
 import geoViewport from '@mapbox/geo-viewport';
 import bboxes from '../data/bboxes';
 import Point from '../logics/features';
+import states from '../data/states';
 
 class MapView extends React.Component {
   constructor(props) {
@@ -56,6 +57,13 @@ class MapView extends React.Component {
         const districtString = district.toString();
         const districtPadded = zeros.substring(0, zeros.length - districtString.length) + districtString;
         bbname = `${bbname}${districtPadded}`;
+        
+        // highlight district
+        const stateFIPS = states.find(cur => cur.USPS === filterByValue.state[0]).FIPS;
+        const geoID = `${stateFIPS}${districtPadded}`;
+        const selectObj = { state: filterByValue.state[0], district: districtPadded, geoID };
+
+        this.districtSelect(selectObj);
       }
       const stateBB = bboxes[bbname];
       return this.focusMap(stateBB);
@@ -275,7 +283,6 @@ class MapView extends React.Component {
           } else {
             searchByDistrict({ state: feature.state, district: feature.district });
           }
-          this.districtSelect(feature);
         }
       }
     });
