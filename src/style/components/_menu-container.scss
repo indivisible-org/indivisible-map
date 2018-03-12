@@ -3,8 +3,19 @@
   display: flex;
   align-items:stretch;
   height: 500px;
-  width: 27.5vw;
+  width: 100%;
 }
+
+@media (min-width: $mobile-breakpoint) {
+  .side-bar-container{
+    flex-direction:column;
+    display: flex;
+    align-items:stretch;
+    height: 500px;
+    width: 27.5vw;
+  }
+}
+
 .search-type-container {
   display: flex;
   justify-content: space-between;

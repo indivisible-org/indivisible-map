@@ -1,20 +1,40 @@
 #events-list {
-  width: 27.5vw;
+  width: 100%;
+  height: 400px;
   flex:auto 2;
   order: 2;
   margin: auto;
   overflow: scroll;
   padding: 10px;
   .no-results{
-    margin-top: 50%;
+    margin-top: 25%;
   }
 }
 
 #groups-list {
-  width: 27.5vw;
+  width: 100%;
   flex:auto 5;
   order: 2;
   margin: auto;
   overflow: scroll;
   padding: 10px;
+}
+
+// Desktop styling changes
+@media (min-width: $mobile-breakpoint) {
+  #events-list {
+    width: 27.5vw;
+    .no-results{
+      margin-top: 50%;
+    }
+  }
+}
+
+@media (min-width: $mobile-breakpoint) {
+  #groups-list {
+    width: 27.5vw;
+    .no-results{
+      margin-top: 50%;
+    }
+  }
 }
