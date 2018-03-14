@@ -5,7 +5,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  height: 500px;
+  height: 570px;
   width: 72.5vw;
   right: 0;
 }
@@ -17,12 +17,28 @@
 .map-overlay {
   position: absolute;
   bottom: 0;
+  height:150px;
+  width: 72.5vw;
   right: 0;
-  background: rgba(255, 255, 255, 0.8);
-  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
   font-family: Arial, sans-serif;
   overflow: auto;
-  border-radius: 3px;
+
+  .inset {
+    width: 230px;
+    height:150px;
+    border:1px solid #fff;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-sizing: content-box;
+
+    .mapboxgl-control-container{
+      display: none;
+    }
+  }
 }
 
 #features {
@@ -41,20 +57,3 @@
   background-repeat: no-repeat;
   display: inline-block;
 }
-
-// #legend {
-//   padding: 10px;
-//   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-//   line-height: 18px;
-//   height: 150px;
-//   margin-bottom: 40px;
-//   width: 100px;
-// }
-
-// .legend-key {
-//   display: inline-block;
-//   border-radius: 20%;
-//   width: 10px;
-//   height: 10px;
-//   margin-right: 5px;
-// }

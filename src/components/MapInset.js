@@ -1,14 +1,10 @@
 import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { find, filter } from 'lodash';
-import geoViewport from '@mapbox/geo-viewport';
-import bboxes from '../data/bboxes';
+import { find } from 'lodash';
 import Point from '../logics/features';
-import states from '../data/states';
 
-import MapInset from '../components/MapInset';
-
-class MapView extends React.Component {
+class MapInset extends React.Component {
   constructor(props) {
     super(props);
     this.addPopups = this.addPopups.bind(this);
@@ -17,18 +13,12 @@ class MapView extends React.Component {
     this.createFeatures = this.createFeatures.bind(this);
     this.updateData = this.updateData.bind(this);
     this.getColorForEvents = this.getColorForEvents.bind(this);
-    this.focusMap = this.focusMap.bind(this);
     this.addClusterLayers = this.addClusterLayers.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.toggleFilters = this.toggleFilters.bind(this);
     this.highlightDistrict = this.highlightDistrict.bind(this);
     this.districtSelect = this.districtSelect.bind(this);
     this.removeHighlights = this.removeHighlights.bind(this);
-    this.filterForStateInsets = this.filterForStateInsets.bind(this);
-    this.state = {
-      alaskaItems: filter(this.props.items, { state: 'AK' }),
-      hawaiiItems: filter(this.props.items, { state: 'HI' }),
-    };
   }
 
   componentDidMount() {
@@ -39,51 +29,21 @@ class MapView extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      center,
       items,
-      filterByValue,
-      distance,
-      searchType,
       type,
       selectedItem,
-      district,
     } = nextProps;
     this.map.metadata = { searchType: nextProps.searchType };
 
     if (items.length !== this.props.items.length) {
       this.updateData(items, `${type}-points`);
-      this.filterForStateInsets(items);
     }
     // Highlight selected item
     if (this.props.selectedItem !== selectedItem) {
       this.map.setFilter('unclustered-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
     }
-    if (filterByValue.state) {
-      let bbname = filterByValue.state[0].toUpperCase();
-      if (district) {
-        const zeros = '00';
-        const districtString = district.toString();
-        const districtPadded = zeros.substring(0, zeros.length - districtString.length) + districtString;
-        bbname = `${bbname}${districtPadded}`;
-
-        // highlight district
-        const stateFIPS = states.find(cur => cur.USPS === filterByValue.state[0]).FIPS;
-        const geoID = `${stateFIPS}${districtPadded}`;
-        const selectObj = { state: filterByValue.state[0], district: districtPadded, geoID };
-
-        this.districtSelect(selectObj);
-      }
-      const stateBB = bboxes[bbname];
-      return this.focusMap(stateBB);
-    }
-    if (center.LNG) {
-      return this.map.flyTo({
-        center: [Number(center.LNG), Number(center.LAT)],
-        zoom: 9.52 - (distance * (4.7 / 450)),
-      });
-    }
-    return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
   }
+
 
   getColorForEvents(indEvent) {
     const { colorMap } = this.props;
@@ -99,33 +59,8 @@ class MapView extends React.Component {
     return updatedObj;
   }
 
-  filterForStateInsets(items) {
-    const alaskaItems = filter(items, { state: 'AK' });
-    const hawaiiItems = filter(items, { state: 'HI' });
-    this.setState({
-      alaskaItems,
-      hawaiiItems,
-    });
-  }
-
-  focusMap(bb) {
-    if (!bb) {
-      return;
-    }
-    const height = window.innerHeight;
-    const width = window.innerWidth;
-    const view = geoViewport.viewport(bb, [width / 2, height / 2]);
-    if (view.zoom < 2.5) {
-      view.zoom = 2.5;
-    } else {
-      view.zoom -= 0.5;
-    }
-    this.map.flyTo(view);
-  }
-
   updateData(items, layer) {
     const featuresHome = this.createFeatures(items);
-    this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
     if (!this.map.getSource(layer)) {
       return;
     }
@@ -180,30 +115,12 @@ class MapView extends React.Component {
         };
         return popup.setLngLat(feature.geometry.coordinates)
           .setHTML(`
-            <h4>${feature.properties.title}</h4>
-            <div>${feature.properties.startsAt}</div>
-            ${linkMapping[type]}
-            `)
+              <h4>${feature.properties.title}</h4>
+              <div>${feature.properties.startsAt}</div>
+              ${linkMapping[type]}
+              `)
           .addTo(map);
       }
-      // TODO: fix this
-      // if (searchType === 'district') {
-      //   const districtListener = map.queryRenderedFeatures(
-      //     e.point,
-      //     {
-      //       layers: ['district_interactive'],
-      //     },
-      //   );
-      //   if (districtListener.length > 0) {
-      //     const state = districtListener[0].properties.ABR;
-      //     const district = districtListener[0].properties.GEOID.substring(2, 4);
-      //     return popup.setLngLat(e.lngLat)
-      //       .setHTML(`
-      //         <h4>${state}-${district}</h4>
-      //         `)
-      //       .addTo(map);
-      //   }
-      // }
     });
   }
 
@@ -247,7 +164,7 @@ class MapView extends React.Component {
     this.toggleFilters('selected-border', filter);
   }
 
-  addClickListener(searchType) {
+  addClickListener() {
     const {
       type,
       searchByDistrict,
@@ -388,29 +305,32 @@ class MapView extends React.Component {
   }
 
   initializeMap(featuresHome) {
-    const { type, searchType } = this.props;
+    const {
+      type,
+      searchType,
+      mapId,
+      bounds,
+    } = this.props;
 
     mapboxgl.accessToken =
-      'pk.eyJ1IjoibWF5YXlhaXIiLCJhIjoiY2phdWl3Y2dnNWM0djJxbzI2M3l6ZHpmNSJ9.m00H0mS_DpchMFMbQ72q2w';
+        'pk.eyJ1IjoibWF5YXlhaXIiLCJhIjoiY2phdWl3Y2dnNWM0djJxbzI2M3l6ZHpmNSJ9.m00H0mS_DpchMFMbQ72q2w';
     const styleUrl = 'mapbox://styles/mayayair/cjd14wlhs0abt2sp8o10s64el';
 
     this.map = new mapboxgl.Map({
-      container: 'map',
+      container: mapId,
       style: styleUrl,
+      scrollZoom: false,
+      doubleClickZoom: false,
+      dragPan: false,
     });
 
     // Set Mapbox map controls
-    this.map.addControl(new mapboxgl.NavigationControl());
-    this.map.scrollZoom.disable();
-    this.map.dragRotate.disable();
-    this.map.touchZoomRotate.disableRotation();
-    this.makeZoomToNationalButton();
     this.map.metadata = {
       searchType,
     };
     // map on 'load'
     this.map.on('load', () => {
-      this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
+      this.map.fitBounds(bounds);
       this.addClickListener();
       if (type === 'events') {
         this.addLayer(featuresHome);
@@ -425,63 +345,24 @@ class MapView extends React.Component {
 
   render() {
     const {
-      items,
-      center,
-      colorMap,
-      district,
-      type,
       filterByValue,
-      resetSelections,
-      searchByDistrict,
-      refcode,
-      setLatLng,
-      distance,
-      searchType,
+      center,
+      mapId,
     } = this.props;
 
+    const mapClassNames = classNames({
+      hidden: filterByValue.length > 0 || center.LAT,
+      inset: true,
+    });
     return (
       <React.Fragment>
-        <div id="map" />
-        <div className="map-overlay" id="legend">
-          <MapInset
-            items={this.state.hawaiiItems}
-            center={center}
-            colorMap={colorMap}
-            district={district}
-            type={type}
-            filterByValue={filterByValue}
-            resetSelections={resetSelections}
-            searchByDistrict={searchByDistrict}
-            refcode={refcode}
-            setLatLng={setLatLng}
-            distance={distance}
-            searchType={searchType}
-            mapId="map-overlay-hawaii"
-            bounds={[[-161.03759765625, 18.542116654448996], [-154.22607421875, 22.573438264572406]]}
-          />
-          <MapInset
-            items={this.state.alaskaItems}
-            center={center}
-            colorMap={colorMap}
-            district={district}
-            type={type}
-            filterByValue={filterByValue}
-            resetSelections={resetSelections}
-            searchByDistrict={searchByDistrict}
-            refcode={refcode}
-            setLatLng={setLatLng}
-            distance={distance}
-            searchType={searchType}
-            mapId="map-overlay-alaska"
-            bounds={[[-170.15625, 51.72702815704774], [-127.61718749999999, 71.85622888185527]]}
-          />
-        </div>
+        <div id={mapId} className={mapClassNames} />
       </React.Fragment>
     );
   }
 }
 
-MapView.propTypes = {
+MapInset.propTypes = {
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -490,16 +371,14 @@ MapView.propTypes = {
   setLatLng: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
   selectItem: PropTypes.shape({}),
-  distance: PropTypes.number,
   searchType: PropTypes.string,
 };
 
-MapView.defaultProps = {
+MapInset.defaultProps = {
   center: {},
   filterByValue: {},
-  distance: 50,
   selectItem: null,
   searchType: 'proximity',
 };
 
-export default MapView;
+export default MapInset;
