@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { find } from 'lodash';
+import { find, filter } from 'lodash';
 import geoViewport from '@mapbox/geo-viewport';
 import bboxes from '../data/bboxes';
 import Point from '../logics/features';
@@ -24,6 +24,11 @@ class MapView extends React.Component {
     this.highlightDistrict = this.highlightDistrict.bind(this);
     this.districtSelect = this.districtSelect.bind(this);
     this.removeHighlights = this.removeHighlights.bind(this);
+    this.filterForStateInsets = this.filterForStateInsets.bind(this);
+    this.state = {
+      alaskaItems: filter(this.props.items, { state: 'AK' }),
+      hawaiiItems: filter(this.props.items, { state: 'HI' }),
+    };
   }
 
   componentDidMount() {
@@ -47,6 +52,7 @@ class MapView extends React.Component {
 
     if (items.length !== this.props.items.length) {
       this.updateData(items, `${type}-points`);
+      this.filterForStateInsets(items);
     }
     // Highlight selected item
     if (this.props.selectedItem !== selectedItem) {
@@ -91,6 +97,15 @@ class MapView extends React.Component {
       updatedObj = { ...indEvent, icon: colorObj.icon };
     }
     return updatedObj;
+  }
+
+  filterForStateInsets(items) {
+    const alaskaItems = filter(items, { state: 'AK' });
+    const hawaiiItems = filter(items, { state: 'HI' });
+    this.setState({
+      alaskaItems,
+      hawaiiItems,
+    });
   }
 
   focusMap(bb) {
@@ -429,7 +444,7 @@ class MapView extends React.Component {
         <div id="map" />
         <div className="map-overlay" id="legend">
           <MapInset
-            items={items}
+            items={this.state.hawaiiItems}
             center={center}
             colorMap={colorMap}
             district={district}
@@ -445,7 +460,7 @@ class MapView extends React.Component {
             bounds={[[-161.03759765625, 18.542116654448996], [-154.22607421875, 22.573438264572406]]}
           />
           <MapInset
-            items={items}
+            items={this.state.alaskaItems}
             center={center}
             colorMap={colorMap}
             district={district}
