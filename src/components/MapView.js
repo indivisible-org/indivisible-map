@@ -6,6 +6,8 @@ import bboxes from '../data/bboxes';
 import Point from '../logics/features';
 import states from '../data/states';
 
+import MapInset from '../components/MapInset';
+
 class MapView extends React.Component {
   constructor(props) {
     super(props);
@@ -57,7 +59,7 @@ class MapView extends React.Component {
         const districtString = district.toString();
         const districtPadded = zeros.substring(0, zeros.length - districtString.length) + districtString;
         bbname = `${bbname}${districtPadded}`;
-        
+
         // highlight district
         const stateFIPS = states.find(cur => cur.USPS === filterByValue.state[0]).FIPS;
         const geoID = `${stateFIPS}${districtPadded}`;
@@ -407,11 +409,59 @@ class MapView extends React.Component {
   }
 
   render() {
+    const {
+      items,
+      center,
+      colorMap,
+      district,
+      type,
+      filterByValue,
+      resetSelections,
+      searchByDistrict,
+      refcode,
+      setLatLng,
+      distance,
+      searchType,
+    } = this.props;
+
     return (
-      <div>
+      <React.Fragment>
         <div id="map" />
-        <div className="map-overlay" id="legend" />
-      </div>
+        <div className="map-overlay" id="legend">
+          <MapInset
+            items={items}
+            center={center}
+            colorMap={colorMap}
+            district={district}
+            type={type}
+            filterByValue={filterByValue}
+            resetSelections={resetSelections}
+            searchByDistrict={searchByDistrict}
+            refcode={refcode}
+            setLatLng={setLatLng}
+            distance={distance}
+            searchType={searchType}
+            mapId="map-overlay-hawaii"
+            bounds={[[-161.03759765625, 18.542116654448996], [-154.22607421875, 22.573438264572406]]}
+          />
+          <MapInset
+            items={items}
+            center={center}
+            colorMap={colorMap}
+            district={district}
+            type={type}
+            filterByValue={filterByValue}
+            resetSelections={resetSelections}
+            searchByDistrict={searchByDistrict}
+            refcode={refcode}
+            setLatLng={setLatLng}
+            distance={distance}
+            searchType={searchType}
+            mapId="map-overlay-alaska"
+            bounds={[[-170.15625, 51.72702815704774], [-127.61718749999999, 71.85622888185527]]}
+          />
+        </div>
+      </React.Fragment>
     );
   }
 }
