@@ -5,7 +5,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  height: 500px;
+  height: 570px;
   width: 72.5vw;
   right: 0;
 }
@@ -26,14 +26,14 @@
   align-items: flex-start;
   font-family: Arial, sans-serif;
   overflow: auto;
-  margin-left: 10px;
-  margin-right: 10px;
 
   .inset {
-    width:200px;
+    width: 230px;
     height:150px;
     border:1px solid #fff;
-    border-radius: 3px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-sizing: content-box;
 
     .mapboxgl-control-container{
       display: none;
