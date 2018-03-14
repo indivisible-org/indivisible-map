@@ -319,13 +319,15 @@ class MapInset extends React.Component {
     this.map = new mapboxgl.Map({
       container: mapId,
       style: styleUrl,
+      scrollZoom: false,
+      doubleClickZoom: false,
+      dragPan: false,
     });
 
     // Set Mapbox map controls
     this.map.metadata = {
       searchType,
     };
-    console.log(bounds);
     // map on 'load'
     this.map.on('load', () => {
       this.map.fitBounds(bounds);
