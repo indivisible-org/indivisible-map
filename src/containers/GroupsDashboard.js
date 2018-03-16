@@ -20,7 +20,7 @@ import {
 } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
-import MapView from '../components/MapView';
+import GroupMapView from '../components/GroupMapView';
 
 import SideBar from './SideBar';
 
@@ -80,7 +80,7 @@ class GroupsDashboard extends React.Component {
           resetHandler={resetSelections}
           selectItem={selectItem}
         />
-        <MapView
+        <GroupMapView
           center={center}
           type="groups"
           items={groups}
