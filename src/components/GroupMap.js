@@ -17,7 +17,6 @@ class MapView extends React.Component {
     this.updateData = this.updateData.bind(this);
     this.getColorForEvents = this.getColorForEvents.bind(this);
     this.focusMap = this.focusMap.bind(this);
-    this.addClusterLayers = this.addClusterLayers.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.toggleFilters = this.toggleFilters.bind(this);
     this.highlightDistrict = this.highlightDistrict.bind(this);
@@ -37,26 +36,28 @@ class MapView extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {
       center,
+      items,
       filterByValue,
       distance,
-      searchType,
-      type,
       selectedItem,
       district,
     } = nextProps;
 
     this.map.metadata = { searchType: nextProps.searchType };
+    this.filterForStateInsets(items);
 
     // Highlight selected item
     if (this.props.selectedItem !== selectedItem) {
-      this.map.setFilter('group-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
+      this.toggleFilters('group-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
     }
+
     if (filterByValue.state) {
       let bbname = filterByValue.state[0].toUpperCase();
       if (district) {
         const zeros = '00';
         const districtString = district.toString();
-        const districtPadded = zeros.substring(0, zeros.length - districtString.length) + districtString;
+        const districtPadded = zeros
+          .substring(0, zeros.length - districtString.length) + districtString;
         bbname = `${bbname}${districtPadded}`;
 
         // highlight district
@@ -90,15 +91,6 @@ class MapView extends React.Component {
       updatedObj = { ...indEvent, icon: colorObj.icon };
     }
     return updatedObj;
-  }
-
-  filterForStateInsets(items) {
-    const alaskaItems = filter(items, { state: 'AK' });
-    const hawaiiItems = filter(items, { state: 'HI' });
-    this.setState({
-      alaskaItems,
-      hawaiiItems,
-    });
   }
 
   focusMap(bb) {
@@ -159,7 +151,6 @@ class MapView extends React.Component {
     });
 
     map.on('mousemove', (e) => {
-      const { searchType } = this.map.metadata;
       const features = map.queryRenderedFeatures(e.point, { layers: [layer] });
       // Change the cursor style as a UI indicator.
       map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
@@ -179,34 +170,11 @@ class MapView extends React.Component {
             `)
           .addTo(map);
       }
-      // TODO: fix this
-      // if (searchType === 'district') {
-      //   const districtListener = map.queryRenderedFeatures(
-      //     e.point,
-      //     {
-      //       layers: ['district_interactive'],
-      //     },
-      //   );
-      //   if (districtListener.length > 0) {
-      //     const state = districtListener[0].properties.ABR;
-      //     const district = districtListener[0].properties.GEOID.substring(2, 4);
-      //     return popup.setLngLat(e.lngLat)
-      //       .setHTML(`
-      //         <h4>${state}-${district}</h4>
-      //         `)
-      //       .addTo(map);
-      //   }
-      // }
     });
   }
 
   districtSelect(feature) {
     if (feature.state) {
-      const locationData = {
-        state: feature.state,
-        district: [feature.district],
-        validSelections: feature.geoID,
-      };
       this.highlightDistrict(feature.geoID);
     } else {
       const visibility = this.map.getLayoutProperty('selected-fill', 'visibility');
@@ -217,32 +185,40 @@ class MapView extends React.Component {
     }
   }
 
-  toggleFilters(layer, filter) {
-    this.map.setFilter(layer, filter);
+  toggleFilters(layer, filterSetting) {
+    this.map.setFilter(layer, filterSetting);
     this.map.setLayoutProperty(layer, 'visibility', 'visible');
   }
 
   // Handles the highlight for districts when clicked on.
   highlightDistrict(geoid) {
-    let filter;
+    let filterSetting;
     // Filter for which district has been selected.
     if (typeof geoid === 'object') {
-      filter = ['any'];
+      filterSetting = ['any'];
 
       geoid.forEach((i) => {
-        filter.push(['==', 'GEOID', i]);
+        filterSetting.push(['==', 'GEOID', i]);
       });
     } else {
-      filter = ['all', ['==', 'GEOID', geoid]];
+      filterSetting = ['all', ['==', 'GEOID', geoid]];
     }
     // Set that layer filter to the selected
-    this.toggleFilters('selected-fill', filter);
-    this.toggleFilters('selected-border', filter);
+    this.toggleFilters('selected-fill', filterSetting);
+    this.toggleFilters('selected-border', filterSetting);
   }
 
-  addClickListener(searchType) {
+  filterForStateInsets(items) {
+    const alaskaItems = filter(items, { state: 'AK' });
+    const hawaiiItems = filter(items, { state: 'HI' });
+    this.setState({
+      alaskaItems,
+      hawaiiItems,
+    });
+  }
+
+  addClickListener() {
     const {
-      type,
       searchByDistrict,
       setLatLng,
     } = this.props;
@@ -321,7 +297,7 @@ class MapView extends React.Component {
     document.querySelector('.mapboxgl-ctrl-group').appendChild(usaButton);
   }
 
-  initializeMap(featuresHome) {
+  initializeMap() {
     const { searchType } = this.props;
 
     mapboxgl.accessToken =
@@ -350,13 +326,11 @@ class MapView extends React.Component {
       this.addClickListener();
 
       this.addPopups('group-points');
-      // this.clusterData(featuresHome);
     });
   }
 
   render() {
     const {
-      items,
       center,
       colorMap,
       district,
@@ -375,10 +349,11 @@ class MapView extends React.Component {
         <div id="map" />
         <div className="map-overlay" id="legend">
           <MapInset
-            items={this.state.hawaiiItems}
             center={center}
             colorMap={colorMap}
             district={district}
+            items={[]}
+            state="HI"
             type={type}
             filterByValue={filterByValue}
             resetSelections={resetSelections}
@@ -388,13 +363,16 @@ class MapView extends React.Component {
             distance={distance}
             searchType={searchType}
             mapId="map-overlay-hawaii"
-            bounds={[[-161.03759765625, 18.542116654448996], [-154.22607421875, 22.573438264572406]]}
+            bounds={
+              [[-161.03759765625, 18.542116654448996], [-154.22607421875, 22.573438264572406]]
+            }
           />
           <MapInset
-            items={this.state.alaskaItems}
             center={center}
             colorMap={colorMap}
             district={district}
+            items={[]}
+            state="AK"
             type={type}
             filterByValue={filterByValue}
             resetSelections={resetSelections}
@@ -414,23 +392,27 @@ class MapView extends React.Component {
 
 MapView.propTypes = {
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
-  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   type: PropTypes.string.isRequired,
   resetSelections: PropTypes.func.isRequired,
   setLatLng: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
-  selectItem: PropTypes.shape({}),
   distance: PropTypes.number,
   searchType: PropTypes.string,
+  selectedItem: PropTypes.shape({}),
+  district: PropTypes.string,
+  refcode: PropTypes.string,
+  searchByDistrict: PropTypes.func.isRequired,
 };
 
 MapView.defaultProps = {
   center: {},
   filterByValue: {},
   distance: 50,
-  selectItem: null,
+  selectedItem: null,
   searchType: 'proximity',
+  refcode: '',
+  district: '',
 };
 
 export default MapView;

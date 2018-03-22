@@ -24,7 +24,7 @@ import {
 import * as selectionActions from '../state/selections/actions';
 
 import SideBar from './SideBar';
-import MapView from '../components/MapView';
+import MapView from '../components/EventMap';
 
 class EventsDashboard extends React.Component {
   constructor(props) {

@@ -2,7 +2,7 @@ import moment from 'moment';
 
 import getData from '../../logics/getData';
 
-import { firebaseUrl } from '../constants';
+import { indivisibleUrl } from '../constants';
 
 import IndEvent from './model';
 
@@ -17,7 +17,7 @@ export const setFeaturesHome = featuresHome => ({
 });
 
 export const startSetEvents = () => (dispatch) => {
-  const url = `${firebaseUrl}/indivisible_public_events.json`;
+  const url = `${indivisibleUrl}/indivisible_public_events.json`;
   return getData(url).then((result) => {
     const allevents = result.body;
     const events = Object.keys(allevents)
