@@ -20,7 +20,7 @@ import {
 } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
-import MapView from '../components/MapView';
+import GroupMapView from '../components/GroupMap';
 
 import SideBar from './SideBar';
 
@@ -69,7 +69,6 @@ class GroupsDashboard extends React.Component {
     if (this.state.init) {
       return null;
     }
-
     return (
       <div className="groups-container">
         <h2 className="dash-title">Group Dashboard</h2>
@@ -80,7 +79,7 @@ class GroupsDashboard extends React.Component {
           resetHandler={resetSelections}
           selectItem={selectItem}
         />
-        <MapView
+        <GroupMapView
           center={center}
           type="groups"
           items={groups}

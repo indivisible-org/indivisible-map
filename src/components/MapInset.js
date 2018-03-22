@@ -310,6 +310,7 @@ class MapInset extends React.Component {
       searchType,
       mapId,
       bounds,
+      state,
     } = this.props;
 
     mapboxgl.accessToken =
@@ -337,6 +338,8 @@ class MapInset extends React.Component {
         this.addPopups('events-points');
         this.map.getSource('events-points').setData(featuresHome);
       } else {
+        this.toggleFilters('group-points', ['==', 'state', state]);
+        this.map.setLayoutProperty('group-points', 'visibility', 'visible');
         this.addPopups('unclustered-point');
         this.clusterData(featuresHome);
       }

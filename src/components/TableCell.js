@@ -8,7 +8,7 @@ import {
   Collapse,
   Icon,
 } from 'antd';
-import { firebaseUrl } from '../state/constants';
+import { indivisibleUrl } from '../state/constants';
 
 const { Panel } = Collapse;
 
@@ -36,7 +36,7 @@ class TableCell extends React.Component {
     const ele = e.target;
     const { id } = ele;
     const mailto = document.getElementById(`${id}-target`);
-    superagent.get(`${firebaseUrl}/indivisible_group_emails/${id}.json`)
+    superagent.get(`${indivisibleUrl}/indivisible_group_emails/${id}.json`)
       .then((res) => {
         mailto.innerHTML = res.body;
         mailto.href = `mailto:${res.body}`;
