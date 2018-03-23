@@ -32,7 +32,7 @@ class SearchBar extends React.Component {
     } = this.props;
     const textMap = {
       district: 'district, ex WA-09',
-      proximity: 'zipcode, state, or title',
+      proximity: 'zipcode, state, event name',
     };
     return (
       <Search
