@@ -57,8 +57,6 @@ class SearchBar extends React.Component {
       searchByZip,
       searchByQueryString,
       searchByDistrict,
-      changedFilters,
-      issues,
     } = this.props;
 
     resetSearchByQueryString();
@@ -117,12 +115,14 @@ class SearchBar extends React.Component {
       return null;
     }
     return (
-      <IssueFilter
-        colorMap={colorMap}
-        issues={issues}
-        changedFilters={changedFilters}
-        selectedFilters={selectedFilters}
-      />
+      <div className="input-group-filters">
+        <IssueFilter
+          colorMap={colorMap}
+          issues={issues}
+          changedFilters={changedFilters}
+          selectedFilters={selectedFilters}
+        />
+      </div>
     );
   }
 
@@ -153,7 +153,7 @@ class SearchBar extends React.Component {
       type,
     } = this.props;
     return type === 'events' ? (
-      <p>
+      <p className="event-count">
         Viewing {items.length} {type}
       </p>)
       : null;

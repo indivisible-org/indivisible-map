@@ -8,22 +8,3 @@
   order: 1;
   overflow: scroll;
 }
-.search-type-container {
-  display: flex;
-  justify-content: space-between;
-  background: #f7f6f6;
-  margin-top: 5px;
-  .ant-switch {
-    margin: 5px;
-  }
-  .search-by-title{
-    margin: 5px;
-  }
-}
-
-.search-type-switch.ant-switch {
-  background-color: $brand-primary;
-}
-.search-type-switch.ant-switch-checked {
-  background-color: $brand-red;
-}
