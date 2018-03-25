@@ -57,7 +57,7 @@ class TableCell extends React.Component {
 
   renderHeader(item) {
     const { color, refcode } = this.props;
-    const groupName = item.group_name ? (<li>Hosted by <strong>{item.group_name}</strong></li>) : '';
+    const groupName = item.group_name ? (<li className="event-host">Hosted by {item.group_name}</li>) : '';
     const eventType = item.eventType ? (<li><strong>Event type:</strong> {item.eventType}</li>) : '';
 
     return (
@@ -96,10 +96,10 @@ class TableCell extends React.Component {
     if (item.socials) {
       actions = item.socials.reduce((acc, ele) => {
         if (ele.category === 'facebook') {
-          acc.push(<a href={ele.url} target="_blank"><Icon type="facebook" /></a>);
+          acc.push(<div><a href={ele.url} target="_blank"><Icon type="facebook" /><span className="connect-text">connect via facebook</span></a></div>);
         }
         if (ele.category === 'twitter') {
-          acc.push(<a href={ele.url} target="_blank"><Icon type="twitter" /></a>);
+          acc.push(<div><a href={ele.url} target="_blank"><Icon type="twitter" /><span className="connect-text">connect via twitter</span></a></div>);
         }
         return acc;
       }, []);
@@ -125,7 +125,7 @@ class TableCell extends React.Component {
           title={item.name}
           description={
             <ul>
-              <li>{item.city} {item.state}, {item.zip}</li>
+              <li id="group-location">{item.city} {item.state}, {item.zip}</li>
             </ul>
           }
         />
