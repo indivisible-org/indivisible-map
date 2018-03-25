@@ -21,12 +21,20 @@ $brand-blue: #7bc0e1;
 $brand-red: #CA4948;
 
 /*** main bue ***/
-$main-dark-blue: #2D4C6B; 
+$main-dark-blue: #2D4C6B;
+
+$main-light-blue: #6C9FC2;
+
+$dark-green: #274A3D;
+
+$dark-purple: #3E1A49;
+
+$dark-orange: #DB8011;
 
 /* Issue Colors */
 $other: #2D4C6B;
 
-$general: #6C9FC2;
+$general: $main-light-blue;
 
 $dream-act: #CA4948;
 
@@ -41,14 +49,6 @@ $town-hall: #4E937A;
 $gun-violence: #7B3491;
 
 $foreign-policy: #FF9F2C;
-
-
-
-$dark-green: #274A3D;
-
-$dark-purple: #3E1A49;
-
-$dark-orange: #DB8011;
 
 /* Search bar & filter by color */
 $search-border: $main-dark-blue;

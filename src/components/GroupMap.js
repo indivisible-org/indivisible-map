@@ -346,44 +346,45 @@ class MapView extends React.Component {
 
     return (
       <React.Fragment>
-        <div id="map" />
-        <div className="map-overlay" id="legend">
-          <MapInset
-            center={center}
-            colorMap={colorMap}
-            district={district}
-            items={[]}
-            state="HI"
-            type={type}
-            filterByValue={filterByValue}
-            resetSelections={resetSelections}
-            searchByDistrict={searchByDistrict}
-            refcode={refcode}
-            setLatLng={setLatLng}
-            distance={distance}
-            searchType={searchType}
-            mapId="map-overlay-hawaii"
-            bounds={
+        <div id="map" >
+          <div className="map-overlay" id="legend">
+            <MapInset
+              center={center}
+              colorMap={colorMap}
+              district={district}
+              items={[]}
+              state="AK"
+              type={type}
+              filterByValue={filterByValue}
+              resetSelections={resetSelections}
+              searchByDistrict={searchByDistrict}
+              refcode={refcode}
+              setLatLng={setLatLng}
+              distance={distance}
+              searchType={searchType}
+              mapId="map-overlay-alaska"
+              bounds={[[-170.15625, 51.72702815704774], [-127.61718749999999, 71.85622888185527]]}
+            />
+            <MapInset
+              center={center}
+              colorMap={colorMap}
+              district={district}
+              items={[]}
+              state="HI"
+              type={type}
+              filterByValue={filterByValue}
+              resetSelections={resetSelections}
+              searchByDistrict={searchByDistrict}
+              refcode={refcode}
+              setLatLng={setLatLng}
+              distance={distance}
+              searchType={searchType}
+              mapId="map-overlay-hawaii"
+              bounds={
               [[-161.03759765625, 18.542116654448996], [-154.22607421875, 22.573438264572406]]
             }
-          />
-          <MapInset
-            center={center}
-            colorMap={colorMap}
-            district={district}
-            items={[]}
-            state="AK"
-            type={type}
-            filterByValue={filterByValue}
-            resetSelections={resetSelections}
-            searchByDistrict={searchByDistrict}
-            refcode={refcode}
-            setLatLng={setLatLng}
-            distance={distance}
-            searchType={searchType}
-            mapId="map-overlay-alaska"
-            bounds={[[-170.15625, 51.72702815704774], [-127.61718749999999, 71.85622888185527]]}
-          />
+            />
+          </div>
         </div>
       </React.Fragment>
     );

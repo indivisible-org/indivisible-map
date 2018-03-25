@@ -24,6 +24,7 @@
       margin: 5px;
     }
   }
+
   // filters
   .input-group-filters {
     flex: 1 50%;
@@ -31,12 +32,19 @@
     margin: auto;
     padding: 1vw;
   }
+
   // distance slider
   .distance-slider {
     flex: 1 50%;
-    margin-top: 1em;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
     .ant-slider {
       margin: 7px;
+    }
+    span {
+
     }
     .ant-input-number {
       margin-left: 0.5em;
@@ -45,8 +53,11 @@
         width: 100%;
       }
     }
-    p {
-      margin: 0 10px;
+    .ant-slider-track{
+      background: $main-light-blue;
+    }
+    .ant-slider-handle{
+      border: solid 2px $main-light-blue;
     }
   }
   .event-count {
@@ -69,6 +80,10 @@
 .text-input {
   width: 17vw;
   height: 25px;
+}
+
+.ant-tooltip-content {
+  display: none;
 }
 
 select {
