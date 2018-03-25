@@ -86,7 +86,7 @@ class EventsDashboard extends React.Component {
       district: filteredEvents,
     };
     return (
-      <div className="events-container">
+      <div className="events-container main-container">
         <h2 className="dash-title">Event Dashboard</h2>
         <SearchBar items={searchTypeMapSideBar[searchType]} type="events" />
         <SideBar

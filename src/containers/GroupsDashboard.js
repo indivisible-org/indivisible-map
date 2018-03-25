@@ -71,7 +71,7 @@ class GroupsDashboard extends React.Component {
       return null;
     }
     return (
-      <div className="groups-container">
+      <div className="groups-container main-container">
         <h2 className="dash-title">Group Dashboard</h2>
         <SearchBar items={groups} type="groups" />
         <SideBar

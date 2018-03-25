@@ -1,3 +1,12 @@
+.search-bar {
+  flex: 1 100%;
+  @include box-3d;
+  z-index: 99;
+  padding: 0.5vw;
+  display: flex;
+  flex-flow: row wrap;
+}
+
 .input-group-filters {
   width: 100%;
   display: flex;

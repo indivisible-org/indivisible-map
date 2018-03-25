@@ -14,10 +14,9 @@
 
 // Components
 @import "./components/map";
-@import "./components/groups-dashboard";
-@import "./components/events-dashboard";
+@import "./components/main-dashboard";
 @import "./components/popover";
 @import "./components/event-list";
 @import "./components/event-cell";
-@import "./components/filters";
-@import "./components/menu-container";
+@import "./components/side-bar";
+@import "./components/search-bar";
