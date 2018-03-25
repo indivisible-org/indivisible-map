@@ -2,12 +2,11 @@
 * Create a position for the map
 * on the page */
 #map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
   height: 570px;
   width: 72.5vw;
   right: 0;
+  flex: 10 0px;
+  order: 2;
 }
 
 /**

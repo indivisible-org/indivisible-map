@@ -1,9 +1,16 @@
+.search-bar {
+  flex: 1 100%;
+}
+
 .side-bar-container{
   flex-direction:column;
   display: flex;
   align-items:stretch;
   height: 560px;
   width: 27.5vw;
+  flex: 1 auto;
+  order: 1;
+  overflow: scroll;
 }
 .search-type-container {
   display: flex;
