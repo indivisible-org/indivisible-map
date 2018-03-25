@@ -166,7 +166,7 @@ class MenuBar extends React.Component {
       searchType,
     } = this.props;
     return (
-      <div className="content-container-filters">
+      <div className="search-bar">
         {this.renderSwitch()}
         <SearchBar
           submitHandler={this.searchHandler}

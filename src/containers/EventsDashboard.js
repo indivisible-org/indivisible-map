@@ -23,8 +23,9 @@ import {
 } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
-import SideBar from './SideBar';
 import MapView from '../components/EventMap';
+import MenuBar from './MenuBar';
+import SideBar from './SideBar';
 
 class EventsDashboard extends React.Component {
   constructor(props) {
@@ -87,6 +88,7 @@ class EventsDashboard extends React.Component {
     return (
       <div className="events-container">
         <h2 className="dash-title">Event Dashboard</h2>
+        <MenuBar items={searchTypeMapSideBar[searchType]} type="events" />
         <SideBar
           colorMap={colorMap}
           items={searchTypeMapSideBar[searchType]}

@@ -37,7 +37,6 @@ class SideBar extends React.Component {
 
     return (
       <div className="side-bar-container">
-        <MenuBar items={items} type={type} allItems={allItems} />
         <Table
           colorMap={colorMap}
           items={items}
