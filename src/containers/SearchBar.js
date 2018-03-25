@@ -176,7 +176,7 @@ class SearchBar extends React.Component {
         <DistanceFilter
           changeHandler={this.distanceHandler}
           distance={distance}
-          hidden={!location.LAT || searchType === 'district'}
+          hidden={searchType === 'district'}
         />
         {this.renderTotal()}
       </div>
