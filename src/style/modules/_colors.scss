@@ -20,6 +20,8 @@ $brand-blue: #7bc0e1;
 
 $brand-red: #CA4948;
 
+/*** main bue ***/
+$main-dark-blue: #2D4C6B; 
 
 /* Issue Colors */
 $other: #2D4C6B;
@@ -49,7 +51,9 @@ $dark-purple: #3E1A49;
 $dark-orange: #DB8011;
 
 /* Search bar & filter by color */
-$search-border: #2D4C6B;
+$search-border: $main-dark-blue;
+
+$filter-by-slider: $main-dark-blue;
 
 /* Groups */
 
@@ -57,11 +61,11 @@ $group-dot: #6C9FC2;
 
 $group-dot-hover: #CA4948;
 
-$group-info-box: #2D4C6B;
+$group-info-box: $main-dark-blue;
 
-$group-header : #2D4C6B;
+$group-header : $main-dark-blue;
 
-$contact-icons: #2D4C6B;
+$contact-icons: $main-dark-blue;
 
 /* Events */
 
