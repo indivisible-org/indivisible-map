@@ -28,8 +28,6 @@ class SideBar extends React.Component {
   renderTotal() {
     const { items, renderTotal } = this.props;
     if (renderTotal) {
-      console.log(renderTotal);
-
       return renderTotal(items);
     }
   }
@@ -44,7 +42,6 @@ class SideBar extends React.Component {
       selectItem,
       renderTotal,
     } = this.props;
-    console.log(renderTotal);
     return (
       <div className="side-bar-container">
         {this.renderTotal()}
