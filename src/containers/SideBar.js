@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 
 import * as selections from '../state/selections/selectors';
 
-import MenuBar from './MenuBar';
-
 import Table from '../components/Table';
 
 class SideBar extends React.Component {

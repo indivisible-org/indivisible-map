@@ -24,7 +24,7 @@ import {
 import * as selectionActions from '../state/selections/actions';
 
 import MapView from '../components/EventMap';
-import MenuBar from './MenuBar';
+import SearchBar from './SearchBar';
 import SideBar from './SideBar';
 
 class EventsDashboard extends React.Component {
@@ -88,7 +88,7 @@ class EventsDashboard extends React.Component {
     return (
       <div className="events-container">
         <h2 className="dash-title">Event Dashboard</h2>
-        <MenuBar items={searchTypeMapSideBar[searchType]} type="events" />
+        <SearchBar items={searchTypeMapSideBar[searchType]} type="events" />
         <SideBar
           colorMap={colorMap}
           items={searchTypeMapSideBar[searchType]}
