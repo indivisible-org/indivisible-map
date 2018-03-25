@@ -10,6 +10,7 @@ class SideBar extends React.Component {
   constructor(props) {
     super(props);
     this.renderTable = this.renderTable.bind(this);
+    this.renderTotal = this.renderTotal.bind(this);
   }
 
   renderTable() {
@@ -23,6 +24,16 @@ class SideBar extends React.Component {
     }
     return true;
   }
+
+  renderTotal() {
+    const { items, renderTotal } = this.props;
+    if (renderTotal) {
+      console.log(renderTotal);
+
+      return renderTotal(items);
+    }
+  }
+
   render() {
     const {
       allItems,
@@ -31,10 +42,12 @@ class SideBar extends React.Component {
       refcode,
       type,
       selectItem,
+      renderTotal,
     } = this.props;
-
+    console.log(renderTotal);
     return (
       <div className="side-bar-container">
+        {this.renderTotal()}
         <Table
           colorMap={colorMap}
           items={items}

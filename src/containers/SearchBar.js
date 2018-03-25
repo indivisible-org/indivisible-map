@@ -39,7 +39,6 @@ class SearchBar extends React.Component {
     this.distanceHandler = this.distanceHandler.bind(this);
     this.switchSearchType = this.switchSearchType.bind(this);
     this.renderFilterBar = this.renderFilterBar.bind(this);
-    this.renderTotal = this.renderTotal.bind(this);
     this.renderSwitch = this.renderSwitch.bind(this);
   }
 
@@ -147,17 +146,6 @@ class SearchBar extends React.Component {
       : null;
   }
 
-  renderTotal() {
-    const {
-      items,
-      type,
-    } = this.props;
-    return type === 'events' ? (
-      <p className="event-count">
-        Viewing {items.length} {type}
-      </p>)
-      : null;
-  }
 
   render() {
     const {
@@ -178,7 +166,6 @@ class SearchBar extends React.Component {
           distance={distance}
           hidden={searchType === 'district'}
         />
-        {this.renderTotal()}
       </div>
     );
   }
