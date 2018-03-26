@@ -90,7 +90,6 @@ class SearchBar extends React.Component {
   }
 
   switchSearchType(e) {
-    console.log(e.target.value);
     const searchType = e.target.value;
     const {
       changeSearchType,
