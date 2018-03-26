@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700');
+
 h2,
 h3 {
   margin: 10px;
@@ -17,4 +19,36 @@ p {
 .dash-title {
   position: absolute;
   margin-top: -100px;
+}
+
+/****** Group Style Typography ********/
+#groups-list {
+  font-family: 'Montserrat', sans-serif;
+}
+
+#groups-list .ant-list-item-meta-title {
+  font-weight: 700;
+}
+
+#group-location {
+  color: black;
+}
+
+.connect-text {
+  font-weight: 300;
+  color: black;
+  margin-left: 5px;
+}
+
+/****** Event Style Typography ********/
+#events-list {
+  font-family: 'Montserrat', sans-serif;
+}
+
+#events-list .event-host {
+  font-weight: 600;
+}
+
+#events-list .ant-list-item-meta-title {
+  font-weight: 700;
 }
