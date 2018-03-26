@@ -10,7 +10,7 @@ import * as selectionActions from '../state/selections/actions';
 import { getDistance, getFilters, getLocation, getSearchType } from '../state/selections/selectors';
 import { getCurrentIssueFocuses, getColorMap } from '../state/events/selectors';
 
-import SearchBar from '../components/SearchBar';
+import SearchInput from '../components/SearchInput';
 import DistanceFilter from '../components/DistanceSlider';
 import IssueFilter from '../components/IssueFilterTags';
 
@@ -18,7 +18,7 @@ import IssueFilter from '../components/IssueFilterTags';
 require('style-loader!css-loader!antd/es/switch/style/index.css');
 /* eslint-enable */
 
-class MenuBar extends React.Component {
+class SearchBar extends React.Component {
   static isZipCode(query) {
     const zipcodeRegEx = /^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z] \d[a-zA-Z]\d)$/g;
     return query.match(zipcodeRegEx);
@@ -39,7 +39,6 @@ class MenuBar extends React.Component {
     this.distanceHandler = this.distanceHandler.bind(this);
     this.switchSearchType = this.switchSearchType.bind(this);
     this.renderFilterBar = this.renderFilterBar.bind(this);
-    this.renderTotal = this.renderTotal.bind(this);
     this.renderSwitch = this.renderSwitch.bind(this);
   }
 
@@ -57,8 +56,6 @@ class MenuBar extends React.Component {
       searchByZip,
       searchByQueryString,
       searchByDistrict,
-      changedFilters,
-      issues,
     } = this.props;
 
     resetSearchByQueryString();
@@ -67,12 +64,12 @@ class MenuBar extends React.Component {
       return resetSelections();
     }
     if (searchType === 'proximity') {
-      if (MenuBar.isZipCode(query)) {
+      if (SearchBar.isZipCode(query)) {
         return searchByZip(value);
       }
-      if (MenuBar.isState(query)) {
+      if (SearchBar.isState(query)) {
         resetSearchByZip();
-        return searchByQueryString({ filterBy: 'state', filterValue: MenuBar.isState(query).USPS });
+        return searchByQueryString({ filterBy: 'state', filterValue: SearchBar.isState(query).USPS });
       }
       return searchByQueryString({ filterBy: 'title', filterValue: query });
     } else if (searchType === 'district') {
@@ -117,12 +114,14 @@ class MenuBar extends React.Component {
       return null;
     }
     return (
-      <IssueFilter
-        colorMap={colorMap}
-        issues={issues}
-        changedFilters={changedFilters}
-        selectedFilters={selectedFilters}
-      />
+      <div className="input-group-filters">
+        <IssueFilter
+          colorMap={colorMap}
+          issues={issues}
+          changedFilters={changedFilters}
+          selectedFilters={selectedFilters}
+        />
+      </div>
     );
   }
 
@@ -147,17 +146,6 @@ class MenuBar extends React.Component {
       : null;
   }
 
-  renderTotal() {
-    const {
-      items,
-      type,
-    } = this.props;
-    return type === 'events' ? (
-      <p>
-        Viewing {items.length} {type}
-      </p>)
-      : null;
-  }
 
   render() {
     const {
@@ -166,19 +154,18 @@ class MenuBar extends React.Component {
       searchType,
     } = this.props;
     return (
-      <div className="content-container-filters">
-        {this.renderSwitch()}
-        <SearchBar
+      <div className="search-bar">
+        <SearchInput
           submitHandler={this.searchHandler}
           searchType={searchType}
         />
+        {this.renderSwitch()}
         {this.renderFilterBar()}
         <DistanceFilter
           changeHandler={this.distanceHandler}
           distance={distance}
-          hidden={!location.LAT || searchType === 'district'}
+          hidden={searchType === 'district'}
         />
-        {this.renderTotal()}
       </div>
     );
   }
@@ -207,7 +194,7 @@ const mapDispatchToProps = dispatch => ({
   changeSearchType: searchType => dispatch(selectionActions.changeSearchType(searchType)),
 });
 
-MenuBar.propTypes = {
+SearchBar.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   setTextFilter: PropTypes.func.isRequired,
   searchByQueryString: PropTypes.func.isRequired,
@@ -227,4 +214,4 @@ MenuBar.propTypes = {
   searchType: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

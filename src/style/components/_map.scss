@@ -2,12 +2,12 @@
 * Create a position for the map
 * on the page */
 #map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
   height: 570px;
   width: 72.5vw;
   right: 0;
+  flex: 10 0px;
+  order: 2;
+  position: relative;
 }
 
 /**
@@ -17,15 +17,13 @@
 .map-overlay {
   position: absolute;
   bottom: 0;
-  height:150px;
-  width: 72.5vw;
-  right: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   font-family: Arial, sans-serif;
   overflow: auto;
+  z-index: 1;
 
   .inset {
     width: 230px;

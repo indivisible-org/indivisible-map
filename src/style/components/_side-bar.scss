@@ -1,0 +1,17 @@
+.side-bar-container{
+  flex-direction:column;
+  display: flex;
+  align-items:stretch;
+  height: 560px;
+  width: 27.5vw;
+  flex: 1 auto;
+  order: 1;
+  overflow: scroll;
+
+  .event-count{
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    padding: 10px;
+  }
+}

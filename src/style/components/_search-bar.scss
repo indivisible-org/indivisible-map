@@ -1,0 +1,125 @@
+.search-bar {
+  flex: 1 100%;
+  @include box-3d;
+  z-index: 99;
+  padding: 0.5vw;
+  display: flex;
+  flex-flow: row wrap;
+
+  // search input
+  .ant-input-search.ant-input-affix-wrapper{
+    flex: 1 50%;
+    width: auto;
+  }
+
+  // search type switcher
+  .search-type-container {
+    flex: 1 50%;
+    display: flex;
+    margin-top: 5px;
+    .ant-switch {
+      margin: 5px;
+    }
+    .search-by-title{
+      margin: 5px;
+    }
+  }
+
+  // filters
+  .input-group-filters {
+    flex: 1 50%;
+    display: flex;
+    margin: auto;
+    padding: 1vw;
+  }
+
+  // distance slider
+  .distance-slider {
+    flex: 1 50%;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
+    .ant-slider {
+      margin: 7px;
+    }
+    span {
+
+    }
+    .ant-input-number {
+      margin-left: 0.5em;
+      input {
+        padding: 0 0.5em;
+        width: 100%;
+      }
+    }
+    .ant-slider-track{
+      background: $main-light-blue;
+    }
+    .ant-slider-handle{
+      border: solid 2px $main-light-blue;
+    }
+  }
+  .event-count {
+    flex: 1 100%;
+  }
+}
+
+.search-type-switch.ant-switch {
+  background-color: $brand-primary;
+}
+.search-type-switch.ant-switch-checked {
+  background-color: $brand-red;
+}
+
+
+.input-group__item {
+  width: 25vw;
+}
+
+.text-input {
+  width: 17vw;
+  height: 25px;
+}
+
+.ant-tooltip-content {
+  display: none;
+}
+
+select {
+  width: 10vw;
+  height: 31px;
+}
+.ant-tag-checkable-checked {
+  &.circle-15-blue {
+    background-color: $filter-color-blue;
+  }
+
+  &.circle-15-red {
+    background-color: $filter-color-red;
+  }
+
+  &.circle-15-green{
+    background-color: $filter-color-green;
+  }
+
+  &.circle-15-purple {
+    background-color: $filter-color-purple;
+  }
+
+  &.circle-15-orange{
+    background-color: $filter-color-orange;
+  }
+
+  &.circle-15-dark-blue{
+    background-color: $filter-color-dark-blue;
+  }
+
+  &.circle-15-fuchsia{
+    background-color: $filter-color-fuchsia;
+  }
+
+  &.circle-15-gray{
+    background-color: $filter-color-gray;
+  }
+}

@@ -33,16 +33,19 @@ class DistanceFilter extends React.Component {
     });
     return (
       <Row className={classes}>
-        <p>Filter by distance</p>
-        <Col span={16}>
+        <Col span={6}>
+          <span>Filter by distance</span>
+        </Col>
+        <Col span={14}>
           <Slider min={5} max={500} onChange={this.onChange} value={this.state.inputValue} />
         </Col>
-        <Col span={8}>
+        <Col span={4}>
           <InputNumber
             min={5}
             max={500}
             step={1}
             readOnly
+            tipFormatter={null}
             value={this.state.inputValue}
             formatter={value => `${value} miles`}
             parser={value => value.replace(/\$\s?|(,*)/g, '')}

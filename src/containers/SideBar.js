@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 
 import * as selections from '../state/selections/selectors';
 
-import MenuBar from './MenuBar';
-
 import Table from '../components/Table';
 
 class SideBar extends React.Component {
   constructor(props) {
     super(props);
     this.renderTable = this.renderTable.bind(this);
+    this.renderTotal = this.renderTotal.bind(this);
   }
 
   renderTable() {
@@ -25,6 +24,14 @@ class SideBar extends React.Component {
     }
     return true;
   }
+
+  renderTotal() {
+    const { items, renderTotal } = this.props;
+    if (renderTotal) {
+      return renderTotal(items);
+    }
+  }
+
   render() {
     const {
       allItems,
@@ -33,11 +40,11 @@ class SideBar extends React.Component {
       refcode,
       type,
       selectItem,
+      renderTotal,
     } = this.props;
-
     return (
       <div className="side-bar-container">
-        <MenuBar items={items} type={type} allItems={allItems} />
+        {this.renderTotal()}
         <Table
           colorMap={colorMap}
           items={items}

@@ -23,12 +23,15 @@ import {
 } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
-import SideBar from './SideBar';
 import MapView from '../components/EventMap';
+import SearchBar from './SearchBar';
+import SideBar from './SideBar';
 
 class EventsDashboard extends React.Component {
   constructor(props) {
     super(props);
+    this.renderTotal = this.renderTotal.bind(this);
+
     this.state = {
       init: true,
     };
@@ -53,6 +56,12 @@ class EventsDashboard extends React.Component {
         this.props.setInitialFilters(returned);
         this.setState({ init: false });
       });
+  }
+
+  renderTotal(items) {
+    return (<p className="event-count">
+        Viewing {items.length} events
+            </p>);
   }
 
   render() {
@@ -85,9 +94,11 @@ class EventsDashboard extends React.Component {
       district: filteredEvents,
     };
     return (
-      <div className="events-container">
+      <div className="events-container main-container">
         <h2 className="dash-title">Event Dashboard</h2>
+        <SearchBar items={searchTypeMapSideBar[searchType]} type="events" />
         <SideBar
+          renderTotal={this.renderTotal}
           colorMap={colorMap}
           items={searchTypeMapSideBar[searchType]}
           allItems={allEvents}
