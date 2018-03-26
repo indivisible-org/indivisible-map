@@ -10,6 +10,9 @@ const initialState = {
     { icon: 'electoral-icon', filterBy: 'Electoral', color: '#652524' },
     { icon: 'trump-tax-scam-icon', filterBy: 'Trump Tax Scam', color: '#365061' },
     { icon: 'dream-act-icon', filterBy: 'DREAM Act', color: '#CA4948' },
+    { icon: 'dark-green', filterBy: false, color: '#274A3D' },
+    { icon: 'dark-purple', filterBy: false, color: '#3E1A49' },
+    { icon: 'dark-orange', filterBy: false, color: '#DB8011' },
     { icon: 'circle-15-gray', filterBy: false, color: '#686868' },
   ],
 };

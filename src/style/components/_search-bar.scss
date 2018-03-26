@@ -114,7 +114,7 @@ select {
   &.infrastructure-icon {
     background-color: $infrastructure;
   }
-  
+
   &.trump-tax-scam-icon {
     background-color: $trump-tax-scam;
   }
@@ -125,5 +125,17 @@ select {
 
   &.electoral-icon {
     background-color: $electoral;
+  }
+
+  &.dark-green {
+    background-color: $dark-green;
+  }
+
+  &.dark-purple {
+    background-color: $dark-purple;
+  }
+
+  &.dark-orange {
+    background-color: $dark-orange;
   }
 }
