@@ -37,12 +37,12 @@ class DistanceFilter extends React.Component {
           <span>Filter by distance</span>
         </Col>
         <Col span={14}>
-          <Slider min={5} max={500} onChange={this.onChange} value={this.state.inputValue} />
+          <Slider min={5} max={100} onChange={this.onChange} value={this.state.inputValue} />
         </Col>
         <Col span={4}>
           <InputNumber
             min={5}
-            max={500}
+            max={100}
             step={1}
             readOnly
             tipFormatter={null}
