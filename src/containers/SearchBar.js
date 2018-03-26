@@ -130,11 +130,17 @@ class SearchBar extends React.Component {
       searchType,
       type,
     } = this.props;
+    if (type === 'groups') {
+      return null;
+    }
     return (
-      <RadioGroup onChange={this.switchSearchType} value={searchType}>
-        <Radio value="proximity">proximity</Radio>
-        <Radio value="district">district</Radio>
-      </RadioGroup>
+      <div className="search-type-container">
+        <span className="search-by-title">Search by </span>
+        <RadioGroup onChange={this.switchSearchType} value={searchType}>
+          <Radio value="proximity">proximity</Radio>
+          <Radio value="district">district</Radio>
+        </RadioGroup>
+      </div>
     );
   }
 
