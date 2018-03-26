@@ -100,35 +100,51 @@ select {
   height: 31px;
 }
 .ant-tag-checkable-checked {
-  &.circle-15-blue {
-    background-color: $filter-color-blue;
+  &.town-hall-icon {
+    background-color: $town-hall;
   }
 
-  &.circle-15-red {
-    background-color: $filter-color-red;
+  &.general-icon {
+    background-color: $general;
   }
 
-  &.circle-15-green{
-    background-color: $filter-color-green;
+  &.other-icon {
+    background-color: $other;
   }
 
-  &.circle-15-purple {
-    background-color: $filter-color-purple;
+  &.gun-violence-icon {
+    background-color: $gun-violence;
   }
 
-  &.circle-15-orange{
-    background-color: $filter-color-orange;
+  &.foreign-policy-icon {
+    background-color: $foreign-policy;
   }
 
-  &.circle-15-dark-blue{
-    background-color: $filter-color-dark-blue;
+  &.infrastructure-icon {
+    background-color: $infrastructure;
   }
 
-  &.circle-15-fuchsia{
-    background-color: $filter-color-fuchsia;
+  &.trump-tax-scam-icon {
+    background-color: $trump-tax-scam;
   }
 
-  &.circle-15-gray{
-    background-color: $filter-color-gray;
+  &.dream-act-icon {
+    background-color: $dream-act;
+  }
+
+  &.electoral-icon {
+    background-color: $electoral;
+  }
+
+  &.dark-green {
+    background-color: $dark-green;
+  }
+
+  &.dark-purple {
+    background-color: $dark-purple;
+  }
+
+  &.dark-orange {
+    background-color: $dark-orange;
   }
 }
