@@ -20,10 +20,11 @@ $brand-blue: #7bc0e1;
 
 $brand-red: #CA4948;
 
-/*** main bue ***/
 $main-dark-blue: #2D4C6B;
 
 $main-light-blue: #6C9FC2;
+
+$main-white: #ffffff;
 
 $dark-green: #274A3D;
 
@@ -36,7 +37,7 @@ $other: #2D4C6B;
 
 $general: $main-light-blue;
 
-$dream-act: #CA4948;
+$dream-act: $brand-red;
 
 $infrastructure: #172636;
 
@@ -57,9 +58,9 @@ $filter-by-slider: $main-dark-blue;
 
 /* Groups */
 
-$group-dot: #6C9FC2;
+$group-dot: $main-light-blue;
 
-$group-dot-hover: #CA4948;
+$group-dot-hover: $brand-red;
 
 $group-info-box: $main-dark-blue;
 
@@ -69,4 +70,4 @@ $contact-icons: $main-dark-blue;
 
 /* Events */
 
-$event-rsvp: #ffffff;
+$event-rsvp: $main-white;

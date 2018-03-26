@@ -16,12 +16,21 @@
   .search-type-container {
     flex: 1 50%;
     display: flex;
-    margin-top: 5px;
-    .ant-switch {
-      margin: 5px;
-    }
+    padding: 5px;
     .search-by-title{
-      margin: 5px;
+      margin-left: 0.5vw;
+      margin-right: 0.5vw;
+    }
+    .ant-radio-wrapper.ant-radio-wrapper-checked {
+      background-color: $main-light-blue;
+      color: $main-white;
+      border-radius: 25px;
+    }
+    .ant-radio-inner:after{
+      background-color: $main-light-blue;
+    }
+    .ant-radio-checked .ant-radio-inner{
+      border-color: $main-light-blue;
     }
   }
 

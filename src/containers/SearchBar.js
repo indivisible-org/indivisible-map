@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { find, union } from 'lodash';
-import { Switch } from 'antd';
-
+import { Radio } from 'antd';
 import states from '../data/states';
 import * as selectionActions from '../state/selections/actions';
 
@@ -14,8 +13,9 @@ import SearchInput from '../components/SearchInput';
 import DistanceFilter from '../components/DistanceSlider';
 import IssueFilter from '../components/IssueFilterTags';
 
+const RadioGroup = Radio.Group;
 /* eslint-disable */
-require('style-loader!css-loader!antd/es/switch/style/index.css');
+require('style-loader!css-loader!antd/es/radio/style/index.css');
 /* eslint-enable */
 
 class SearchBar extends React.Component {
@@ -89,13 +89,13 @@ class SearchBar extends React.Component {
     return setDistance(value);
   }
 
-  switchSearchType(val) {
+  switchSearchType(e) {
+    const searchType = e.target.value;
     const {
       changeSearchType,
       issues,
       changedFilters,
     } = this.props;
-    const searchType = val ? 'proximity' : 'district';
     if (searchType === 'district') {
       changedFilters(union(issues, ['Town Hall']));
     }
@@ -130,20 +130,18 @@ class SearchBar extends React.Component {
       searchType,
       type,
     } = this.props;
-    return type === 'events' ? (
+    if (type === 'groups') {
+      return null;
+    }
+    return (
       <div className="search-type-container">
         <span className="search-by-title">Search by </span>
-        <Switch
-          size="large"
-          checkedChildren="proximity"
-          unCheckedChildren="district"
-          defaultChecked
-          className="search-type-switch"
-          onChange={this.switchSearchType}
-          searchType={searchType}
-        />
-      </div>)
-      : null;
+        <RadioGroup onChange={this.switchSearchType} value={searchType}>
+          <Radio value="proximity">proximity</Radio>
+          <Radio value="district">district</Radio>
+        </RadioGroup>
+      </div>
+    );
   }
 
 
