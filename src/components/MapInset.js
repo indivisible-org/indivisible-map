@@ -331,7 +331,10 @@ class MapInset extends React.Component {
     };
     // map on 'load'
     this.map.on('load', () => {
-      this.map.fitBounds(bounds);
+      this.map.fitBounds(bounds, {
+        linear: true,
+        easeTo: {duration: 0}
+      });
       this.addClickListener();
       if (type === 'events') {
         this.addLayer(featuresHome);
