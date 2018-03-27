@@ -359,7 +359,7 @@ class MapInset extends React.Component {
     });
     return (
       <React.Fragment>
-        <div id={mapId} className={mapClassNames} />
+        <div id={mapId} className={mapClassNames} data-bounds={this.props.bounds} onClick={this.props.onClick}/>
       </React.Fragment>
     );
   }

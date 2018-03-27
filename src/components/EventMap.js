@@ -25,6 +25,7 @@ class MapView extends React.Component {
     this.districtSelect = this.districtSelect.bind(this);
     this.removeHighlights = this.removeHighlights.bind(this);
     this.filterForStateInsets = this.filterForStateInsets.bind(this);
+    this.insetOnClickEvent = this.insetOnClickEvent.bind(this);
     this.state = {
       alaskaItems: filter(this.props.items, { state: 'AK' }),
       hawaiiItems: filter(this.props.items, { state: 'HI' }),
@@ -106,6 +107,14 @@ class MapView extends React.Component {
       alaskaItems,
       hawaiiItems,
     });
+  }
+
+  insetOnClickEvent(e){
+    const dataBounds = e.target.parentNode.parentNode.getAttribute('data-bounds').split(',');
+    const boundsOne = [parseInt(dataBounds[0]), parseInt(dataBounds[1])];
+    const boundsTwo = [parseInt(dataBounds[2]), parseInt(dataBounds[3])];
+    const bounds = boundsOne.concat(boundsTwo);
+    this.map.fitBounds(bounds);
   }
 
   focusMap(bb) {
@@ -452,6 +461,7 @@ class MapView extends React.Component {
         <div id="map" >
           <div className="map-overlay" id="legend">
             <MapInset
+              onClick={this.insetOnClickEvent}
               items={this.state.alaskaItems}
               center={center}
               colorMap={colorMap}
@@ -468,6 +478,7 @@ class MapView extends React.Component {
               bounds={[[-170.15625, 51.72702815704774], [-127.61718749999999, 71.85622888185527]]}
             />
             <MapInset
+              onClick={this.insetOnClickEvent}
               items={this.state.hawaiiItems}
               center={center}
               colorMap={colorMap}
