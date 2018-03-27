@@ -15,7 +15,7 @@
     "classnames": "^2.2.5",
     "css-loader": "^0.28.7",
     "dotenv": "^5.0.0",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "extract-text-webpack-plugin": "^3.0.2",
     "history": "4.7.2",
     "html-webpack-plugin": "^2.30.1",
