@@ -92,41 +92,33 @@ class TableCell extends React.Component {
   }
 
   renderGroupHeader(item) {
-    let actions = [];
+    let iconsSocial;
     if (item.socials) {
-      actions = item.socials.reduce((acc, ele) => {
+      iconsSocial = item.socials.reduce((acc, ele) => {
         if (ele.category === 'facebook') {
-          acc.push(<div><a href={ele.url} target="_blank"><Icon type="facebook" /><span className="connect-text">connect via facebook</span></a></div>);
+          acc.push(<li key={ele.url}><a href={ele.url} target="_blank"><div className="facebook-icon"><span className="connect-text">connect via facebook</span></div></a></li>);
         }
         if (ele.category === 'twitter') {
-          acc.push(<div><a href={ele.url} target="_blank"><Icon type="twitter" /><span className="connect-text">connect via twitter</span></a></div>);
+          acc.push(<li key={ele.url}><a href={ele.url} target="_blank"><div className="twitter-icon"><span className="connect-text">connect via twitter</span></div></a></li>);
         }
         return acc;
       }, []);
-    } else if (item.email) {
-      actions.push(<React.Fragment>
-        <Button
-          onClick={this.getEmail}
-          type="primary"
-          size="small"
-          icon="mail"
-          id={item.id}
-          shape="circle"
-        />
-        <a id={`${item.id}-target`} />
-                   </React.Fragment>);
-    }
+    } 
     return (
       <List.Item
-        actions={actions}
         className="event-cell"
       >
         <List.Item.Meta
-          title={item.name}
+          title={item.name.toUpperCase()}
           description={
-            <ul>
-              <li id="group-location">{item.city} {item.state}, {item.zip}</li>
-            </ul>
+            <div>
+              <ul>
+                <li id="group-location">{item.city} {item.state}, {item.zip}</li>
+              </ul>
+              <ul>
+                {iconsSocial}
+              </ul>
+            </div>
           }
         />
       </List.Item>
