@@ -1,6 +1,12 @@
-@mixin cell {
-  border: 1px solid $main-dark-blue;
+@mixin cell ($color) {
+  border: 1px solid $color;
   margin-bottom: 15px;
   padding: 0;
   @include box-3d;
+  .ant-card-head{
+    background-color: $color;
+    .rsvp-button{
+      color: $color;
+    }
+  }
 }

@@ -16,83 +16,33 @@
     @include montserrat-bold-all-caps;
   }
   .other {
-    .ant-card-head{
-      background-color: $other;
-      .rsvp-button{
-        color: $other;
-      }
-    }
+    @include cell($other);
   }
   .general {
-    .ant-card-head{
-      background-color: $general;
-      .rsvp-button{
-        color: $general;
-      }
-    }
+    @include cell($general);
   }
   .town-hall {
-    .ant-card-head{
-      background-color: $town-hall;
-      .rsvp-button{
-        color: $town-hall;
-      }
-    }
+    @include cell($town-hall);
   }
   .dream-act {
-    .ant-card-head{
-      background-color: $dream-act;
-      .rsvp-button{
-        color: $dream-act;
-      }
-    }
+    @include cell($dream-act);
   }
   .infrastructure {
-    .ant-card-head{
-      background-color: $infrastructure;
-      .rsvp-button{
-        color: $infrastructure;
-      }
-    }
+    @include cell($infrastructure);
   }
   .trump-tax-scam {
-    .ant-card-head{
-      background-color: $trump-tax-scam;
-      .rsvp-button{
-        color: $trump-tax-scam;
-      }
-    }
+    @include cell($trump-tax-scam);
   }
   .electoral {
-    .ant-card-head{
-      background-color: $electoral;
-      .rsvp-button{
-        color: $electoral;
-      }
-    }
+    @include cell($electoral);
   }
   .gun-violence {
-    .ant-card-head{
-      background-color: $gun-violence;
-      .rsvp-button{
-        color: $gun-violence;
-      }
-    }
+    @include cell($gun-violence);
   }
   .foreign-policy {
-    .ant-card-head{
-      background-color: $foreign-policy;
-      .rsvp-button{
-        color: $foreign-policy;
-      }
-    }
+    @include cell($foreign-policy);
   }
   .dark-green {
-    .ant-card-head{
-      background-color: $dark-green;
-      .rsvp-button{
-        color: $dark-green;
-      }
-    }
+    @include cell($dark-green);
   }
 }

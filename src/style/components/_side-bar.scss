@@ -19,7 +19,7 @@
     padding: 10px;
   }
   .event-cell {
-    @include cell;
+    @include cell($main-dark-blue);
     @include montserrat-regular;
     color: black;
   }
