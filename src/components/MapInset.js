@@ -191,7 +191,7 @@ class MapInset extends React.Component {
             LNG: e.lngLat.lng.toString(),
           };
         }
-        //setLatLng(formatLatLng);
+        setLatLng(formatLatLng);
       } else if (searchType === 'district') {
         const features = map.queryRenderedFeatures(
           e.point,
@@ -213,7 +213,7 @@ class MapInset extends React.Component {
               LAT: point.geometry.coordinates[1].toString(),
               LNG: point.geometry.coordinates[0].toString(),
             };
-            //setLatLng(formatLatLng);
+            setLatLng(formatLatLng);
           } else {
             searchByDistrict({ state: feature.state, district: feature.district });
           }
