@@ -20,14 +20,18 @@
   }
   .event-cell {
     @include cell;
-    border-bottom: 1px solid $main-dark-blue!important;
+    @include montserrat-regular;
+    color: black;
   }
   #groups-list, #events-list {
     margin: 20px;
+  }
+  .ant-card-head{
+    padding-left: 10px;
+    padding-right: 10px;
   }
   .ant-card-head-title {
     white-space: initial;
     @include montserrat-bold-all-caps;
   }
-
 }

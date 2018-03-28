@@ -144,7 +144,11 @@ class TableCell extends React.Component {
     const groupName = item.group_name ? (<h4 className="event-host semi-bold">Hosted by {item.group_name}</h4>) : '';
     const eventType = item.eventType ? (<li>Event type: {item.eventType}</li>) : '';
     return (
-      <Card title={item.title} extra={[<a target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}>
+      <Card
+        className={`event-cell ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
+        title={item.title}
+        extra={[<a className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
+      >
         {groupName}
         <ul>
           {eventType}
@@ -160,9 +164,6 @@ class TableCell extends React.Component {
             {item.public_description}
           </li>
         </ul>
-        <Card.Meta
-          className="event-card"
-        />
       </Card>);
   }
 

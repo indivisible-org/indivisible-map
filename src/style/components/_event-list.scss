@@ -6,4 +6,93 @@
   .no-results{
     margin-top: 50%;
   }
+  .ant-card-head-title {
+    color: $main-white;
+  }
+  .rsvp-button {
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color:  $main-white;
+    @include montserrat-bold-all-caps;
+  }
+  .other {
+    .ant-card-head{
+      background-color: $other;
+      .rsvp-button{
+        color: $other;
+      }
+    }
+  }
+  .general {
+    .ant-card-head{
+      background-color: $general;
+      .rsvp-button{
+        color: $general;
+      }
+    }
+  }
+  .town-hall {
+    .ant-card-head{
+      background-color: $town-hall;
+      .rsvp-button{
+        color: $town-hall;
+      }
+    }
+  }
+  .dream-act {
+    .ant-card-head{
+      background-color: $dream-act;
+      .rsvp-button{
+        color: $dream-act;
+      }
+    }
+  }
+  .infrastructure {
+    .ant-card-head{
+      background-color: $infrastructure;
+      .rsvp-button{
+        color: $infrastructure;
+      }
+    }
+  }
+  .trump-tax-scam {
+    .ant-card-head{
+      background-color: $trump-tax-scam;
+      .rsvp-button{
+        color: $trump-tax-scam;
+      }
+    }
+  }
+  .electoral {
+    .ant-card-head{
+      background-color: $electoral;
+      .rsvp-button{
+        color: $electoral;
+      }
+    }
+  }
+  .gun-violence {
+    .ant-card-head{
+      background-color: $gun-violence;
+      .rsvp-button{
+        color: $gun-violence;
+      }
+    }
+  }
+  .foreign-policy {
+    .ant-card-head{
+      background-color: $foreign-policy;
+      .rsvp-button{
+        color: $foreign-policy;
+      }
+    }
+  }
+  .dark-green {
+    .ant-card-head{
+      background-color: $dark-green;
+      .rsvp-button{
+        color: $dark-green;
+      }
+    }
+  }
 }
