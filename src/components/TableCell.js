@@ -96,14 +96,26 @@ class TableCell extends React.Component {
     if (item.socials) {
       iconsSocial = item.socials.reduce((acc, ele) => {
         if (ele.category === 'facebook') {
-          acc.push(<li key={ele.url}><a href={ele.url} target="_blank"><div className="facebook-icon"><span className="connect-text">connect via facebook</span></div></a></li>);
+          acc.push(<li key={ele.url}>
+            <a href={ele.url} target="_blank">
+              <div className="facebook-icon">
+                <span className="connect-text">connect via facebook</span>
+              </div>
+            </a>
+                   </li>);
         }
         if (ele.category === 'twitter') {
-          acc.push(<li key={ele.url}><a href={ele.url} target="_blank"><div className="twitter-icon"><span className="connect-text">connect via twitter</span></div></a></li>);
+          acc.push(<li key={ele.url}>
+            <a href={ele.url} target="_blank">
+              <div className="twitter-icon">
+                <span className="connect-text">connect via twitter</span>
+              </div>
+            </a>
+                   </li>);
         }
         return acc;
       }, []);
-    } 
+    }
     return (
       <List.Item
         className="event-cell"

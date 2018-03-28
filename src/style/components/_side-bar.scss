@@ -7,11 +7,19 @@
   flex: 1 auto;
   order: 1;
   overflow: scroll;
+  margin: auto;
 
   .event-count{
     text-align: center;
     margin-bottom: 0px;
     margin-top: 10px;
     padding: 10px;
+  }
+  .event-cell {
+    @include cell;
+    border-bottom: 1px solid $main-dark-blue!important;
+  }
+  #groups-list, #events-list {
+    margin: 20px;
   }
 }
