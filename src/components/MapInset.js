@@ -100,28 +100,28 @@ class MapInset extends React.Component {
       closeOnClick: true,
     });
 
-    map.on('mousemove', (e) => {
-      const { searchType } = this.map.metadata;
-      const features = map.queryRenderedFeatures(e.point, { layers: [layer] });
-      // Change the cursor style as a UI indicator.
-      map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+    // map.on('mousemove', (e) => {
+    //   const { searchType } = this.map.metadata;
+    //   const features = map.queryRenderedFeatures(e.point, { layers: [layer] });
+    //   // Change the cursor style as a UI indicator.
+    //   map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 
-      if (features.length) {
-        const feature = features[0];
-        const { properties } = feature;
-        const linkMapping = {
-          events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
-          groups: '',
-        };
-        return popup.setLngLat(feature.geometry.coordinates)
-          .setHTML(`
-              <h4>${feature.properties.title}</h4>
-              <div>${feature.properties.startsAt}</div>
-              ${linkMapping[type]}
-              `)
-          .addTo(map);
-      }
-    });
+    //   if (features.length) {
+    //     const feature = features[0];
+    //     const { properties } = feature;
+    //     const linkMapping = {
+    //       events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
+    //       groups: '',
+    //     };
+    //     return popup.setLngLat(feature.geometry.coordinates)
+    //       .setHTML(`
+    //           <h4>${feature.properties.title}</h4>
+    //           <div>${feature.properties.startsAt}</div>
+    //           ${linkMapping[type]}
+    //           `)
+    //       .addTo(map);
+    //   }
+    // });
   }
 
   districtSelect(feature) {
@@ -191,7 +191,7 @@ class MapInset extends React.Component {
             LNG: e.lngLat.lng.toString(),
           };
         }
-        setLatLng(formatLatLng);
+        //setLatLng(formatLatLng);
       } else if (searchType === 'district') {
         const features = map.queryRenderedFeatures(
           e.point,
@@ -213,7 +213,7 @@ class MapInset extends React.Component {
               LAT: point.geometry.coordinates[1].toString(),
               LNG: point.geometry.coordinates[0].toString(),
             };
-            setLatLng(formatLatLng);
+            //setLatLng(formatLatLng);
           } else {
             searchByDistrict({ state: feature.state, district: feature.district });
           }
