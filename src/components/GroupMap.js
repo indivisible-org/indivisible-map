@@ -76,7 +76,7 @@ class MapView extends React.Component {
       if (this.state.inset === false) {
         return this.map.fitBounds(this.map.getBounds());
       }
-        return this.map.flyTo({
+      return this.map.flyTo({
         center: [Number(center.LNG), Number(center.LAT)],
         zoom: 9.52 - (distance * (4.7 / 450)),
       });
