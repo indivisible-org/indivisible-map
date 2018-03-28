@@ -7,6 +7,7 @@ import {
   List,
   Collapse,
   Icon,
+  Card,
 } from 'antd';
 import { indivisibleUrl } from '../state/constants';
 
@@ -16,6 +17,7 @@ const { Panel } = Collapse;
 require('style-loader!css-loader!antd/es/collapse/style/index.css');
 require('style-loader!css-loader!antd/es/list/style/index.css');
 require('style-loader!css-loader!antd/es/button/style/index.css');
+require('style-loader!css-loader!antd/es/card/style/index.css');
 /* eslint-enable */
 
 // avatar={}
@@ -138,8 +140,30 @@ class TableCell extends React.Component {
   }
 
   renderEvents() {
-    const { item } = this.props;
-    return this.renderHeader(item);
+    const { item, color, refcode } = this.props;
+    const groupName = item.group_name ? (<h4 className="event-host semi-bold">Hosted by {item.group_name}</h4>) : '';
+    const eventType = item.eventType ? (<li>Event type: {item.eventType}</li>) : '';
+    return (
+      <Card title={item.title} extra={[<a target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}>
+        {groupName}
+        <ul>
+          {eventType}
+          <li>Event Focus: {item.issueFocus}</li>
+        </ul>
+        <ul>
+          <li className="semi-bold">{moment(item.starts_at).format('MMMM Do, YYYY')}</li>
+          <li className="semi-bold">{moment(item.starts_at).format('h:mm A')}</li>
+          <li>{item.address1}</li>
+          <li>{item.city}</li>
+          <li>{item.state}, {item.zip}</li>
+          <li className="read-more closed" onClick={this.handlePanelOpen} id={item.id}>
+            {item.public_description}
+          </li>
+        </ul>
+        <Card.Meta
+          className="event-card"
+        />
+      </Card>);
   }
 
   renderGroups() {
