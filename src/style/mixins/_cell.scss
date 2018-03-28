@@ -3,9 +3,12 @@
   margin-bottom: 15px;
   padding: 0;
   @include box-3d;
-  .ant-card-head{
+  .ant-card-head {
     background-color: $color;
-    .rsvp-button{
+    .ant-card-head-title{
+      color: $main-white;
+    }
+    .rsvp-button {
       color: $color;
     }
   }

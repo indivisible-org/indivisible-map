@@ -1,20 +1,19 @@
 #events-list {
-  flex:auto 2;
-  order: 2;
-  margin: auto;
-  padding: 10px;
   .no-results{
     margin-top: 50%;
   }
+
   .ant-card-head-title {
     color: $main-white;
   }
+
   .rsvp-button {
     padding-left: 20px;
     padding-right: 20px;
     background-color:  $main-white;
     @include montserrat-bold-all-caps;
   }
+
   .other {
     @include cell($other);
   }

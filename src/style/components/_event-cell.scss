@@ -1,7 +1,9 @@
-
 .event-cell {
   ul {
     list-style-type: none;
+  }
+  .ant-card-body{
+    @include montserrat-regular;
   }
   .read-more {
     transition: max-height 500ms ease-in-out;
@@ -18,5 +20,5 @@
 
     }
   }
-  
+
 }
