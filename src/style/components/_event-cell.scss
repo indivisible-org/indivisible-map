@@ -1,7 +1,9 @@
-
 .event-cell {
   ul {
     list-style-type: none;
+  }
+  .ant-card-body{
+    @include montserrat-regular;
   }
   .read-more {
     transition: max-height 500ms ease-in-out;
@@ -12,7 +14,6 @@
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      width: 144px;
     }
     &.open{
       max-height: 2000em;
@@ -20,16 +21,4 @@
     }
   }
 
-}
-
-.facebook-icon {
-  background: url('../../assets/images/facebook-icon.svg');
-  height: 30px;
-  background-repeat: no-repeat;
-}
-
-.twitter-icon {
-  background: url('../../assets/images/twitter-icon.svg');
-  height: 30px;
-  background-repeat: no-repeat;
 }

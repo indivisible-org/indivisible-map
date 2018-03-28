@@ -42,9 +42,10 @@ p {
 #events-list {
   font-family: 'Montserrat', sans-serif;
 }
-
-#events-list .event-host {
-  font-weight: 600;
+#events-list {
+  .semi-bold {
+    @include montserrat-semi-bold;
+  }
 }
 
 #events-list .ant-list-item-meta-title {

@@ -1,20 +1,17 @@
-#groups-list {
-  flex:auto 5;
-  order: 2;
-  margin: auto;
-  padding: 10px;
-}
-
 #groups-list .ant-list-item-meta-title {
-  font-weight: 700;
-  background: $group-header;
-  height: 30px;
-  margin-top: 0;
-  top: 0;
-  color: white;
-  padding-left: 10px;
+  ul{
+    padding-left: 10px;
+  }
 }
 
-#groups-list .event-cell {
-  @include cell;
+.facebook-icon {
+  background: url('../../assets/images/facebook-icon.svg');
+  height: 30px;
+  background-repeat: no-repeat;
+}
+
+.twitter-icon {
+  background: url('../../assets/images/twitter-icon.svg');
+  height: 30px;
+  background-repeat: no-repeat;
 }

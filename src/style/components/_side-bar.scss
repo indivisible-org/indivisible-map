@@ -1,3 +1,4 @@
+// general styles for both side bars
 .side-bar-container{
   flex-direction:column;
   display: flex;
@@ -7,11 +8,35 @@
   flex: 1 auto;
   order: 1;
   overflow: scroll;
+  margin: auto;
+
+  ul {
+    list-style: none;
+    padding-left: 0px;
+  }
 
   .event-count{
     text-align: center;
     margin-bottom: 0px;
     margin-top: 10px;
     padding: 10px;
+  }
+
+  #groups-list, #events-list {
+    flex:auto 2;
+    order: 2;
+    margin: auto;
+    margin: 20px;
+    padding: 10px;
+  }
+
+  .ant-card-head{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .ant-card-head-title {
+    white-space: initial;
+    @include montserrat-bold-all-caps;
   }
 }

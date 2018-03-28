@@ -6,3 +6,18 @@ $hbase:3em;
       }
     }
 }
+
+@mixin montserrat-semi-bold{
+  font-weight: 600;
+  font-family: 'Montserrat';
+}
+
+@mixin montserrat-regular {
+  font-family: 'Montserrat';
+}
+
+@mixin montserrat-bold-all-caps {
+  font-family: 'Montserrat';
+  text-transform: uppercase;
+  font-weight: 800;
+}
