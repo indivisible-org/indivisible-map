@@ -353,6 +353,7 @@ class MapView extends React.Component {
       filterByValue,
       resetSelections,
       searchByDistrict,
+      searchByQueryString,
       refcode,
       setLatLng,
       distance,
@@ -364,12 +365,12 @@ class MapView extends React.Component {
         <div id="map" >
           <div className="map-overlay" id="legend">
             <MapInset
-              onClick={this.insetOnClickEvent}
               center={center}
               colorMap={colorMap}
               district={district}
+              searchByQueryString={searchByQueryString}
               items={[]}
-              state="AK"
+              stateName="AK"
               type={type}
               filterByValue={filterByValue}
               resetSelections={resetSelections}
@@ -382,12 +383,12 @@ class MapView extends React.Component {
               bounds={[[-170.15625, 51.72702815704774], [-127.61718749999999, 71.85622888185527]]}
             />
             <MapInset
-              onClick={this.insetOnClickEvent}
               center={center}
               colorMap={colorMap}
               district={district}
+              searchByQueryString={searchByQueryString}
               items={[]}
-              state="HI"
+              stateName="HI"
               type={type}
               filterByValue={filterByValue}
               resetSelections={resetSelections}

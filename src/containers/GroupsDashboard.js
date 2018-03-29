@@ -66,6 +66,7 @@ class GroupsDashboard extends React.Component {
       filterValue,
       resetSelections,
       setLatLng,
+      searchByQueryString,
     } = this.props;
     if (this.state.init) {
       return null;
@@ -91,6 +92,7 @@ class GroupsDashboard extends React.Component {
           setLatLng={setLatLng}
           distance={distance}
           selectedItem={selectedGroup}
+          searchByQueryString={searchByQueryString}
         />
       </div>
     );
@@ -114,6 +116,7 @@ const mapDispatchToProps = dispatch => ({
   resetSelections: () => dispatch(selectionActions.resetSelections()),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
   selectItem: val => dispatch(selectGroup(val)),
+  searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
 });
 
 GroupsDashboard.propTypes = {

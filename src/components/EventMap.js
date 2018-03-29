@@ -79,14 +79,13 @@ class MapView extends React.Component {
       return this.focusMap(stateBB);
     }
     if (center.LNG) {
-      if(this.state.inset === false){
+      if (this.state.inset === false) {
         return this.map.fitBounds(this.map.getBounds());
-      } else {
-        return this.map.flyTo({
-          center: [Number(center.LNG), Number(center.LAT)],
-          zoom: 9.52 - (distance * (4.7 / 450)),
-        });
-      } 
+      }
+      return this.map.flyTo({
+        center: [Number(center.LNG), Number(center.LAT)],
+        zoom: 9.52 - (distance * (4.7 / 450)),
+      });
     }
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
   }
@@ -114,8 +113,8 @@ class MapView extends React.Component {
     });
   }
 
-  insetOnClickEvent(e){
-    this.setState({inset: false});
+  insetOnClickEvent(e) {
+    this.setState({ inset: false });
     const dataBounds = e.target.parentNode.parentNode.getAttribute('data-bounds').split(',');
     const boundsOne = [parseInt(dataBounds[0]), parseInt(dataBounds[1])];
     const boundsTwo = [parseInt(dataBounds[2]), parseInt(dataBounds[3])];
@@ -131,10 +130,10 @@ class MapView extends React.Component {
     const width = window.innerWidth;
     const view = geoViewport.viewport(bb, [width / 2, height / 2]);
     if (view.zoom < 2.5) {
-          view.zoom = 2.5;
-        } else {
-          view.zoom -= 0.5;
-        }
+      view.zoom = 2.5;
+    } else {
+      view.zoom -= 0.5;
+    }
     this.map.flyTo(view);
   }
 
@@ -334,13 +333,13 @@ class MapView extends React.Component {
           'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
           'icon-ignore-placement': true,
           'icon-offset': {
-            'base': 1,
-            'stops': [
-                [0, [0, -15]],
-                [10, [0, -10]],
-                [12, [0, 0]]
-            ]
-          }
+            base: 1,
+            stops: [
+              [0, [0, -15]],
+              [10, [0, -10]],
+              [12, [0, 0]],
+            ],
+          },
         },
       },
       'district_interactive',
@@ -395,7 +394,7 @@ class MapView extends React.Component {
   handleReset() {
     this.removeHighlights();
     this.props.resetSelections();
-    this.setState({inset: true})
+    this.setState({ inset: true });
   }
   // Creates the button in our zoom controls to go to the national view
   makeZoomToNationalButton() {
@@ -461,6 +460,7 @@ class MapView extends React.Component {
       setLatLng,
       distance,
       searchType,
+      searchByQueryString,
     } = this.props;
 
     return (
@@ -468,9 +468,9 @@ class MapView extends React.Component {
         <div id="map" >
           <div className="map-overlay" id="legend">
             <MapInset
-              onClick={this.insetOnClickEvent}
               items={this.state.alaskaItems}
               center={center}
+              stateName="AK"
               colorMap={colorMap}
               district={district}
               type={type}
@@ -481,12 +481,13 @@ class MapView extends React.Component {
               setLatLng={setLatLng}
               distance={distance}
               searchType={searchType}
+              searchByQueryString={searchByQueryString}
               mapId="map-overlay-alaska"
               bounds={[[-170.15625, 51.72702815704774], [-127.61718749999999, 71.85622888185527]]}
             />
             <MapInset
-              onClick={this.insetOnClickEvent}
               items={this.state.hawaiiItems}
+              stateName="HI"
               center={center}
               colorMap={colorMap}
               district={district}
@@ -498,6 +499,7 @@ class MapView extends React.Component {
               setLatLng={setLatLng}
               distance={distance}
               searchType={searchType}
+              searchByQueryString={searchByQueryString}
               mapId="map-overlay-hawaii"
               bounds={[[-161.03759765625, 18.542116654448996], [-154.22607421875, 22.573438264572406]]}
             />
