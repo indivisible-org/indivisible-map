@@ -272,9 +272,9 @@ class MapInset extends React.Component {
       center,
       mapId,
     } = this.props;
-
+    console.log(filterByValue);
     const mapClassNames = classNames({
-      hidden: filterByValue.length > 0 || center.LAT,
+      hidden: filterByValue.state || center.LAT,
       inset: true,
     });
     return (
