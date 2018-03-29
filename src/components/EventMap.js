@@ -29,6 +29,7 @@ class MapView extends React.Component {
     this.state = {
       alaskaItems: filter(this.props.items, { state: 'AK' }),
       hawaiiItems: filter(this.props.items, { state: 'HI' }),
+      inset: true,
     };
   }
 
@@ -78,10 +79,14 @@ class MapView extends React.Component {
       return this.focusMap(stateBB);
     }
     if (center.LNG) {
-      return this.map.flyTo({
-        center: [Number(center.LNG), Number(center.LAT)],
-        zoom: 9.52 - (distance * (4.7 / 450)),
-      });
+      if(this.state.inset === false){
+        return this.map.fitBounds(this.map.getBounds());
+      } else {
+        return this.map.flyTo({
+          center: [Number(center.LNG), Number(center.LAT)],
+          zoom: 9.52 - (distance * (4.7 / 450)),
+        });
+      } 
     }
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
   }
@@ -110,6 +115,7 @@ class MapView extends React.Component {
   }
 
   insetOnClickEvent(e){
+    this.setState({inset: false});
     const dataBounds = e.target.parentNode.parentNode.getAttribute('data-bounds').split(',');
     const boundsOne = [parseInt(dataBounds[0]), parseInt(dataBounds[1])];
     const boundsTwo = [parseInt(dataBounds[2]), parseInt(dataBounds[3])];
@@ -125,10 +131,10 @@ class MapView extends React.Component {
     const width = window.innerWidth;
     const view = geoViewport.viewport(bb, [width / 2, height / 2]);
     if (view.zoom < 2.5) {
-      view.zoom = 2.5;
-    } else {
-      view.zoom -= 0.5;
-    }
+          view.zoom = 2.5;
+        } else {
+          view.zoom -= 0.5;
+        }
     this.map.flyTo(view);
   }
 
@@ -389,6 +395,7 @@ class MapView extends React.Component {
   handleReset() {
     this.removeHighlights();
     this.props.resetSelections();
+    this.setState({inset: true})
   }
   // Creates the button in our zoom controls to go to the national view
   makeZoomToNationalButton() {
