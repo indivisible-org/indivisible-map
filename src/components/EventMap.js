@@ -331,6 +331,7 @@ class MapView extends React.Component {
         layout: {
           'icon-image': '{icon}',
           'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+          'icon-allow-overlap': true,
           'icon-ignore-placement': true,
           'icon-offset': {
             base: 1,
@@ -340,6 +341,9 @@ class MapView extends React.Component {
               [12, [0, 0]],
             ],
           },
+        },
+        paint: {
+          'icon-opacity': 1,
         },
       },
       'district_interactive',
