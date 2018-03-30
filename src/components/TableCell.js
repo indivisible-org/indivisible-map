@@ -2,13 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import superagent from 'superagent';
 import moment from 'moment';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+
+import faFacebookSquare from '@fortawesome/fontawesome-free-brands/faFacebookSquare';
+import faTwitterSquare from '@fortawesome/fontawesome-free-brands/faTwitterSquare';
+import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
+
 import {
   Card,
+  Button,
 } from 'antd';
 import { indivisibleUrl } from '../state/constants';
 
 /* eslint-disable */
 require('style-loader!css-loader!antd/es/card/style/index.css');
+require('style-loader!css-loader!antd/es/button/style/index.css');
 /* eslint-enable */
 
 class TableCell extends React.Component {
@@ -22,8 +30,11 @@ class TableCell extends React.Component {
 
   getEmail(e) {
     e.preventDefault();
+    // e.stopPropagation();
+
     const ele = e.target;
     const { id } = ele;
+    console.log(ele);
     const mailto = document.getElementById(`${id}-target`);
     superagent.get(`${indivisibleUrl}/indivisible_group_emails/${id}.json`)
       .then((res) => {
@@ -74,29 +85,42 @@ class TableCell extends React.Component {
 
   renderGroups() {
     const { item, selectItem } = this.props;
-    let iconsSocial;
+    let iconsSocial = [];
     if (item.socials) {
       iconsSocial = item.socials.reduce((acc, ele) => {
         if (ele.category === 'facebook') {
           acc.push(<li key={ele.url}>
             <a href={ele.url} target="_blank">
-              <div className="facebook-icon">
-                <span className="connect-text">connect via facebook</span>
-              </div>
+              <FontAwesomeIcon icon={faFacebookSquare} />
+              <span className="connect-text">connect via facebook</span>
             </a>
                    </li>);
         }
         if (ele.category === 'twitter') {
           acc.push(<li key={ele.url}>
             <a href={ele.url} target="_blank">
-              <div className="twitter-icon">
-                <span className="connect-text">connect via twitter</span>
-              </div>
+              <FontAwesomeIcon icon={faTwitterSquare} />
+              <span className="connect-text">connect via twitter</span>
             </a>
                    </li>);
         }
         return acc;
       }, []);
+    }
+    if (item.email) {
+      iconsSocial.push(<React.Fragment>
+        <li key={item.id} >
+          <a onClick={this.getEmail} id={item.id}>
+            <FontAwesomeIcon
+              icon={faEnvelope}
+            />
+            <span id={item.id} className="connect-text">connect via email</span>
+          </a>
+        </li>
+        <li>
+          <a className="email-link" id={`${item.id}-target`} />
+        </li>
+                       </React.Fragment>);
     }
     return (
       <div onMouseEnter={() => selectItem(item)} onMouseLeave={() => selectItem(null)}>
