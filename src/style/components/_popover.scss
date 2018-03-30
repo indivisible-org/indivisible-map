@@ -28,7 +28,7 @@
 }
 
 .mapboxgl-popup-content {
-  @include popover(white);
+  @include popover($brand-primary);
 }
 
 .mapbox-popup-title {
