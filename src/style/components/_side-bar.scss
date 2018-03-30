@@ -1,4 +1,10 @@
 // general styles for both side bars
+.full-width{
+  .side-bar-container{
+    display: none;
+  }
+}
+
 .side-bar-container{
   flex-direction:column;
   display: flex;

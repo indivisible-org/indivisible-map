@@ -9,7 +9,7 @@ import reporter from '../state/middleware/reporter';
 export default () => {
   const store = createStore(
     combineReducers({ events, groups, selections }),
-    applyMiddleware(reporter, thunk),
+    applyMiddleware(thunk),
   );
   return store;
 };
