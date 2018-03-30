@@ -136,7 +136,6 @@ class MapInset extends React.Component {
     const { map } = this;
 
     map.on('click', (e) => {
-      console.log('clicked');
       searchByQueryString({ filterBy: 'state', filterValue: stateName });
     });
   }
@@ -272,7 +271,6 @@ class MapInset extends React.Component {
       center,
       mapId,
     } = this.props;
-    console.log(filterByValue);
     const mapClassNames = classNames({
       hidden: filterByValue.state || center.LAT || filterByValue.title,
       inset: true,

@@ -74,6 +74,17 @@
   }
 }
 
+@media all and (max-width:778px) {
+  .search-bar {
+    .ant-input-search.ant-input-affix-wrapper {
+      flex: 1 100%;
+    }
+    .input-group-filters{
+      flex: 1 100%;
+    }
+  }
+}
+
 .search-type-switch.ant-switch {
   background-color: $brand-primary;
 }
