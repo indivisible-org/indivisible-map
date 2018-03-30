@@ -73,6 +73,7 @@ class GroupsDashboard extends React.Component {
     if (this.state.init) {
       return null;
     }
+
     const containerClass = classNames({
       'groups-container': true,
       'main-container': true,

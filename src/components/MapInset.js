@@ -89,11 +89,6 @@ class MapInset extends React.Component {
 
   districtSelect(feature) {
     if (feature.state) {
-      const locationData = {
-        state: feature.state,
-        district: [feature.district],
-        validSelections: feature.geoID,
-      };
       this.highlightDistrict(feature.geoID);
     } else {
       const visibility = this.map.getLayoutProperty('selected-fill', 'visibility');
@@ -135,8 +130,7 @@ class MapInset extends React.Component {
     } = this.props;
     const { map } = this;
 
-    map.on('click', (e) => {
-      console.log('clicked');
+    map.on('click', () => {
       searchByQueryString({ filterBy: 'state', filterValue: stateName });
     });
   }
@@ -278,7 +272,7 @@ class MapInset extends React.Component {
     });
     return (
       <React.Fragment>
-        <div id={mapId} className={mapClassNames} data-bounds={this.props.bounds} onClick={this.props.onClick} />
+        <div id={mapId} className={mapClassNames} data-bounds={this.props.bounds} />
       </React.Fragment>
     );
   }
