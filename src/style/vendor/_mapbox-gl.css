@@ -332,6 +332,23 @@ a.mapboxgl-ctrl-logo {
   padding: 10px 10px 15px;
   pointer-events: auto;
 }
+
+.mapboxgl-popup-content a {
+  font-family: 'Montserrat';
+  text-transform: uppercase;
+  font-weight: 800;
+  padding-left: 50px;
+  padding-right: 50px;
+  background: white;
+  border-radius: 2px;
+  font-size: 16px;
+  color: #2f4b68;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
 .mapboxgl-popup-anchor-top-left .mapboxgl-popup-content {
   border-top-left-radius: 0;
 }
