@@ -131,6 +131,7 @@ class MapInset extends React.Component {
     const { map } = this;
 
     map.on('click', () => {
+
       searchByQueryString({ filterBy: 'state', filterValue: stateName });
     });
   }
