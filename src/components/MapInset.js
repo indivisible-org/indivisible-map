@@ -89,11 +89,6 @@ class MapInset extends React.Component {
 
   districtSelect(feature) {
     if (feature.state) {
-      const locationData = {
-        state: feature.state,
-        district: [feature.district],
-        validSelections: feature.geoID,
-      };
       this.highlightDistrict(feature.geoID);
     } else {
       const visibility = this.map.getLayoutProperty('selected-fill', 'visibility');
@@ -135,7 +130,7 @@ class MapInset extends React.Component {
     } = this.props;
     const { map } = this;
 
-    map.on('click', (e) => {
+    map.on('click', () => {
       searchByQueryString({ filterBy: 'state', filterValue: stateName });
     });
   }
@@ -228,7 +223,7 @@ class MapInset extends React.Component {
       searchType,
       mapId,
       bounds,
-      state,
+      stateName,
     } = this.props;
 
     mapboxgl.accessToken =
@@ -258,7 +253,7 @@ class MapInset extends React.Component {
         this.addLayer(featuresHome);
         this.map.getSource('events-points').setData(featuresHome);
       } else {
-        this.toggleFilters('group-points', ['==', 'state', state]);
+        this.toggleFilters('group-points', ['==', 'state', stateName]);
         this.map.setLayoutProperty('group-points', 'visibility', 'visible');
         this.clusterData(featuresHome);
       }
@@ -277,7 +272,7 @@ class MapInset extends React.Component {
     });
     return (
       <React.Fragment>
-        <div id={mapId} className={mapClassNames} data-bounds={this.props.bounds} onClick={this.props.onClick} />
+        <div id={mapId} className={mapClassNames} data-bounds={this.props.bounds} />
       </React.Fragment>
     );
   }
