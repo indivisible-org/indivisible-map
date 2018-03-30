@@ -1,0 +1,26 @@
+@mixin popover ($bk-color) {
+  color: white;
+  max-width: 230px;
+  background-color: $bk-color;
+  box-shadow: 0px 1px 3px $brand-primary;
+  -webkit-box-shadow: 0px 1px 3px #0d4668;
+          box-shadow: 0px 1px 3px #0d4668;
+  span, h4 {
+    color: white;
+  }
+  a {
+    font-family: 'Montserrat';
+    text-transform: uppercase;
+    font-weight: 800;
+    padding-left: 50px;
+    padding-right: 50px;
+    background: white;
+    border-radius: 2px;
+    font-size: 16px;
+    color: $bk-color;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+}

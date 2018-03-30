@@ -30,6 +30,7 @@ class MapView extends React.Component {
       alaskaItems: filter(this.props.items, { state: 'AK' }),
       hawaiiItems: filter(this.props.items, { state: 'HI' }),
       inset: true,
+      popoverColor: 'popover-general-icon',
     };
   }
 
@@ -191,7 +192,9 @@ class MapView extends React.Component {
         const linkMapping = {
           events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
           groups: '',
-        };
+        };        
+        this.setState({popoverColor: `popover-${feature.properties.icon}`})
+
         return popup.setLngLat(feature.geometry.coordinates)
           .setHTML(`
             <h4>${feature.properties.title}</h4>
@@ -469,7 +472,7 @@ class MapView extends React.Component {
 
     return (
       <React.Fragment>
-        <div id="map" >
+        <div id="map" className={this.state.popoverColor}>
           <div className="map-overlay" id="legend">
             <MapInset
               items={this.state.alaskaItems}
