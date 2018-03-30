@@ -17,7 +17,6 @@ class MapView extends React.Component {
     this.highlightDistrict = this.highlightDistrict.bind(this);
     this.districtSelect = this.districtSelect.bind(this);
     this.removeHighlights = this.removeHighlights.bind(this);
-    this.insetOnClickEvent = this.insetOnClickEvent.bind(this);
   }
 
   componentDidMount() {
@@ -73,15 +72,6 @@ class MapView extends React.Component {
     }
 
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
-  }
-
-  insetOnClickEvent(e) {
-    this.setState({ inset: false });
-    const dataBounds = e.target.parentNode.parentNode.getAttribute('data-bounds').split(',');
-    const boundsOne = [parseInt(dataBounds[0], 10), parseInt(dataBounds[1], 10)];
-    const boundsTwo = [parseInt(dataBounds[2], 10), parseInt(dataBounds[3], 10)];
-    const bounds = boundsOne.concat(boundsTwo);
-    this.map.fitBounds(bounds);
   }
 
   focusMap(bb) {
@@ -233,7 +223,6 @@ class MapView extends React.Component {
   handleReset() {
     this.removeHighlights();
     this.props.resetSelections();
-    this.setState({ inset: true });
   }
   // Creates the button in our zoom controls to go to the national view
   makeZoomToNationalButton() {
