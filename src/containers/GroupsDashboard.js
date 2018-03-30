@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
 import {
   getColorMap,
 } from '../state/events/selectors';
@@ -71,8 +73,14 @@ class GroupsDashboard extends React.Component {
     if (this.state.init) {
       return null;
     }
+
+    const containerClass = classNames({
+      'groups-container': true,
+      'main-container': true,
+      'full-width': ((!center.LAT) && (filterBy === 'all')),
+    });
     return (
-      <div className="groups-container main-container">
+      <div className={containerClass}>
         <h2 className="dash-title">Group Dashboard</h2>
         <SearchBar items={groups} type="groups" />
         <SideBar

@@ -17,6 +17,12 @@
   }
 }
 
+.full-width{
+  #map{
+    flex: 1 100%;
+  }
+}
+
 /**
 * Set rules for how the map overlays
 * (info box and legend) will be displayed
