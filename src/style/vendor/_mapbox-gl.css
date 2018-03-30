@@ -332,6 +332,7 @@ a.mapboxgl-ctrl-logo {
   padding: 10px 10px 15px;
   pointer-events: auto;
 }
+
 .mapboxgl-popup-anchor-top-left .mapboxgl-popup-content {
   border-top-left-radius: 0;
 }

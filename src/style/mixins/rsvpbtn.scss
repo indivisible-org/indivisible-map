@@ -1,0 +1,17 @@
+@mixin rsvpbtn($color) {
+  a {
+    font-family: 'Montserrat';
+    text-transform: uppercase;
+    font-weight: 800;
+    padding-left: 50px;
+    padding-right: 50px;
+    background: white;
+    border-radius: 2px;
+    font-size: 16px;
+    color: $color;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
