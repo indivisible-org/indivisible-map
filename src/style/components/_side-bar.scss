@@ -1,4 +1,10 @@
 // general styles for both side bars
+.full-width{
+  .side-bar-container{
+    display: none;
+  }
+}
+
 .side-bar-container{
   flex-direction:column;
   display: flex;
@@ -26,8 +32,7 @@
     flex:auto 2;
     order: 2;
     margin: auto;
-    margin: 20px;
-    padding: 10px;
+    margin: 10px;
   }
 
   .ant-card-head{

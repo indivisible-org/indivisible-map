@@ -7,7 +7,6 @@ import Point from '../logics/features';
 class MapInset extends React.Component {
   constructor(props) {
     super(props);
-    this.addPopups = this.addPopups.bind(this);
     this.addClickListener = this.addClickListener.bind(this);
     this.addLayer = this.addLayer.bind(this);
     this.createFeatures = this.createFeatures.bind(this);
@@ -43,7 +42,6 @@ class MapInset extends React.Component {
       this.map.setFilter('unclustered-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
     }
   }
-
 
   getColorForEvents(indEvent) {
     const { colorMap } = this.props;
@@ -89,48 +87,8 @@ class MapInset extends React.Component {
     return featuresHome;
   }
 
-  addPopups(layer) {
-    const { map } = this;
-    const {
-      type,
-      refcode,
-    } = this.props;
-    const popup = new mapboxgl.Popup({
-      closeButton: true,
-      closeOnClick: true,
-    });
-
-    // map.on('mousemove', (e) => {
-    //   const { searchType } = this.map.metadata;
-    //   const features = map.queryRenderedFeatures(e.point, { layers: [layer] });
-    //   // Change the cursor style as a UI indicator.
-    //   map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
-
-    //   if (features.length) {
-    //     const feature = features[0];
-    //     const { properties } = feature;
-    //     const linkMapping = {
-    //       events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
-    //       groups: '',
-    //     };
-    //     return popup.setLngLat(feature.geometry.coordinates)
-    //       .setHTML(`
-    //           <h4>${feature.properties.title}</h4>
-    //           <div>${feature.properties.startsAt}</div>
-    //           ${linkMapping[type]}
-    //           `)
-    //       .addTo(map);
-    //   }
-    // });
-  }
-
   districtSelect(feature) {
     if (feature.state) {
-      const locationData = {
-        state: feature.state,
-        district: [feature.district],
-        validSelections: feature.geoID,
-      };
       this.highlightDistrict(feature.geoID);
     } else {
       const visibility = this.map.getLayoutProperty('selected-fill', 'visibility');
@@ -167,58 +125,13 @@ class MapInset extends React.Component {
   addClickListener() {
     const {
       type,
-      searchByDistrict,
-      setLatLng,
+      searchByQueryString,
+      stateName,
     } = this.props;
     const { map } = this;
 
-    map.on('click', (e) => {
-      const { searchType } = this.map.metadata;
-      if (searchType === 'proximity') {
-        // handle proximity
-        const points = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
-        // selected a marker
-        let formatLatLng;
-        if (points.length > 0) {
-          const point = points[0];
-          formatLatLng = {
-            LAT: point.geometry.coordinates[1].toString(),
-            LNG: point.geometry.coordinates[0].toString(),
-          };
-        } else {
-          formatLatLng = {
-            LAT: e.lngLat.lat.toString(),
-            LNG: e.lngLat.lng.toString(),
-          };
-        }
-        setLatLng(formatLatLng);
-      } else if (searchType === 'district') {
-        const features = map.queryRenderedFeatures(
-          e.point,
-          {
-            layers: ['district_interactive'],
-          },
-        );
-        const feature = {};
-        const points = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
-
-        if (features.length > 0) {
-          feature.state = features[0].properties.ABR;
-          feature.district = features[0].properties.GEOID.substring(2, 4);
-          feature.geoID = features[0].properties.GEOID;
-
-          if (points.length > 0) {
-            const point = points[0];
-            const formatLatLng = {
-              LAT: point.geometry.coordinates[1].toString(),
-              LNG: point.geometry.coordinates[0].toString(),
-            };
-            setLatLng(formatLatLng);
-          } else {
-            searchByDistrict({ state: feature.state, district: feature.district });
-          }
-        }
-      }
+    map.on('click', () => {
+      searchByQueryString({ filterBy: 'state', filterValue: stateName });
     });
   }
 
@@ -310,7 +223,7 @@ class MapInset extends React.Component {
       searchType,
       mapId,
       bounds,
-      state,
+      stateName,
     } = this.props;
 
     mapboxgl.accessToken =
@@ -333,17 +246,15 @@ class MapInset extends React.Component {
     this.map.on('load', () => {
       this.map.fitBounds(bounds, {
         linear: true,
-        easeTo: {duration: 0}
+        easeTo: { duration: 0 },
       });
       this.addClickListener();
       if (type === 'events') {
         this.addLayer(featuresHome);
-        this.addPopups('events-points');
         this.map.getSource('events-points').setData(featuresHome);
       } else {
-        this.toggleFilters('group-points', ['==', 'state', state]);
+        this.toggleFilters('group-points', ['==', 'state', stateName]);
         this.map.setLayoutProperty('group-points', 'visibility', 'visible');
-        this.addPopups('unclustered-point');
         this.clusterData(featuresHome);
       }
     });
@@ -355,14 +266,13 @@ class MapInset extends React.Component {
       center,
       mapId,
     } = this.props;
-
     const mapClassNames = classNames({
-      hidden: filterByValue.length > 0 || center.LAT,
+      hidden: filterByValue.state || center.LAT || filterByValue.title,
       inset: true,
     });
     return (
       <React.Fragment>
-        <div id={mapId} className={mapClassNames} data-bounds={this.props.bounds} onClick={this.props.onClick}/>
+        <div id={mapId} className={mapClassNames} data-bounds={this.props.bounds} />
       </React.Fragment>
     );
   }

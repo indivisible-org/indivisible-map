@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { find, filter } from 'lodash';
 import geoViewport from '@mapbox/geo-viewport';
 import bboxes from '../data/bboxes';
-import Point from '../logics/features';
 import states from '../data/states';
 
 import MapInset from '../components/MapInset';
@@ -13,40 +11,32 @@ class MapView extends React.Component {
     super(props);
     this.addPopups = this.addPopups.bind(this);
     this.addClickListener = this.addClickListener.bind(this);
-    this.createFeatures = this.createFeatures.bind(this);
-    this.updateData = this.updateData.bind(this);
-    this.getColorForEvents = this.getColorForEvents.bind(this);
     this.focusMap = this.focusMap.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.toggleFilters = this.toggleFilters.bind(this);
     this.highlightDistrict = this.highlightDistrict.bind(this);
     this.districtSelect = this.districtSelect.bind(this);
     this.removeHighlights = this.removeHighlights.bind(this);
-    this.filterForStateInsets = this.filterForStateInsets.bind(this);
-    this.insetOnClickEvent = this.insetOnClickEvent.bind(this);
-    this.state = {
-      alaskaItems: filter(this.props.items, { state: 'AK' }),
-      hawaiiItems: filter(this.props.items, { state: 'HI' }),
-      inset: true,
-    };
   }
 
   componentDidMount() {
     this.initializeMap();
+    this.map.resize();
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
+    this.map.resize();
+  }
+
+  componentDidUpdate() {
     const {
       center,
-      items,
       filterByValue,
       distance,
       selectedItem,
       district,
-    } = nextProps;
-
-    this.map.metadata = { searchType: nextProps.searchType };
-    this.filterForStateInsets(items);
+    } = this.props;
+    this.map.resize();
 
     // Highlight selected item
     if (this.props.selectedItem !== selectedItem) {
@@ -73,38 +63,15 @@ class MapView extends React.Component {
       return this.focusMap(stateBB);
     }
     if (center.LNG) {
-      if (this.state.inset === false) {
-        return this.map.fitBounds(this.map.getBounds());
-      }
-      return this.map.flyTo({
+      this.map.resize();
+      this.map.flyTo({
         center: [Number(center.LNG), Number(center.LAT)],
         zoom: 9.52 - (distance * (4.7 / 450)),
       });
+      return this.map.resize();
     }
+
     return this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
-  }
-
-  getColorForEvents(indEvent) {
-    const { colorMap } = this.props;
-    let updatedObj = {};
-    let colorObj = find(colorMap, { filterBy: indEvent.issueFocus });
-    if (colorObj) {
-      updatedObj = { ...indEvent, icon: colorObj.icon };
-    } else {
-      colorObj = find(colorMap, { filterBy: false });
-      colorObj.filterBy = indEvent.issueFocus;
-      updatedObj = { ...indEvent, icon: colorObj.icon };
-    }
-    return updatedObj;
-  }
-
-  insetOnClickEvent(e) {
-    this.setState({ inset: false });
-    const dataBounds = e.target.parentNode.parentNode.getAttribute('data-bounds').split(',');
-    const boundsOne = [parseInt(dataBounds[0], 10), parseInt(dataBounds[1], 10)];
-    const boundsTwo = [parseInt(dataBounds[2], 10), parseInt(dataBounds[3], 10)];
-    const bounds = boundsOne.concat(boundsTwo);
-    this.map.fitBounds(bounds);
   }
 
   focusMap(bb) {
@@ -120,37 +87,6 @@ class MapView extends React.Component {
       view.zoom -= 0.5;
     }
     this.map.flyTo(view);
-  }
-
-  updateData(items, layer) {
-    const featuresHome = this.createFeatures(items);
-    this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
-    if (!this.map.getSource(layer)) {
-      return;
-    }
-    this.map.getSource(layer).setData(featuresHome);
-  }
-
-  createFeatures(items) {
-    const featuresHome = {
-      type: 'FeatureCollection',
-      features: [],
-    };
-    const { type } = this.props;
-
-    featuresHome.features = items.map((indEvent) => {
-      let colorObject;
-      if (type === 'events') {
-        colorObject = this.getColorForEvents(indEvent);
-      } else {
-        colorObject = {
-          ...indEvent, icon: 'circle-15-blue', filterBy: false, color: '#1cb7ec',
-        };
-      }
-      const newFeature = new Point(colorObject);
-      return newFeature;
-    });
-    return featuresHome;
   }
 
   addPopups(layer) {
@@ -222,15 +158,6 @@ class MapView extends React.Component {
     this.toggleFilters('selected-border', filterSetting);
   }
 
-  filterForStateInsets(items) {
-    const alaskaItems = filter(items, { state: 'AK' });
-    const hawaiiItems = filter(items, { state: 'HI' });
-    this.setState({
-      alaskaItems,
-      hawaiiItems,
-    });
-  }
-
   addClickListener() {
     const {
       searchByDistrict,
@@ -296,7 +223,6 @@ class MapView extends React.Component {
   handleReset() {
     this.removeHighlights();
     this.props.resetSelections();
-    this.setState({ inset: true });
   }
   // Creates the button in our zoom controls to go to the national view
   makeZoomToNationalButton() {
@@ -353,23 +279,28 @@ class MapView extends React.Component {
       filterByValue,
       resetSelections,
       searchByDistrict,
+      searchByQueryString,
       refcode,
       setLatLng,
       distance,
       searchType,
     } = this.props;
 
+    if (this.map) {
+      this.map.resize();
+    }
+
     return (
       <React.Fragment>
         <div id="map" >
           <div className="map-overlay" id="legend">
             <MapInset
-              onClick={this.insetOnClickEvent}
               center={center}
               colorMap={colorMap}
               district={district}
+              searchByQueryString={searchByQueryString}
               items={[]}
-              state="AK"
+              stateName="AK"
               type={type}
               filterByValue={filterByValue}
               resetSelections={resetSelections}
@@ -382,12 +313,12 @@ class MapView extends React.Component {
               bounds={[[-170.15625, 51.72702815704774], [-127.61718749999999, 71.85622888185527]]}
             />
             <MapInset
-              onClick={this.insetOnClickEvent}
               center={center}
               colorMap={colorMap}
               district={district}
+              searchByQueryString={searchByQueryString}
               items={[]}
-              state="HI"
+              stateName="HI"
               type={type}
               filterByValue={filterByValue}
               resetSelections={resetSelections}
@@ -421,6 +352,7 @@ MapView.propTypes = {
   district: PropTypes.string,
   refcode: PropTypes.string,
   searchByDistrict: PropTypes.func.isRequired,
+  searchByQueryString: PropTypes.func.isRequired,
 };
 
 MapView.defaultProps = {

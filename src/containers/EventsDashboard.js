@@ -81,6 +81,7 @@ class EventsDashboard extends React.Component {
       searchType,
       searchByDistrict,
       filteredEvents,
+      searchByQueryString,
     } = this.props;
     if (this.state.init) {
       return null;
@@ -119,6 +120,7 @@ class EventsDashboard extends React.Component {
           setLatLng={setLatLng}
           distance={distance}
           searchType={searchType}
+          searchByQueryString={searchByQueryString}
         />
       </div>
     );
@@ -147,6 +149,7 @@ const mapDispatchToProps = dispatch => ({
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
   searchByDistrict: val => dispatch(selectionActions.searchByDistrict(val)),
   resetSelections: () => dispatch(selectionActions.resetSelections()),
+  searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
 });
 
 EventsDashboard.propTypes = {

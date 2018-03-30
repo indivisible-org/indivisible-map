@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
 import {
   getColorMap,
 } from '../state/events/selectors';
@@ -66,12 +68,19 @@ class GroupsDashboard extends React.Component {
       filterValue,
       resetSelections,
       setLatLng,
+      searchByQueryString,
     } = this.props;
     if (this.state.init) {
       return null;
     }
+
+    const containerClass = classNames({
+      'groups-container': true,
+      'main-container': true,
+      'full-width': ((!center.LAT) && (filterBy === 'all')),
+    });
     return (
-      <div className="groups-container main-container">
+      <div className={containerClass}>
         <h2 className="dash-title">Group Dashboard</h2>
         <SearchBar items={groups} type="groups" />
         <SideBar
@@ -91,6 +100,7 @@ class GroupsDashboard extends React.Component {
           setLatLng={setLatLng}
           distance={distance}
           selectedItem={selectedGroup}
+          searchByQueryString={searchByQueryString}
         />
       </div>
     );
@@ -114,6 +124,7 @@ const mapDispatchToProps = dispatch => ({
   resetSelections: () => dispatch(selectionActions.resetSelections()),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
   selectItem: val => dispatch(selectGroup(val)),
+  searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
 });
 
 GroupsDashboard.propTypes = {
