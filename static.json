@@ -3,6 +3,7 @@
   "clean_urls": false,
   "routes": {
     "/**": "index.html",
-    "/groups": "index.html"
+    "/groups": "index.html",
+    "/events": "index.html"
   }
 }
