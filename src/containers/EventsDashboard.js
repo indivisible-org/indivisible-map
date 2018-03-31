@@ -59,6 +59,12 @@ class EventsDashboard extends React.Component {
   }
 
   renderTotal(items) {
+    const { district, filterValue } = this.props;
+    if (district) {
+      return (<p className="event-count">
+        Viewing {items.length} events in {filterValue}-{district}
+            </p>);
+    }
     return (<p className="event-count">
         Viewing {items.length} events
             </p>);
@@ -165,6 +171,7 @@ EventsDashboard.propTypes = {
   refcode: PropTypes.string,
   filterBy: PropTypes.string,
   filterValue: PropTypes.arrayOf(PropTypes.string),
+  district: PropTypes.number,
 };
 
 EventsDashboard.defaultProps = {
@@ -173,6 +180,7 @@ EventsDashboard.defaultProps = {
   filterBy: 'all',
   filterValue: [],
   distance: {},
+  district: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventsDashboard);

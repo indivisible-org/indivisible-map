@@ -46,7 +46,6 @@ class MapView extends React.Component {
       items,
       filterByValue,
       distance,
-      searchType,
       type,
       selectedItem,
       district,
@@ -73,7 +72,6 @@ class MapView extends React.Component {
         const stateFIPS = states.find(cur => cur.USPS === filterByValue.state[0]).FIPS;
         const geoID = `${stateFIPS}${districtPadded}`;
         const selectObj = { state: filterByValue.state[0], district: districtPadded, geoID };
-
         this.districtSelect(selectObj);
       }
       const stateBB = bboxes[bbname];
@@ -117,8 +115,8 @@ class MapView extends React.Component {
   insetOnClickEvent(e) {
     this.setState({ inset: false });
     const dataBounds = e.target.parentNode.parentNode.getAttribute('data-bounds').split(',');
-    const boundsOne = [parseInt(dataBounds[0]), parseInt(dataBounds[1])];
-    const boundsTwo = [parseInt(dataBounds[2]), parseInt(dataBounds[3])];
+    const boundsOne = [Number(dataBounds[0]), Number(dataBounds[1])];
+    const boundsTwo = [Number(dataBounds[2]), Number(dataBounds[3])];
     const bounds = boundsOne.concat(boundsTwo);
     this.map.fitBounds(bounds);
   }
@@ -181,7 +179,6 @@ class MapView extends React.Component {
     });
 
     map.on('mousemove', (e) => {
-      const { searchType } = this.map.metadata;
       const features = map.queryRenderedFeatures(e.point, { layers: [layer] });
       // Change the cursor style as a UI indicator.
       map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
@@ -203,24 +200,6 @@ class MapView extends React.Component {
             `)
           .addTo(map);
       }
-      // TODO: fix this
-      // if (searchType === 'district') {
-      //   const districtListener = map.queryRenderedFeatures(
-      //     e.point,
-      //     {
-      //       layers: ['district_interactive'],
-      //     },
-      //   );
-      //   if (districtListener.length > 0) {
-      //     const state = districtListener[0].properties.ABR;
-      //     const district = districtListener[0].properties.GEOID.substring(2, 4);
-      //     return popup.setLngLat(e.lngLat)
-      //       .setHTML(`
-      //         <h4>${state}-${district}</h4>
-      //         `)
-      //       .addTo(map);
-      //   }
-      // }
     });
   }
 
@@ -241,30 +220,30 @@ class MapView extends React.Component {
     }
   }
 
-  toggleFilters(layer, filter) {
-    this.map.setFilter(layer, filter);
+  toggleFilters(layer, filterSettings) {
+    this.map.setFilter(layer, filterSettings);
     this.map.setLayoutProperty(layer, 'visibility', 'visible');
   }
 
   // Handles the highlight for districts when clicked on.
   highlightDistrict(geoid) {
-    let filter;
+    let filterSettings;
     // Filter for which district has been selected.
     if (typeof geoid === 'object') {
-      filter = ['any'];
+      filterSettings = ['any'];
 
       geoid.forEach((i) => {
-        filter.push(['==', 'GEOID', i]);
+        filterSettings.push(['==', 'GEOID', i]);
       });
     } else {
-      filter = ['all', ['==', 'GEOID', geoid]];
+      filterSettings = ['all', ['==', 'GEOID', geoid]];
     }
     // Set that layer filter to the selected
-    this.toggleFilters('selected-fill', filter);
-    this.toggleFilters('selected-border', filter);
+    this.toggleFilters('selected-fill', filterSettings);
+    this.toggleFilters('selected-border', filterSettings);
   }
 
-  addClickListener(searchType) {
+  addClickListener() {
     const {
       type,
       searchByDistrict,
@@ -300,23 +279,13 @@ class MapView extends React.Component {
           },
         );
         const feature = {};
-        const points = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
 
         if (features.length > 0) {
           feature.state = features[0].properties.ABR;
           feature.district = features[0].properties.GEOID.substring(2, 4);
           feature.geoID = features[0].properties.GEOID;
 
-          if (points.length > 0) {
-            const point = points[0];
-            const formatLatLng = {
-              LAT: point.geometry.coordinates[1].toString(),
-              LNG: point.geometry.coordinates[0].toString(),
-            };
-            setLatLng(formatLatLng);
-          } else {
-            searchByDistrict({ state: feature.state, district: feature.district });
-          }
+          searchByDistrict({ state: feature.state, district: Number(feature.district) });
         }
       }
     });
@@ -455,7 +424,6 @@ class MapView extends React.Component {
 
   render() {
     const {
-      items,
       center,
       colorMap,
       district,
