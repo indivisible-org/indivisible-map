@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import {
-  getColorMap,
-} from '../state/events/selectors';
+import { getColorMap } from '../state/events/selectors';
 
 import {
   getVisbleGroups,
@@ -81,7 +79,6 @@ class GroupsDashboard extends React.Component {
     });
     return (
       <div className={containerClass}>
-        <h2 className="dash-title">Group Dashboard</h2>
         <SearchBar items={groups} type="groups" />
         <SideBar
           type="groups"
@@ -102,6 +99,7 @@ class GroupsDashboard extends React.Component {
           selectedItem={selectedGroup}
           searchByQueryString={searchByQueryString}
         />
+        <div className="footer" />
       </div>
     );
   }
@@ -139,6 +137,7 @@ GroupsDashboard.propTypes = {
   getInitalGroups: PropTypes.func.isRequired,
   resetSelections: PropTypes.func.isRequired,
   setLatLng: PropTypes.func.isRequired,
+  searchByQueryString: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsDashboard);
