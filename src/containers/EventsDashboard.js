@@ -64,11 +64,9 @@ class EventsDashboard extends React.Component {
       return (
         <p className="event-count">
         Viewing {items.length} events in {filterValue}-{district}
-      </p>);
+        </p>);
     }
-    return (<p className="event-count">
-        Viewing {items.length} events
-            </p>);
+    return (<p className="event-count">Viewing {items.length} events</p>);
   }
 
   render() {
@@ -131,7 +129,7 @@ class EventsDashboard extends React.Component {
         />
         <div className="footer" />
       </div>
-      
+
     );
   }
 }
@@ -175,6 +173,7 @@ EventsDashboard.propTypes = {
   filterBy: PropTypes.string,
   filterValue: PropTypes.arrayOf(PropTypes.string),
   district: PropTypes.number,
+  searchByQueryString: PropTypes.func.isRequired,
 };
 
 EventsDashboard.defaultProps = {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import {getColorMap,} from '../state/events/selectors';
+import { getColorMap } from '../state/events/selectors';
 
 import {
   getVisbleGroups,
@@ -137,6 +137,7 @@ GroupsDashboard.propTypes = {
   getInitalGroups: PropTypes.func.isRequired,
   resetSelections: PropTypes.func.isRequired,
   setLatLng: PropTypes.func.isRequired,
+  searchByQueryString: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsDashboard);

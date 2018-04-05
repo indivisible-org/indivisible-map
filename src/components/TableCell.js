@@ -91,7 +91,7 @@ class TableCell extends React.Component {
               <FontAwesomeIcon icon={faFacebookSquare} />
               <span className="connect-text">connect via facebook</span>
             </a>
-                   </li>,);
+                   </li>);
         }
         if (ele.category === 'twitter') {
           acc.push(<li key={ele.url}>
@@ -99,7 +99,7 @@ class TableCell extends React.Component {
               <FontAwesomeIcon icon={faTwitterSquare} />
               <span className="connect-text">connect via twitter</span>
             </a>
-                   </li>,);
+                   </li>);
         }
         return acc;
       }, []);
