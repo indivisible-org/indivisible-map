@@ -8,10 +8,7 @@ import faFacebookSquare from '@fortawesome/fontawesome-free-brands/faFacebookSqu
 import faTwitterSquare from '@fortawesome/fontawesome-free-brands/faTwitterSquare';
 import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
 
-import {
-  Card,
-  Button,
-} from 'antd';
+import { Card } from 'antd';
 import { indivisibleUrl } from '../state/constants';
 
 /* eslint-disable */
@@ -56,9 +53,9 @@ class TableCell extends React.Component {
   }
 
   renderEvents() {
-    const { item, color, refcode } = this.props;
+    const { item, refcode } = this.props;
     const groupName = item.group_name ? (<h4 className="event-host semi-bold">Hosted by {item.group_name}</h4>) : '';
-    const eventType = item.eventType ? (<li>Event type: {item.eventType}</li>) : '';
+    const eventType = item.eventType ? (<li>Event Type: {item.eventType}</li>) : '';
     return (
       <Card
         className={`event-cell ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
@@ -94,7 +91,7 @@ class TableCell extends React.Component {
               <FontAwesomeIcon icon={faFacebookSquare} />
               <span className="connect-text">connect via facebook</span>
             </a>
-                   </li>);
+                   </li>,);
         }
         if (ele.category === 'twitter') {
           acc.push(<li key={ele.url}>
@@ -102,7 +99,7 @@ class TableCell extends React.Component {
               <FontAwesomeIcon icon={faTwitterSquare} />
               <span className="connect-text">connect via twitter</span>
             </a>
-                   </li>);
+                   </li>,);
         }
         return acc;
       }, []);

@@ -61,9 +61,10 @@ class EventsDashboard extends React.Component {
   renderTotal(items) {
     const { district, filterValue } = this.props;
     if (district) {
-      return (<p className="event-count">
+      return (
+        <p className="event-count">
         Viewing {items.length} events in {filterValue}-{district}
-            </p>);
+      </p>);
     }
     return (<p className="event-count">
         Viewing {items.length} events
@@ -128,7 +129,9 @@ class EventsDashboard extends React.Component {
           searchType={searchType}
           searchByQueryString={searchByQueryString}
         />
+        <div className="footer" />
       </div>
+      
     );
   }
 }

@@ -189,8 +189,8 @@ class MapView extends React.Component {
         const linkMapping = {
           events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
           groups: '',
-        };        
-        this.setState({popoverColor: `popover-${feature.properties.icon}`})
+        };
+        this.setState({ popoverColor: `popover-${feature.properties.icon}` });
 
         return popup.setLngLat(feature.geometry.coordinates)
           .setHTML(`
@@ -205,11 +205,6 @@ class MapView extends React.Component {
 
   districtSelect(feature) {
     if (feature.state) {
-      const locationData = {
-        state: feature.state,
-        district: [feature.district],
-        validSelections: feature.geoID,
-      };
       this.highlightDistrict(feature.geoID);
     } else {
       const visibility = this.map.getLayoutProperty('selected-fill', 'visibility');
@@ -476,7 +471,9 @@ class MapView extends React.Component {
               searchType={searchType}
               searchByQueryString={searchByQueryString}
               mapId="map-overlay-hawaii"
-              bounds={[[-161.03759765625, 18.542116654448996], [-154.22607421875, 22.573438264572406]]}
+              bounds={[
+                [-161.03759765625, 18.542116654448996],
+                [-154.22607421875, 22.573438264572406]]}
             />
           </div>
         </div>
@@ -495,6 +492,7 @@ MapView.propTypes = {
   setLatLng: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
   selectItem: PropTypes.shape({}),
+  refcode: PropTypes.string,
   distance: PropTypes.number,
   searchType: PropTypes.string,
 };
@@ -505,6 +503,7 @@ MapView.defaultProps = {
   distance: 50,
   selectItem: null,
   searchType: 'proximity',
+  refcode: '',
 };
 
 export default MapView;
