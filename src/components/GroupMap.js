@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 import geoViewport from '@mapbox/geo-viewport';
 import bboxes from '../data/bboxes';
 import states from '../data/states';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-
-import faFacebookSquare from '@fortawesome/fontawesome-free-brands/faFacebookSquare';
-import faTwitterSquare from '@fortawesome/fontawesome-free-brands/faTwitterSquare';
-import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
 
 import MapInset from '../components/MapInset';
 
@@ -126,13 +121,13 @@ class MapView extends React.Component {
               ` : `
               `}
 
-            ${feature.properties.twitter ? `
+            ${feature.properties.twitter ?  `
                 <div><a href=${feature.properties.twitter} target="_blank"></span><span class="connect-text-popover">connect via twitter</span></a></div>
               ` : `
               `}
 
             ${feature.properties.email ? `
-                <div><a href=${feature.properties.email} target="_blank"></span><span class="connect-text-popover">connect via twitter</span></a></div>
+                <div><a href=${feature.properties.email} target="_blank"></span><span class="connect-text-popover">connect via email</span></a></div>
               ` : `
               `}
             ${linkMapping[type]}
