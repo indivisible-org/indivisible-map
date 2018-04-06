@@ -11,8 +11,10 @@
     font-family: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     color: white;
     font-size: 12px;
-    display: inline;
+    display: flex;
     padding: 0px;
+    margin: 0;
+    align-items: center;
     p {
       margin:0;
       text-transform: initial;
@@ -105,13 +107,13 @@
 
 // group popover icons
 .facebook-icon {
-  @include group-popover-icon('../../assets/images/facebook-icon.svg');
+  @include group-popover-icon('../../assets/images/facebook-square-icon.svg');
 }
 
 .twitter-icon {
-  @include group-popover-icon('../../assets/images/twitter-icon.svg');
+  @include group-popover-icon('../../assets/images/twitter-square-icon.svg');
 }
 
 .email-icon {
-  @include group-popover-icon('../../assets/images/email-icon.svg');
+  @include group-popover-icon('../../assets/images/envelope-icon.svg');
 }
