@@ -38,6 +38,10 @@ p {
   display: inline-block;
 }
 
+.groups-container .mapboxgl-popup-content .connect-text-popover {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 /****** Event Style Typography ********/
 #events-list {
   font-family: 'Montserrat', sans-serif;
