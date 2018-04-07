@@ -24,3 +24,13 @@
     margin-top: 10px;
   }
 }
+
+@mixin group-popover-icon($url) {
+  height: 20px;
+  width: 20px;
+  margin: 5px;
+  background-image: url($url);
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}

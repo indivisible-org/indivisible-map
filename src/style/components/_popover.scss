@@ -4,6 +4,25 @@
   @include rsvpbtn($brand-primary);
 }
 
+.groups-container .mapboxgl-popup-content {
+  @include popover($brand-primary);
+  a {
+    background: $brand-primary;
+    font-family: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    padding: 0px;
+    margin: 0;
+    align-items: center;
+    p {
+      margin:0;
+      text-transform: initial;
+      font-weight: 600;
+    }
+  }
+}
+
 .mapboxgl-popup-anchor-bottom { padding-bottom: 10px; }
 
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip { border-top-color: $brand-primary; }
@@ -84,4 +103,17 @@
     @include popover($foreign-policy);
   }
   @include popover-tip($foreign-policy);
+}
+
+// group popover icons
+.facebook-icon {
+  @include group-popover-icon('../../assets/images/facebook-square-icon.svg');
+}
+
+.twitter-icon {
+  @include group-popover-icon('../../assets/images/twitter-square-icon.svg');
+}
+
+.email-icon {
+  @include group-popover-icon('../../assets/images/envelope-icon.svg');
 }
