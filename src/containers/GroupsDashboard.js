@@ -79,7 +79,7 @@ class GroupsDashboard extends React.Component {
     });
     return (
       <div className={containerClass}>
-        <SearchBar items={groups} type="groups" />
+        <SearchBar items={groups} type="groups" mapType="group" />
         <SideBar
           type="groups"
           items={groups}
