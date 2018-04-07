@@ -281,20 +281,17 @@ class MapInset extends React.Component {
 
 MapInset.propTypes = {
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
-  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  type: PropTypes.string.isRequired,
-  resetSelections: PropTypes.func.isRequired,
-  setLatLng: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
-  selectItem: PropTypes.shape({}),
+  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  resetSelections: PropTypes.func.isRequired,
   searchType: PropTypes.string,
+  type: PropTypes.string.isRequired,
 };
 
 MapInset.defaultProps = {
   center: {},
   filterByValue: {},
-  selectItem: null,
   searchType: 'proximity',
 };
 

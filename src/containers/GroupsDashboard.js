@@ -21,6 +21,7 @@ import {
 import * as selectionActions from '../state/selections/actions';
 
 import GroupMapView from '../components/GroupMap';
+import WebGlError from '../components/WebGlError';
 
 import SideBar from './SideBar';
 import SearchBar from './SearchBar';
@@ -28,6 +29,8 @@ import SearchBar from './SearchBar';
 class GroupsDashboard extends React.Component {
   constructor(props) {
     super(props);
+    this.renderMap = this.renderMap.bind(this);
+
     this.state = {
       init: true,
     };
@@ -53,9 +56,8 @@ class GroupsDashboard extends React.Component {
       });
   }
 
-  render() {
+  renderMap() {
     const {
-      allGroups,
       colorMap,
       distance,
       groups,
@@ -64,9 +66,34 @@ class GroupsDashboard extends React.Component {
       filterValue,
       resetSelections,
       searchByQueryString,
-      selectItem,
       selectedGroup,
       setLatLng,
+    } = this.props;
+    if (!mapboxgl.supported()) {
+      return (<WebGlError mapType="group" />);
+    }
+    return (<GroupMapView
+      center={center}
+      type="groups"
+      items={groups}
+      colorMap={colorMap}
+      filterByValue={{ [filterBy]: [filterValue] }}
+      resetSelections={resetSelections}
+      setLatLng={setLatLng}
+      distance={distance}
+      selectedItem={selectedGroup}
+      searchByQueryString={searchByQueryString}
+    />);
+  }
+
+  render() {
+    const {
+      allGroups,
+      groups,
+      center,
+      filterBy,
+      resetSelections,
+      selectItem,
     } = this.props;
     if (this.state.init) {
       return null;
@@ -87,18 +114,7 @@ class GroupsDashboard extends React.Component {
           resetHandler={resetSelections}
           selectItem={selectItem}
         />
-        <GroupMapView
-          center={center}
-          type="groups"
-          items={groups}
-          colorMap={colorMap}
-          filterByValue={{ [filterBy]: [filterValue] }}
-          resetSelections={resetSelections}
-          setLatLng={setLatLng}
-          distance={distance}
-          selectedItem={selectedGroup}
-          searchByQueryString={searchByQueryString}
-        />
+        {this.renderMap()}
         <div className="footer" />
       </div>
     );

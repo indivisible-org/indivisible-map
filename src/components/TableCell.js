@@ -54,6 +54,7 @@ class TableCell extends React.Component {
     return (
       <Card
         className={`event-cell ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
+        key={`${item.id}`}
         title={item.title}
         extra={[<a className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
       >
@@ -121,6 +122,7 @@ class TableCell extends React.Component {
       <div onMouseEnter={() => selectItem(item)} onMouseLeave={() => selectItem(null)}>
         <Card
           className="indivisible-card group-cell"
+          key={`${item.id}`}
           title={item.name}
         >
           <ul>
