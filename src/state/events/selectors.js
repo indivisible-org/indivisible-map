@@ -44,7 +44,7 @@ export const getFilteredEvents = createSelector(
         return false;
       }
       return currrentEvent[filterBy].toLowerCase().includes(filterValue.toLowerCase());
-    }).sort((a, b) => (a.starts_at < b.starts_at ? 1 : -1));
+    }).sort((a, b) => (a.starts_at < b.starts_at ? -1 : 1));
   },
 );
 
