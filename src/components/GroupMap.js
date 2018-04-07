@@ -55,7 +55,11 @@ class MapView extends React.Component {
         // highlight district
         const stateFIPS = states.find(cur => cur.USPS === filterByValue.state[0]).FIPS;
         const geoID = `${stateFIPS}${districtPadded}`;
-        const selectObj = { state: filterByValue.state[0], district: districtPadded, geoID };
+        const selectObj = {
+          district: districtPadded,
+          geoID,
+          state: filterByValue.state[0],
+        };
 
         this.districtSelect(selectObj);
       }
@@ -121,7 +125,7 @@ class MapView extends React.Component {
               ` : `
               `}
 
-            ${feature.properties.twitter ?  `
+            ${feature.properties.twitter ? `
                 <div><a href=${feature.properties.twitter} target="_blank"><span class="twitter-icon"></span><span class="connect-text-popover">connect via twitter</span></a></div>
               ` : `
               `}
@@ -134,6 +138,7 @@ class MapView extends React.Component {
             `)
           .addTo(map);
       }
+      return undefined;
     });
   }
 
@@ -222,7 +227,10 @@ class MapView extends React.Component {
             };
             setLatLng(formatLatLng);
           } else {
-            searchByDistrict({ state: feature.state, district: feature.district });
+            searchByDistrict({
+              district: feature.district,
+              state: feature.state,
+            });
           }
         }
       }
@@ -356,28 +364,28 @@ class MapView extends React.Component {
 MapView.propTypes = {
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  type: PropTypes.string.isRequired,
-  resetSelections: PropTypes.func.isRequired,
-  setLatLng: PropTypes.func.isRequired,
-  filterByValue: PropTypes.shape({}),
   distance: PropTypes.number,
-  searchType: PropTypes.string,
-  selectedItem: PropTypes.shape({}),
   district: PropTypes.string,
+  filterByValue: PropTypes.shape({}),
   refcode: PropTypes.string,
+  resetSelections: PropTypes.func.isRequired,
   searchByDistrict: PropTypes.func,
   searchByQueryString: PropTypes.func.isRequired,
+  searchType: PropTypes.string,
+  selectedItem: PropTypes.shape({}),
+  setLatLng: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 MapView.defaultProps = {
   center: {},
-  filterByValue: {},
   distance: 50,
-  searchByDistrict: noop,
-  selectedItem: null,
-  searchType: 'proximity',
-  refcode: '',
   district: '',
+  filterByValue: {},
+  refcode: '',
+  searchByDistrict: noop,
+  searchType: 'proximity',
+  selectedItem: null,
 };
 
 export default MapView;

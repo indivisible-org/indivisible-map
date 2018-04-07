@@ -92,17 +92,17 @@ class EventsDashboard extends React.Component {
       return null;
     }
     const searchTypeMapSideBar = {
-      proximity: visibleEvents,
       district: eventsByDistrict,
+      proximity: visibleEvents,
     };
     const searchTypeMapMap = {
-      proximity: visibleEvents,
       district: filteredEvents,
+      proximity: visibleEvents,
     };
     return (
       <div className="events-container main-container">
         <h2 className="dash-title">Event Dashboard</h2>
-        <SearchBar items={searchTypeMapSideBar[searchType]} mapType="events" />
+        <SearchBar items={searchTypeMapSideBar[searchType]} mapType="event" />
         <SideBar
           renderTotal={this.renderTotal}
           colorMap={colorMap}
@@ -135,53 +135,58 @@ class EventsDashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  visibleEvents: getVisbleEvents(state),
-  eventsByDistrict: getEventsByDistrict(state),
-  filteredEvents: getFilteredEvents(state),
-  district: getDistrict(state),
   allEvents: getEvents(state),
   center: getLocation(state),
   colorMap: getColorMap(state),
-  refcode: getRefCode(state),
+  distance: getDistance(state),
+  district: getDistrict(state),
+  eventsByDistrict: getEventsByDistrict(state),
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
-  distance: getDistance(state),
+  filteredEvents: getFilteredEvents(state),
+  refcode: getRefCode(state),
   searchType: getSearchType(state),
+  visibleEvents: getVisbleEvents(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   getInitialEvents: () => dispatch(startSetEvents()),
-  setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
-  setRefCode: code => dispatch(selectionActions.setRefCode(code)),
-  setLatLng: val => dispatch(selectionActions.setLatLng(val)),
-  searchByDistrict: val => dispatch(selectionActions.searchByDistrict(val)),
   resetSelections: () => dispatch(selectionActions.resetSelections()),
+  searchByDistrict: val => dispatch(selectionActions.searchByDistrict(val)),
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
+  setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
+  setLatLng: val => dispatch(selectionActions.setLatLng(val)),
+  setRefCode: code => dispatch(selectionActions.setRefCode(code)),
 });
 
 EventsDashboard.propTypes = {
+  allEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   distance: PropTypes.number.isRequired,
-  visibleEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  allEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  setInitialFilters: PropTypes.func.isRequired,
-  setRefCode: PropTypes.func.isRequired,
-  setLatLng: PropTypes.func.isRequired,
-  getInitialEvents: PropTypes.func.isRequired,
-  refcode: PropTypes.string,
+  district: PropTypes.number,
+  eventsByDistrict: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   filterBy: PropTypes.string,
   filterValue: PropTypes.string,
-  district: PropTypes.number,
+  filteredEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  getInitialEvents: PropTypes.func.isRequired,
+  refcode: PropTypes.string,
+  resetSelections: PropTypes.func.isRequired,
+  searchByDistrict: PropTypes.func.isRequired,
   searchByQueryString: PropTypes.func.isRequired,
+  searchType: PropTypes.string.isRequired,
+  setInitialFilters: PropTypes.func.isRequired,
+  setLatLng: PropTypes.func.isRequired,
+  setRefCode: PropTypes.func.isRequired,
+  visibleEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 EventsDashboard.defaultProps = {
   center: null,
-  refcode: '',
+  district: null,
   filterBy: 'all',
   filterValue: [],
-  district: null,
+  refcode: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventsDashboard);

@@ -48,7 +48,7 @@ class FilterSelector extends React.Component {
 
     return (
       <div>
-        <h6 style={{ marginRight: 8, display: 'inline' }}>Filter by issue:</h6>
+        <h6 style={{ display: 'inline', marginRight: 8 }}>Filter by issue:</h6>
         {issues.map((tag) => {
           const mapping = find(colorMap, { filterBy: tag });
           const color = mapping ? mapping.icon : 'circle-15-gray';
@@ -70,9 +70,9 @@ class FilterSelector extends React.Component {
 }
 
 FilterSelector.propTypes = {
-  issues: PropTypes.arrayOf(PropTypes.string).isRequired,
   changedFilters: PropTypes.func.isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  issues: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default FilterSelector;

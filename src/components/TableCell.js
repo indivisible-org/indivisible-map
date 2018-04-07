@@ -17,21 +17,10 @@ require('style-loader!css-loader!antd/es/button/style/index.css');
 /* eslint-enable */
 
 class TableCell extends React.Component {
-  constructor(props) {
-    super(props);
-    this.renderGroups = this.renderGroups.bind(this);
-    this.renderEvents = this.renderEvents.bind(this);
-    this.getEmail = this.getEmail.bind(this);
-    this.handlePanelOpen = this.handlePanelOpen.bind(this);
-  }
-
-  getEmail(e) {
+  static getEmail(e) {
     e.preventDefault();
-    // e.stopPropagation();
-
     const ele = e.target;
     const { id } = ele;
-    console.log(ele);
     const mailto = document.getElementById(`${id}-target`);
     superagent.get(`${indivisibleUrl}/indivisible_group_emails/${id}.json`)
       .then((res) => {
@@ -41,7 +30,7 @@ class TableCell extends React.Component {
       .then(ele.classList.add('disabled'));
   }
 
-  handlePanelOpen(e) {
+  static handlePanelOpen(e) {
     const ele = document.getElementById(e.target.id);
     if (ele.classList.contains('open')) {
       ele.classList.remove('open');
@@ -52,13 +41,18 @@ class TableCell extends React.Component {
     }
   }
 
+  constructor(props) {
+    super(props);
+    this.renderGroups = this.renderGroups.bind(this);
+    this.renderEvents = this.renderEvents.bind(this);
+  }
+
   renderEvents() {
     const { item, refcode } = this.props;
     const groupName = item.group_name ? (<h4 className="event-host semi-bold">Hosted by {item.group_name}</h4>) : '';
     const eventType = item.eventType ? (<li>Event Type: {item.eventType}</li>) : '';
     return (
       <Card
-        key={item.id}
         className={`event-cell ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
         title={item.title}
         extra={[<a className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
@@ -74,7 +68,7 @@ class TableCell extends React.Component {
           <li>{item.address1}</li>
           <li>{item.city}</li>
           <li>{item.state}, {item.zip}</li>
-          <li className="read-more closed" onClick={this.handlePanelOpen} id={item.id}>
+          <li className="read-more closed" onClick={TableCell.handlePanelOpen} id={item.id}>
             {item.public_description}
           </li>
         </ul>
@@ -87,38 +81,41 @@ class TableCell extends React.Component {
     if (item.socials) {
       iconsSocial = item.socials.reduce((acc, ele) => {
         if (ele.category === 'facebook') {
-          acc.push(<li key={ele.url}>
-            <a href={ele.url} target="_blank">
-              <FontAwesomeIcon icon={faFacebookSquare} />
-              <span className="connect-text">connect via facebook</span>
-            </a>
-                   </li>);
+          acc.push(
+            <li key={ele.url}>
+              <a href={ele.url} target="_blank">
+                <FontAwesomeIcon icon={faFacebookSquare} />
+                <span className="connect-text">connect via facebook</span>
+              </a>
+            </li>);
         }
         if (ele.category === 'twitter') {
-          acc.push(<li key={ele.url}>
-            <a href={ele.url} target="_blank">
-              <FontAwesomeIcon icon={faTwitterSquare} />
-              <span className="connect-text">connect via twitter</span>
-            </a>
-                   </li>);
+          acc.push(
+            <li key={ele.url}>
+              <a href={ele.url} target="_blank">
+                <FontAwesomeIcon icon={faTwitterSquare} />
+                <span className="connect-text">connect via twitter</span>
+              </a>
+            </li>);
         }
         return acc;
       }, []);
     }
     if (item.email) {
-      iconsSocial.push(<React.Fragment>
-        <li key={item.id} >
-          <a onClick={this.getEmail} id={item.id}>
-            <FontAwesomeIcon
-              icon={faEnvelope}
-            />
-            <span id={item.id} className="connect-text">connect via email</span>
-          </a>
-        </li>
-        <li>
-          <a className="email-link" id={`${item.id}-target`} />
-        </li>
-                       </React.Fragment>);
+      iconsSocial.push(
+        <React.Fragment>
+          <li key={item.id} >
+            <a onClick={TableCell.getEmail} id={item.id}>
+              <FontAwesomeIcon
+                icon={faEnvelope}
+              />
+              <span id={item.id} className="connect-text">connect via email</span>
+            </a>
+          </li>
+          <li>
+            <a className="email-link" id={`${item.id}-target`} href="" />
+          </li>
+        </React.Fragment>);
     }
     return (
       <div onMouseEnter={() => selectItem(item)} onMouseLeave={() => selectItem(null)}>
@@ -153,14 +150,12 @@ class TableCell extends React.Component {
 
 TableCell.propTypes = {
   item: PropTypes.shape({}).isRequired,
-  color: PropTypes.string,
   refcode: PropTypes.string,
-  type: PropTypes.string.isRequired,
   selectItem: PropTypes.func,
+  type: PropTypes.string.isRequired,
 };
 
 TableCell.defaultProps = {
-  color: 'white',
   refcode: '',
   selectItem: () => {},
 };

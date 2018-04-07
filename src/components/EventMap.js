@@ -65,13 +65,19 @@ class MapView extends React.Component {
       if (district) {
         const zeros = '00';
         const districtString = district.toString();
-        const districtPadded = zeros.substring(0, zeros.length - districtString.length) + districtString;
+        const districtPadded =
+          zeros.substring(0, zeros.length - districtString.length) +
+          districtString;
         bbname = `${bbname}${districtPadded}`;
 
         // highlight district
         const stateFIPS = states.find(cur => cur.USPS === filterByValue.state[0]).FIPS;
         const geoID = `${stateFIPS}${districtPadded}`;
-        const selectObj = { state: filterByValue.state[0], district: districtPadded, geoID };
+        const selectObj = {
+          district: districtPadded,
+          geoID,
+          state: filterByValue.state[0],
+        };
         this.districtSelect(selectObj);
       }
       const stateBB = bboxes[bbname];
@@ -147,8 +153,8 @@ class MapView extends React.Component {
 
   createFeatures(items) {
     const featuresHome = {
-      type: 'FeatureCollection',
       features: [],
+      type: 'FeatureCollection',
     };
     const { type } = this.props;
 
@@ -158,7 +164,10 @@ class MapView extends React.Component {
         colorObject = this.getColorForEvents(indEvent);
       } else {
         colorObject = {
-          ...indEvent, icon: 'circle-15-blue', filterBy: false, color: '#1cb7ec',
+          color: '#1cb7ec',
+          ...indEvent,
+          filterBy: false,
+          icon: 'circle-15-blue',
         };
       }
       const newFeature = new Point(colorObject);
@@ -200,6 +209,7 @@ class MapView extends React.Component {
             `)
           .addTo(map);
       }
+      return undefined;
     });
   }
 
@@ -280,7 +290,10 @@ class MapView extends React.Component {
           feature.district = features[0].properties.GEOID.substring(2, 4);
           feature.geoID = features[0].properties.GEOID;
 
-          searchByDistrict({ state: feature.state, district: Number(feature.district) });
+          searchByDistrict({
+            district: Number(feature.district),
+            state: feature.state,
+          });
         }
       }
     });
@@ -290,16 +303,10 @@ class MapView extends React.Component {
     this.map.addLayer(
       {
         id: 'events-points',
-        type: 'symbol',
-        source: {
-          type: 'geojson',
-          data: featuresHome,
-        },
         layout: {
-          'icon-image': '{icon}',
-          'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
           'icon-allow-overlap': true,
           'icon-ignore-placement': true,
+          'icon-image': '{icon}',
           'icon-offset': {
             base: 1,
             stops: [
@@ -308,10 +315,16 @@ class MapView extends React.Component {
               [12, [0, 0]],
             ],
           },
+          'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
         },
         paint: {
           'icon-opacity': 1,
         },
+        source: {
+          data: featuresHome,
+          type: 'geojson',
+        },
+        type: 'symbol',
       },
       'district_interactive',
     );
@@ -319,41 +332,41 @@ class MapView extends React.Component {
 
   clusterData(featuresHome) {
     this.map.addSource('groups-points', {
-      type: 'geojson',
-      data: featuresHome,
       cluster: false,
+      data: featuresHome,
+      type: 'geojson',
     });
     this.addClusterLayers();
   }
 
   addClusterLayers() {
     this.map.addLayer({
-      id: 'unclustered-point',
-      type: 'circle',
-      source: 'groups-points',
       filter: ['!has', 'point_count'],
+      id: 'unclustered-point',
       paint: {
         'circle-color': '#11b4da',
-        'circle-radius': 4,
-        'circle-stroke-width': 1,
-        'circle-stroke-color': '#fff',
         'circle-opacity': 0.5,
+        'circle-radius': 4,
+        'circle-stroke-color': '#fff',
+        'circle-stroke-width': 1,
       },
+      source: 'groups-points',
+      type: 'circle',
     });
 
     // Layer to highlight selected group
     this.map.addLayer({
-      id: 'unclustered-point-selected',
-      type: 'circle',
-      source: 'groups-points',
       filter: ['==', 'id', false],
+      id: 'unclustered-point-selected',
       paint: {
         'circle-color': '#f00',
-        'circle-radius': 6,
-        'circle-stroke-width': 2,
-        'circle-stroke-color': '#fff',
         'circle-opacity': 1,
+        'circle-radius': 6,
+        'circle-stroke-color': '#fff',
+        'circle-stroke-width': 2,
       },
+      source: 'groups-points',
+      type: 'circle',
     });
   }
 
@@ -485,25 +498,29 @@ class MapView extends React.Component {
 
 MapView.propTypes = {
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
-  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  type: PropTypes.string.isRequired,
-  resetSelections: PropTypes.func.isRequired,
-  setLatLng: PropTypes.func.isRequired,
-  filterByValue: PropTypes.shape({}),
-  selectItem: PropTypes.shape({}),
-  refcode: PropTypes.string,
   distance: PropTypes.number,
+  district: PropTypes.number,
+  filterByValue: PropTypes.shape({}),
+  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  refcode: PropTypes.string,
+  resetSelections: PropTypes.func.isRequired,
+  searchByDistrict: PropTypes.func.isRequired,
+  searchByQueryString: PropTypes.func.isRequired,
   searchType: PropTypes.string,
+  selectedItem: PropTypes.shape({}),
+  setLatLng: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 MapView.defaultProps = {
   center: {},
-  filterByValue: {},
   distance: 50,
-  selectItem: null,
-  searchType: 'proximity',
+  district: NaN,
+  filterByValue: {},
   refcode: '',
+  searchType: 'proximity',
+  selectedItem: null,
 };
 
 export default MapView;

@@ -56,30 +56,30 @@ class GroupsDashboard extends React.Component {
   render() {
     const {
       allGroups,
+      colorMap,
       distance,
       groups,
-      selectedGroup,
-      selectItem,
-      colorMap,
       center,
       filterBy,
       filterValue,
       resetSelections,
-      setLatLng,
       searchByQueryString,
+      selectItem,
+      selectedGroup,
+      setLatLng,
     } = this.props;
     if (this.state.init) {
       return null;
     }
 
     const containerClass = classNames({
+      'full-width': ((!center.LAT) && (filterBy === 'all')),
       'groups-container': true,
       'main-container': true,
-      'full-width': ((!center.LAT) && (filterBy === 'all')),
     });
     return (
       <div className={containerClass}>
-        <SearchBar items={groups} type="groups" mapType="group" />
+        <SearchBar items={groups} mapType="group" />
         <SideBar
           type="groups"
           items={groups}
@@ -107,22 +107,22 @@ class GroupsDashboard extends React.Component {
 
 const mapStateToProps = state => ({
   allGroups: getGroups(state),
-  groups: getVisbleGroups(state),
-  colorMap: getColorMap(state),
   center: getLocation(state),
+  colorMap: getColorMap(state),
+  distance: getDistance(state),
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
-  distance: getDistance(state),
+  groups: getVisbleGroups(state),
   selectedGroup: getSelectedGroup(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   getInitalGroups: () => dispatch(startSetGroups()),
-  setRefCode: code => dispatch(selectionActions.setRefCode(code)),
   resetSelections: () => dispatch(selectionActions.resetSelections()),
-  setLatLng: val => dispatch(selectionActions.setLatLng(val)),
-  selectItem: val => dispatch(selectGroup(val)),
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
+  selectItem: val => dispatch(selectGroup(val)),
+  setLatLng: val => dispatch(selectionActions.setLatLng(val)),
+  setRefCode: code => dispatch(selectionActions.setRefCode(code)),
 });
 
 GroupsDashboard.propTypes = {
@@ -130,14 +130,20 @@ GroupsDashboard.propTypes = {
   center: PropTypes.shape({}).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   distance: PropTypes.number.isRequired,
-  groups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   filterBy: PropTypes.string.isRequired,
   filterValue: PropTypes.string.isRequired,
-  setRefCode: PropTypes.func.isRequired,
   getInitalGroups: PropTypes.func.isRequired,
+  groups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   resetSelections: PropTypes.func.isRequired,
-  setLatLng: PropTypes.func.isRequired,
   searchByQueryString: PropTypes.func.isRequired,
+  selectItem: PropTypes.func.isRequired,
+  selectedGroup: PropTypes.shape({}),
+  setLatLng: PropTypes.func.isRequired,
+  setRefCode: PropTypes.func.isRequired,
+};
+
+GroupsDashboard.defaultProps = {
+  selectedGroup: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsDashboard);

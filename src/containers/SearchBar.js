@@ -78,7 +78,7 @@ class SearchBar extends React.Component {
       if (stateMatch.length > 0 && districtMatch.length > 0) {
         const state = query.match(/([A-Z]|[a-z]){2}/g)[0];
         const district = Number(query.match(/([0-9]{2})|([0-9]{1})/g)[0]);
-        return searchByDistrict({ state, district });
+        return searchByDistrict({ district, state });
       }
     }
     return resetSelections();
@@ -108,9 +108,9 @@ class SearchBar extends React.Component {
       changedFilters,
       selectedFilters,
       colorMap,
-      type,
+      mapType,
     } = this.props;
-    if (type === 'groups') {
+    if (mapType === 'group') {
       return null;
     }
     return (
@@ -128,9 +128,9 @@ class SearchBar extends React.Component {
   renderSwitch() {
     const {
       searchType,
-      type,
+      mapType,
     } = this.props;
-    if (type === 'groups') {
+    if (mapType === 'group') {
       return null;
     }
     return (
@@ -148,7 +148,6 @@ class SearchBar extends React.Component {
   render() {
     const {
       distance,
-      location,
       mapType,
       searchType,
     } = this.props;
@@ -172,47 +171,47 @@ class SearchBar extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  userSelections: state.selections,
-  issues: getCurrentIssueFocuses(state),
-  selectedFilters: getFilters(state),
   colorMap: getColorMap(state),
   distance: getDistance(state),
+  issues: getCurrentIssueFocuses(state),
   location: getLocation(state),
   searchType: getSearchType(state),
+  selectedFilters: getFilters(state),
+  userSelections: state.selections,
 });
 
 const mapDispatchToProps = dispatch => ({
-  setTextFilter: text => dispatch(selectionActions.setTextFilter(text)),
+  changeSearchType: searchType => dispatch(selectionActions.changeSearchType(searchType)),
+  changedFilters: filters => dispatch(selectionActions.setFilters(filters)),
+  resetSearchByQueryString: () => dispatch(selectionActions.resetSearchByQueryString()),
+  resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
+  resetSelections: () => dispatch(selectionActions.resetSelections()),
+  searchByDistrict: district => dispatch(selectionActions.searchByDistrict(district)),
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
   searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
-  searchByDistrict: district => dispatch(selectionActions.searchByDistrict(district)),
-  changedFilters: filters => dispatch(selectionActions.setFilters(filters)),
   setDistance: distance => dispatch(selectionActions.setDistance(distance)),
-  resetSelections: () => dispatch(selectionActions.resetSelections()),
-  resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
-  resetSearchByQueryString: () => dispatch(selectionActions.resetSearchByQueryString()),
-  changeSearchType: searchType => dispatch(selectionActions.changeSearchType(searchType)),
+  setTextFilter: text => dispatch(selectionActions.setTextFilter(text)),
 });
 
 SearchBar.propTypes = {
+  changeSearchType: PropTypes.func.isRequired,
+  changedFilters: PropTypes.func.isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  setTextFilter: PropTypes.func.isRequired,
+  distance: PropTypes.number.isRequired,
+  issues: PropTypes.arrayOf(PropTypes.string).isRequired,
+  mapType: PropTypes.string.isRequired,
+  resetSearchByQueryString: PropTypes.func.isRequired,
+  resetSearchByZip: PropTypes.func.isRequired,
+  resetSelections: PropTypes.func.isRequired,
+  searchByDistrict: PropTypes.func.isRequired,
   searchByQueryString: PropTypes.func.isRequired,
   searchByZip: PropTypes.func.isRequired,
-  issues: PropTypes.arrayOf(PropTypes.string).isRequired,
-  changedFilters: PropTypes.func.isRequired,
+  searchType: PropTypes.string.isRequired,
   selectedFilters: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string]).isRequired,
-  distance: PropTypes.number.isRequired,
   setDistance: PropTypes.func.isRequired,
-  location: PropTypes.PropTypes.shape({}).isRequired,
-  resetSelections: PropTypes.func.isRequired,
-  resetSearchByZip: PropTypes.func.isRequired,
-  resetSearchByQueryString: PropTypes.func.isRequired,
-  changeSearchType: PropTypes.func.isRequired,
-  mapType: PropTypes.string.isRequired,
-  searchType: PropTypes.string.isRequired,
+  setTextFilter: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

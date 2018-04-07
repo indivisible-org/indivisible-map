@@ -52,7 +52,7 @@ class Table extends React.Component {
         dataSource={items}
         renderItem={item =>
           (<TableCell
-            key={item.id}
+            key={`${item.id}-cell`}
             item={item}
             refcode={refcode}
             type={type}
@@ -65,16 +65,17 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
+  colorMap: PropTypes.arrayOf(PropTypes.object),
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   refcode: PropTypes.string,
-  colorMap: PropTypes.arrayOf(PropTypes.object),
-  type: PropTypes.string.isRequired,
   selectItem: PropTypes.func,
+  shouldRender: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 Table.defaultProps = {
-  refcode: '',
   colorMap: [],
+  refcode: '',
   selectItem: () => {},
 };
 

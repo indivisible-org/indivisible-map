@@ -9,10 +9,6 @@ require('style-loader!css-loader!antd/es/input/style/index.css');
 
 const { Search } = Input;
 
-const SearchStateDefault = {
-  zipcode: '',
-};
-
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
@@ -33,7 +29,7 @@ class SearchBar extends React.Component {
     } = this.props;
     const textMap = {
       district: 'district, ex WA-09',
-      proximity: `zipcode, state, ${mapType} name`,
+      proximity: `zipcode, state, or ${mapType} name`,
     };
     return (
       <Search
@@ -44,10 +40,10 @@ class SearchBar extends React.Component {
   }
 }
 
-
 SearchBar.propTypes = {
-  submitHandler: PropTypes.func.isRequired,
+  mapType: PropTypes.string.isRequired,
   searchType: PropTypes.string.isRequired,
+  submitHandler: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

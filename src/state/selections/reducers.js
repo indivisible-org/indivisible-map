@@ -1,17 +1,16 @@
-import { uniqBy, indexOf } from 'lodash';
-import { townhallevents } from '../constants';
+import { uniqBy } from 'lodash';
 
 const initialState = {
-  filterValue: '',
-  district: NaN,
-  location: {},
   distance: 50,
+  district: NaN,
   filterBy: 'all',
+  filterValue: '',
   filters: 'init',
-  zipcode: '',
-  state: '',
+  location: {},
   refcode: '',
   searchType: 'proximity',
+  state: '',
+  zipcode: '',
 };
 
 const filtersReducer = (state = initialState, { type, payload }) => {
@@ -19,10 +18,10 @@ const filtersReducer = (state = initialState, { type, payload }) => {
     case 'RESET_SELECTIONS':
       return {
         ...state,
-        location: initialState.location,
+        district: initialState.district,
         filterBy: initialState.filterBy,
         filterValue: initialState.filterValue,
-        district: initialState.district,
+        location: initialState.location,
       };
     case 'SET_REFCODE':
       return {
