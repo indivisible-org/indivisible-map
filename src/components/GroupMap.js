@@ -126,7 +126,7 @@ class MapView extends React.Component {
               `}
 
             ${feature.properties.email ? `
-                <div><a href=${feature.properties.email} target="_blank"><span class="email-icon"></span><span class="connect-text-popover">connect via email</span></a></div>
+                <div><a href="mailto:${feature.properties.email}"><span class="email-icon"></span><span class="connect-text-popover">connect via email</span></a></div>
               ` : `
               `}
             ${linkMapping[type]}
