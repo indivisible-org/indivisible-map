@@ -149,11 +149,13 @@ class SearchBar extends React.Component {
     const {
       distance,
       location,
+      mapType,
       searchType,
     } = this.props;
     return (
       <div className="search-bar">
         <SearchInput
+          mapType={mapType}
           submitHandler={this.searchHandler}
           searchType={searchType}
         />
