@@ -70,7 +70,7 @@ class FilterSelector extends React.Component {
 }
 
 FilterSelector.propTypes = {
-  issues: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  issues: PropTypes.arrayOf(PropTypes.string).isRequired,
   changedFilters: PropTypes.func.isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };

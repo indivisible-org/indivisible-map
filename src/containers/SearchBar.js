@@ -200,9 +200,10 @@ SearchBar.propTypes = {
   searchByQueryString: PropTypes.func.isRequired,
   searchByZip: PropTypes.func.isRequired,
   issues: PropTypes.arrayOf(PropTypes.string).isRequired,
-  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   changedFilters: PropTypes.func.isRequired,
-  selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedFilters: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.string]).isRequired,
   distance: PropTypes.number.isRequired,
   setDistance: PropTypes.func.isRequired,
   location: PropTypes.PropTypes.shape({}).isRequired,
@@ -210,7 +211,7 @@ SearchBar.propTypes = {
   resetSearchByZip: PropTypes.func.isRequired,
   resetSearchByQueryString: PropTypes.func.isRequired,
   changeSearchType: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
+  mapType: PropTypes.string.isRequired,
   searchType: PropTypes.string.isRequired,
 };
 

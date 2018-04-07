@@ -58,6 +58,7 @@ class TableCell extends React.Component {
     const eventType = item.eventType ? (<li>Event Type: {item.eventType}</li>) : '';
     return (
       <Card
+        key={item.id}
         className={`event-cell ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
         title={item.title}
         extra={[<a className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
@@ -138,13 +139,13 @@ class TableCell extends React.Component {
 
   render() {
     const { type } = this.props;
-    const renderMap = {
+    const renderMapping = {
       events: this.renderEvents,
       groups: this.renderGroups,
     };
     return (
       <React.Fragment>
-        {renderMap[type]()}
+        {renderMapping[type]()}
       </React.Fragment>
     );
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import geoViewport from '@mapbox/geo-viewport';
 import bboxes from '../data/bboxes';
@@ -364,7 +365,7 @@ MapView.propTypes = {
   selectedItem: PropTypes.shape({}),
   district: PropTypes.string,
   refcode: PropTypes.string,
-  searchByDistrict: PropTypes.func.isRequired,
+  searchByDistrict: PropTypes.func,
   searchByQueryString: PropTypes.func.isRequired,
 };
 
@@ -372,6 +373,7 @@ MapView.defaultProps = {
   center: {},
   filterByValue: {},
   distance: 50,
+  searchByDistrict: noop,
   selectedItem: null,
   searchType: 'proximity',
   refcode: '',

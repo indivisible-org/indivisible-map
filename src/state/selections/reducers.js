@@ -3,7 +3,7 @@ import { townhallevents } from '../constants';
 
 const initialState = {
   filterValue: '',
-  district: '',
+  district: NaN,
   location: {},
   distance: 50,
   filterBy: 'all',

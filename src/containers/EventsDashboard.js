@@ -162,7 +162,7 @@ const mapDispatchToProps = dispatch => ({
 EventsDashboard.propTypes = {
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  distance: PropTypes.shape({}),
+  distance: PropTypes.number.isRequired,
   visibleEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   allEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   setInitialFilters: PropTypes.func.isRequired,
@@ -171,7 +171,7 @@ EventsDashboard.propTypes = {
   getInitialEvents: PropTypes.func.isRequired,
   refcode: PropTypes.string,
   filterBy: PropTypes.string,
-  filterValue: PropTypes.arrayOf(PropTypes.string),
+  filterValue: PropTypes.string,
   district: PropTypes.number,
   searchByQueryString: PropTypes.func.isRequired,
 };
@@ -181,7 +181,6 @@ EventsDashboard.defaultProps = {
   refcode: '',
   filterBy: 'all',
   filterValue: [],
-  distance: {},
   district: null,
 };
 
