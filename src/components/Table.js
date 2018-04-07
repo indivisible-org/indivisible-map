@@ -51,14 +51,18 @@ class Table extends React.Component {
         itemLayout="vertical"
         dataSource={items}
         renderItem={item =>
-          (<TableCell
-            key={`${item.id}-cell`}
-            item={item}
-            refcode={refcode}
-            type={type}
-            color={this.getColor(item.issueFocus)}
-            selectItem={selectItem}
-          />)}
+          (
+            <List.Item key={item.id}>
+              <TableCell
+                key={`${item.id}-cell`}
+                item={item}
+                refcode={refcode}
+                type={type}
+                color={this.getColor(item.issueFocus)}
+                selectItem={selectItem}
+              />
+            </List.Item>
+          )}
       />
     );
   }

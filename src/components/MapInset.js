@@ -67,8 +67,8 @@ class MapInset extends React.Component {
 
   createFeatures(items) {
     const featuresHome = {
-      type: 'FeatureCollection',
       features: [],
+      type: 'FeatureCollection',
     };
     const { type } = this.props;
 
@@ -78,7 +78,10 @@ class MapInset extends React.Component {
         colorObject = this.getColorForEvents(indEvent);
       } else {
         colorObject = {
-          ...indEvent, icon: 'circle-15-blue', filterBy: false, color: '#1cb7ec',
+          ...indEvent,
+          color: '#1cb7ec',
+          filterBy: false,
+          icon: 'circle-15-blue',
         };
       }
       const newFeature = new Point(colorObject);
@@ -124,14 +127,12 @@ class MapInset extends React.Component {
 
   addClickListener() {
     const {
-      type,
       searchByQueryString,
       stateName,
     } = this.props;
     const { map } = this;
 
     map.on('click', () => {
-
       searchByQueryString({ filterBy: 'state', filterValue: stateName });
     });
   }
@@ -140,16 +141,16 @@ class MapInset extends React.Component {
     this.map.addLayer(
       {
         id: 'events-points',
-        type: 'symbol',
-        source: {
-          type: 'geojson',
-          data: featuresHome,
-        },
         layout: {
+          'icon-ignore-placement': true,
           'icon-image': '{icon}',
           'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-          'icon-ignore-placement': true,
         },
+        source: {
+          data: featuresHome,
+          type: 'geojson',
+        },
+        type: 'symbol',
       },
       'district_interactive',
     );
@@ -157,41 +158,41 @@ class MapInset extends React.Component {
 
   clusterData(featuresHome) {
     this.map.addSource('groups-points', {
-      type: 'geojson',
-      data: featuresHome,
       cluster: false,
+      data: featuresHome,
+      type: 'geojson',
     });
     this.addClusterLayers();
   }
 
   addClusterLayers() {
     this.map.addLayer({
-      id: 'unclustered-point',
-      type: 'circle',
-      source: 'groups-points',
       filter: ['!has', 'point_count'],
+      id: 'unclustered-point',
       paint: {
         'circle-color': '#11b4da',
-        'circle-radius': 4,
-        'circle-stroke-width': 1,
-        'circle-stroke-color': '#fff',
         'circle-opacity': 0.5,
+        'circle-radius': 4,
+        'circle-stroke-color': '#fff',
+        'circle-stroke-width': 1,
       },
+      source: 'groups-points',
+      type: 'circle',
     });
 
     // Layer to highlight selected group
     this.map.addLayer({
-      id: 'unclustered-point-selected',
-      type: 'circle',
-      source: 'groups-points',
       filter: ['==', 'id', false],
+      id: 'unclustered-point-selected',
       paint: {
         'circle-color': '#f00',
-        'circle-radius': 6,
-        'circle-stroke-width': 2,
-        'circle-stroke-color': '#fff',
         'circle-opacity': 1,
+        'circle-radius': 6,
+        'circle-stroke-color': '#fff',
+        'circle-stroke-width': 2,
       },
+      source: 'groups-points',
+      type: 'circle',
     });
   }
 
@@ -220,10 +221,10 @@ class MapInset extends React.Component {
 
   initializeMap(featuresHome) {
     const {
+      bounds,
+      mapId,
       type,
       searchType,
-      mapId,
-      bounds,
       stateName,
     } = this.props;
 
@@ -233,10 +234,10 @@ class MapInset extends React.Component {
 
     this.map = new mapboxgl.Map({
       container: mapId,
-      style: styleUrl,
-      scrollZoom: false,
       doubleClickZoom: false,
       dragPan: false,
+      scrollZoom: false,
+      style: styleUrl,
     });
 
     // Set Mapbox map controls
@@ -246,8 +247,8 @@ class MapInset extends React.Component {
     // map on 'load'
     this.map.on('load', () => {
       this.map.fitBounds(bounds, {
-        linear: true,
         easeTo: { duration: 0 },
+        linear: true,
       });
       this.addClickListener();
       if (type === 'events') {
@@ -280,22 +281,25 @@ class MapInset extends React.Component {
 }
 
 MapInset.propTypes = {
+  bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
-  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  type: PropTypes.string.isRequired,
-  resetSelections: PropTypes.func.isRequired,
-  setLatLng: PropTypes.func.isRequired,
   filterByValue: PropTypes.shape({}),
-  selectItem: PropTypes.shape({}),
+  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  mapId: PropTypes.string.isRequired,
+  resetSelections: PropTypes.func.isRequired,
+  searchByQueryString: PropTypes.func.isRequired,
   searchType: PropTypes.string,
+  selectedItem: PropTypes.PropTypes.shape({}),
+  stateName: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 MapInset.defaultProps = {
   center: {},
   filterByValue: {},
-  selectItem: null,
   searchType: 'proximity',
+  selectedItem: null,
 };
 
 export default MapInset;

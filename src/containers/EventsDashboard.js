@@ -24,6 +24,8 @@ import {
 import * as selectionActions from '../state/selections/actions';
 
 import MapView from '../components/EventMap';
+import WebGlError from '../components/WebGlError';
+
 import SearchBar from './SearchBar';
 import SideBar from './SideBar';
 
@@ -31,6 +33,7 @@ class EventsDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.renderTotal = this.renderTotal.bind(this);
+    this.renderMap = this.renderMap.bind(this);
 
     this.state = {
       init: true,
@@ -69,13 +72,11 @@ class EventsDashboard extends React.Component {
     return (<p className="event-count">Viewing {items.length} events</p>);
   }
 
-  render() {
+  renderMap() {
     const {
-      allEvents,
       distance,
       district,
       visibleEvents,
-      eventsByDistrict,
       center,
       colorMap,
       refcode,
@@ -88,6 +89,44 @@ class EventsDashboard extends React.Component {
       filteredEvents,
       searchByQueryString,
     } = this.props;
+
+    const searchTypeMapMap = {
+      district: filteredEvents,
+      proximity: visibleEvents,
+    };
+
+    if (!mapboxgl.supported()) {
+      return (<WebGlError mapType="event" />);
+    }
+
+    return (<MapView
+      items={searchTypeMapMap[searchType]}
+      center={center}
+      colorMap={colorMap}
+      district={district}
+      type="events"
+      filterByValue={{ [filterBy]: [filterValue] }}
+      resetSelections={resetSelections}
+      searchByDistrict={searchByDistrict}
+      refcode={refcode}
+      setLatLng={setLatLng}
+      distance={distance}
+      searchType={searchType}
+      searchByQueryString={searchByQueryString}
+    />);
+  }
+
+  render() {
+    const {
+      allEvents,
+      visibleEvents,
+      eventsByDistrict,
+      colorMap,
+      refcode,
+      resetSelections,
+      searchType,
+    } = this.props;
+
     if (this.state.init) {
       return null;
     }
@@ -95,10 +134,7 @@ class EventsDashboard extends React.Component {
       district: eventsByDistrict,
       proximity: visibleEvents,
     };
-    const searchTypeMapMap = {
-      district: filteredEvents,
-      proximity: visibleEvents,
-    };
+
     return (
       <div className="events-container main-container">
         <h2 className="dash-title">Event Dashboard</h2>
@@ -112,21 +148,7 @@ class EventsDashboard extends React.Component {
           type="events"
           resetSelections={resetSelections}
         />
-        <MapView
-          items={searchTypeMapMap[searchType]}
-          center={center}
-          colorMap={colorMap}
-          district={district}
-          type="events"
-          filterByValue={{ [filterBy]: [filterValue] }}
-          resetSelections={resetSelections}
-          searchByDistrict={searchByDistrict}
-          refcode={refcode}
-          setLatLng={setLatLng}
-          distance={distance}
-          searchType={searchType}
-          searchByQueryString={searchByQueryString}
-        />
+        {this.renderMap()}
         <div className="footer" />
       </div>
 
