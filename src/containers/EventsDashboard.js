@@ -102,7 +102,7 @@ class EventsDashboard extends React.Component {
     return (
       <div className="events-container main-container">
         <h2 className="dash-title">Event Dashboard</h2>
-        <SearchBar items={searchTypeMapSideBar[searchType]} type="events" />
+        <SearchBar items={searchTypeMapSideBar[searchType]} mapType="events" />
         <SideBar
           renderTotal={this.renderTotal}
           colorMap={colorMap}
