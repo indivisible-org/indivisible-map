@@ -95,7 +95,7 @@ class EventsDashboard extends React.Component {
       proximity: visibleEvents,
     };
 
-    if (mapboxgl.supported()) {
+    if (!mapboxgl.supported()) {
       return (<WebGlError mapType="event" />);
     }
 

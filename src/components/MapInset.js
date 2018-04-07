@@ -281,7 +281,7 @@ class MapInset extends React.Component {
 }
 
 MapInset.propTypes = {
-  bounds: PropTypes.arrayOf(PropTypes.array(PropTypes.number)).isRequired,
+  bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   center: PropTypes.shape({ LAT: PropTypes.string, LNG: PropTypes.string, ZIP: PropTypes.string }),
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   filterByValue: PropTypes.shape({}),
