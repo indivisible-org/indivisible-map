@@ -65,9 +65,9 @@ class IssueFilter extends React.Component {
 }
 
 IssueFilter.propTypes = {
+  changedFilters: PropTypes.func.isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.object).isRequired,
   issues: PropTypes.arrayOf(PropTypes.string).isRequired,
-  changedFilters: PropTypes.func.isRequired,
 };
 
 export default IssueFilter;
