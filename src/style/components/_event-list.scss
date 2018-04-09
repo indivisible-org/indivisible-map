@@ -44,4 +44,10 @@
   .dark-green {
     @include cell($dark-green);
   }
+  .dark-purple {
+    @include cell($dark-purple);
+  }
+  .dark-orange {
+    @include cell($dark-orange);
+  }
 }

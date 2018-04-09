@@ -9,13 +9,23 @@ class Table extends React.Component {
   constructor(props) {
     super(props);
     this.getColor = this.getColor.bind(this);
+    this.getIconName = this.getIconName.bind(this);    
   }
 
   getColor(issueFocus) {
     const { colorMap } = this.props;
-    const colorObj = find(colorMap, { filter: issueFocus });
+    const colorObj = find(colorMap, { filterBy: issueFocus });
     if (colorObj) {
       return colorObj.color;
+    }
+    return '';
+  }
+
+  getIconName(issueFocus) {
+    const { colorMap } = this.props;
+    const colorObj = find(colorMap, { filterBy: issueFocus });
+    if (colorObj) {
+      return colorObj.icon;
     }
     return '';
   }
@@ -59,6 +69,7 @@ class Table extends React.Component {
                 refcode={refcode}
                 type={type}
                 color={this.getColor(item.issueFocus)}
+                iconName={this.getIconName(item.issueFocus)}
                 selectItem={selectItem}
               />
             </List.Item>

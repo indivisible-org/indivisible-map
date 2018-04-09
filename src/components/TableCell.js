@@ -48,12 +48,17 @@ class TableCell extends React.Component {
   }
 
   renderEvents() {
-    const { item, refcode } = this.props;
+    const {
+      color,
+      iconName,
+      item,
+      refcode,
+    } = this.props;
     const groupName = item.group_name ? (<h4 className="event-host semi-bold">Hosted by {item.group_name}</h4>) : '';
     const eventType = item.eventType ? (<li>Event Type: {item.eventType}</li>) : '';
     return (
       <Card
-        className={`event-cell ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
+        className={`event-cell ${iconName} ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
         key={`${item.id}`}
         title={item.title}
         extra={[<a className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
@@ -151,6 +156,8 @@ class TableCell extends React.Component {
 }
 
 TableCell.propTypes = {
+  color: PropTypes.string,
+  iconName: PropTypes.string,
   item: PropTypes.shape({}).isRequired,
   refcode: PropTypes.string,
   selectItem: PropTypes.func,
@@ -158,6 +165,8 @@ TableCell.propTypes = {
 };
 
 TableCell.defaultProps = {
+  color: '',
+  iconName: '',
   refcode: '',
   selectItem: () => {},
 };
