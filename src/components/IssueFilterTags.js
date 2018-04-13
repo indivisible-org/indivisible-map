@@ -69,6 +69,7 @@ class IssueFilterTags extends React.Component {
 
 IssueFilterTags.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  issues: PropTypes.arrayOf(PropTypes.string).isRequired,
   onFilterChanged: PropTypes.func.isRequired,
   selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

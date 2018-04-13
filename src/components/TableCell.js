@@ -58,7 +58,7 @@ class TableCell extends React.Component {
     const eventType = item.eventType ? (<li>Event Type: {item.eventType}</li>) : '';
     return (
       <Card
-        className={`event-cell ${iconName.toLowerCase()} ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
+        className={`event-cell ${iconName} ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
         key={`${item.id}`}
         title={item.title}
         extra={[<a className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
