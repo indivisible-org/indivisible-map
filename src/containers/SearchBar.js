@@ -11,7 +11,7 @@ import { getCurrentIssueFocuses, getColorMap } from '../state/events/selectors';
 
 import SearchInput from '../components/SearchInput';
 import DistanceFilter from '../components/DistanceSlider';
-import IssueFilter from '../components/IssueFilterTags';
+import IssueFilterTags from '../components/IssueFilterTags';
 
 const RadioGroup = Radio.Group;
 /* eslint-disable */
@@ -94,10 +94,10 @@ class SearchBar extends React.Component {
     const {
       changeSearchType,
       issues,
-      changedFilters,
+      onFilterChanged,
     } = this.props;
     if (searchType === 'district') {
-      changedFilters(union(issues, ['Town Hall']));
+      onFilterChanged(union(issues, ['Town Hall']));
     }
     changeSearchType(searchType);
   }
@@ -105,7 +105,7 @@ class SearchBar extends React.Component {
   renderFilterBar() {
     const {
       issues,
-      changedFilters,
+      onFilterChanged,
       selectedFilters,
       colorMap,
       mapType,
@@ -115,10 +115,10 @@ class SearchBar extends React.Component {
     }
     return (
       <div className="input-group-filters">
-        <IssueFilter
+        <IssueFilterTags
           colorMap={colorMap}
           issues={issues}
-          changedFilters={changedFilters}
+          onFilterChanged={onFilterChanged}
           selectedFilters={selectedFilters}
         />
       </div>
@@ -182,7 +182,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeSearchType: searchType => dispatch(selectionActions.changeSearchType(searchType)),
-  changedFilters: filters => dispatch(selectionActions.setFilters(filters)),
+  onFilterChanged: filters => dispatch(selectionActions.setFilters(filters)),
   resetSearchByQueryString: () => dispatch(selectionActions.resetSearchByQueryString()),
   resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
   resetSelections: () => dispatch(selectionActions.resetSelections()),
@@ -195,11 +195,11 @@ const mapDispatchToProps = dispatch => ({
 
 SearchBar.propTypes = {
   changeSearchType: PropTypes.func.isRequired,
-  changedFilters: PropTypes.func.isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   distance: PropTypes.number.isRequired,
   issues: PropTypes.arrayOf(PropTypes.string).isRequired,
   mapType: PropTypes.string.isRequired,
+  onFilterChanged: PropTypes.func.isRequired,
   resetSearchByQueryString: PropTypes.func.isRequired,
   resetSearchByZip: PropTypes.func.isRequired,
   resetSelections: PropTypes.func.isRequired,
