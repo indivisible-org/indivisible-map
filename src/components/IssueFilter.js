@@ -17,7 +17,7 @@ class IssueFilter extends React.Component {
   }
 
   handleChange(value) {
-    this.props.changedFilters(value);
+    this.props.onFilterChanged(value);
   }
 
   renderOptions() {
@@ -65,9 +65,9 @@ class IssueFilter extends React.Component {
 }
 
 IssueFilter.propTypes = {
-  changedFilters: PropTypes.func.isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.object).isRequired,
   issues: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onFilterChanged: PropTypes.func.isRequired,
 };
 
 export default IssueFilter;

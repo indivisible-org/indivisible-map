@@ -20,6 +20,7 @@ import {
   getFilterValue,
   getSearchType,
   getDistrict,
+  getFilters,
 } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
@@ -48,6 +49,10 @@ class EventsDashboard extends React.Component {
     if (document.location.search) {
       setRefCode(document.location.search);
     }
+    const query = document.location.search.match(new RegExp('([?&])issue-filter[^&]*'));
+    if (query) {
+      this.setState({ issueFilter: decodeURI(query[0].split('=')[1]).split(',') });
+    }
   }
 
   componentDidMount() {
@@ -56,7 +61,12 @@ class EventsDashboard extends React.Component {
     } = this.props;
     getInitialEvents()
       .then((returned) => {
-        this.props.setInitialFilters(returned);
+        if (this.state.issueFilter) {
+          this.props.setFilters(this.state.issueFilter);
+          this.setState({ issueFilter: null });
+        } else {
+          this.props.setInitialFilters(returned);
+        }
         this.setState({ init: false });
       });
   }
@@ -163,6 +173,7 @@ const mapStateToProps = state => ({
   distance: getDistance(state),
   district: getDistrict(state),
   eventsByDistrict: getEventsByDistrict(state),
+  issueFilters: getFilters(state),
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
   filteredEvents: getFilteredEvents(state),
@@ -176,6 +187,7 @@ const mapDispatchToProps = dispatch => ({
   resetSelections: () => dispatch(selectionActions.resetSelections()),
   searchByDistrict: val => dispatch(selectionActions.searchByDistrict(val)),
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
+  setFilters: filters => dispatch(selectionActions.setFilters(filters)),
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
@@ -197,6 +209,7 @@ EventsDashboard.propTypes = {
   searchByDistrict: PropTypes.func.isRequired,
   searchByQueryString: PropTypes.func.isRequired,
   searchType: PropTypes.string.isRequired,
+  setFilters: PropTypes.func.isRequired,
   setInitialFilters: PropTypes.func.isRequired,
   setLatLng: PropTypes.func.isRequired,
   setRefCode: PropTypes.func.isRequired,

@@ -10,20 +10,18 @@ require('style-loader!css-loader!antd/es/tag/style/index.css');
 /* eslint-enable */
 
 
-class FilterSelector extends React.Component {
+class IssueFilterTags extends React.Component {
   constructor(props) {
     super(props);
-    const { issues } = this.props;
-    const current = without(issues, 'Town Hall');
-
+    const { selectedFilters } = this.props;
     this.state = {
-      selectedTags: current,
+      selectedTags: selectedFilters,
     };
   }
 
   componentDidMount() {
-    const { changedFilters } = this.props;
-    changedFilters(this.state.selectedTags);
+    const { onFilterChanged } = this.props;
+    onFilterChanged(this.state.selectedTags);
   }
 
   componentWillReceiveProps(newProps) {
@@ -31,14 +29,14 @@ class FilterSelector extends React.Component {
   }
 
   handleChange(tag, checked) {
-    const { changedFilters } = this.props;
+    const { onFilterChanged } = this.props;
     const { selectedTags } = this.state;
     const nextSelectedTags = checked ?
       [...selectedTags, tag] :
       selectedTags.filter(t => t !== tag);
     this.setState(
       { selectedTags: nextSelectedTags },
-      () => changedFilters(nextSelectedTags),
+      () => onFilterChanged(nextSelectedTags),
     );
   }
 
@@ -51,7 +49,7 @@ class FilterSelector extends React.Component {
         <h6 style={{ display: 'inline', marginRight: 8 }}>Filter by issue:</h6>
         {issues.map((tag) => {
           const mapping = find(colorMap, { filterBy: tag });
-          const color = mapping ? mapping.icon : 'circle-15-gray';
+          const color = mapping ? mapping.icon.toLowerCase() : 'circle-15-gray';
           return (
             <CheckableTag
               key={tag}
@@ -69,10 +67,10 @@ class FilterSelector extends React.Component {
   }
 }
 
-FilterSelector.propTypes = {
-  changedFilters: PropTypes.func.isRequired,
+IssueFilterTags.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  issues: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onFilterChanged: PropTypes.func.isRequired,
+  selectedFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default FilterSelector;
+export default IssueFilterTags;
