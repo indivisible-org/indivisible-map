@@ -113,6 +113,8 @@ class GroupsDashboard extends React.Component {
           allItems={allGroups}
           resetHandler={resetSelections}
           selectItem={selectItem}
+          filterBy={filterBy}
+          location={center}
         />
         {this.renderMap()}
         <div className="footer" />
