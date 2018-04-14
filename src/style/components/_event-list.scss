@@ -1,8 +1,11 @@
+.ant-card-head{
+  background-color: $brand-primary;
+}
+
 #events-list {
   .no-results{
     margin-top: 50%;
   }
-
   .ant-card-head-title {
     color: $main-white;
   }
