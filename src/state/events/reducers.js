@@ -24,6 +24,11 @@ const eventsReducer = (state = initialState, action) => {
         ...state,
         allEvents: action.events,
       };
+    case 'UPDATE_COLORS':
+      return {
+        ...state,
+        filterColors: action.colorMap,
+      }
     default:
       return state;
   }

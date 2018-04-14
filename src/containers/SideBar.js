@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import * as selections from '../state/selections/selectors';
 
 import Table from '../components/Table';
 
@@ -34,13 +31,11 @@ class SideBar extends React.Component {
 
   render() {
     const {
-      allItems,
       colorMap,
       items,
       refcode,
-      type,
       selectItem,
-      renderTotal,
+      type,
     } = this.props;
     return (
       <div className="side-bar-container">
@@ -57,25 +52,21 @@ class SideBar extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  location: selections.getLocation(state),
-  filterBy: selections.getFilterBy(state),
-});
 
 SideBar.propTypes = {
   allItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})),
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   filterBy: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   location: PropTypes.shape({}).isRequired,
   refcode: PropTypes.string,
-  type: PropTypes.string.isRequired,
   selectItem: PropTypes.func,
+  type: PropTypes.string.isRequired,
 };
 
 SideBar.defaultProps = {
-  refcode: '',
   colorMap: [],
+  refcode: '',
   selectItem: () => {},
 };
-export default connect(mapStateToProps)(SideBar);
+export default SideBar;

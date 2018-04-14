@@ -105,6 +105,7 @@ class MapView extends React.Component {
       colorObj = find(colorMap, { filterBy: false });
       colorObj.filterBy = indEvent.issueFocus;
       updatedObj = { ...indEvent, icon: colorObj.icon };
+      this.props.onColorMapUpdate(colorMap);
     }
     return updatedObj;
   }
@@ -159,17 +160,7 @@ class MapView extends React.Component {
     const { type } = this.props;
 
     featuresHome.features = items.map((indEvent) => {
-      let colorObject;
-      if (type === 'events') {
-        colorObject = this.getColorForEvents(indEvent);
-      } else {
-        colorObject = {
-          color: '#1cb7ec',
-          ...indEvent,
-          filterBy: false,
-          icon: 'circle-15-blue',
-        };
-      }
+      let colorObject = this.getColorForEvents(indEvent);
       const newFeature = new Point(colorObject);
       return newFeature;
     });

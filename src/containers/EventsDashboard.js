@@ -10,7 +10,10 @@ import {
   getEventsByDistrict,
   getFilteredEvents,
 } from '../state/events/selectors';
-import { startSetEvents } from '../state/events/actions';
+import { 
+  startSetEvents,
+  updateColorMap,
+} from '../state/events/actions';
 
 import {
   getDistance,
@@ -98,6 +101,7 @@ class EventsDashboard extends React.Component {
       searchByDistrict,
       filteredEvents,
       searchByQueryString,
+      onColorMapUpdate,
     } = this.props;
 
     const searchTypeMapMap = {
@@ -113,6 +117,7 @@ class EventsDashboard extends React.Component {
       items={searchTypeMapMap[searchType]}
       center={center}
       colorMap={colorMap}
+      onColorMapUpdate={onColorMapUpdate}
       district={district}
       type="events"
       filterByValue={{ [filterBy]: [filterValue] }}
@@ -129,12 +134,14 @@ class EventsDashboard extends React.Component {
   render() {
     const {
       allEvents,
+      center,
       visibleEvents,
       eventsByDistrict,
       colorMap,
       refcode,
       resetSelections,
       searchType,
+      filterBy,
     } = this.props;
 
     if (this.state.init) {
@@ -157,7 +164,9 @@ class EventsDashboard extends React.Component {
           refcode={refcode}
           type="events"
           resetSelections={resetSelections}
-        />
+          filterBy={filterBy}
+          location={center}
+    />
         {this.renderMap()}
         <div className="footer" />
       </div>
@@ -173,10 +182,10 @@ const mapStateToProps = state => ({
   distance: getDistance(state),
   district: getDistrict(state),
   eventsByDistrict: getEventsByDistrict(state),
-  issueFilters: getFilters(state),
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
   filteredEvents: getFilteredEvents(state),
+  issueFilters: getFilters(state),
   refcode: getRefCode(state),
   searchType: getSearchType(state),
   visibleEvents: getVisbleEvents(state),
@@ -191,6 +200,7 @@ const mapDispatchToProps = dispatch => ({
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
+  onColorMapUpdate: colormap => dispatch(updateColorMap(colormap)),
 });
 
 EventsDashboard.propTypes = {

@@ -7,13 +7,18 @@ import { indivisibleUrl } from '../constants';
 import IndEvent from './model';
 
 export const setEvents = events => ({
-  type: 'SET_EVENTS',
   events,
+  type: 'SET_EVENTS',
 });
 
 export const setFeaturesHome = featuresHome => ({
-  type: 'SET_FEATURES_HOME',
   featuresHome,
+  type: 'SET_FEATURES_HOME',
+});
+
+export const updateColorMap = colorMap => ({
+  colorMap,
+  type: 'UPDATE_COLORS',
 });
 
 export const startSetEvents = () => (dispatch) => {
