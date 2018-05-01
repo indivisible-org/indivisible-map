@@ -71,7 +71,7 @@ class MapView extends React.Component {
         bbname = `${bbname}${districtPadded}`;
 
         // highlight district
-        const stateFIPS = states.find(cur => cur.USPS === filterByValue.state[0]).FIPS;
+        const stateFIPS = states.find(cur => cur.USPS === bbname).FIPS;
         const geoID = `${stateFIPS}${districtPadded}`;
         const selectObj = {
           district: districtPadded,
@@ -96,7 +96,10 @@ class MapView extends React.Component {
   }
 
   getColorForEvents(indEvent) {
-    const { colorMap } = this.props;
+    const {
+      colorMap,
+      onColorMapUpdate,
+    } = this.props;
     let updatedObj = {};
     let colorObj = find(colorMap, { filterBy: indEvent.issueFocus });
     if (colorObj) {
@@ -105,7 +108,7 @@ class MapView extends React.Component {
       colorObj = find(colorMap, { filterBy: false });
       colorObj.filterBy = indEvent.issueFocus;
       updatedObj = { ...indEvent, icon: colorObj.icon };
-      this.props.onColorMapUpdate(colorMap);
+      onColorMapUpdate(colorMap);
     }
     return updatedObj;
   }
@@ -157,10 +160,8 @@ class MapView extends React.Component {
       features: [],
       type: 'FeatureCollection',
     };
-    const { type } = this.props;
-
     featuresHome.features = items.map((indEvent) => {
-      let colorObject = this.getColorForEvents(indEvent);
+      const colorObject = this.getColorForEvents(indEvent);
       const newFeature = new Point(colorObject);
       return newFeature;
     });
@@ -494,6 +495,7 @@ MapView.propTypes = {
   district: PropTypes.number,
   filterByValue: PropTypes.shape({}),
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  onColorMapUpdate: PropTypes.func.isRequired,
   refcode: PropTypes.string,
   resetSelections: PropTypes.func.isRequired,
   searchByDistrict: PropTypes.func.isRequired,
