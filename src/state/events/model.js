@@ -14,6 +14,6 @@ export default class IndEvent {
     const arr = this.campaign.split('/');
     const campaignNumber = arr[arr.length - 2];
     const campaignName = campaignMapping[campaignNumber] || 'local-actions';
-    return `http://act.indivisible.org/event/${campaignName}/${this.id}/signup/`
+    return `http://act.indivisible.org/event/${campaignName}/${this.id}/signup/`;
   }
 }

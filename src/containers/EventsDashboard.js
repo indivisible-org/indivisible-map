@@ -10,7 +10,7 @@ import {
   getEventsByDistrict,
   getFilteredEvents,
 } from '../state/events/selectors';
-import { 
+import {
   startSetEvents,
   updateColorMap,
 } from '../state/events/actions';
@@ -166,7 +166,7 @@ class EventsDashboard extends React.Component {
           resetSelections={resetSelections}
           filterBy={filterBy}
           location={center}
-    />
+        />
         {this.renderMap()}
         <div className="footer" />
       </div>
@@ -193,6 +193,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getInitialEvents: () => dispatch(startSetEvents()),
+  onColorMapUpdate: colormap => dispatch(updateColorMap(colormap)),
   resetSelections: () => dispatch(selectionActions.resetSelections()),
   searchByDistrict: val => dispatch(selectionActions.searchByDistrict(val)),
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
@@ -200,7 +201,6 @@ const mapDispatchToProps = dispatch => ({
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
-  onColorMapUpdate: colormap => dispatch(updateColorMap(colormap)),
 });
 
 EventsDashboard.propTypes = {
@@ -214,6 +214,7 @@ EventsDashboard.propTypes = {
   filterValue: PropTypes.string,
   filteredEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   getInitialEvents: PropTypes.func.isRequired,
+  onColorMapUpdate: PropTypes.func.isRequired,
   refcode: PropTypes.string,
   resetSelections: PropTypes.func.isRequired,
   searchByDistrict: PropTypes.func.isRequired,
