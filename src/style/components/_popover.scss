@@ -104,6 +104,24 @@
   }
   @include popover-tip($foreign-policy);
 }
+.popover-dark-green {
+  .mapboxgl-popup-content {
+    @include popover($dark-green);
+  }
+  @include popover-tip($dark-green);
+}
+.popover-dark-purple {
+  .mapboxgl-popup-content {
+    @include popover($dark-purple);
+  }
+  @include popover-tip($dark-purple);
+}
+.popover-dark-orange {
+  .mapboxgl-popup-content {
+    @include popover($dark-orange);
+  }
+  @include popover-tip($dark-orange);
+}
 
 // group popover icons
 .facebook-icon {
