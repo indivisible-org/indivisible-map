@@ -49,7 +49,7 @@ class IssueFilterTags extends React.Component {
         <h6 style={{ display: 'inline', marginRight: 8 }}>Filter by issue:</h6>
         {issues.map((tag) => {
           const mapping = find(colorMap, { filterBy: tag });
-          const color = mapping ? mapping.icon.toLowerCase() : 'circle-15-gray';
+          const color = mapping ? mapping.icon.toLowerCase() : 'circle-stroked-15-grey';
           return (
             <CheckableTag
               key={tag}

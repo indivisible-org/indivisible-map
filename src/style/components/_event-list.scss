@@ -29,13 +29,13 @@
   .dream-act {
     @include cell($dream-act);
   }
-  .infrastructure {
+  .mueller-rosenstein {
     @include cell($infrastructure);
   }
   .trump-tax-scam {
     @include cell($trump-tax-scam);
   }
-  .electoral {
+  .electoral-icon {
     @include cell($electoral);
   }
   .gun-violence {
@@ -52,5 +52,8 @@
   }
   .dark-orange {
     @include cell($dark-orange);
+  }
+  .circle-stroked-15-grey {
+    @include cell($brand-primary);
   }
 }
