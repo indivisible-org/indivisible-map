@@ -64,7 +64,6 @@ class SearchBar extends React.Component {
     if (!query) {
       return resetSelections();
     }
-    console.log(searchType);
     if (searchType === 'proximity') {
       if (SearchBar.isZipCode(query)) {
         return searchByZip(value);
