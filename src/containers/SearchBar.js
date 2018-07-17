@@ -49,6 +49,7 @@ class SearchBar extends React.Component {
   searchHandler(value) {
     const { query } = value;
     const {
+      mapType,
       resetSelections,
       resetSearchByZip,
       resetSearchByQueryString,
@@ -63,6 +64,7 @@ class SearchBar extends React.Component {
     if (!query) {
       return resetSelections();
     }
+    console.log(searchType);
     if (searchType === 'proximity') {
       if (SearchBar.isZipCode(query)) {
         return searchByZip(value);
@@ -71,7 +73,11 @@ class SearchBar extends React.Component {
         resetSearchByZip();
         return searchByQueryString({ filterBy: 'state', filterValue: SearchBar.isState(query).USPS });
       }
-      return searchByQueryString({ filterBy: 'title', filterValue: query });
+      const filterBy = mapType === 'group' ? 'name' : 'title';
+      return searchByQueryString({
+        filterBy,
+        filterValue: query,
+      });
     } else if (searchType === 'district') {
       const stateMatch = query.match(/([A-Z]|[a-z]){2}/g)[0];
       const districtMatch = query.match(/([0-9]{2})|([0-9]{1})/g)[0];
@@ -206,12 +212,16 @@ SearchBar.propTypes = {
   searchByDistrict: PropTypes.func.isRequired,
   searchByQueryString: PropTypes.func.isRequired,
   searchByZip: PropTypes.func.isRequired,
-  searchType: PropTypes.string.isRequired,
+  searchType: PropTypes.string,
   selectedFilters: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string]).isRequired,
   setDistance: PropTypes.func.isRequired,
   setTextFilter: PropTypes.func.isRequired,
+};
+
+SearchBar.defaultProps = {
+  searchType: 'proximity',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
