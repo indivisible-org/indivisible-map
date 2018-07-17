@@ -2,18 +2,18 @@ import getData from '../../logics/getData';
 import { indivisibleUrl } from '../constants';
 
 export const setGroups = groups => ({
-  type: 'SET_GROUPS',
   groups,
+  type: 'SET_GROUPS',
 });
 
 export const setFeaturesHome = featuresHome => ({
-  type: 'SET_FEATURES_HOME_GROUP',
   featuresHome,
+  type: 'SET_FEATURES_HOME_GROUP',
 });
 
 export const selectGroup = group => ({
-  type: 'SELECT_GROUP',
   group,
+  type: 'SELECT_GROUP',
 });
 
 export const startSetGroups = () => (dispatch) => {
