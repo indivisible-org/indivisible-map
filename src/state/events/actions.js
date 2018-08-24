@@ -24,12 +24,10 @@ export const updateColorMap = colorMap => ({
 const filterRecurring = (acc, indEvent) => {
   if (indEvent.isRecurring) {
     const currentSoonestIndex = acc.findIndex(ele => ele.mobilizeId === indEvent.mobilizeId);
-    console.log('isrecurring', indEvent.mobilizeId)
     const currentSoonest = acc[currentSoonestIndex];
     if (currentSoonestIndex === -1) {
       acc.push(indEvent);
     } else if (moment(indEvent.starts_at).isBefore(currentSoonest.starts_at)) {
-      console.log(currentSoonest.starts_at, indEvent.starts_at);
       currentSoonest.starts_at = indEvent.starts_at;
       acc[currentSoonestIndex] = currentSoonest;
     }

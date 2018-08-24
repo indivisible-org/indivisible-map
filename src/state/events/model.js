@@ -1,8 +1,8 @@
 const campaignMapping = {
   15: 'local-actions',
+  19: 'mobilizeamerica-public-events',
   21: 'save-scotus-actions',
   9: 'recess-townhall',
-  19: 'mobilizeamerica-public-events'
 };
 
 export default class IndEvent {
