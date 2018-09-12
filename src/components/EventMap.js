@@ -409,7 +409,6 @@ class MapView extends React.Component {
     };
     // map on 'load'
     this.map.on('load', () => {
-      this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
       this.addClickListener();
       if (type === 'events') {
         this.addLayer(featuresHome);

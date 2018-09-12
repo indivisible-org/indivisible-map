@@ -42,6 +42,23 @@ class SearchBar extends React.Component {
     this.renderSwitch = this.renderSwitch.bind(this);
   }
 
+  componentDidMount() {
+    const params = ['location'];
+    const queries = params.reduce((acc, cur) => {
+      const query = document.location.search.match(new RegExp(`[?&]${cur}[^&]*`));
+      if (query && query[0].split('=').length > 1) {
+        acc[cur] = query[0].split('=')[1];
+      }
+      return acc;
+    }, {});
+
+    if (queries.location) {
+      return this.searchHandler({
+        query: queries.location,
+      });
+    }
+  }
+
   onTextChange(e) {
     this.props.setTextFilter(e.target.value);
   }
