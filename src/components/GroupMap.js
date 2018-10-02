@@ -284,9 +284,6 @@ class MapView extends React.Component {
     // map on 'load'
     this.map.on('load', () => {
       this.map.setLayoutProperty('group-points', 'visibility', 'visible');
-
-      // this.addClickListener();
-
       this.addPopups('group-points');
     });
   }

@@ -409,7 +409,6 @@ class MapView extends React.Component {
     };
     // map on 'load'
     this.map.on('load', () => {
-      // this.addClickListener();
       if (type === 'events') {
         this.addLayer(featuresHome);
         this.addPopups('events-points');
