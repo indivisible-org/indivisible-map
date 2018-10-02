@@ -68,12 +68,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meganrm/indivisible-map.git"
+    "url": "git+https://github.com/indivisible-org/indivisible-map.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/meganrm/indivisible-map/issues"
+    "url": "https://github.com/indivisible-org/indivisible-map/issues"
   },
   "homepage": "https://meganrm.github.io/indivisible-map/"
 }
