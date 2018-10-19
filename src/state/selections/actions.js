@@ -3,13 +3,18 @@ import superagent from 'superagent';
 import { firebaseUrl } from '../constants';
 
 export const setLatLng = payload => ({
-  type: 'SET_LAT_LNG',
   payload,
+  type: 'SET_LAT_LNG',
 });
 
 export const searchByDistrict = payload => ({
-  type: 'SEARCH_BY_DISTRICT',
   payload,
+  type: 'SEARCH_BY_DISTRICT',
+});
+
+export const setUsState = payload => ({
+  payload,
+  type: 'SET_US_STATE',
 });
 
 export const resetSelections = () => ({
@@ -21,23 +26,23 @@ export const resetSearchByZip = () => ({
 });
 
 export const setRefCode = (payload = '') => ({
-  type: 'SET_REFCODE',
   payload,
+  type: 'SET_REFCODE',
 });
 
 export const setTextFilter = (payload = '') => ({
-  type: 'SET_TEXT_FILTER',
   payload,
+  type: 'SET_TEXT_FILTER',
 });
 
 export const setDistance = (payload = 50) => ({
-  type: 'SET_DISTANCE',
   payload,
+  type: 'SET_DISTANCE',
 });
 
 export const searchByQueryString = payload => ({
-  type: 'SEARCH_BY_KEY_VALUE',
   payload,
+  type: 'SEARCH_BY_KEY_VALUE',
 });
 
 export const resetSearchByQueryString = () => ({
@@ -45,18 +50,18 @@ export const resetSearchByQueryString = () => ({
 });
 
 export const setFilters = payload => ({
-  type: 'SET_FILTERS',
   payload,
+  type: 'SET_FILTERS',
 });
 
 export const changeSearchType = payload => ({
-  type: 'SET_SEARCH_TYPE',
   payload,
+  type: 'SET_SEARCH_TYPE',
 });
 
 export const setInitialFilters = payload => ({
-  type: 'SET_INITIAL_FILTERS',
   payload,
+  type: 'SET_INITIAL_FILTERS',
 });
 
 export const getLatLngFromZip = payload => (dispatch) => {

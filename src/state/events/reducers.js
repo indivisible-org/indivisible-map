@@ -28,7 +28,7 @@ const eventsReducer = (state = initialState, action) => {
       return {
         ...state,
         filterColors: action.colorMap,
-      }
+      };
     default:
       return state;
   }

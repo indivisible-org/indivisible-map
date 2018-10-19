@@ -267,9 +267,10 @@ class MapInset extends React.Component {
       filterByValue,
       center,
       mapId,
+      selectedUsState,
     } = this.props;
     const mapClassNames = classNames({
-      hidden: filterByValue.state || center.LAT || filterByValue.title,
+      hidden: filterByValue.state || center.LAT || filterByValue.title || selectedUsState,
       inset: true,
     });
     return (
@@ -291,6 +292,7 @@ MapInset.propTypes = {
   searchByQueryString: PropTypes.func.isRequired,
   searchType: PropTypes.string,
   selectedItem: PropTypes.PropTypes.shape({}),
+  selectedUsState: PropTypes.string,
   stateName: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
 };
@@ -300,6 +302,7 @@ MapInset.defaultProps = {
   filterByValue: {},
   searchType: 'proximity',
   selectedItem: null,
+  selectedUsState: null,
 };
 
 export default MapInset;
