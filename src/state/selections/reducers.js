@@ -9,7 +9,7 @@ const initialState = {
   location: {},
   refcode: '',
   searchType: 'proximity',
-  state: '',
+  usState: '',
   zipcode: '',
 };
 
@@ -27,6 +27,11 @@ const filtersReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         refcode: payload,
+      };
+    case 'SET_US_STATE':
+      return {
+        ...state,
+        usState: payload,
       };
     case 'SEARCH_BY_DISTRICT':
       return {
@@ -75,6 +80,7 @@ const filtersReducer = (state = initialState, { type, payload }) => {
     case 'SET_SEARCH_TYPE':
       return {
         ...state,
+        district: initialState.district,
         searchType: payload,
       };
     case 'SET_INITIAL_FILTERS':

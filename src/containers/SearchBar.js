@@ -42,7 +42,7 @@ class SearchBar extends React.Component {
     this.renderSwitch = this.renderSwitch.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const params = ['location'];
     const queries = params.reduce((acc, cur) => {
       const query = document.location.search.match(new RegExp(`[?&]${cur}[^&]*`));
@@ -52,11 +52,11 @@ class SearchBar extends React.Component {
       return acc;
     }, {});
 
-    if (queries.location) {
-      return this.searchHandler({
-        query: queries.location,
-      });
-    }
+    // if (queries.location) {
+    //   return this.searchHandler({
+    //     query: queries.location,
+    //   });
+    // }
   }
 
   onTextChange(e) {

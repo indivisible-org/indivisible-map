@@ -9,6 +9,7 @@ import {
   getFilterValue,
   getFilters,
   getDistrict,
+  getSelectedState,
 } from '../selections/selectors';
 
 export const getEvents = state => state.events.allEvents;
@@ -25,9 +26,19 @@ const getEventsFilteredByKeywordArray = createSelector(
   },
 );
 
+const getEventsInState = createSelector(
+  [getEventsFilteredByKeywordArray, getSelectedState],
+  (eventsFilteredByKeywords, usState) => {
+    if (!usState) {
+      return eventsFilteredByKeywords;
+    }
+    return eventsFilteredByKeywords.filter(currrentEvent => currrentEvent.state === usState);
+  },
+);
+
 export const getFilteredEvents = createSelector(
   [
-    getEventsFilteredByKeywordArray,
+    getEventsInState,
     getFilterBy,
     getFilterValue,
   ],

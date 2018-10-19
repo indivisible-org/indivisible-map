@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { find, filter } from 'lodash';
+import {
+  find,
+  filter,
+} from 'lodash';
 import geoViewport from '@mapbox/geo-viewport';
 import bboxes from '../data/bboxes';
 import Point from '../logics/features';
@@ -26,10 +29,11 @@ class MapView extends React.Component {
     this.removeHighlights = this.removeHighlights.bind(this);
     this.filterForStateInsets = this.filterForStateInsets.bind(this);
     this.insetOnClickEvent = this.insetOnClickEvent.bind(this);
+    this.makeZoomToNationalButton = this.makeZoomToNationalButton.bind(this);
     this.state = {
       alaskaItems: filter(this.props.items, { state: 'AK' }),
       hawaiiItems: filter(this.props.items, { state: 'HI' }),
-      inset: true,
+      inset: !props.selectedUsState,
       popoverColor: 'popover-general-icon',
     };
   }
@@ -46,22 +50,25 @@ class MapView extends React.Component {
       items,
       filterByValue,
       distance,
-      type,
       selectedItem,
+      selectedUsState,
       district,
     } = nextProps;
     this.map.metadata = { searchType: nextProps.searchType };
 
-    if (items.length !== this.props.items.length) {
-      this.updateData(items, `${type}-points`);
-      this.filterForStateInsets(items);
-    }
+
     // Highlight selected item
     if (this.props.selectedItem !== selectedItem) {
       this.map.setFilter('unclustered-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
     }
-    if (filterByValue.state) {
-      let bbname = filterByValue.state[0].toUpperCase();
+
+    if (items.length !== this.props.items.length) {
+      this.updateData(items, 'events-points');
+      this.filterForStateInsets(items);
+    }
+
+    if (filterByValue.state || selectedUsState) {
+      let bbname = selectedUsState || filterByValue.state[0].toUpperCase();
       if (district) {
         const zeros = '00';
         const districtString = district.toString();
@@ -71,7 +78,7 @@ class MapView extends React.Component {
         bbname = `${bbname}${districtPadded}`;
 
         // highlight district
-        const stateFIPS = states.find(cur => cur.USPS === bbname).FIPS;
+        const stateFIPS = states.find(cur => cur.USPS === bbname) ? states.find(cur => cur.USPS === bbname).FIPS : '';
         const geoID = `${stateFIPS}${districtPadded}`;
         const selectObj = {
           district: districtPadded,
@@ -150,6 +157,7 @@ class MapView extends React.Component {
     const featuresHome = this.createFeatures(items);
     this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
     if (!this.map.getSource(layer)) {
+      console.log('no layer');
       return;
     }
     this.map.getSource(layer).setData(featuresHome);
@@ -368,20 +376,33 @@ class MapView extends React.Component {
   }
 
   handleReset() {
+    const {
+      selectedUsState,
+      resetSelections,
+    } = this.props;
     this.removeHighlights();
-    this.props.resetSelections();
-    this.setState({ inset: true });
+    resetSelections();
+    if (!selectedUsState) {
+      this.setState({ inset: true });
+    }
   }
+
   // Creates the button in our zoom controls to go to the national view
   makeZoomToNationalButton() {
+    const {
+      selectedUsState,
+    } = this.props;
     document.querySelector('.mapboxgl-ctrl-compass').remove();
     if (document.querySelector('.mapboxgl-ctrl-usa')) {
       document.querySelector('.mapboxgl-ctrl-usa').remove();
     }
     const usaButton = document.createElement('button');
     usaButton.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-usa';
-    usaButton.innerHTML = '<span class="usa-icon"></span>';
-
+    if (selectedUsState) {
+      usaButton.innerHTML = `<span>${selectedUsState}</span>`;
+    } else {
+      usaButton.innerHTML = '<span class="usa-icon"></span>';
+    }
     usaButton.addEventListener('click', this.handleReset);
     document.querySelector('.mapboxgl-ctrl-group').appendChild(usaButton);
   }
@@ -434,6 +455,7 @@ class MapView extends React.Component {
       distance,
       searchType,
       searchByQueryString,
+      selectedUsState,
     } = this.props;
 
     return (
@@ -442,6 +464,7 @@ class MapView extends React.Component {
           <div className="map-overlay" id="legend">
             <MapInset
               items={this.state.alaskaItems}
+              selectedUsState={selectedUsState}
               center={center}
               stateName="AK"
               colorMap={colorMap}
@@ -460,6 +483,7 @@ class MapView extends React.Component {
             />
             <MapInset
               items={this.state.hawaiiItems}
+              selectedUsState={selectedUsState}
               stateName="HI"
               center={center}
               colorMap={colorMap}
@@ -500,6 +524,7 @@ MapView.propTypes = {
   searchByQueryString: PropTypes.func.isRequired,
   searchType: PropTypes.string,
   selectedItem: PropTypes.shape({}),
+  selectedUsState: PropTypes.string,
   setLatLng: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
@@ -512,6 +537,7 @@ MapView.defaultProps = {
   refcode: '',
   searchType: 'proximity',
   selectedItem: null,
+  selectedUsState: null,
 };
 
 export default MapView;
