@@ -12,6 +12,9 @@ export default class IndEvent {
   }
 
   makeUrl() {
+    if (this.displayAltLink) {
+      return this.linkToInfo;
+    }
     if (campaignMapping[this.campaignNo] === 'mobilizeamerica-public-events' && this.linkToInfo) {
       return this.linkToInfo;
     }
