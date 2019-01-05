@@ -67,7 +67,7 @@ class EventsDashboard extends React.Component {
       return acc;
     }, {});
     if (queries['issue-filter']) {
-      this.setState({ issueFilter: decodeURI(queries['issue-filter'][0].split('=')[1]).split(',') });
+      this.setState({ issueFilter: decodeURI(queries['issue-filter']) });
     }
     if (queries.location) {
       if (find(states, ele => ele.USPS === queries.location)) {
