@@ -7,7 +7,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faFacebookSquare from '@fortawesome/fontawesome-free-brands/faFacebookSquare';
 import faTwitterSquare from '@fortawesome/fontawesome-free-brands/faTwitterSquare';
 import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
-
+import faExternalLinkSquareAlt from '@fortawesome/fontawesome-free-solid/faExternalLinkSquareAlt';
 import { Card } from 'antd';
 import { indivisibleUrl } from '../state/constants';
 
@@ -140,11 +140,20 @@ class TableCell extends React.Component {
           </li>
         </React.Fragment>);
     }
+    if (item.url) {
+      iconsSocial.push(
+        <li key={item.url}>
+          <a href={item.url} target="_blank">
+            <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
+            <span className="connect-text">visit website</span>
+          </a>
+        </li>)
+    }
     return (
       <div onMouseEnter={() => selectItem(item)} onMouseLeave={() => selectItem(null)}>
         <Card
           className="indivisible-card group-cell"
-          key={`${item.id}`}
+          key={item.id}
           title={item.name}
         >
           <ul>
