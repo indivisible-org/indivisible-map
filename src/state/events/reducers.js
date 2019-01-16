@@ -13,7 +13,10 @@ const initialState = {
     { icon: 'dark-orange', filterBy: false, color: '#DB8011' },
     { icon: 'dark-purple', filterBy: false, color: '#3E1A49' },
     { icon: 'dark-green', filterBy: false, color: '#274A3D' },
-    { icon: 'circle-stroked-15-grey', filterBy: false, color: '#686868' },
+    { icon: 'general-icon', filterBy: false, color: '#2D4C6B' },
+    { icon: 'general-icon', filterBy: false, color: '#2D4C6B' },
+    { icon: 'general-icon', filterBy: false, color: '#2D4C6B' },
+    { icon: 'general-icon', filterBy: false, color: '#2D4C6B' },
   ],
 };
 
@@ -22,7 +25,7 @@ const eventsReducer = (state = initialState, action) => {
     case 'SET_EVENTS':
       return {
         ...state,
-        allEvents: action.events,
+        allEvents: [...state.allEvents, ...action.events],
       };
     case 'UPDATE_COLORS':
       return {

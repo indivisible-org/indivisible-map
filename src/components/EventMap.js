@@ -113,8 +113,19 @@ class MapView extends React.Component {
       updatedObj = { ...indEvent, icon: colorObj.icon };
     } else {
       colorObj = find(colorMap, { filterBy: false });
-      colorObj.filterBy = indEvent.issueFocus;
-      updatedObj = { ...indEvent, icon: colorObj.icon };
+      if (colorObj) {
+        colorObj.filterBy = indEvent.issueFocus;
+        updatedObj = { ...indEvent, icon: colorObj.icon };
+      } else {
+        colorObj = {
+          filterBy: indEvent.issueFocus,
+          icon: 'circle-stroked-15-grey',
+        };
+        colorMap.push(colorObj)
+        updatedObj = { ...indEvent,
+          icon: colorObj.icon,
+        };
+      }
       onColorMapUpdate(colorMap);
     }
     return updatedObj;
