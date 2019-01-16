@@ -16,12 +16,18 @@
     background-color:  $main-white;
     @include montserrat-bold-all-caps;
   }
+  .ant-card-head {
+    background-color: $brand-primary;
+  }
 
   .other {
     @include cell($other);
   }
   .general {
     @include cell($general);
+  }
+  .general-icon {
+     @include cell($general);
   }
   .town-hall {
     @include cell($town-hall);
