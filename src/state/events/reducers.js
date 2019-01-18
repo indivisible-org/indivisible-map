@@ -4,12 +4,12 @@ const initialState = {
     { icon: 'town-hall-icon', filterBy: 'Town Hall', color: '#4E937A' },
     { icon: 'general-icon', filterBy: 'General', color: '#6C9FC2' },
     { icon: 'other-icon', filterBy: 'Other', color: '#2D4C6B' },
-    { icon: 'gun-violence-icon', filterBy: 'Gun Violence', color: '#7B3491' },
     { icon: 'foreign-policy-icon', filterBy: 'Foreign Policy', color: '#FF9F2C' },
-    { icon: 'infrastructure-icon', filterBy: 'Mueller/Rosenstein', color: '#172636' },
-    { icon: 'electoral-icon', filterBy: '2018 Elections', color: '#652524' },
-    { icon: 'trump-tax-scam-icon', filterBy: 'Trump Tax Scam', color: '#365061' },
-    { icon: 'dream-act-icon', filterBy: 'DREAM Act', color: '#CA4948' },
+    { icon: 'trump-tax-scam-icon', filterBy: false, color: '#365061' },
+    { icon: 'gun-violence-icon', filterBy: false, color: '#7B3491' },
+    { icon: 'electoral-icon', filterBy: false, color: '#652524' },
+    { icon: 'dream-act-icon', filterBy: false, color: '#CA4948' },
+    { icon: 'infrastructure-icon', filterBy: false, color: '#172636' },
     { icon: 'dark-orange', filterBy: false, color: '#DB8011' },
     { icon: 'dark-purple', filterBy: false, color: '#3E1A49' },
     { icon: 'dark-green', filterBy: false, color: '#274A3D' },
@@ -17,7 +17,6 @@ const initialState = {
     { icon: 'general-icon', filterBy: false, color: '#6C9FC2' },
     { icon: 'general-icon', filterBy: false, color: '#6C9FC2' },
     { icon: 'general-icon', filterBy: false, color: '#6C9FC2' },
-
   ],
 };
 
