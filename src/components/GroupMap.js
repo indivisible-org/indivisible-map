@@ -134,6 +134,11 @@ class MapView extends React.Component {
                 <div><a href="mailto:${feature.properties.email}"><span class="email-icon"></span><span class="connect-text-popover">connect via email</span></a></div>
               ` : `
               `}
+            
+            ${feature.properties.url ? `
+                <div><a href=${feature.properties.url} target="_blank"><span class="link-icon"></span><span class="connect-text-popover">visit website</span></a></div>
+              ` : `
+              `}
             ${linkMapping[type]}
             `)
           .addTo(map);

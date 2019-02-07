@@ -17,6 +17,7 @@ class Point {
       startsAt: eventOrGroup.starts_at ? moment(eventOrGroup.starts_at).format('MMMM Do YYYY, h:mm a') : '',
       state: eventOrGroup.state || null,
       title: eventOrGroup.title || eventOrGroup.name,
+      url: eventOrGroup.url || null,
       venue: eventOrGroup.venue || '',
     };
   }

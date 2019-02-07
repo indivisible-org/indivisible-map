@@ -29,34 +29,36 @@
   .general-icon {
      @include cell($general);
   }
-  .town-hall {
+  .town-hall, .town-hall-icon {
     @include cell($town-hall);
   }
-  .dream-act {
+  .dream-act, .dream-act-icon {
     @include cell($dream-act);
   }
-  .mueller-rosenstein {
+  .mueller-rosenstein,
+  .mueller-rosenstein-icon, {
     @include cell($infrastructure);
   }
-  .trump-tax-scam {
+  .trump-tax-scam,
+  .trump-tax-scam-icon {
     @include cell($trump-tax-scam);
   }
-  .electoral-icon {
+  .electoral, .electoral-icon {
     @include cell($electoral);
   }
-  .gun-violence {
+  .gun-violence, .gun-violence-icon {
     @include cell($gun-violence);
   }
-  .foreign-policy {
+  .foreign-policy, .foreign-policy-icon {
     @include cell($foreign-policy);
   }
-  .dark-green {
+  .dark-green, .dark-green-icon {
     @include cell($dark-green);
   }
-  .dark-purple {
+  .dark-purple, .dark-purple-icon {
     @include cell($dark-purple);
   }
-  .dark-orange {
+  .dark-orange, .dark-orange-icon {
     @include cell($dark-orange);
   }
   .circle-stroked-15-grey {
