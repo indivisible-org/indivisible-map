@@ -87,8 +87,9 @@ const filtersReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         filters: uniqBy(payload.events, 'issueFocus')
-          .map(item => item.issueFocus)
-          .filter(item => item !== 'Town Hall'),
+          .map(item => item.issueFocus),
+        // turn back on to filter out town halls by default
+        // .filter(item => item !== 'Town Hall'),
       };
     default:
       return state;
