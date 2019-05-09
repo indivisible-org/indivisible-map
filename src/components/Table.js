@@ -9,7 +9,7 @@ class Table extends React.Component {
   constructor(props) {
     super(props);
     this.getColor = this.getColor.bind(this);
-    this.getIconName = this.getIconName.bind(this);    
+    this.getIconName = this.getIconName.bind(this);
   }
 
   getColor(issueFocus) {
@@ -36,6 +36,7 @@ class Table extends React.Component {
       refcode,
       shouldRender,
       type,
+      error,
       selectItem,
     } = this.props;
     if (!shouldRender) {
@@ -51,6 +52,14 @@ class Table extends React.Component {
           <p className="no-results">Looks like there are no events near you right now. You can create your own
             <a href="http://act.indivisible.org/event/local-actions/create/" target="_blank"> here.</a>
           </p>
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div id="events-list">
+          <p className="no-results">Sorry, something went wrong. {error}</p>
         </div>
       );
     }
@@ -81,6 +90,7 @@ class Table extends React.Component {
 
 Table.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.object),
+  error: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   refcode: PropTypes.string,
   selectItem: PropTypes.func,
@@ -90,6 +100,7 @@ Table.propTypes = {
 
 Table.defaultProps = {
   colorMap: [],
+  error: '',
   refcode: '',
   selectItem: () => {},
 };

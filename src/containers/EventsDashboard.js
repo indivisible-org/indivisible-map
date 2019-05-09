@@ -18,6 +18,7 @@ import {
 } from '../state/events/actions';
 
 import {
+  getError,
   getDistance,
   getLocation,
   getRefCode,
@@ -220,6 +221,7 @@ class EventsDashboard extends React.Component {
       resetSelections,
       searchType,
       filterBy,
+      error,
     } = this.props;
 
     if (this.state.init) {
@@ -244,6 +246,7 @@ class EventsDashboard extends React.Component {
           resetSelections={resetSelections}
           filterBy={filterBy}
           location={center}
+          error={error}
         />
         {this.renderMap()}
         <div className="footer" />
@@ -259,6 +262,7 @@ const mapStateToProps = state => ({
   colorMap: getColorMap(state),
   distance: getDistance(state),
   district: getDistrict(state),
+  error: getError(state),
   eventsByDistrict: getEventsByDistrict(state),
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
@@ -293,6 +297,7 @@ EventsDashboard.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   distance: PropTypes.number.isRequired,
   district: PropTypes.number,
+  error: PropTypes.string,
   eventsByDistrict: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   filterBy: PropTypes.string,
   filterValue: PropTypes.string,
@@ -319,6 +324,7 @@ EventsDashboard.propTypes = {
 EventsDashboard.defaultProps = {
   center: null,
   district: null,
+  error: '',
   filterBy: 'all',
   filterValue: [],
   refcode: '',

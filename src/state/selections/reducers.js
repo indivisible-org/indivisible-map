@@ -3,6 +3,7 @@ import { uniqBy } from 'lodash';
 const initialState = {
   distance: 50,
   district: NaN,
+  error: '',
   filterBy: 'all',
   filterValue: '',
   filters: 'init',
@@ -53,6 +54,7 @@ const filtersReducer = (state = initialState, { type, payload }) => {
     case 'SET_LAT_LNG':
       return {
         ...state,
+        error: initialState.error,
         location: payload,
       };
     case 'RESET_LAT_LNG':
@@ -90,6 +92,11 @@ const filtersReducer = (state = initialState, { type, payload }) => {
           .map(item => item.issueFocus),
         // turn back on to filter out town halls by default
         // .filter(item => item !== 'Town Hall'),
+      };
+    case 'SET_ERROR_MESSAGE':
+      return {
+        ...state,
+        error: payload,
       };
     default:
       return state;
