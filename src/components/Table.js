@@ -9,7 +9,7 @@ class Table extends React.Component {
   constructor(props) {
     super(props);
     this.getColor = this.getColor.bind(this);
-    this.getIconName = this.getIconName.bind(this);    
+    this.getIconName = this.getIconName.bind(this);
   }
 
   getColor(issueFocus) {
@@ -36,8 +36,18 @@ class Table extends React.Component {
       refcode,
       shouldRender,
       type,
+      error,
       selectItem,
     } = this.props;
+
+    if (error) {
+      return (
+        <div id="error-message">
+          <p className="no-results">Sorry, something went wrong. {error}</p>
+        </div>
+      );
+    }
+
     if (!shouldRender) {
       return (
         <div id="groups-list">
@@ -81,6 +91,7 @@ class Table extends React.Component {
 
 Table.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.object),
+  error: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   refcode: PropTypes.string,
   selectItem: PropTypes.func,
@@ -90,6 +101,7 @@ Table.propTypes = {
 
 Table.defaultProps = {
   colorMap: [],
+  error: '',
   refcode: '',
   selectItem: () => {},
 };

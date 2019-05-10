@@ -64,13 +64,22 @@ export const setInitialFilters = payload => ({
   type: 'SET_INITIAL_FILTERS',
 });
 
+export const setError = payload => ({
+  payload,
+  type: 'SET_ERROR_MESSAGE',
+});
+
 export const getLatLngFromZip = payload => (dispatch) => {
   if (!payload.query) {
     return dispatch(setLatLng({}));
   }
   return superagent.get(`${firebaseUrl}/zips/${payload.query}.json`)
     .then((res) => {
-      dispatch(setLatLng(res.body));
+      if (!res.body) {
+        dispatch(setError(`The ${payload.query} zip code isn't in our database.`));
+      } else {
+        dispatch(setLatLng(res.body));
+      }
     })
-    .catch();
+    .catch(setError('Zip code lookup failed.'));
 };
