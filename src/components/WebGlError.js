@@ -10,7 +10,7 @@ class WebGlError extends React.Component {
     const { mapType } = this.props;
     return (
       <Alert
-        message={`This map requires webGL to run and you do not currenlty have it enabled, but you can still search for ${mapType}s near you.`}
+        message={`This map requires webGL to run and you do not currently have it enabled, but you can still search for ${mapType}s near you.`}
         type="warning"
         closable
         showIcon
