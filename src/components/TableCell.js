@@ -78,7 +78,7 @@ class TableCell extends React.Component {
         className={`event-cell ${iconName} ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
         key={`${item.id}`}
         title={item.title}
-        extra={[<a className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
+        extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
       >
         {groupName}
         <ul>
@@ -126,8 +126,8 @@ class TableCell extends React.Component {
     }
     if (item.email) {
       iconsSocial.push(
-        <React.Fragment>
-          <li key={item.id} >
+        <React.Fragment key={item.id}>
+          <li>
             <a onClick={TableCell.getEmail} id={item.id}>
               <FontAwesomeIcon
                 icon={faEnvelope}
