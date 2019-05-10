@@ -13,6 +13,7 @@ import {
 import { startSetGroups, selectGroup } from '../state/groups/actions';
 
 import {
+  getError,
   getLocation,
   getDistance,
   getFilterBy,
@@ -91,6 +92,7 @@ class GroupsDashboard extends React.Component {
       allGroups,
       groups,
       center,
+      error,
       filterBy,
       resetSelections,
       selectItem,
@@ -100,7 +102,7 @@ class GroupsDashboard extends React.Component {
     }
 
     const containerClass = classNames({
-      'full-width': ((!center.LAT) && (filterBy === 'all')),
+      'full-width': ((!center.LAT) && (filterBy === 'all') && (!error)),
       'groups-container': true,
       'main-container': true,
     });
@@ -115,6 +117,7 @@ class GroupsDashboard extends React.Component {
           selectItem={selectItem}
           filterBy={filterBy}
           location={center}
+          error={error}
         />
         {this.renderMap()}
         <div className="footer" />
@@ -128,6 +131,7 @@ const mapStateToProps = state => ({
   center: getLocation(state),
   colorMap: getColorMap(state),
   distance: getDistance(state),
+  error: getError(state),
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
   groups: getVisbleGroups(state),
@@ -148,6 +152,7 @@ GroupsDashboard.propTypes = {
   center: PropTypes.shape({}).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   distance: PropTypes.number.isRequired,
+  error: PropTypes.string,
   filterBy: PropTypes.string.isRequired,
   filterValue: PropTypes.string.isRequired,
   getInitalGroups: PropTypes.func.isRequired,
@@ -161,6 +166,7 @@ GroupsDashboard.propTypes = {
 };
 
 GroupsDashboard.defaultProps = {
+  error: '',
   selectedGroup: null,
 };
 

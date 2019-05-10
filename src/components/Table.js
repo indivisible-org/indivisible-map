@@ -39,6 +39,15 @@ class Table extends React.Component {
       error,
       selectItem,
     } = this.props;
+
+    if (error) {
+      return (
+        <div id="error-message">
+          <p className="no-results">Sorry, something went wrong. {error}</p>
+        </div>
+      );
+    }
+
     if (!shouldRender) {
       return (
         <div id="groups-list">
@@ -52,14 +61,6 @@ class Table extends React.Component {
           <p className="no-results">Looks like there are no events near you right now. You can create your own
             <a href="http://act.indivisible.org/event/local-actions/create/" target="_blank"> here.</a>
           </p>
-        </div>
-      );
-    }
-
-    if (error) {
-      return (
-        <div id="events-list">
-          <p className="no-results">Sorry, something went wrong. {error}</p>
         </div>
       );
     }

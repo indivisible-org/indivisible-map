@@ -20,6 +20,7 @@ const filtersReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         district: initialState.district,
+        error: initialState.error,
         filterBy: initialState.filterBy,
         filterValue: initialState.filterValue,
         location: initialState.location,
@@ -60,6 +61,7 @@ const filtersReducer = (state = initialState, { type, payload }) => {
     case 'RESET_LAT_LNG':
       return {
         ...state,
+        error: initialState.error,
         location: {},
       };
     case 'SEARCH_BY_KEY_VALUE':
