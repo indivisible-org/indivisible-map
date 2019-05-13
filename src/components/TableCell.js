@@ -42,18 +42,16 @@ class TableCell extends React.Component {
   }
 
   static makeDisplayName(item) {
-    if (item.campaignNo === '19') {
-      if (item.actionGroupName &&
-        item.actionHostName &&
-        item.actionGroupName === item.actionHostName) {
-        return item.actionGroupName;
-      } else if (item.actionGroupName && item.actionHostName) {
-        return `${item.actionGroupName} and ${item.actionHostName}`;
-      } else if (item.actionGroupName) {
-        return item.actionGroupName;
-      } else if (item.actionHostName) {
-        return item.actionHostName;
-      }
+    if (item.actionGroupName &&
+      item.actionHostName &&
+      item.actionGroupName === item.actionHostName) {
+      return item.actionGroupName;
+    } else if (item.actionGroupName && item.actionHostName) {
+      return `${item.actionGroupName} and ${item.actionHostName}`;
+    } else if (item.actionGroupName) {
+      return item.actionGroupName;
+    } else if (item.actionHostName) {
+      return item.actionHostName;
     }
     return item.group_name;
   }
