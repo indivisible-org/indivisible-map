@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import Pram from 'pram';
 import { find } from 'lodash';
+import { MessageTarget } from '@aics/browsing-context-messaging';
 
 import selectionStateBranch from './state/selections';
 import AppRouter from './routers/AppRouter';
@@ -18,7 +19,6 @@ const history = createHistory();
 const pram = new Pram(history);
 
 const params = pram.getParams();
-console.log('params', params);
 if (params[UrlSearchParams.refCode]) {
   console.log('setting ref', params[UrlSearchParams.refCode]);
   store.dispatch(selectionStateBranch.actions.setRefCode(params[UrlSearchParams.refCode]));
@@ -35,6 +35,17 @@ if (params[UrlSearchParams.location]) {
     store.dispatch(selectionStateBranch.actions.setUsState(location));
   }
 }
+const messenger = new MessageTarget(((messageEvent) => {
+  console.log(messageEvent.data);
+}));
+
+pram.onChange((urlParams) => {
+  try {
+    messenger.postMessage(urlParams);
+  } catch (error) {
+    // swallow
+  }
+});
 
 const jsx = (
   <Provider store={store}>
