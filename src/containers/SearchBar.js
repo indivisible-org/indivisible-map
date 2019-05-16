@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { find, union } from 'lodash';
+import { union } from 'lodash';
 import { Radio } from 'antd';
-import states from '../data/states';
 import * as selectionActions from '../state/selections/actions';
 
 import { getDistance, getIssueFilters, getLocation, getSearchType } from '../state/selections/selectors';
@@ -19,13 +18,12 @@ require('style-loader!css-loader!antd/es/radio/style/index.css');
 /* eslint-enable */
 
 class SearchBar extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
     };
     this.onTextChange = this.onTextChange.bind(this);
-    this.searchHandler = this.searchHandler.bind(this);
+    this.onSearch = this.onSearch.bind(this);
     this.distanceHandler = this.distanceHandler.bind(this);
     this.switchSearchType = this.switchSearchType.bind(this);
     this.renderFilterBar = this.renderFilterBar.bind(this);
@@ -36,12 +34,13 @@ class SearchBar extends React.Component {
     this.props.setTextFilter(e.target.value);
   }
 
-  searchHandler(query) {
+  onSearch(query) {
     const {
       resetSelections,
       resetSearchByQueryString,
       searchType,
       searchHandler,
+      mapType,
     } = this.props;
 
     resetSearchByQueryString();
@@ -49,7 +48,7 @@ class SearchBar extends React.Component {
     if (!query) {
       return resetSelections();
     }
-    return searchHandler(query, searchType);
+    return searchHandler(query, searchType, mapType);
   }
 
   distanceHandler(value) {
@@ -123,7 +122,7 @@ class SearchBar extends React.Component {
       <div className="search-bar">
         <SearchInput
           mapType={mapType}
-          submitHandler={this.searchHandler}
+          submitHandler={this.onSearch}
           searchType={searchType}
         />
         {this.renderSwitch()}
@@ -157,7 +156,8 @@ const mapDispatchToProps = dispatch => ({
   searchByDistrict: district => dispatch(selectionActions.searchByDistrict(district)),
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
   searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
-  searchHandler: (query, searchType) => dispatch(selectionActions.searchHandler(query, searchType, 'group')),
+  searchHandler: (query, searchType, mapType) => (
+    dispatch(selectionActions.searchHandler(query, searchType, mapType))),
   setDistance: distance => dispatch(selectionActions.setDistance(distance)),
   setTextFilter: text => dispatch(selectionActions.setTextFilter(text)),
 });

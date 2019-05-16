@@ -57,23 +57,6 @@ class EventsDashboard extends React.Component {
       });
   }
 
-  searchHandler(query) {
-
-    const {
-      resetSelections,
-      resetSearchByQueryString,
-      searchType,
-      searchHandler,
-    } = this.props;
-
-    resetSearchByQueryString();
-
-    if (!query) {
-      return resetSelections();
-    }
-    return searchHandler(query, searchType);
-  }
-
   renderTotal(items) {
     const { district, filterValue } = this.props;
     if (district) {
@@ -235,11 +218,9 @@ EventsDashboard.propTypes = {
   issueFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   onColorMapUpdate: PropTypes.func.isRequired,
   refcode: PropTypes.string,
-  resetSearchByQueryString: PropTypes.func.isRequired,
   resetSelections: PropTypes.func.isRequired,
   searchByDistrict: PropTypes.func.isRequired,
   searchByQueryString: PropTypes.func.isRequired,
-  searchHandler: PropTypes.func.isRequired,
   searchType: PropTypes.string.isRequired,
   selectedUsState: PropTypes.string,
   setInitialFilters: PropTypes.func.isRequired,
