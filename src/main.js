@@ -23,7 +23,7 @@ if (params[UrlSearchParams.refCode]) {
   store.dispatch(selectionStateBranch.actions.setRefCode(params[UrlSearchParams.refCode]));
 }
 
-if (params[UrlSearchParams.refCode]) {
+if (params[UrlSearchParams.issueFilter]) {
   const issueFilters = params['issue-filter'].split(',');
   store.dispatch(selectionStateBranch.actions.setIssueTypeFilters(issueFilters));
 }
