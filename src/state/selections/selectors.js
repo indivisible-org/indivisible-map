@@ -2,7 +2,7 @@ export const getDistance = state => state.selections.distance;
 export const getLocation = state => state.selections.location;
 export const getFilterBy = state => state.selections.filterBy;
 export const getFilterValue = state => state.selections.filterValue;
-export const getFilters = state => state.selections.filters;
+export const getIssueFilters = state => state.selections.issueTypeFilters;
 export const getRefCode = state => state.selections.refcode;
 export const getSearchType = state => state.selections.searchType;
 export const getDistrict = state => state.selections.district;

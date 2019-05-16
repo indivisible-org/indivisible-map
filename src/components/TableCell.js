@@ -42,18 +42,16 @@ class TableCell extends React.Component {
   }
 
   static makeDisplayName(item) {
-    if (item.campaignNo === '19') {
-      if (item.actionGroupName &&
-        item.actionHostName &&
-        item.actionGroupName === item.actionHostName) {
-        return item.actionGroupName;
-      } else if (item.actionGroupName && item.actionHostName) {
-        return `${item.actionGroupName} and ${item.actionHostName}`;
-      } else if (item.actionGroupName) {
-        return item.actionGroupName;
-      } else if (item.actionHostName) {
-        return item.actionHostName;
-      }
+    if (item.actionGroupName &&
+      item.actionHostName &&
+      item.actionGroupName === item.actionHostName) {
+      return item.actionGroupName;
+    } else if (item.actionGroupName && item.actionHostName) {
+      return `${item.actionGroupName} and ${item.actionHostName}`;
+    } else if (item.actionGroupName) {
+      return item.actionGroupName;
+    } else if (item.actionHostName) {
+      return item.actionHostName;
     }
     return item.group_name;
   }
@@ -78,7 +76,7 @@ class TableCell extends React.Component {
         className={`event-cell ${iconName} ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
         key={`${item.id}`}
         title={item.title}
-        extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode}`}>rsvp</a>]}
+        extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}?refcode=${refcode}`}>rsvp</a>]}
       >
         {groupName}
         <ul>
