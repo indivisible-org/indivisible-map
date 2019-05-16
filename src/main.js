@@ -18,13 +18,14 @@ const history = createHistory();
 const pram = new Pram(history);
 
 const params = pram.getParams();
-
+console.log('params', params);
 if (params[UrlSearchParams.refCode]) {
+  console.log('setting ref', params[UrlSearchParams.refCode]);
   store.dispatch(selectionStateBranch.actions.setRefCode(params[UrlSearchParams.refCode]));
 }
 
 if (params[UrlSearchParams.issueFilter]) {
-  const issueFilters = params['issue-filter'].split(',');
+  const issueFilters = params[UrlSearchParams.issueFilter].split(',');
   store.dispatch(selectionStateBranch.actions.setIssueTypeFilters(issueFilters));
 }
 

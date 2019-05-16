@@ -76,7 +76,7 @@ class TableCell extends React.Component {
         className={`event-cell ${iconName} ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
         key={`${item.id}`}
         title={item.title}
-        extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}?source=${refcode}`}>rsvp</a>]}
+        extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode ? `source=${refcode}` : ''}`}>rsvp</a>]}
       >
         {groupName}
         <ul>
