@@ -57,18 +57,13 @@ class EventsDashboard extends React.Component {
       });
   }
 
-  searchHandler(value) {
-    const {
-      query,
-    } = value;
+  searchHandler(query) {
+
     const {
       resetSelections,
-      resetSearchByZip,
       resetSearchByQueryString,
       searchType,
-      searchByZip,
-      searchByQueryString,
-      searchByDistrict,
+      searchHandler,
     } = this.props;
 
     resetSearchByQueryString();
@@ -76,35 +71,7 @@ class EventsDashboard extends React.Component {
     if (!query) {
       return resetSelections();
     }
-    if (searchType === 'proximity') {
-      if (SearchBar.isZipCode(query)) {
-        return searchByZip(value);
-      }
-      if (SearchBar.isState(query)) {
-        resetSearchByZip();
-        return searchByQueryString({
-          filterBy: 'state',
-          filterValue: SearchBar.isState(query).USPS,
-        });
-      }
-      const filterBy = 'title';
-      return searchByQueryString({
-        filterBy,
-        filterValue: query,
-      });
-    } else if (searchType === 'district') {
-      const stateMatch = query.match(/([A-Z]|[a-z]){2}/g)[0];
-      const districtMatch = query.match(/([0-9]{2})|([0-9]{1})/g)[0];
-      if (stateMatch.length > 0 && districtMatch.length > 0) {
-        const state = query.match(/([A-Z]|[a-z]){2}/g)[0];
-        const district = Number(query.match(/([0-9]{2})|([0-9]{1})/g)[0]);
-        return searchByDistrict({
-          district,
-          state,
-        });
-      }
-    }
-    return resetSelections();
+    return searchHandler(query, searchType);
   }
 
   renderTotal(items) {
@@ -245,6 +212,7 @@ const mapDispatchToProps = dispatch => ({
   searchByDistrict: val => dispatch(selectionActions.searchByDistrict(val)),
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
   searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
+  searchHandler: (query, searchType) => dispatch(selectionActions.searchHandler(query, searchType, 'event')),
   setFilters: filters => dispatch(selectionActions.setIssueTypeFilters(filters)),
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
@@ -268,17 +236,14 @@ EventsDashboard.propTypes = {
   onColorMapUpdate: PropTypes.func.isRequired,
   refcode: PropTypes.string,
   resetSearchByQueryString: PropTypes.func.isRequired,
-  resetSearchByZip: PropTypes.func.isRequired,
   resetSelections: PropTypes.func.isRequired,
   searchByDistrict: PropTypes.func.isRequired,
   searchByQueryString: PropTypes.func.isRequired,
-  searchByZip: PropTypes.func.isRequired,
+  searchHandler: PropTypes.func.isRequired,
   searchType: PropTypes.string.isRequired,
   selectedUsState: PropTypes.string,
   setInitialFilters: PropTypes.func.isRequired,
   setLatLng: PropTypes.func.isRequired,
-  setRefCode: PropTypes.func.isRequired,
-  setUsState: PropTypes.func.isRequired,
   visibleEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 

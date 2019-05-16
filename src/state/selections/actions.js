@@ -1,6 +1,10 @@
 import superagent from 'superagent';
 
 import { firebaseUrl } from '../constants';
+import {
+  isZipCode,
+  isState,
+} from '../../utils/searchParsing';
 
 export const setLatLng = payload => ({
   payload: payload || {},
@@ -82,4 +86,36 @@ export const getLatLngFromZip = payload => (dispatch) => {
       }
     })
     .catch(setError('Zip code lookup failed.'));
+};
+
+export const searchHandler = (query, searchType, mapType) => (dispatch) => {
+  if (searchType === 'proximity') {
+    if (isZipCode(query)) {
+      return dispatch(getLatLngFromZip({ query }));
+    }
+    if (isState(query)) {
+      dispatch(resetSearchByZip());
+      return dispatch(searchByQueryString({
+        filterBy: 'state',
+        filterValue: isState(query).USPS,
+      }));
+    }
+    const filterBy = mapType === 'group' ? 'name' : 'title';
+    return dispatch(searchByQueryString({
+      filterBy,
+      filterValue: query,
+    }));
+  } else if (searchType === 'district') {
+    const stateMatch = query.match(/([A-Z]|[a-z]){2}/g)[0];
+    const districtMatch = query.match(/([0-9]{2})|([0-9]{1})/g)[0];
+    if (stateMatch.length > 0 && districtMatch.length > 0) {
+      const state = query.match(/([A-Z]|[a-z]){2}/g)[0];
+      const district = Number(query.match(/([0-9]{2})|([0-9]{1})/g)[0]);
+      return dispatch(searchByDistrict({
+        district,
+        state,
+      }));
+    }
+  }
+  return dispatch(resetSelections());
 };

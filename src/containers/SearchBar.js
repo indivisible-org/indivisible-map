@@ -19,16 +19,6 @@ require('style-loader!css-loader!antd/es/radio/style/index.css');
 /* eslint-enable */
 
 class SearchBar extends React.Component {
-  static isZipCode(query) {
-    const zipcodeRegEx = /^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z] \d[a-zA-Z]\d)$/g;
-    return query.match(zipcodeRegEx);
-  }
-
-  static isState(query) {
-    return find(states, state =>
-      state.USPS.toLowerCase().trim() === query.toLowerCase().trim()
-    || state.Name.toLowerCase().trim() === query.toLowerCase().trim());
-  }
 
   constructor(props) {
     super(props);
@@ -42,38 +32,16 @@ class SearchBar extends React.Component {
     this.renderSwitch = this.renderSwitch.bind(this);
   }
 
-  componentWillMount() {
-    const params = ['location'];
-    const queries = params.reduce((acc, cur) => {
-      const query = document.location.search.match(new RegExp(`[?&]${cur}[^&]*`));
-      if (query && query[0].split('=').length > 1) {
-        acc[cur] = query[0].split('=')[1];
-      }
-      return acc;
-    }, {});
-
-    // if (queries.location) {
-    //   return this.searchHandler({
-    //     query: queries.location,
-    //   });
-    // }
-  }
-
   onTextChange(e) {
     this.props.setTextFilter(e.target.value);
   }
 
-  searchHandler(value) {
-    const { query } = value;
+  searchHandler(query) {
     const {
-      mapType,
       resetSelections,
-      resetSearchByZip,
       resetSearchByQueryString,
       searchType,
-      searchByZip,
-      searchByQueryString,
-      searchByDistrict,
+      searchHandler,
     } = this.props;
 
     resetSearchByQueryString();
@@ -81,29 +49,7 @@ class SearchBar extends React.Component {
     if (!query) {
       return resetSelections();
     }
-    if (searchType === 'proximity') {
-      if (SearchBar.isZipCode(query)) {
-        return searchByZip(value);
-      }
-      if (SearchBar.isState(query)) {
-        resetSearchByZip();
-        return searchByQueryString({ filterBy: 'state', filterValue: SearchBar.isState(query).USPS });
-      }
-      const filterBy = mapType === 'group' ? 'name' : 'title';
-      return searchByQueryString({
-        filterBy,
-        filterValue: query,
-      });
-    } else if (searchType === 'district') {
-      const stateMatch = query.match(/([A-Z]|[a-z]){2}/g)[0];
-      const districtMatch = query.match(/([0-9]{2})|([0-9]{1})/g)[0];
-      if (stateMatch.length > 0 && districtMatch.length > 0) {
-        const state = query.match(/([A-Z]|[a-z]){2}/g)[0];
-        const district = Number(query.match(/([0-9]{2})|([0-9]{1})/g)[0]);
-        return searchByDistrict({ district, state });
-      }
-    }
-    return resetSelections();
+    return searchHandler(query, searchType);
   }
 
   distanceHandler(value) {
@@ -211,6 +157,7 @@ const mapDispatchToProps = dispatch => ({
   searchByDistrict: district => dispatch(selectionActions.searchByDistrict(district)),
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
   searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
+  searchHandler: (query, searchType) => dispatch(selectionActions.searchHandler(query, searchType, 'group')),
   setDistance: distance => dispatch(selectionActions.setDistance(distance)),
   setTextFilter: text => dispatch(selectionActions.setTextFilter(text)),
 });
@@ -223,11 +170,8 @@ SearchBar.propTypes = {
   mapType: PropTypes.string.isRequired,
   onFilterChanged: PropTypes.func.isRequired,
   resetSearchByQueryString: PropTypes.func.isRequired,
-  resetSearchByZip: PropTypes.func.isRequired,
   resetSelections: PropTypes.func.isRequired,
-  searchByDistrict: PropTypes.func.isRequired,
-  searchByQueryString: PropTypes.func.isRequired,
-  searchByZip: PropTypes.func.isRequired,
+  searchHandler: PropTypes.func.isRequired,
   searchType: PropTypes.string,
   selectedFilters: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
