@@ -6,7 +6,7 @@ const initialState = {
   error: '',
   filterBy: 'all',
   filterValue: '',
-  filters: 'init',
+  issueTypeFilters: 'init',
   location: {},
   refcode: '',
   searchType: 'proximity',
@@ -76,10 +76,10 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         filterBy: initialState.filterBy,
         filterValue: initialState.filterValue,
       };
-    case 'SET_FILTERS':
+    case 'SET_ISSUE_TYPE_FILTERS':
       return {
         ...state,
-        filters: payload,
+        issueTypeFilters: payload,
       };
     case 'SET_SEARCH_TYPE':
       return {
@@ -90,7 +90,7 @@ const filtersReducer = (state = initialState, { type, payload }) => {
     case 'SET_INITIAL_FILTERS':
       return {
         ...state,
-        filters: uniqBy(payload.events, 'issueFocus')
+        issueTypeFilters: uniqBy(payload.events, 'issueFocus')
           .map(item => item.issueFocus),
         // turn back on to filter out town halls by default
         // .filter(item => item !== 'Town Hall'),

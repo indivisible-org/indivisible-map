@@ -7,7 +7,7 @@ import {
   getLocation,
   getFilterBy,
   getFilterValue,
-  getFilters,
+  getIssueFilters,
   getDistrict,
   getSelectedState,
 } from '../selections/selectors';
@@ -17,7 +17,7 @@ export const getColorMap = state => state.events.filterColors;
 export const getCurrentIssueFocuses = createSelector([getEvents], events => uniqBy(events, 'issueFocus').map(item => item.issueFocus));
 
 const getEventsFilteredByKeywordArray = createSelector(
-  [getEvents, getFilters],
+  [getEvents, getIssueFilters],
   (allEvents, filterArray) => {
     if (filterArray === 'init') {
       return allEvents;

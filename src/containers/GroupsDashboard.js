@@ -37,16 +37,6 @@ class GroupsDashboard extends React.Component {
     };
   }
 
-  componentWillMount() {
-    const {
-      setRefCode,
-    } = this.props;
-
-    if (document.location.search) {
-      setRefCode(document.location.search);
-    }
-  }
-
   componentDidMount() {
     const {
       getInitalGroups,
@@ -162,7 +152,6 @@ GroupsDashboard.propTypes = {
   selectItem: PropTypes.func.isRequired,
   selectedGroup: PropTypes.shape({}),
   setLatLng: PropTypes.func.isRequired,
-  setRefCode: PropTypes.func.isRequired,
 };
 
 GroupsDashboard.defaultProps = {

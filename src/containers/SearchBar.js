@@ -6,7 +6,7 @@ import { Radio } from 'antd';
 import states from '../data/states';
 import * as selectionActions from '../state/selections/actions';
 
-import { getDistance, getFilters, getLocation, getSearchType } from '../state/selections/selectors';
+import { getDistance, getIssueFilters, getLocation, getSearchType } from '../state/selections/selectors';
 import { getCurrentIssueFocuses, getColorMap } from '../state/events/selectors';
 
 import SearchInput from '../components/SearchInput';
@@ -198,13 +198,13 @@ const mapStateToProps = state => ({
   issues: getCurrentIssueFocuses(state),
   location: getLocation(state),
   searchType: getSearchType(state),
-  selectedFilters: getFilters(state),
+  selectedFilters: getIssueFilters(state),
   userSelections: state.selections,
 });
 
 const mapDispatchToProps = dispatch => ({
   changeSearchType: searchType => dispatch(selectionActions.changeSearchType(searchType)),
-  onFilterChanged: filters => dispatch(selectionActions.setFilters(filters)),
+  onFilterChanged: filters => dispatch(selectionActions.setIssueTypeFilters(filters)),
   resetSearchByQueryString: () => dispatch(selectionActions.resetSearchByQueryString()),
   resetSearchByZip: () => dispatch(selectionActions.resetSearchByZip()),
   resetSelections: () => dispatch(selectionActions.resetSelections()),

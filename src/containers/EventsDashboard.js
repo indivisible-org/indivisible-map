@@ -2,9 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { find } from 'lodash';
 
-import states from '../data/states';
+
 import {
   getVisbleEvents,
   getColorMap,
@@ -26,7 +25,7 @@ import {
   getFilterValue,
   getSearchType,
   getDistrict,
-  getFilters,
+  getIssueFilters,
   getSelectedState,
 } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
@@ -42,57 +41,19 @@ class EventsDashboard extends React.Component {
     super(props);
     this.renderTotal = this.renderTotal.bind(this);
     this.renderMap = this.renderMap.bind(this);
-
-    this.state = {
-      init: true,
-    };
-  }
-
-  componentWillMount() {
-    const {
-      setRefCode,
-      setUsState,
-    } = this.props;
-
-    if (document.location.search) {
-      setRefCode(document.location.search);
-    }
-    // const query = document.location.search.match(new RegExp('([?&])issue-filter[^&]*'));
-
-    const params = ['location', 'issue-filter'];
-    const queries = params.reduce((acc, cur) => {
-      const query = document.location.search.match(new RegExp(`[?&]${cur}[^&]*`));
-      if (query && query[0].split('=').length > 1) {
-        acc[cur] = query[0].split('=')[1];
-      }
-      return acc;
-    }, {});
-    if (queries['issue-filter']) {
-      this.setState({ issueFilter: decodeURI(queries['issue-filter']) });
-    }
-    if (queries.location) {
-      if (find(states, ele => ele.USPS === queries.location)) {
-        setUsState(queries.location);
-      }
-      return this.searchHandler({
-        query: queries.location,
-      });
-    }
   }
 
   componentDidMount() {
     const {
       getInitialEvents,
+      issueFilters,
+      setInitialFilters,
     } = this.props;
     getInitialEvents()
       .then((returned) => {
-        if (this.state.issueFilter) {
-          this.props.setFilters(this.state.issueFilter);
-          this.setState({ issueFilter: null });
-        } else {
-          this.props.setInitialFilters(returned);
+        if (issueFilters === 'init') {
+          setInitialFilters(returned);
         }
-        this.setState({ init: false });
       });
   }
 
@@ -176,7 +137,6 @@ class EventsDashboard extends React.Component {
       searchByQueryString,
       onColorMapUpdate,
     } = this.props;
-
     const searchTypeMapMap = {
       district: filteredEvents,
       proximity: visibleEvents,
@@ -224,9 +184,10 @@ class EventsDashboard extends React.Component {
       error,
     } = this.props;
 
-    if (this.state.init) {
+    if (!allEvents.length) {
       return null;
     }
+
     const searchTypeMapSideBar = {
       district: eventsByDistrict,
       proximity: visibleEvents,
@@ -267,7 +228,7 @@ const mapStateToProps = state => ({
   filterBy: getFilterBy(state),
   filterValue: getFilterValue(state),
   filteredEvents: getFilteredEvents(state),
-  issueFilters: getFilters(state),
+  issueFilters: getIssueFilters(state),
   refcode: getRefCode(state),
   searchType: getSearchType(state),
   selectedUsState: getSelectedState(state),
@@ -284,7 +245,7 @@ const mapDispatchToProps = dispatch => ({
   searchByDistrict: val => dispatch(selectionActions.searchByDistrict(val)),
   searchByQueryString: val => dispatch(selectionActions.searchByQueryString(val)),
   searchByZip: zipcode => dispatch(selectionActions.getLatLngFromZip(zipcode)),
-  setFilters: filters => dispatch(selectionActions.setFilters(filters)),
+  setFilters: filters => dispatch(selectionActions.setIssueTypeFilters(filters)),
   setInitialFilters: events => dispatch(selectionActions.setInitialFilters(events)),
   setLatLng: val => dispatch(selectionActions.setLatLng(val)),
   setRefCode: code => dispatch(selectionActions.setRefCode(code)),
@@ -303,6 +264,7 @@ EventsDashboard.propTypes = {
   filterValue: PropTypes.string,
   filteredEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   getInitialEvents: PropTypes.func.isRequired,
+  issueFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   onColorMapUpdate: PropTypes.func.isRequired,
   refcode: PropTypes.string,
   resetSearchByQueryString: PropTypes.func.isRequired,
@@ -313,7 +275,6 @@ EventsDashboard.propTypes = {
   searchByZip: PropTypes.func.isRequired,
   searchType: PropTypes.string.isRequired,
   selectedUsState: PropTypes.string,
-  setFilters: PropTypes.func.isRequired,
   setInitialFilters: PropTypes.func.isRequired,
   setLatLng: PropTypes.func.isRequired,
   setRefCode: PropTypes.func.isRequired,
