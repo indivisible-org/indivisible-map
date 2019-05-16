@@ -1,7 +1,7 @@
 export const UrlSearchParams = {
     issueFilter: 'issue-filter',
     location: 'location',
-    refCode: 'refcode',
+    refCode: 'source',
 };
 
 export class UrlState {

@@ -76,7 +76,7 @@ class TableCell extends React.Component {
         className={`event-cell ${iconName} ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
         key={`${item.id}`}
         title={item.title}
-        extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}?refcode=${refcode}`}>rsvp</a>]}
+        extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}?source=${refcode}`}>rsvp</a>]}
       >
         {groupName}
         <ul>
@@ -139,13 +139,12 @@ class TableCell extends React.Component {
         </React.Fragment>);
     }
     if (item.url) {
-      iconsSocial.push(
-        <li key={item.url}>
-          <a href={item.url} target="_blank">
-            <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
-            <span className="connect-text">visit website</span>
-          </a>
-        </li>)
+      iconsSocial.push(<li key={item.url}>
+                          <a href={item.url} target="_blank">
+                            <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
+                            <span className="connect-text">visit website</span>
+                          </a>
+                        </li>);
     }
     return (
       <div onMouseEnter={() => selectItem(item)} onMouseLeave={() => selectItem(null)}>
@@ -180,7 +179,6 @@ class TableCell extends React.Component {
 }
 
 TableCell.propTypes = {
-  color: PropTypes.string,
   iconName: PropTypes.string,
   item: PropTypes.shape({}).isRequired,
   refcode: PropTypes.string,
@@ -189,7 +187,6 @@ TableCell.propTypes = {
 };
 
 TableCell.defaultProps = {
-  color: '',
   iconName: '',
   refcode: '',
   selectItem: () => {},
