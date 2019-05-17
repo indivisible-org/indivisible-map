@@ -209,7 +209,7 @@ class MapView extends React.Component {
         const feature = features[0];
         const { properties } = feature;
         const linkMapping = {
-          events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
+          events: `<a target="_blank" href=${properties.rsvpHref}${refcode ? `?source=${refcode}` : ''}>rsvp</a>`,
           groups: '',
         };
         this.setState({ popoverColor: `popover-${feature.properties.icon}` });

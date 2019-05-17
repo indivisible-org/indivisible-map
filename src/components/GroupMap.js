@@ -111,11 +111,7 @@ class MapView extends React.Component {
 
       if (features.length) {
         const feature = features[0];
-        const { properties } = feature;
-        const linkMapping = {
-          events: `<a target="_blank" href=${properties.rsvpHref}${refcode}>rsvp</a>`,
-          groups: '',
-        };
+
         return popup.setLngLat(feature.geometry.coordinates)
           .setHTML(`
             <h4>${feature.properties.title}</h4>
@@ -139,7 +135,6 @@ class MapView extends React.Component {
                 <div><a href=${feature.properties.url} target="_blank"><span class="link-icon"></span><span class="connect-text-popover">visit website</span></a></div>
               ` : `
               `}
-            ${linkMapping[type]}
             `)
           .addTo(map);
       }
