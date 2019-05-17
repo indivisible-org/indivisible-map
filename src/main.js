@@ -10,7 +10,7 @@ import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 
 import './style/app.scss';
-import { UrlSearchParams } from './utils/urlParam';
+import { urlSearchParams } from './utils/urlParam';
 import states from './data/states';
 
 const store = configureStore();
@@ -19,24 +19,28 @@ const pram = new Pram(history);
 
 const params = pram.getParams();
 console.log('params', params);
-if (params[UrlSearchParams.refCode]) {
-  console.log('setting ref', params[UrlSearchParams.refCode]);
-  store.dispatch(selectionStateBranch.actions.setRefCode(params[UrlSearchParams.refCode]));
+if (params[urlSearchParams.refCode]) {
+  store.dispatch(selectionStateBranch.actions.setRefCode(params[urlSearchParams.refCode]));
 }
 
-if (params[UrlSearchParams.issueFilter]) {
-  let issueFilters = params[UrlSearchParams.issueFilter];
+if (params[urlSearchParams.issueFilter]) {
+  let issueFilters = params[urlSearchParams.issueFilter];
   if (!isArray(issueFilters)) {
     issueFilters = issueFilters.split(',');
   }
   store.dispatch(selectionStateBranch.actions.setIssueTypeFilters(issueFilters));
 }
 
-if (params[UrlSearchParams.location]) {
-  const location = params[UrlSearchParams.location];
+if (params[urlSearchParams.location]) {
+  const location = params[urlSearchParams.location];
   if (find(states, ele => ele.USPS === location)) {
     store.dispatch(selectionStateBranch.actions.setUsState(location));
   }
+}
+
+if (params[urlSearchParams.sParam]) {
+  const sParam = params[urlSearchParams.sParam];
+  store.dispatch(selectionStateBranch.actions.setSParam(sParam));
 }
 
 const jsx = (

@@ -1,9 +1,9 @@
-export const UrlSearchParams = {
-    issueFilter: 'issue-filter',
-    location: 'location',
-    refCode: 'source',
+export const urlSearchParams = {
+  issueFilter: 'issue-filter',
+  location: 'location',
+  refCode: 'source',
+  sParam: 's',
 };
 
 export class UrlState {
-
 }

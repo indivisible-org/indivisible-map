@@ -30,6 +30,11 @@ const filtersReducer = (state = initialState, { type, payload }) => {
         ...state,
         refcode: payload,
       };
+    case 'SET_S_PARAM':
+      return {
+        ...state,
+        sParam: payload,
+      };
     case 'SET_US_STATE':
       return {
         ...state,

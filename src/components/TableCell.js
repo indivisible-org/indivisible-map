@@ -66,7 +66,7 @@ class TableCell extends React.Component {
     const {
       iconName,
       item,
-      refcode,
+      urlParams,
     } = this.props;
     const displayName = TableCell.makeDisplayName(item);
     const groupName = displayName ? (<h4 className="event-host semi-bold">Hosted by {displayName}</h4>) : '';
@@ -76,7 +76,7 @@ class TableCell extends React.Component {
         className={`event-cell ${iconName} ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
         key={`${item.id}`}
         title={item.title}
-        extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}${refcode ? `?source=${refcode}` : ''}`}>rsvp</a>]}
+        extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}?${urlParams}`}>rsvp</a>]}
       >
         {groupName}
         <ul>
@@ -181,15 +181,15 @@ class TableCell extends React.Component {
 TableCell.propTypes = {
   iconName: PropTypes.string,
   item: PropTypes.shape({}).isRequired,
-  refcode: PropTypes.string,
   selectItem: PropTypes.func,
   type: PropTypes.string.isRequired,
+  urlParams: PropTypes.string,
 };
 
 TableCell.defaultProps = {
   iconName: '',
-  refcode: '',
   selectItem: () => {},
+  urlParams: '',
 };
 
 export default TableCell;

@@ -20,13 +20,13 @@ import {
   getError,
   getDistance,
   getLocation,
-  getRefCode,
   getFilterBy,
   getFilterValue,
   getSearchType,
   getDistrict,
   getIssueFilters,
   getSelectedState,
+  getRsvpParams,
 } from '../state/selections/selectors';
 import * as selectionActions from '../state/selections/actions';
 
@@ -75,7 +75,7 @@ class EventsDashboard extends React.Component {
       visibleEvents,
       center,
       colorMap,
-      refcode,
+      urlParams,
       setLatLng,
       resetSelections,
       selectedUsState,
@@ -112,7 +112,7 @@ class EventsDashboard extends React.Component {
       filterByValue={{ [filterBy]: [filterValue] }}
       resetSelections={resetSelections}
       searchByDistrict={searchByDistrict}
-      refcode={refcode}
+      urlParams={urlParams}
       setLatLng={setLatLng}
       distance={distance}
       searchType={searchType}
@@ -127,7 +127,7 @@ class EventsDashboard extends React.Component {
       visibleEvents,
       eventsByDistrict,
       colorMap,
-      refcode,
+      urlParams,
       resetSelections,
       searchType,
       filterBy,
@@ -152,7 +152,7 @@ class EventsDashboard extends React.Component {
           colorMap={colorMap}
           items={searchTypeMapSideBar[searchType]}
           allItems={allEvents}
-          refcode={refcode}
+          urlParams={urlParams}
           type="events"
           resetSelections={resetSelections}
           filterBy={filterBy}
@@ -179,9 +179,9 @@ const mapStateToProps = state => ({
   filterValue: getFilterValue(state),
   filteredEvents: getFilteredEvents(state),
   issueFilters: getIssueFilters(state),
-  refcode: getRefCode(state),
   searchType: getSearchType(state),
   selectedUsState: getSelectedState(state),
+  urlParams: getRsvpParams(state),
   visibleEvents: getVisbleEvents(state),
 });
 
@@ -217,7 +217,6 @@ EventsDashboard.propTypes = {
   getInitialEvents: PropTypes.func.isRequired,
   issueFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   onColorMapUpdate: PropTypes.func.isRequired,
-  refcode: PropTypes.string,
   resetSelections: PropTypes.func.isRequired,
   searchByDistrict: PropTypes.func.isRequired,
   searchByQueryString: PropTypes.func.isRequired,
@@ -225,6 +224,7 @@ EventsDashboard.propTypes = {
   selectedUsState: PropTypes.string,
   setInitialFilters: PropTypes.func.isRequired,
   setLatLng: PropTypes.func.isRequired,
+  urlParams: PropTypes.string,
   visibleEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
@@ -234,8 +234,8 @@ EventsDashboard.defaultProps = {
   error: '',
   filterBy: 'all',
   filterValue: [],
-  refcode: '',
   selectedUsState: null,
+  urlParams: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventsDashboard);

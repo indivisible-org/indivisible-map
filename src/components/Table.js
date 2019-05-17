@@ -33,7 +33,7 @@ class Table extends React.Component {
   render() {
     const {
       items,
-      refcode,
+      urlParams,
       shouldRender,
       type,
       error,
@@ -75,7 +75,7 @@ class Table extends React.Component {
               <TableCell
                 key={`${item.id}-cell`}
                 item={item}
-                refcode={refcode}
+                urlParams={urlParams}
                 type={type}
                 color={this.getColor(item.issueFocus)}
                 iconName={this.getIconName(item.issueFocus)}
@@ -92,17 +92,17 @@ Table.propTypes = {
   colorMap: PropTypes.arrayOf(PropTypes.object),
   error: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  refcode: PropTypes.string,
   selectItem: PropTypes.func,
   shouldRender: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
+  urlParams: PropTypes.string,
 };
 
 Table.defaultProps = {
   colorMap: [],
   error: '',
-  refcode: '',
   selectItem: () => {},
+  urlParams: '',
 };
 
 export default Table;

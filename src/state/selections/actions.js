@@ -34,6 +34,11 @@ export const setRefCode = (payload = '') => ({
   type: 'SET_REFCODE',
 });
 
+export const setSParam = (payload = '') => ({
+  payload,
+  type: 'SET_S_PARAM',
+});
+
 export const setTextFilter = (payload = '') => ({
   payload,
   type: 'SET_TEXT_FILTER',

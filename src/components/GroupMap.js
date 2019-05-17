@@ -95,10 +95,7 @@ class MapView extends React.Component {
 
   addPopups(layer) {
     const { map } = this;
-    const {
-      type,
-      refcode,
-    } = this.props;
+
     const popup = new mapboxgl.Popup({
       closeButton: true,
       closeOnClick: true,
@@ -298,7 +295,7 @@ class MapView extends React.Component {
       resetSelections,
       searchByDistrict,
       searchByQueryString,
-      refcode,
+      urlParams,
       setLatLng,
       distance,
       searchType,
@@ -323,7 +320,7 @@ class MapView extends React.Component {
               filterByValue={filterByValue}
               resetSelections={resetSelections}
               searchByDistrict={searchByDistrict}
-              refcode={refcode}
+              urlParams={urlParams}
               setLatLng={setLatLng}
               distance={distance}
               searchType={searchType}
@@ -341,7 +338,7 @@ class MapView extends React.Component {
               filterByValue={filterByValue}
               resetSelections={resetSelections}
               searchByDistrict={searchByDistrict}
-              refcode={refcode}
+              urlParams={urlParams}
               setLatLng={setLatLng}
               distance={distance}
               searchType={searchType}
@@ -363,7 +360,6 @@ MapView.propTypes = {
   distance: PropTypes.number,
   district: PropTypes.string,
   filterByValue: PropTypes.shape({}),
-  refcode: PropTypes.string,
   resetSelections: PropTypes.func.isRequired,
   searchByDistrict: PropTypes.func,
   searchByQueryString: PropTypes.func.isRequired,
@@ -371,6 +367,7 @@ MapView.propTypes = {
   selectedItem: PropTypes.shape({}),
   setLatLng: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
+  urlParams: PropTypes.string,
 };
 
 MapView.defaultProps = {
@@ -378,10 +375,10 @@ MapView.defaultProps = {
   distance: 50,
   district: '',
   filterByValue: {},
-  refcode: '',
   searchByDistrict: noop,
   searchType: 'proximity',
   selectedItem: null,
+  urlParams: '',
 };
 
 export default MapView;

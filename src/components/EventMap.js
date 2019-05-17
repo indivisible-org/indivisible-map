@@ -193,7 +193,7 @@ class MapView extends React.Component {
     const { map } = this;
     const {
       type,
-      refcode,
+      urlParams,
     } = this.props;
     const popup = new mapboxgl.Popup({
       closeButton: true,
@@ -209,7 +209,7 @@ class MapView extends React.Component {
         const feature = features[0];
         const { properties } = feature;
         const linkMapping = {
-          events: `<a target="_blank" href=${properties.rsvpHref}${refcode ? `?source=${refcode}` : ''}>rsvp</a>`,
+          events: `<a target="_blank" href=${properties.rsvpHref}?${urlParams}>rsvp</a>`,
           groups: '',
         };
         this.setState({ popoverColor: `popover-${feature.properties.icon}` });
@@ -463,7 +463,7 @@ class MapView extends React.Component {
       filterByValue,
       resetSelections,
       searchByDistrict,
-      refcode,
+      urlParams,
       setLatLng,
       distance,
       searchType,
@@ -486,7 +486,7 @@ class MapView extends React.Component {
               filterByValue={filterByValue}
               resetSelections={resetSelections}
               searchByDistrict={searchByDistrict}
-              refcode={refcode}
+              urlParams={urlParams}
               setLatLng={setLatLng}
               distance={distance}
               searchType={searchType}
@@ -505,7 +505,7 @@ class MapView extends React.Component {
               filterByValue={filterByValue}
               resetSelections={resetSelections}
               searchByDistrict={searchByDistrict}
-              refcode={refcode}
+              urlParams={urlParams}
               setLatLng={setLatLng}
               distance={distance}
               searchType={searchType}
@@ -531,7 +531,6 @@ MapView.propTypes = {
   filterByValue: PropTypes.shape({}),
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onColorMapUpdate: PropTypes.func.isRequired,
-  refcode: PropTypes.string,
   resetSelections: PropTypes.func.isRequired,
   searchByDistrict: PropTypes.func.isRequired,
   searchByQueryString: PropTypes.func.isRequired,
@@ -540,6 +539,7 @@ MapView.propTypes = {
   selectedUsState: PropTypes.string,
   setLatLng: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
+  urlParams: PropTypes.string,
 };
 
 MapView.defaultProps = {
@@ -547,10 +547,10 @@ MapView.defaultProps = {
   distance: 50,
   district: NaN,
   filterByValue: {},
-  refcode: '',
   searchType: 'proximity',
   selectedItem: null,
   selectedUsState: null,
+  urlParams: '',
 };
 
 export default MapView;
