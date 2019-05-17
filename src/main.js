@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import Pram from 'pram';
-import { find } from 'lodash';
+import { find, isArray } from 'lodash';
 
 import selectionStateBranch from './state/selections';
 import AppRouter from './routers/AppRouter';
@@ -25,7 +25,10 @@ if (params[UrlSearchParams.refCode]) {
 }
 
 if (params[UrlSearchParams.issueFilter]) {
-  const issueFilters = params[UrlSearchParams.issueFilter].split(',');
+  let issueFilters = params[UrlSearchParams.issueFilter];
+  if (!isArray(issueFilters)) {
+    issueFilters = issueFilters.split(',');
+  }
   store.dispatch(selectionStateBranch.actions.setIssueTypeFilters(issueFilters));
 }
 
