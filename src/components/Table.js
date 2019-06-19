@@ -58,7 +58,7 @@ class Table extends React.Component {
     if (items.length === 0 && type === 'events') {
       return (
         <div id="events-list">
-          <p className="no-results">Looks like there are no events near you right now. You can create your own using the button above.
+          <p className="no-results">Looks like there are no events near you right now. You can create your own <a href="https://act.indivisible.org/event/local-actions/create/?source=eventmap">here</a>.
           </p>
         </div>
       );
