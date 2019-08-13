@@ -45,7 +45,6 @@ export const startSetEvents = () => (dispatch) => {
     const events = Object.keys(allevents)
       .map(id => new IndEvent(allevents[id]))
       .filter(evnt => moment(evnt.starts_at).isAfter())
-      .reduce(filterRecurring, [])
       .sort((a, b) => ((moment(a.starts_at).isSameOrAfter(moment(b.starts_at))) ? 1 : -1));
     return (dispatch(setEvents(events)));
   });
