@@ -24,11 +24,20 @@
     color: $main-dark-blue;
   }
   
-  .event-count{
+  .event-count {
+    color: $light-gray;
     text-align: center;
     margin-bottom: 0px;
     margin-top: 10px;
     padding: 10px;
+    .town-hall {
+      color: $main-light-blue;
+      font-weight: 700;
+    }
+    .grassroots {
+      color: $main-dark-blue;
+      font-weight: 700;
+    }
   }
 
   #groups-list, #events-list {

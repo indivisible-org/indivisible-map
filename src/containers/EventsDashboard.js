@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 
 
 import {
-  getVisbleEvents,
+  getVisibleEvents,
   getColorMap,
   getEvents,
   getEventsByDistrict,
   getFilteredEvents,
+  getNumberTownHallsVisible,
+  getNumberTownHallsInDistrict,
 } from '../state/events/selectors';
 import {
   startSetEvents,
@@ -58,14 +60,17 @@ class EventsDashboard extends React.Component {
   }
 
   renderTotal(items) {
-    const { district, filterValue } = this.props;
+    const { district, filterValue, numberTownHallsInDistrict, numberTownHallsVisible } = this.props;
+    console.log(numberTownHallsInDistrict, numberTownHallsVisible)
     if (district) {
       return (
         <p className="event-count">
         Viewing {items.length} events in {filterValue}-{district}
         </p>);
     }
-    return (<p className="event-count">Viewing {items.length} events</p>);
+    return (<p className="event-count">Viewing {items.length} events <br />
+      <span className="town-hall">{numberTownHallsVisible} Town Halls </span> and <span className="grassroots">{items.length - numberTownHallsVisible} grassroot events</span>
+    </p>);
   }
 
   renderMap() {
@@ -183,7 +188,9 @@ const mapStateToProps = state => ({
   searchType: getSearchType(state),
   selectedUsState: getSelectedState(state),
   urlParams: getRsvpParams(state),
-  visibleEvents: getVisbleEvents(state),
+  visibleEvents: getVisibleEvents(state),
+  numberTownHallsVisible: getNumberTownHallsVisible(state),
+  numberTownHallsInDistrict: getNumberTownHallsInDistrict(state),
 });
 
 const mapDispatchToProps = dispatch => ({

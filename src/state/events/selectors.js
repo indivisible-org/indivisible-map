@@ -59,7 +59,7 @@ export const getFilteredEvents = createSelector(
   },
 );
 
-export const getVisbleEvents = createSelector(
+export const getVisibleEvents = createSelector(
   [
     getFilteredEvents,
     getDistance,
@@ -110,3 +110,14 @@ export const getEventsByDistrict = createSelector(
     return filter(filteredEvents, evnt => evnt.title.includes(`-${district.toString()})`) || evnt.title.includes('Senate'));
   },
 );
+
+
+export const getNumberTownHallsVisible = createSelector([getVisibleEvents], (visibleEvents) => {
+  const townHalls = visibleEvents.filter(ele => ele.issueFocus === 'Town Hall' || ele.issueFocus === '2020 Candidate Event');
+  return townHalls.length;
+});
+
+export const getNumberTownHallsInDistrict = createSelector([getEventsByDistrict], (inDistrict) => {
+  const townHalls = inDistrict.filter(ele => ele.issueFocus === 'Town Hall' || ele.issueFocus === '2020 Candidate Event');
+  return townHalls.length;
+});
