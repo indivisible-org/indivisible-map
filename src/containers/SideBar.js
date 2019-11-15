@@ -35,6 +35,7 @@ class SideBar extends React.Component {
       items,
       urlParams,
       selectItem,
+      searchType,
       type,
       error,
     } = this.props;
@@ -48,6 +49,7 @@ class SideBar extends React.Component {
           shouldRender={this.renderTable()}
           type={type}
           selectItem={selectItem}
+          searchType={searchType}
           error={error}
         />
       </div>
@@ -62,6 +64,7 @@ SideBar.propTypes = {
   filterBy: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   location: PropTypes.shape({}).isRequired,
+  searchType: PropTypes.string.isRequired,
   selectItem: PropTypes.func,
   type: PropTypes.string.isRequired,
   urlParams: PropTypes.string,

@@ -38,6 +38,7 @@ class Table extends React.Component {
       type,
       error,
       selectItem,
+      searchType,
     } = this.props;
 
     if (error) {
@@ -56,9 +57,15 @@ class Table extends React.Component {
       );
     }
     if (items.length === 0 && type === 'events') {
+      let response;
+      if (searchType === 'district') {
+        response = 'There are no events being held by representatives of that district, but there may be other types nearby';
+      } else {
+        response = (<React.Fragment>Looks like there are no events near you right now. You can create your own <a href="https://act.indivisible.org/event/local-actions/create/?source=eventmap">here</a></React.Fragment>);
+      }
       return (
         <div id="events-list">
-          <p className="no-results">Looks like there are no events near you right now. You can create your own <a href="https://act.indivisible.org/event/local-actions/create/?source=eventmap">here</a>.
+          <p className="no-results">{response}
           </p>
         </div>
       );

@@ -7,6 +7,8 @@ import { Slider, InputNumber, Row, Col } from 'antd';
 /* eslint-disable */
 require('style-loader!css-loader!antd/es/grid/style/index.css');
 require('style-loader!css-loader!antd/es/slider/style/index.css');
+require('style-loader!css-loader!antd/es/input/style/index.css');
+require('style-loader!css-loader!antd/es/input-number/style/index.css');
 /* eslint-enable */
 
 class DistanceFilter extends React.Component {

@@ -10,7 +10,6 @@ import { getCurrentIssueFocuses, getColorMap } from '../state/events/selectors';
 
 import SearchInput from '../components/SearchInput';
 import DistanceFilter from '../components/DistanceSlider';
-import IssueFilterTags from '../components/IssueFilterTags';
 
 const RadioGroup = Radio.Group;
 /* eslint-disable */
@@ -93,7 +92,9 @@ class SearchBar extends React.Component {
       distance,
       mapType,
       searchType,
+      location,
     } = this.props;
+    console.log(location)
     return (
       <div className="search-bar">
         <SearchInput
@@ -102,11 +103,11 @@ class SearchBar extends React.Component {
           searchType={searchType}
         />
         {this.renderSwitch()}
-        <DistanceFilter
+        {location.LAT && <DistanceFilter
           changeHandler={this.distanceHandler}
           distance={distance}
           hidden={searchType === 'district'}
-        />
+        />}
       </div>
     );
   }
@@ -119,7 +120,6 @@ const mapStateToProps = state => ({
   location: getLocation(state),
   searchType: getSearchType(state),
   selectedFilters: getIssueFilters(state),
-  userSelections: state.selections,
 });
 
 const mapDispatchToProps = dispatch => ({

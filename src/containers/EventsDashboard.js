@@ -153,6 +153,7 @@ class EventsDashboard extends React.Component {
           items={searchTypeMapSideBar[searchType]}
           allItems={allEvents}
           urlParams={urlParams}
+          searchType={searchType}
           type="events"
           resetSelections={resetSelections}
           filterBy={filterBy}

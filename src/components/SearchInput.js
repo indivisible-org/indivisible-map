@@ -35,6 +35,7 @@ class SearchBar extends React.Component {
       <Search
         placeholder={textMap[searchType]}
         onSearch={value => this.handleSubmit(value)}
+        size="large"
       />
     );
   }

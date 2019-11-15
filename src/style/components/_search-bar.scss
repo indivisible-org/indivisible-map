@@ -2,28 +2,46 @@
   flex: 1 100%;
   @include box-3d;
   z-index: 99;
-  padding: 0.5vw;
+  padding: 2.5vw;
   display: flex;
   flex-flow: row wrap;
-
+  justify-content: space-between;
   // search input
-  .ant-input-search.ant-input-affix-wrapper{
-    flex: 1 50%;
-    width: auto;
+  .ant-input-search.ant-input-affix-wrapper {
+    flex: 1;
+    margin: auto;
+    max-width: 50%;
+    .ant-input {
+      border-radius: 0;
+      box-shadow:  0px 0px 5px 2px #d6d4d4;
+      border-color: $main-dark-blue;
+      border: 3px solid $main-dark-blue;
+      border-top-right-radius: 10px;
+      -webkit-border-top-right-radius: 10px;
+      -moz-border-radius-topright: 10px;
+    }
+    .ant-input:hover {
+      border-color: $brand-red;
+    }
   }
+
 
   // search type switcher
   .search-type-container {
-    flex: 1 50%;
     display: flex;
     padding: 5px;
+    margin: auto;
+    color: lightgray;
     .search-by-title{
       margin-left: 0.5vw;
       margin-right: 0.5vw;
     }
+    .ant-radio-wrapper {
+      color: $main-light-blue;
+      border-radius: 25px;
+      padding-left: 3px;
+    }
     .ant-radio-wrapper.ant-radio-wrapper-checked {
-      background-color: $main-light-blue;
-      color: $main-white;
       border-radius: 25px;
       padding-left: 3px;
     }
