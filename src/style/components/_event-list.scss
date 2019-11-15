@@ -20,48 +20,12 @@
     background-color: $brand-primary;
   }
 
-  .other {
-    @include cell($other);
+  .grassroots {
+    @include cell($main-dark-blue);
   }
-  .general {
-    @include cell($general);
+
+  .town-hall {
+    @include cell($main-light-blue);
   }
-  .general-icon {
-     @include cell($general);
-  }
-  .town-hall, .town-hall-icon {
-    @include cell($town-hall);
-  }
-  .dream-act, .dream-act-icon {
-    @include cell($dream-act);
-  }
-  .mueller-rosenstein,
-  .mueller-rosenstein-icon, {
-    @include cell($infrastructure);
-  }
-  .trump-tax-scam,
-  .trump-tax-scam-icon {
-    @include cell($trump-tax-scam);
-  }
-  .electoral, .electoral-icon {
-    @include cell($electoral);
-  }
-  .gun-violence, .gun-violence-icon {
-    @include cell($gun-violence);
-  }
-  .foreign-policy, .foreign-policy-icon {
-    @include cell($foreign-policy);
-  }
-  .dark-green, .dark-green-icon {
-    @include cell($dark-green);
-  }
-  .dark-purple, .dark-purple-icon {
-    @include cell($dark-purple);
-  }
-  .dark-orange, .dark-orange-icon {
-    @include cell($dark-orange);
-  }
-  .circle-stroked-15-grey {
-    @include cell($brand-primary);
-  }
+
 }

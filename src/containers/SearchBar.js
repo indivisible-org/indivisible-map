@@ -26,7 +26,6 @@ class SearchBar extends React.Component {
     this.onSearch = this.onSearch.bind(this);
     this.distanceHandler = this.distanceHandler.bind(this);
     this.switchSearchType = this.switchSearchType.bind(this);
-    this.renderFilterBar = this.renderFilterBar.bind(this);
     this.renderSwitch = this.renderSwitch.bind(this);
   }
 
@@ -69,29 +68,6 @@ class SearchBar extends React.Component {
     changeSearchType(searchType);
   }
 
-  renderFilterBar() {
-    const {
-      issues,
-      onFilterChanged,
-      selectedFilters,
-      colorMap,
-      mapType,
-    } = this.props;
-    if (mapType === 'group') {
-      return null;
-    }
-    return (
-      <div className="input-group-filters">
-        <IssueFilterTags
-          colorMap={colorMap}
-          issues={issues}
-          onFilterChanged={onFilterChanged}
-          selectedFilters={selectedFilters}
-        />
-      </div>
-    );
-  }
-
   renderSwitch() {
     const {
       searchType,
@@ -126,7 +102,6 @@ class SearchBar extends React.Component {
           searchType={searchType}
         />
         {this.renderSwitch()}
-        {this.renderFilterBar()}
         <DistanceFilter
           changeHandler={this.distanceHandler}
           distance={distance}

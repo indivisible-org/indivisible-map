@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import superagent from 'superagent';
 import moment from 'moment';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
 
 import faFacebookSquare from '@fortawesome/fontawesome-free-brands/faFacebookSquare';
 import faTwitterSquare from '@fortawesome/fontawesome-free-brands/faTwitterSquare';
@@ -71,9 +72,13 @@ class TableCell extends React.Component {
     const displayName = TableCell.makeDisplayName(item);
     const groupName = displayName ? (<h4 className="event-host semi-bold">Hosted by {displayName}</h4>) : '';
     const eventType = item.eventType ? (<li>Event Type: {item.eventType}</li>) : '';
+    const className = classNames('event-cell', iconName, {
+      grassroots: item.issueFocus !== 'Town Hall' && item.issueFocus !== '2020 Candidate Event',
+      'town-hall': item.issueFocus === 'Town Hall' || item.issueFocus === '2020 Candidate Event',
+    });
     return (
       <Card
-        className={`event-cell ${iconName} ${item.issueFocus.toLowerCase().replace(/\W/g, '-')}`}
+        className={className}
         key={`${item.id}`}
         title={item.title}
         extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}?${urlParams}`}>rsvp</a>]}
