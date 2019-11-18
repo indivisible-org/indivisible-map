@@ -11,7 +11,6 @@ import {
   getEventsByDistrict,
   getFilteredEvents,
   getNumberTownHallsVisible,
-  getNumberTownHallsInDistrict,
 } from '../state/events/selectors';
 import {
   startSetEvents,
@@ -60,17 +59,22 @@ class EventsDashboard extends React.Component {
   }
 
   renderTotal(items) {
-    const { district, filterValue, numberTownHallsInDistrict, numberTownHallsVisible } = this.props;
-    console.log(numberTownHallsInDistrict, numberTownHallsVisible)
+    const {
+      district,
+      filterValue,
+      numberTownHallsVisible,
+    } = this.props;
     if (district) {
       return (
         <p className="event-count">
         Viewing {items.length} events in {filterValue}-{district}
         </p>);
     }
-    return (<p className="event-count">Viewing {items.length} events <br />
-      <span className="town-hall">{numberTownHallsVisible} Town Halls </span> and <span className="grassroots">{items.length - numberTownHallsVisible} grassroot events</span>
-    </p>);
+    return (
+      <p className="event-count">Viewing {items.length} events <br />
+        <span className="town-hall">{numberTownHallsVisible} Town Halls </span> and <span className="grassroots">{items.length - numberTownHallsVisible} grassroot events</span>
+      </p>
+    );
   }
 
   renderMap() {
@@ -185,12 +189,11 @@ const mapStateToProps = state => ({
   filterValue: getFilterValue(state),
   filteredEvents: getFilteredEvents(state),
   issueFilters: getIssueFilters(state),
+  numberTownHallsVisible: getNumberTownHallsVisible(state),
   searchType: getSearchType(state),
   selectedUsState: getSelectedState(state),
   urlParams: getRsvpParams(state),
   visibleEvents: getVisibleEvents(state),
-  numberTownHallsVisible: getNumberTownHallsVisible(state),
-  numberTownHallsInDistrict: getNumberTownHallsInDistrict(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -224,6 +227,7 @@ EventsDashboard.propTypes = {
   filteredEvents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   getInitialEvents: PropTypes.func.isRequired,
   issueFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
+  numberTownHallsVisible: PropTypes.number.isRequired,
   onColorMapUpdate: PropTypes.func.isRequired,
   resetSelections: PropTypes.func.isRequired,
   searchByDistrict: PropTypes.func.isRequired,
