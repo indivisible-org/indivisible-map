@@ -4,14 +4,18 @@ import superagent from 'superagent';
 import moment from 'moment';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
+import {
+  Card,
+  Typography,
+} from 'antd';
 
 import faFacebookSquare from '@fortawesome/fontawesome-free-brands/faFacebookSquare';
 import faTwitterSquare from '@fortawesome/fontawesome-free-brands/faTwitterSquare';
 import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
 import faExternalLinkSquareAlt from '@fortawesome/fontawesome-free-solid/faExternalLinkSquareAlt';
-import { Card } from 'antd';
 import { indivisibleUrl } from '../state/constants';
 
+const { Paragraph } = Typography;
 /* eslint-disable */
 require('style-loader!css-loader!antd/es/card/style/index.css');
 require('style-loader!css-loader!antd/es/button/style/index.css');
@@ -71,7 +75,7 @@ class TableCell extends React.Component {
     } = this.props;
     const displayName = TableCell.makeDisplayName(item);
     const groupName = displayName ? (<h4 className="event-host semi-bold">Hosted by {displayName}</h4>) : '';
-    const eventType = item.eventType ? (<li>Event Type: {item.eventType}</li>) : '';
+    const eventType = item.eventType ? (<li>{item.eventType}</li>) : '';
     const className = classNames('event-cell', iconName, {
       grassroots: item.issueFocus !== 'Town Hall' && item.issueFocus !== '2020 Candidate Event',
       'town-hall': item.issueFocus === 'Town Hall' || item.issueFocus === '2020 Candidate Event',
@@ -80,13 +84,17 @@ class TableCell extends React.Component {
       <Card
         className={className}
         key={`${item.id}`}
-        title={item.title}
+        title={
+          <React.Fragment>
+            <div className="issue-focus">{item.issueFocus}</div>
+            <div className="title">{item.title}</div>
+          </React.Fragment>
+          }
         extra={[<a key={`${item.id}-rsvp`} className="rsvp-button" target="_blank" href={`${item.rsvpHref}?${urlParams}`}>rsvp</a>]}
       >
         {groupName}
         <ul>
           {eventType}
-          <li>Event Focus: {item.issueFocus}</li>
         </ul>
         <ul>
           <li className="semi-bold">{moment(item.starts_at).format('MMMM Do, YYYY')}</li>
@@ -94,10 +102,18 @@ class TableCell extends React.Component {
           <li>{item.address1}</li>
           <li>{item.city}</li>
           <li>{item.state}, {item.zip}</li>
-          <li className="read-more closed" onClick={TableCell.handlePanelOpen} id={item.id}>
-            {item.public_description}
+          <li>
+
+            <Paragraph ellipsis={{
+              expandable: true,
+              rows: 3,
+              }}
+            >
+              {item.public_description}
+            </Paragraph>
           </li>
         </ul>
+
       </Card>);
   }
 
@@ -107,56 +123,53 @@ class TableCell extends React.Component {
     if (item.socials) {
       iconsSocial = item.socials.reduce((acc, ele) => {
         if (ele.category === 'facebook') {
-          acc.push(
-            <li key={ele.url}>
-              <a href={ele.url} target="_blank">
-                <FontAwesomeIcon icon={faFacebookSquare} />
-                <span className="connect-text">connect via facebook</span>
-              </a>
-            </li>);
+          acc.push(<li key={ele.url}>
+            <a href={ele.url} target="_blank">
+              <FontAwesomeIcon icon={faFacebookSquare} />
+              <span className="connect-text">connect via facebook</span>
+            </a>
+          </li>);
         }
         if (ele.category === 'twitter') {
-          acc.push(
-            <li key={ele.url}>
-              <a href={ele.url} target="_blank">
-                <FontAwesomeIcon icon={faTwitterSquare} />
-                <span className="connect-text">connect via twitter</span>
-              </a>
-            </li>);
+          acc.push(<li key={ele.url}>
+            <a href={ele.url} target="_blank">
+              <FontAwesomeIcon icon={faTwitterSquare} />
+              <span className="connect-text">connect via twitter</span>
+            </a>
+          </li>);
         }
         return acc;
       }, []);
     }
     if (item.email) {
-      iconsSocial.push(
-        <React.Fragment key={item.id}>
-          <li>
-            <a onClick={TableCell.getEmail} id={item.id}>
-              <FontAwesomeIcon
+      iconsSocial.push(<React.Fragment key={item.id}>
+        <li>
+          <a onClick={TableCell.getEmail} id={item.id}>
+            <FontAwesomeIcon
                 icon={faEnvelope}
-              />
-              <span id={item.id} className="connect-text">connect via email</span>
-            </a>
-          </li>
-          <li>
-            <a className="email-link" id={`${item.id}-target`} href="" />
-          </li>
-        </React.Fragment>);
+            />
+            <span id={item.id} className="connect-text">connect via email</span>
+          </a>
+        </li>
+        <li>
+          <a className="email-link" id={`${item.id}-target`} href="" />
+        </li>
+      </React.Fragment>);
     }
     if (item.url) {
       iconsSocial.push(<li key={item.url}>
-                          <a href={item.url} target="_blank">
-                            <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
-                            <span className="connect-text">visit website</span>
-                          </a>
-                        </li>);
+        <a href={item.url} target="_blank">
+          <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
+          <span className="connect-text">visit website</span>
+        </a>
+      </li>);
     }
     return (
       <div onMouseEnter={() => selectItem(item)} onMouseLeave={() => selectItem(null)}>
         <Card
           className="indivisible-card group-cell"
           key={item.id}
-          title={item.name}
+          title={<span className="title">{item.name}</span>}
         >
           <ul>
             <li id="group-location">{item.city} {item.state}, {item.zip}</li>
