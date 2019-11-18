@@ -46,14 +46,23 @@ class MapInset extends React.Component {
   getColorForEvents(indEvent) {
     const { colorMap } = this.props;
     let updatedObj = {};
-    let colorObj = find(colorMap, { filterBy: indEvent.issueFocus });
-    if (colorObj) {
-      updatedObj = { ...indEvent, icon: colorObj.icon };
+    const isTownHall = indEvent.issueFocus === 'Town Hall' || indEvent.issueFocus === '2020 Candidate Event';
+    let colorObj;
+
+    if (isTownHall) {
+      colorObj = find(colorMap, {
+        filterBy: 'Town Hall',
+      });
     } else {
-      colorObj = find(colorMap, { filterBy: false });
-      colorObj.filterBy = indEvent.issueFocus;
-      updatedObj = { ...indEvent, icon: colorObj.icon };
+      colorObj = find(colorMap, {
+        filterBy: 'Grassroots',
+      });
     }
+    updatedObj = {
+      ...indEvent,
+      icon: colorObj.icon,
+    };
+
     return updatedObj;
   }
 
