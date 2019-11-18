@@ -94,7 +94,6 @@ class SearchBar extends React.Component {
       searchType,
       location,
     } = this.props;
-    console.log(location)
     return (
       <div className="search-bar">
         <SearchInput
@@ -139,23 +138,21 @@ const mapDispatchToProps = dispatch => ({
 
 SearchBar.propTypes = {
   changeSearchType: PropTypes.func.isRequired,
-  colorMap: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   distance: PropTypes.number.isRequired,
   issues: PropTypes.arrayOf(PropTypes.string).isRequired,
+  location: PropTypes.shape({ LAT: PropTypes.number, LNG: PropTypes.number }),
   mapType: PropTypes.string.isRequired,
   onFilterChanged: PropTypes.func.isRequired,
   resetSearchByQueryString: PropTypes.func.isRequired,
   resetSelections: PropTypes.func.isRequired,
   searchHandler: PropTypes.func.isRequired,
   searchType: PropTypes.string,
-  selectedFilters: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.string]).isRequired,
   setDistance: PropTypes.func.isRequired,
   setTextFilter: PropTypes.func.isRequired,
 };
 
 SearchBar.defaultProps = {
+  location: {},
   searchType: 'proximity',
 };
 
