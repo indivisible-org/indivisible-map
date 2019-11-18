@@ -7,7 +7,14 @@
     margin-top: 50%;
   }
   .ant-card-head-title {
-    color: $main-white;
+    padding: 10px 0;
+    .title {
+      color: $main-white;
+    }
+    .issue-focus {
+      font-size: 11px;
+      margin-bottom: 5px;
+    }
   }
 
   .rsvp-button {
