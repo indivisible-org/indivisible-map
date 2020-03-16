@@ -41,7 +41,7 @@
     "style-loader": "^0.20.1",
     "superagent": "^3.8.1",
     "webpack": "^3.9.1",
-    "webpack-dev-server": "^2.9.5"
+    "webpack-dev-server": "^3.10.3"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
