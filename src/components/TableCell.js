@@ -61,6 +61,23 @@ class TableCell extends React.Component {
     return item.group_name;
   }
 
+  static makeLocationInfo(item) {
+    if (item.actionMeetingType === 'Tele-Town Hall') {
+      if (item.phone) {
+        return <li key={`${item.id}-phone`}>{item.phone}</li>;
+      }
+      if (item.linkToInfo) {
+        return (
+          <li key={`${item.id}-url`}>
+            <a href={item.linkToInfo}>Link to connection info <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
+            </a>
+          </li>);
+      }
+    }
+
+    return <li>{item.address1}</li>;
+  }
+
   constructor(props) {
     super(props);
     this.renderGroups = this.renderGroups.bind(this);
@@ -99,7 +116,8 @@ class TableCell extends React.Component {
         <ul>
           <li className="semi-bold">{moment(item.starts_at).format('MMMM Do, YYYY')}</li>
           <li className="semi-bold">{moment(item.starts_at).format('h:mm A')}</li>
-          <li>{item.address1}</li>
+          {TableCell.makeLocationInfo(item)}
+
           <li>{item.city}</li>
           <li>{item.state}, {item.zip}</li>
           <li>
@@ -146,7 +164,7 @@ class TableCell extends React.Component {
         <li>
           <a onClick={TableCell.getEmail} id={item.id}>
             <FontAwesomeIcon
-                icon={faEnvelope}
+              icon={faEnvelope}
             />
             <span id={item.id} className="connect-text">connect via email</span>
           </a>
