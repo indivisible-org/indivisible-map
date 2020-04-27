@@ -66,13 +66,13 @@ class TableCell extends React.Component {
       if (item.phone) {
         return <li key={`${item.id}-phone`}>{item.phone}</li>;
       }
-      if (item.linkToInfo) {
-        return (
-          <li key={`${item.id}-url`}>
-            <a href={item.linkToInfo}>Link to connection info <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
-            </a>
-          </li>);
-      }
+    }
+    if (item.linkToInfo) {
+      return (
+        <li key={`${item.id}-url`}>
+          <a href={item.linkToInfo}>Link to connection info <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
+          </a>
+        </li>);
     }
 
     return <li>{item.address1}</li>;
@@ -90,9 +90,11 @@ class TableCell extends React.Component {
       item,
       urlParams,
     } = this.props;
+    console.log(item.actionMeetingType)
     const displayName = TableCell.makeDisplayName(item);
     const groupName = displayName ? (<h4 className="event-host semi-bold">Hosted by {displayName}</h4>) : '';
     const eventType = item.eventType ? (<li>{item.eventType}</li>) : '';
+    const isDigital = item.actionMeetingType === 'Tele-Town Hall' || item.isDigital || item.actionMeetingType === 'Campaign Tele-Town Hall';
     const className = classNames('event-cell', iconName, {
       grassroots: item.issueFocus !== 'Town Hall' && item.issueFocus !== '2020 Candidate Event',
       'town-hall': item.issueFocus === 'Town Hall' || item.issueFocus === '2020 Candidate Event',
@@ -103,7 +105,10 @@ class TableCell extends React.Component {
         key={`${item.id}`}
         title={
           <React.Fragment>
-            <div className="issue-focus">{item.issueFocus}</div>
+            <ul className="issue-focus list-inline">
+              <li>{item.issueFocus}</li>
+              {isDigital && <li>Virtual event</li>}
+            </ul>
             <div className="title">{item.title}</div>
           </React.Fragment>
           }

@@ -5,6 +5,17 @@
   .ant-card-body{
     @include montserrat-regular;
   }
+  .list-inline {
+    li {
+      display: inline;
+    }
+
+    li:not(:first-child):before {
+      margin-right: 5px;
+      margin-left: 5px;
+      content: '\2022';
+    }
+  }
   .read-more {
     transition: max-height 500ms ease-in-out;
     cursor: pointer;
