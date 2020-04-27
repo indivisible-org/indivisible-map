@@ -251,49 +251,18 @@ class MapView extends React.Component {
   addClickListener() {
     const {
       type,
-      searchByDistrict,
-      setLatLng,
     } = this.props;
     const { map } = this;
 
     map.on('click', (e) => {
-      const { searchType } = this.map.metadata;
-      if (searchType === 'proximity') {
-        // handle proximity
-        const points = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
-        // selected a marker
-        let formatLatLng;
-        if (points.length > 0) {
-          const point = points[0];
-          formatLatLng = {
-            LAT: point.geometry.coordinates[1].toString(),
-            LNG: point.geometry.coordinates[0].toString(),
-          };
-        } else {
-          formatLatLng = {
-            LAT: e.lngLat.lat.toString(),
-            LNG: e.lngLat.lng.toString(),
-          };
-        }
-        setLatLng(formatLatLng);
-      } else if (searchType === 'district') {
-        const features = map.queryRenderedFeatures(
-          e.point,
-          {
-            layers: ['district_interactive'],
-          },
-        );
-        const feature = {};
-
-        if (features.length > 0) {
-          feature.state = features[0].properties.ABR;
-          feature.district = features[0].properties.GEOID.substring(2, 4);
-          feature.geoID = features[0].properties.GEOID;
-
-          searchByDistrict({
-            district: Number(feature.district),
-            state: feature.state,
-          });
+      const points = map.queryRenderedFeatures(e.point, { layers: [`${type}-points`] });
+      // selected a marker
+      if (points.length > 0) {
+        const point = points[0];
+        const { id } = point.properties;
+        const card = document.getElementsByClassName(`event-card-${id}`) ? document.getElementsByClassName(`event-card-${id}`)[0] : null;
+        if (card) {
+          card.scrollIntoView({ block: 'center' });
         }
       }
     });
@@ -431,6 +400,7 @@ class MapView extends React.Component {
     // map on 'load'
     this.map.on('load', () => {
       if (type === 'events') {
+        this.addClickListener();
         this.addLayer(featuresHome);
         this.addPopups('events-points');
         this.map.getSource('events-points').setData(featuresHome);

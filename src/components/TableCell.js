@@ -94,7 +94,7 @@ class TableCell extends React.Component {
     const groupName = displayName ? (<h4 className="event-host semi-bold">Hosted by {displayName}</h4>) : '';
     const eventType = item.eventType ? (<li>{item.eventType}</li>) : '';
     const isDigital = item.actionMeetingType === 'Tele-Town Hall' || item.isDigital || item.actionMeetingType === 'Campaign Tele-Town Hall';
-    const className = classNames('event-cell', iconName, {
+    const className = classNames('event-cell', iconName, `event-card-${item.id}`, {
       grassroots: item.issueFocus !== 'Town Hall' && item.issueFocus !== '2020 Candidate Event',
       'town-hall': item.issueFocus === 'Town Hall' || item.issueFocus === '2020 Candidate Event',
     });
