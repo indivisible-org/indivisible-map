@@ -90,7 +90,6 @@ class TableCell extends React.Component {
       item,
       urlParams,
     } = this.props;
-    console.log(item.actionMeetingType)
     const displayName = TableCell.makeDisplayName(item);
     const groupName = displayName ? (<h4 className="event-host semi-bold">Hosted by {displayName}</h4>) : '';
     const eventType = item.eventType ? (<li>{item.eventType}</li>) : '';
