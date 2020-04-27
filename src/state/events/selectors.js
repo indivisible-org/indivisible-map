@@ -104,7 +104,7 @@ export const getEventsByDistrict = createSelector(
     filteredEvents,
     district,
   ) => {
-    if (district.toString().length === 0) {
+    if (!district || district.toString().length === 0) {
       return filteredEvents;
     }
     return filter(filteredEvents, evnt => evnt.title.includes(`-${district.toString()})`) || evnt.title.includes('Senate'));

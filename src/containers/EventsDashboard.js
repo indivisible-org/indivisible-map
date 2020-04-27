@@ -64,6 +64,7 @@ class EventsDashboard extends React.Component {
       filterValue,
       numberTownHallsVisible,
     } = this.props;
+    const numberGrassroots = items.length > numberTownHallsVisible ? items.length - numberTownHallsVisible : 0;
     if (district) {
       return (
         <p className="event-count">
@@ -72,7 +73,7 @@ class EventsDashboard extends React.Component {
     }
     return (
       <p className="event-count">Viewing {items.length} events <br />
-        <span className="town-hall">{numberTownHallsVisible} Town Halls </span> and <span className="grassroots">{items.length - numberTownHallsVisible} grassroot events</span>
+        <span className="town-hall">{numberTownHallsVisible} Town Halls </span> and <span className="grassroots">{numberGrassroots} grassroot events</span>
       </p>
     );
   }
