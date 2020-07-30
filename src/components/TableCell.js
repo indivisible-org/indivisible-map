@@ -70,7 +70,7 @@ class TableCell extends React.Component {
     if (item.linkToInfo) {
       return (
         <li key={`${item.id}-url`}>
-          <a href={item.linkToInfo}>Link to connection info <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
+          <a href={item.linkToInfo.trim()} target="_blank">Link to connection info <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
           </a>
         </li>);
     }
