@@ -36,6 +36,7 @@ module.exports = {
   output: {
     filename: 'bundle.[hash].js',
     path: `${__dirname}/build`,
+    publicPath: '/',
   },
 
   module: {
