@@ -5,6 +5,7 @@ const HTMLPlugin = require('html-webpack-plugin');
 
 // Makes a separate CSS bundle
 const ExtractPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const { EnvironmentPlugin, DefinePlugin } = require('webpack');
 
@@ -16,6 +17,15 @@ const plugins = [
   }),
   new ExtractPlugin('bundle.[hash].css'),
   new EnvironmentPlugin(['NODE_ENV']),
+  new UglifyJSPlugin({
+    uglifyOptions:
+                {
+                  compress: {
+                    warnings: false,
+                  },
+                  sourceMap: true,
+                },
+  }),
   new DefinePlugin({
     __AUTH_URL__: JSON.stringify(process.env.AUTH_URL),
     __API_URL__: JSON.stringify(process.env.API_URL),
