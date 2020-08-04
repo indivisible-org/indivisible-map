@@ -64,7 +64,7 @@
     "prebuild": "rm -rf build/bundle.*",
     "lint": "eslint --fix .",
     "postinstall": "npm install express",
-    "heroku-postbuild": "webpack",
+    "heroku-postbuild": "webpack -p",
     "start": "node index.js"
   },
   "repository": {

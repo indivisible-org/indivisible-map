@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+const path = require('path');
 // Dynamic Script and Style Tags
 const HTMLPlugin = require('html-webpack-plugin');
 
@@ -35,7 +35,7 @@ module.exports = {
   // Stick it into the "path" folder with that file name
   output: {
     filename: 'bundle.[hash].js',
-    path: `${__dirname}/build`,
+    path: path.join(__dirname, 'build'),
     publicPath: '/',
   },
 
