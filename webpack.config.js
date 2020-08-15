@@ -17,7 +17,7 @@ const plugins = [
     // Options similar to the same options in webpackOptions.output
     // both options are optional
     chunkFilename: '[id].css',
-    filename: '[name].css',
+    filename: '[hash].css',
   }),
   new EnvironmentPlugin(['NODE_ENV']),
   new DefinePlugin({
