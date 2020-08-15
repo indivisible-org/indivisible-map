@@ -4,8 +4,7 @@ const path = require('path');
 const HTMLPlugin = require('html-webpack-plugin');
 
 // Makes a separate CSS bundle
-const ExtractPlugin = require('extract-text-webpack-plugin');
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { EnvironmentPlugin, DefinePlugin } = require('webpack');
 
 const production = process.NODE_ENV;
@@ -14,7 +13,12 @@ const plugins = [
   new HTMLPlugin({
     template: `${__dirname}/src/index.html`,
   }),
-  new ExtractPlugin('bundle.[hash].css'),
+  new MiniCssExtractPlugin({
+    // Options similar to the same options in webpackOptions.output
+    // both options are optional
+    chunkFilename: '[id].css',
+    filename: '[name].css',
+  }),
   new EnvironmentPlugin(['NODE_ENV']),
   new DefinePlugin({
     __AUTH_URL__: JSON.stringify(process.env.AUTH_URL),
@@ -50,24 +54,25 @@ module.exports = {
       // If it's a .scss file
       {
         test: /\.scss$/,
-        loader: ExtractPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true,
-              },
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
             },
-            'resolve-url-loader',
-            {
-              loader: 'sass-loader',
-              options: {
-                includePaths: [`${__dirname}/src/style`],
-                sourceMap: true,
-              },
+          },
+          'resolve-url-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [`${__dirname}/src/style`],
+              sourceMap: true,
             },
-          ],
-        }),
+          },
+        ],
       },
       {
         test: /\.(woff|woff2|ttf|eot|glyph|\.svg)$/,
