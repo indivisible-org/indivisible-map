@@ -18,6 +18,9 @@ class MapInset extends React.Component {
     this.highlightDistrict = this.highlightDistrict.bind(this);
     this.districtSelect = this.districtSelect.bind(this);
     this.removeHighlights = this.removeHighlights.bind(this);
+    this.state = {
+      mapLoaded: false,
+    }
   }
 
   componentDidMount() {
@@ -26,19 +29,22 @@ class MapInset extends React.Component {
     this.initializeMap(featuresHome);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps, prevState) {
     const {
       items,
       type,
       selectedItem,
-    } = nextProps;
-    this.map.metadata = { searchType: nextProps.searchType };
-
-    if (items.length !== this.props.items.length) {
+      searchType,
+    } = this.props;
+    this.map.metadata = { searchType };
+    if (!prevState.mapLoaded && this.state.mapLoaded) {
+      this.updateData(items, `${type}-points`);
+    }
+    if (items.length !== prevProps.items.length) {
       this.updateData(items, `${type}-points`);
     }
     // Highlight selected item
-    if (this.props.selectedItem !== selectedItem) {
+    if (prevProps.selectedItem !== selectedItem) {
       this.map.setFilter('unclustered-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
     }
   }
@@ -268,6 +274,8 @@ class MapInset extends React.Component {
         this.map.setLayoutProperty('group-points', 'visibility', 'visible');
         this.clusterData(featuresHome);
       }
+      this.setState({ mapLoaded: true });
+
     });
   }
 

@@ -23,3 +23,10 @@
 @import "./components/group-cell";
 @import "./components/side-bar";
 @import "./components/search-bar";
+
+.loading-container {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+}

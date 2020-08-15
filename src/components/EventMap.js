@@ -34,6 +34,7 @@ class MapView extends React.Component {
       alaskaItems: filter(this.props.items, { state: 'AK' }),
       hawaiiItems: filter(this.props.items, { state: 'HI' }),
       inset: !props.selectedUsState,
+      mapLoaded: false,
       popoverColor: 'popover-general-icon',
     };
   }
@@ -42,9 +43,10 @@ class MapView extends React.Component {
     const { items } = this.props;
     const featuresHome = this.createFeatures(items);
     this.initializeMap(featuresHome);
+
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps, prevState) {
     const {
       center,
       items,
@@ -53,16 +55,27 @@ class MapView extends React.Component {
       selectedItem,
       selectedUsState,
       district,
-    } = nextProps;
-    this.map.metadata = { searchType: nextProps.searchType };
+      loading,
+    } = this.props;
+    this.map.metadata = { searchType: this.props.searchType };
 
 
     // Highlight selected item
-    if (this.props.selectedItem !== selectedItem) {
+    if (prevProps.selectedItem !== selectedItem) {
       this.map.setFilter('unclustered-point-selected', ['==', 'id', selectedItem ? selectedItem.id : false]);
     }
-
-    if (items.length !== this.props.items.length) {
+    // race condition of loading the map and getting the events
+    // events almost alway come in first, so the first block wont be used
+    if (prevProps.loading && !loading && items.length) {
+      this.updateData(items, 'events-points');
+      this.filterForStateInsets(items);
+    }
+    // after the map is loaded, and if the items are present, update the data
+    if (!prevState.mapLoaded && this.state.mapLoaded && items.length) {
+      this.updateData(items, 'events-points');
+      this.filterForStateInsets(items);
+    }
+    if (items.length !== prevProps.items.length) {
       this.updateData(items, 'events-points');
       this.filterForStateInsets(items);
     }
@@ -158,6 +171,7 @@ class MapView extends React.Component {
     this.map.fitBounds([[-128.8, 23.6], [-65.4, 50.2]]);
     if (!this.map.getSource(layer)) {
       console.log('no layer');
+
       return;
     }
     this.map.getSource(layer).setData(featuresHome);
@@ -272,6 +286,8 @@ class MapView extends React.Component {
     this.map.addLayer(
       {
         id: 'events-points',
+        minzoom: 3,
+        maxzoom: 9,
         layout: {
           'icon-allow-overlap': true,
           'icon-ignore-placement': true,
@@ -398,12 +414,14 @@ class MapView extends React.Component {
       searchType,
     };
     // map on 'load'
+    console.log(type)
     this.map.on('load', () => {
       if (type === 'events') {
         this.addClickListener();
         this.addLayer(featuresHome);
         this.addPopups('events-points');
         this.map.getSource('events-points').setData(featuresHome);
+        this.setState({ mapLoaded: true });
       } else {
         this.addPopups('unclustered-point');
         this.clusterData(featuresHome);
