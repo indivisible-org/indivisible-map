@@ -40,7 +40,7 @@ module.exports = {
   output: {
     filename: 'bundle.[hash].js',
     path: path.join(__dirname, 'build'),
-    publicPath: '/',
+    publicPath: '',
   },
 
   module: {
