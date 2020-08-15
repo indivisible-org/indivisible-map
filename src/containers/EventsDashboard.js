@@ -53,10 +53,8 @@ class EventsDashboard extends React.Component {
       issueFilters,
       setInitialFilters,
     } = this.props;
-    console.log('mounted');
     getInitialEvents()
       .then((returned) => {
-        console.log('returned');
         if (issueFilters === 'init') {
           setInitialFilters(returned);
         }

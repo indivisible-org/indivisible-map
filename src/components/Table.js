@@ -57,7 +57,6 @@ class Table extends React.Component {
     }
     const end = data.length + 50 >= items.length ? items.length : data.length + 50;
     data = [...data, ...items.slice(data.length, end)];
-    console.log(data.length);
     this.setState({
       data,
       loading: false,
@@ -74,7 +73,6 @@ class Table extends React.Component {
       selectItem,
       searchType,
     } = this.props;
-    console.log('got to table render', items.length);
     if (error) {
       return (
         <div id="error-message">
@@ -105,7 +103,6 @@ class Table extends React.Component {
       );
     }
 
-    console.log('infiniate scroll');
     return (
       <InfiniteScroll
         pageStart={0}

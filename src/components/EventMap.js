@@ -414,7 +414,6 @@ class MapView extends React.Component {
       searchType,
     };
     // map on 'load'
-    console.log(type)
     this.map.on('load', () => {
       if (type === 'events') {
         this.addClickListener();
