@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Spin } from 'antd';
 import Table from '../components/Table';
 
 class SideBar extends React.Component {
@@ -37,8 +37,17 @@ class SideBar extends React.Component {
       selectItem,
       searchType,
       type,
+      loading,
       error,
     } = this.props;
+    if (loading) {
+      return (
+        <div className="side-bar-container">
+          <div className="loading-container">
+            <Spin />
+          </div>
+        </div>);
+    }
     return (
       <div className="side-bar-container">
         {this.renderTotal()}

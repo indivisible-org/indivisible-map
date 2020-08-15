@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'antd';
+import { List, Spin } from 'antd';
 import { find } from 'lodash';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import TableCell from './TableCell';
 
@@ -10,6 +11,12 @@ class Table extends React.Component {
     super(props);
     this.getColor = this.getColor.bind(this);
     this.getIconName = this.getIconName.bind(this);
+    this.handleInfiniteOnLoad = this.handleInfiniteOnLoad.bind(this);
+    this.state = {
+      data: [],
+      loading: false,
+      hasMore: true,
+    };
   }
 
   getColor(issueFocus) {
@@ -30,6 +37,33 @@ class Table extends React.Component {
     return '';
   }
 
+  handleInfiniteOnLoad() {
+    const {
+      items,
+    } = this.props;
+    let {
+      data,
+    } = this.state;
+    this.setState({
+      loading: true,
+    });
+    if (data.length === items.length) {
+      message.warning('Infinite List loaded all');
+      this.setState({
+        hasMore: false,
+        loading: false,
+      });
+      return;
+    }
+    const end = data.length + 50 >= items.length ? items.length : data.length + 50;
+    data = [...data, ...items.slice(data.length, end)];
+    console.log(data.length);
+    this.setState({
+      data,
+      loading: false,
+    });
+  }
+
   render() {
     const {
       items,
@@ -40,7 +74,7 @@ class Table extends React.Component {
       selectItem,
       searchType,
     } = this.props;
-
+    console.log('got to table render', items.length);
     if (error) {
       return (
         <div id="error-message">
@@ -71,26 +105,40 @@ class Table extends React.Component {
       );
     }
 
+    console.log('infiniate scroll');
     return (
-      <List
-        id={`${type}-list`}
-        itemLayout="vertical"
-        dataSource={items}
-        renderItem={item =>
-          (
-            <List.Item key={item.id}>
-              <TableCell
-                key={`${item.id}-cell`}
-                item={item}
-                urlParams={urlParams}
-                type={type}
-                color={this.getColor(item.issueFocus)}
-                iconName={this.getIconName(item.issueFocus)}
-                selectItem={selectItem}
-              />
-            </List.Item>
-          )}
-      />
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={this.handleInfiniteOnLoad}
+        hasMore={!this.state.loading && this.state.hasMore}
+        useWindow={false}
+      >
+        <List
+          id={`${type}-list`}
+          itemLayout="vertical"
+          dataSource={this.state.data}
+          renderItem={item =>
+            (
+              <List.Item key={item.id}>
+                <TableCell
+                  key={`${item.id}-cell`}
+                  item={item}
+                  urlParams={urlParams}
+                  type={type}
+                  color={this.getColor(item.issueFocus)}
+                  iconName={this.getIconName(item.issueFocus)}
+                  selectItem={selectItem}
+                />
+              </List.Item>
+            )}
+        >
+          {this.state.loading && this.state.hasMore && (
+          <div className="demo-loading-container">
+            <Spin />
+          </div>
+            )}
+        </List>
+      </InfiniteScroll>
     );
   }
 }

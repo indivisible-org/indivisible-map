@@ -42,6 +42,9 @@ class EventsDashboard extends React.Component {
     super(props);
     this.renderTotal = this.renderTotal.bind(this);
     this.renderMap = this.renderMap.bind(this);
+    this.state = {
+      loading: true,
+    };
   }
 
   componentDidMount() {
@@ -50,11 +53,14 @@ class EventsDashboard extends React.Component {
       issueFilters,
       setInitialFilters,
     } = this.props;
+    console.log('mounted');
     getInitialEvents()
       .then((returned) => {
+        console.log('returned');
         if (issueFilters === 'init') {
           setInitialFilters(returned);
         }
+        this.setState({ loading: false });
       });
   }
 
@@ -64,7 +70,8 @@ class EventsDashboard extends React.Component {
       filterValue,
       numberTownHallsVisible,
     } = this.props;
-    const numberGrassroots = items.length > numberTownHallsVisible ? items.length - numberTownHallsVisible : 0;
+    const numberGrassroots = items.length > numberTownHallsVisible ?
+      items.length - numberTownHallsVisible : 0;
     if (district) {
       return (
         <p className="event-count">
@@ -80,6 +87,7 @@ class EventsDashboard extends React.Component {
 
   renderMap() {
     const {
+      allEvents,
       distance,
       district,
       visibleEvents,
@@ -112,6 +120,9 @@ class EventsDashboard extends React.Component {
       return (<WebGlError mapType="event" />);
     }
     return (<MapView
+      loading={
+        this.state.loading && allEvents.length === 0
+      }
       items={items}
       center={center}
       selectedUsState={selectedUsState}
@@ -144,10 +155,6 @@ class EventsDashboard extends React.Component {
       error,
     } = this.props;
 
-    if (!allEvents.length) {
-      return null;
-    }
-
     const searchTypeMapSideBar = {
       district: eventsByDistrict,
       proximity: visibleEvents,
@@ -158,6 +165,7 @@ class EventsDashboard extends React.Component {
         <h2 className="dash-title">Event Dashboard</h2>
         <SearchBar items={searchTypeMapSideBar[searchType]} mapType="event" />
         <SideBar
+          loading={this.state.loading}
           renderTotal={this.renderTotal}
           colorMap={colorMap}
           items={searchTypeMapSideBar[searchType]}
