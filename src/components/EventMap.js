@@ -66,7 +66,8 @@ class MapView extends React.Component {
     }
     // race condition of loading the map and getting the events
     // events almost alway come in first, so the first block wont be used
-    if (prevProps.loading && !loading && items.length) {
+    if (prevProps.loading && !loading && items.length && this.state.mapLoaded) {
+      console.log('map loaded first')
       this.updateData(items, 'events-points');
       this.filterForStateInsets(items);
     }
