@@ -43,7 +43,6 @@ class MapView extends React.Component {
     const { items } = this.props;
     const featuresHome = this.createFeatures(items);
     this.initializeMap(featuresHome);
-
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -66,8 +65,11 @@ class MapView extends React.Component {
     }
     // race condition of loading the map and getting the events
     // events almost alway come in first, so the first block wont be used
+
+    console.log('Items loaded this update', prevProps.loading && !loading, items.length, 'MAP LOADED', this.state.mapLoaded);
+    console.log('map loaded this updated:', !prevState.mapLoaded && this.state.mapLoaded, items.length);
     if (prevProps.loading && !loading && items.length && this.state.mapLoaded) {
-      console.log('map loaded first')
+      console.log('map loaded first');
       this.updateData(items, 'events-points');
       this.filterForStateInsets(items);
     }
