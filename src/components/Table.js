@@ -48,7 +48,6 @@ class Table extends React.Component {
       loading: true,
     });
     if (data.length === items.length) {
-      message.warning('Infinite List loaded all');
       this.setState({
         hasMore: false,
         loading: false,
