@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+
 import Table from '../components/Table';
 
 class SideBar extends React.Component {
@@ -40,11 +42,14 @@ class SideBar extends React.Component {
       loading,
       error,
     } = this.props;
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
+
     if (loading) {
       return (
         <div className="side-bar-container">
           <div className="loading-container">
-            <Spin />
+            <Spin indicator={antIcon} />
           </div>
         </div>);
     }
@@ -67,11 +72,11 @@ class SideBar extends React.Component {
 }
 
 SideBar.propTypes = {
-  allItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   colorMap: PropTypes.arrayOf(PropTypes.shape({})),
   error: PropTypes.string,
   filterBy: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  loading: PropTypes.bool.isRequired,
   location: PropTypes.shape({}).isRequired,
   searchType: PropTypes.string.isRequired,
   selectItem: PropTypes.func,
