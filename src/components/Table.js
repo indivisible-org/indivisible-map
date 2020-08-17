@@ -6,6 +6,11 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 import TableCell from './TableCell';
 
+const initialState = {
+        data: [],
+        loading: false,
+        hasMore: true,
+};
 class Table extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +22,13 @@ class Table extends React.Component {
       loading: false,
       hasMore: true,
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { items } = this.props;
+    if (items.length && prevProps.items.length && items.length !== prevProps.items.length) {
+      this.setState(initialState)
+    }
   }
 
   getColor(issueFocus) {
