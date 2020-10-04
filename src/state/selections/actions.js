@@ -78,6 +78,11 @@ export const setError = payload => ({
   type: 'SET_ERROR_MESSAGE',
 });
 
+export const setEventScale = payload => ({
+  payload,
+  type: 'SET_EVENT_SCALE',
+});
+
 export const getLatLngFromZip = payload => (dispatch) => {
   if (!payload.query) {
     return dispatch(setLatLng({}));

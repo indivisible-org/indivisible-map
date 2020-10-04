@@ -4,6 +4,7 @@ const initialState = {
   distance: 50,
   district: NaN,
   error: '',
+  eventScale: 'all',
   filterBy: 'all',
   filterValue: '',
   issueTypeFilters: 'init',
@@ -85,6 +86,11 @@ const filtersReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         issueTypeFilters: payload,
+      };
+    case 'SET_EVENT_SCALE':
+      return {
+        ...state,
+        eventScale: payload,
       };
     case 'SET_SEARCH_TYPE':
       return {

@@ -10,6 +10,7 @@ import {
   getIssueFilters,
   getDistrict,
   getSelectedState,
+  getEventScale,
 } from '../selections/selectors';
 
 export const getEvents = state => state.events.allEvents;
@@ -41,16 +42,24 @@ export const getFilteredEvents = createSelector(
     getEventsInState,
     getFilterBy,
     getFilterValue,
+    getEventScale,
   ],
   (
     eventsFilteredByKeywords,
     filterBy,
     filterValue,
+    eventScale,
   ) => {
+    const eventsInScale = eventScale === 'all' ? eventsFilteredByKeywords : filter(eventsFilteredByKeywords, (event) => {
+      if (eventScale === 'local') {
+        return event.eventScale === eventScale;
+      }
+      return event.eventScale !== 'local';
+    });
     if (!filterValue || filterBy === 'all') {
-      return eventsFilteredByKeywords;
+      return eventsInScale;
     }
-    return eventsFilteredByKeywords.filter((currrentEvent) => {
+    return eventsInScale.filter((currrentEvent) => {
       if (!currrentEvent[filterBy]) {
         return false;
       }

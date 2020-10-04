@@ -5,7 +5,7 @@ import { union } from 'lodash';
 import { Radio } from 'antd';
 import * as selectionActions from '../state/selections/actions';
 
-import { getDistance, getIssueFilters, getLocation, getSearchType } from '../state/selections/selectors';
+import { getDistance, getEventScale, getIssueFilters, getLocation, getSearchType } from '../state/selections/selectors';
 import { getCurrentIssueFocuses, getColorMap } from '../state/events/selectors';
 
 import SearchInput from '../components/SearchInput';
@@ -26,6 +26,7 @@ class SearchBar extends React.Component {
     this.distanceHandler = this.distanceHandler.bind(this);
     this.switchSearchType = this.switchSearchType.bind(this);
     this.renderSwitch = this.renderSwitch.bind(this);
+    this.changeEventScale = this.changeEventScale.bind(this);
   }
 
   onTextChange(e) {
@@ -67,21 +68,35 @@ class SearchBar extends React.Component {
     changeSearchType(searchType);
   }
 
+  changeEventScale(e) {
+    const { setEventScale } = this.props;
+    const eventScale = e.target.value;
+    setEventScale(eventScale);
+  }
+
   renderSwitch() {
     const {
       searchType,
       mapType,
+      eventScale,
     } = this.props;
     if (mapType === 'group') {
       return null;
     }
     return (
       <div className="search-type-container">
-        <span className="search-by-title">Search by </span>
-        <RadioGroup onChange={this.switchSearchType} value={searchType}>
-          <Radio value="proximity">proximity</Radio>
-          <Radio value="district">district</Radio>
-        </RadioGroup>
+        <div className="search-by-container">
+          <span className="search-by-title">Search by </span>
+          <RadioGroup onChange={this.switchSearchType} value={searchType}>
+            <Radio value="proximity">proximity</Radio>
+            <Radio value="district">district</Radio>
+          </RadioGroup>
+        </div>
+        <Radio.Group defaultValue="all" size="small" onChange={this.changeEventScale} value={eventScale}>
+          <Radio.Button value="all">All</Radio.Button>
+          <Radio.Button value="statewide">Statewide/National</Radio.Button>
+          <Radio.Button value="local">Local</Radio.Button>
+        </Radio.Group>
       </div>
     );
   }
@@ -102,11 +117,11 @@ class SearchBar extends React.Component {
           searchType={searchType}
         />
         {this.renderSwitch()}
-        {location.LAT && <DistanceFilter
+        {/* {location.LAT && <DistanceFilter
           changeHandler={this.distanceHandler}
           distance={distance}
           hidden={searchType === 'district'}
-        />}
+        />} */}
       </div>
     );
   }
@@ -115,6 +130,7 @@ class SearchBar extends React.Component {
 const mapStateToProps = state => ({
   colorMap: getColorMap(state),
   distance: getDistance(state),
+  eventScale: getEventScale(state),
   issues: getCurrentIssueFocuses(state),
   location: getLocation(state),
   searchType: getSearchType(state),
@@ -133,11 +149,13 @@ const mapDispatchToProps = dispatch => ({
   searchHandler: (query, searchType, mapType) => (
     dispatch(selectionActions.searchHandler(query, searchType, mapType))),
   setDistance: distance => dispatch(selectionActions.setDistance(distance)),
+  setEventScale: scale => dispatch(selectionActions.setEventScale(scale)),
   setTextFilter: text => dispatch(selectionActions.setTextFilter(text)),
 });
 
 SearchBar.propTypes = {
   changeSearchType: PropTypes.func.isRequired,
+  eventScale: PropTypes.string.isRequired,
   distance: PropTypes.number.isRequired,
   issues: PropTypes.arrayOf(PropTypes.string).isRequired,
   location: PropTypes.shape({ LAT: PropTypes.number, LNG: PropTypes.number }),
@@ -148,6 +166,7 @@ SearchBar.propTypes = {
   searchHandler: PropTypes.func.isRequired,
   searchType: PropTypes.string,
   setDistance: PropTypes.func.isRequired,
+  setEventScale: PropTypes.func.isRequired,
   setTextFilter: PropTypes.func.isRequired,
 };
 

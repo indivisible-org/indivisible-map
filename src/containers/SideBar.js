@@ -78,6 +78,7 @@ SideBar.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
   location: PropTypes.shape({}).isRequired,
+  renderTotal: PropTypes.func.isRequired,
   searchType: PropTypes.string.isRequired,
   selectItem: PropTypes.func,
   type: PropTypes.string.isRequired,

@@ -12,6 +12,7 @@ export const getDistrict = state => state.selections.district;
 export const getSelectedState = state => state.selections.usState;
 export const getError = state => state.selections.error;
 export const getSParam = state => state.selections.sParam;
+export const getEventScale = state => state.selections.eventScale;
 
 export const getRsvpParams = createSelector([getRefCode, getSParam], (refCode, sParam) => {
   if (refCode && sParam) {

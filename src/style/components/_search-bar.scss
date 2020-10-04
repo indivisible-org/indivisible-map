@@ -28,12 +28,24 @@
   // search type switcher
   .search-type-container {
     display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     padding: 5px;
     margin: auto;
     color: $light-gray;
+    .search-by-container {
+      margin-bottom: 10px;
+    }
     .search-by-title{
       margin-left: 0.5vw;
       margin-right: 0.5vw;
+    }
+    .ant-radio-button-wrapper-checked {
+      border-color: $main-light-blue!important;
+      color: $main-light-blue!important;
+    }
+    .ant-radio-button-wrapper:hover {
+      color: $main-light-blue!important;
     }
     .ant-radio-wrapper {
       color: $main-light-blue;
