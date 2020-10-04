@@ -67,6 +67,8 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
+    "predeploy-staging": "npm run build",
+    "deploy-staging": "gh-pages -d build --remote staging",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack-dev-server --inline --hot --public",
     "build": "webpack",
