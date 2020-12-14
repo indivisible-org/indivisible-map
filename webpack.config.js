@@ -19,7 +19,7 @@ const plugins = [
     chunkFilename: '[id].css',
     filename: '[hash].css',
   }),
-  new EnvironmentPlugin(['NODE_ENV']),
+  new EnvironmentPlugin(['NODE_ENV', 'STAGING']),
   new DefinePlugin({
     __AUTH_URL__: JSON.stringify(process.env.AUTH_URL),
     __API_URL__: JSON.stringify(process.env.API_URL),
